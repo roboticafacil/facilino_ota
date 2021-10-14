@@ -13,7 +13,7 @@ Check INSTALL file.
 Requirements
 ------------
 
-In order to Facilino to execute sketches, install Arduino IDE >= 1.6.
+In order to use Facilino OTA, you must use Facilino OTA Server to be able to compile code via USB or OTA (WiFi).
 
 
 Releases
