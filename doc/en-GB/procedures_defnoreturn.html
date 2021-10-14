@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css"></link>
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h3 id="up">Non-return function (definition)</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('procedures_defnoreturn','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction" id="description">Implements the call of a function that has no return value. The code to execute in the function must be stacked inside the statement. The function can have multiple input arguments (and of different types) using the mutator (top left icon). Use in combination of instruction:</p>
+<div id='blocklyInstructionzz'></div>
+<script>injectInstruction('procedures_callnoreturn','blocklyInstructionzz');</script>
+<h4>Statement Instructions</h4>
+<ul class="instruction">
+  <li>Execute: Instructions to execute within the function.</li>
+</ul>
+<h4>Mutator</h4>
+<p class="instruction">Allows you to create input parameters of the function. Add as many variables as needed, specify their name and type of variable.</p>
+<h5>Container</h5>
+<div id='blocklyInstruction1'></div>
+<script>injectInstruction('procedures_mutatorcontainer','blocklyInstruction1');</script>
+<h5>Elements</h5>
+<div id='blocklyInstruction2'></div>
+<script>injectInstruction('procedures_mutatorarg','blocklyInstruction2');</script>
+<h4>Inputs</h4>
+<ul class="instruction">
+  <li>Name: Name of the function.</li>
+</li></ul>
+<div id='examples'></div>
+<div id='footer' class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<script>
+createInstructionDoc('procedures_defnoreturn');
+createExamples(['procedures_callnoreturn_example']);
+</script>
+</body>
+</html>

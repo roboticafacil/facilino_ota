@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="facilinoOTA.css">
+  <link rel="stylesheet" type="text/css" href="javascript/highlight/styles/default.css">
+  <link rel="stylesheet" href="modal.css" type="text/css">
+<link rel="stylesheet" type="text/css" href="doc/common/style.css"></link>
+<script src='doc/en-GB/footer.js'></script>
+<link rel="stylesheet" href="assets/web/assets/mobirise-icons/icons.css">
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button id="doc_home" class="btn btn-sm btn-primary-outline display-4" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-arrow-prev mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-4" title="Language settings" onclick="showHideLanguage()"><span class="mbri-flag mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>
+
+<button class="btn btn-sm btn-primary-outline display-4" title="Board" onclick='showHideProcessor()'><span class="mbri-chip mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<div>
+<select id="language" class="text-black dropdown-toggle display-6 icon-menu" onchange="langChange(this.value)" style="display: none">
+<option value="ca-ES" class="text-black dropdown-item display-6">Catal&agrave;</option>
+<option value="da-DK" class="text-black dropdown-item display-6">Dansk</option>
+<option value="de-DE" class="text-black dropdown-item display-6">Deutsch</option>
+<option value="en-GB" class="text-black dropdown-item display-6">English</option>
+<option value="es-ES" class="text-black dropdown-item display-6">Espa&ntilde;ol</option>
+<option value="es-LT" class="text-black dropdown-item display-6">Espa&ntilde;ol (latino)</option>
+<option value="eu-ES" class="text-black dropdown-item display-6">Euskera</option>
+<option value="fr-FR" class="text-black dropdown-item display-6">Fran&ccedil;ais</option>
+<option value="gl-ES" class="text-black dropdown-item display-6">Galego</option>
+<option value="it-IT" class="text-black dropdown-item display-6">Italiano</option>
+<option value="nl-NL" class="text-black dropdown-item display-6">Nederlands</option>
+<option value="nb-NO" class="text-black dropdown-item display-6">Norsk</option>
+<option value="pl-PL" class="text-black dropdown-item display-6">Polski</option>
+<option value="pt-PT" class="text-black dropdown-item display-6">Portugues</option>
+<option value="ru-RU" class="text-black dropdown-item display-6">&#x420;&#x443;&#x441;&#x441;&#x43a;&#x438;&#x439;</option>
+<option value="sv-SE" class="text-black dropdown-item display-6">Svenska</option>
+<option value="zh-CN" class="text-black dropdown-item display-6">中文</option>
+</select>
+<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: none">
+<option class='text-black dropdown-item display-6' value='ArduinoNano'>Arduino Nano</option>
+<option class='text-black dropdown-item display-6' value='ArduinoUno'>Arduino Uno</option>
+<option class='text-black dropdown-item display-6' value='ArduinoMega2560'>Arduino Mega 2560</option>
+<option class="text-black dropdown-item display-6" value='ArduinoMicro'>Arduino Micro</option>
+<option class="text-black dropdown-item display-6" value='ArduinoLilyPad'>Arduino LilyPAD</option>
+<option class="text-black dropdown-item display-6" value='ArduinoMini'>Arduino Mini</option>
+<option class="text-black dropdown-item display-6" value='ArduinoPro'>Arduino Pro Mini</option>
+<option class="text-black dropdown-item display-6" value='ArduinoLeonardo'>Arduino Leonardo</option>
+<option class="text-black dropdown-item display-6" value='ESP8266'>ESP8266</option>
+<option class="text-black dropdown-item display-6" value='NodeMCU'>NodeMCU</option>
+<option class="text-black dropdown-item display-6" value='WEMOS D1R2'>WeMos D1R2</option>
+<option class="text-black dropdown-item display-6" value='ESP32'>ESP32</option>
+<option class="text-black dropdown-item display-6" value='WEMOS_D1R32'>WeMos D1R32</option>
+<option class="text-black dropdown-item display-6" value='WEMOS_D1R32_SHIELD'>WeMos D1R32 (Sensor Shield)</option>
+</select>
+</div>
+<h3 id="up"></h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script></script>
+<h4>Description</h4>
+<p class="instruction" id="description">
+<div id="warning">
+<p class="warning" id="warn">Do NOT use with the following instruction(s):</p>
+</div>
+<div id="additional">
+<p class="instruction" id="combination">Use in combination of instruction(s):</p>
+</div>
+<div id="must">
+<p class="instruction" id="must_inst">Must be used with instruction(s):</p>
+</div>
+<div id="mutator">
+<h4 id="requirements">Requirements</h4>
+<div id="requirement_list"></div>
+<h4>Mutator</h4>
+<p class="instruction" id="mutator_desc"></p>
+<h5>Container</h5>
+<div id='blocklyInstructionContainer'></div>
+<h5>Elements</h5>
+</div>
+<h4 id="statements">Statement Instructions</h4>
+<div id="statement_list"></div>
+<h4 id="dropdown">Dropdown fields</h4>
+<div id="dropdown_list"></div>
+<h4 id="fields">Fields</h4>
+<div id="field_list"></div>
+<h4 id="inputs">Inputs</h4>
+<div id="input_list"></div>
+<h4 id="output">Output</h4>
+<p class="instruction" id="output_desc"></p>
+<div id='examples'></div>
+<div id='footer' class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Documentation" onclick='goDocHome()'><span class="mbri-arrow-prev mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<script>
+if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
+	localStorage.setItem('language', 'en-GB');
+if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
+	localStorage.setItem('processor', 'ArduinoNano');
+window.FacilinoLanguage = localStorage.getItem("language");
+window.FacilinoProcessor = localStorage.getItem("processor");
+$("#language").val(window.window.FacilinoLanguage);
+$("#processor").val(window.FacilinoProcessor);
+
+createInstructionDoc(window.currentInstruction);
+		
+
+function goDocHome()
+{
+	if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
+	{
+		console.log('english');
+		$(function(){$("#doc").load("doc/en-GB/index.html#up");});
+	}
+	else
+	{
+		console.log('other');
+		$(function(){$("#doc").load("doc/"+window.FacilinoLanguage+"/index.html#up");});
+	}
+}
+
+function langChange(lang)
+{
+	localStorage.setItem('language',lang);
+	window.location.reload();
+}
+
+function processorChange(processor)
+{
+	localStorage.setItem('processor',processor);
+	window.location.reload();
+}
+		
+function showHideLanguage()
+{
+	var lang=document.getElementById('language');
+	//console.log(lang.style.display);
+	if (lang.style.display==='none')
+		lang.style.display='initial';
+	else
+		lang.style.display='none';
+}
+
+function showHideProcessor()
+{
+	var proc=document.getElementById('processor');
+	if (proc.style.display==='none')
+		proc.style.display='initial';
+	else
+		proc.style.display='none';
+}
+		
+</script>
+</body>
+</html>

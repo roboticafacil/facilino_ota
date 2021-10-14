@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<h3 id="up">Creates a button pad (web-based user-interface for ESP)</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('espui_pad','blocklyInstruction');</script>
+<h4>Description</h4>
+<p>Creates a button pad on a web-based user interface for ESP processors such that it allows you to set its name, colour, initial state and code to execute for different options:</p>
+<div id='blocklyInstruction1'></div>
+<script>injectInstruction('espui','blocklyInstruction1');</script>
+<h4>Inputs</h4>
+<ul>
+   <li>Pad: Pad name (unique name).</li>
+   <li>Colour: Pad colour.</li>
+   <li>Center button?: Select 'Yes' to include a center button.</li>
+</ul>
+<h4>Stackable instructions</h4>
+Each of the cases of the button pad (left, right, top, bottom, center), either pressed or released.
+<h4>Example</h4>
+Not available yet!
+<p id='footer'></p><script>document.getElementById('footer').innerHTML=footer;</script>
+</body>
+</html>

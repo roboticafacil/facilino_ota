@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css"></link>
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<h3 id="up">Setup / Loop</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('controls_counterInterrupt','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction">Counts the number of times a signal has triggered an interrupt. If the interrupt has been triggered since last time, then executes the code inside the instruction. Interrupts can be set in "low state", "change", "rising edge" or "falling edge" mode. This instruction is expected to be included in main loop code, while the code implemented for the interrupt is simply increasing a counter. Do not use in combination of the following instruction for the same interrupt:</p>
+<div id='blocklyInstruction1'></div><script>injectInstruction('attachInterrupt','blocklyInstruction1');</script>
+<p class="instruction">Nevertheless, it can be used in combination of the following instruction because both of them implement the same interrupt sub-routine:</p>
+<div id='blocklyInstruction2'></div><script>injectInstruction('controls_numberOfInterrupts','blocklyInstruction2');</script>
+<h4>Statement Instructions</h4>
+<ul class="instruction">
+  <li>Setup: set of instructions that are only executed once (at startup).</li>
+  <li>Loop: set of instructions that are executed repeatedly.</li>
+</ul>
+<div id='examples'></div>
+<p id='footer'></p><script>document.getElementById('footer').innerHTML=footer;</script>
+<script>createExamples(['LED_race_console']);</script>
+</body>
+</html>

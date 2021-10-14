@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #ffffff;
+}
+</style>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h3 id="up">Categories</h3>
+<div id="instructions" style="width=100%"></div>
+<script>
+instructions=document.getElementById("instructions");
+var blocks = { };
+var toolbox = Blockly.createToolbox(window.toolboxNames);
+var parser, xml;
+if (window.DOMParser) {
+    parser = new DOMParser();
+    xml = parser.parseFromString(toolbox, 'text/xml');
+}
+else { // IE
+    xml = new ActiveXObject('Microsoft.XMLDOM');
+    xml.async = false;
+    xml.loadXML(toolbox);
+}
+var categoriesHTML = xml.getElementsByTagName('category');
+var i, l = categoriesHTML.length;
+var blocks=[];
+for (i = 0; i < l; i++) {
+	var j, m=categoriesHTML[i].childNodes.length;
+	if (m>0)
+	{
+		if (categoriesHTML[i].childNodes[0].localName==='block')
+		{
+			e=document.createElement('div');
+			el_but=document.createElement('button');
+			el_but.attributes['type']='button';
+			el_but.classList.add('collapsible');
+			el_but.innerHTML=categoriesHTML[i].attributes['name'].nodeValue;
+			el_but.style.backgroundColor=categoriesHTML[i].attributes['colour'].nodeValue;
+			e.appendChild(el_but);
+			for (j=0;j<m;j++)
+			{
+				
+				if (categoriesHTML[i].childNodes[j].localName==='block')
+				{
+					var el_div=document.createElement('div');
+					el_div.classList.add('content');
+					var el_name=document.createElement('div');
+					var el_name_h3=document.createElement('h3');
+					el_name_h3.setAttribute('id','nameInstruction'+categoriesHTML[i].childNodes[j].attributes['type'].nodeValue);
+					el_name_h3.style.paddingTop='10px';
+					el_name.appendChild(el_name_h3);
+					el_name_preview_button=document.createElement('button');
+					el_name_preview_button.setAttribute('class','btn btn-sm btn-primary-outline display-6');
+					el_name_preview_button.setAttribute('title','Instruction help');
+					el_name_preview_button.setAttribute('onclick','$(function(){ window.currentInstruction="'+categoriesHTML[i].childNodes[j].attributes['type'].nodeValue+'"; $("#doc").load("doc/en-GB/generic_instruction.html#up");});');
+					el_name_preview_button_span=document.createElement('span');
+					el_name_preview_button_span.setAttribute('class','mbri-preview mbr-iconfont mbr-iconfont-btn');
+					el_name_preview_button_span.style.color="rgb(255, 148, 0);";
+					el_name_preview_button.appendChild(el_name_preview_button_span);
+					el_name.appendChild(el_name_preview_button);
+					el_div.appendChild(el_name);
+					var el_divtooltip=document.createElement('div');
+					var el_span=document.createElement('span');
+					el_span.setAttribute('id','tooltipInstruction'+categoriesHTML[i].childNodes[j].attributes['type'].nodeValue);
+					el_divtooltip.appendChild(el_span);
+					el_div.appendChild(el_divtooltip);
+					var el_inst=document.createElement('div');
+					el_inst.setAttribute('id','blocklyInstruction'+categoriesHTML[i].childNodes[j].attributes['type'].nodeValue);
+					blocks.push(categoriesHTML[i].childNodes[j].attributes['type'].nodeValue);
+					el_div.appendChild(el_inst);
+					e.appendChild(el_div);
+				}
+			}
+			e.appendChild(document.createElement('p'));
+			instructions.appendChild(e);
+		}
+	}
+}
+</script>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+	var el=this;
+	while (el.nextElementSibling.className==='content')
+    {
+		var el = el.nextElementSibling;
+		if (el.style.maxHeight){
+			el.style.maxHeight = null;
+		} else {
+			el.style.maxHeight = el.scrollHeight + "px";
+		}
+	}
+  });
+}
+blocks.forEach(function callback(element, index, array) {
+		//injectInstruction(element,'blocklyInstruction'+element);
+		if (element.includes('dyor_piezo_music_')&&(element!==('dyor_piezo_music_end')))
+			return;
+		injectInstructionTooltipAndName(element,'blocklyInstruction'+element,'tooltipInstruction'+element,'nameInstruction'+element);
+});
+document.getElementById("wait_warning").style.display='none';
+</script>
+<div id="wait_warning"><p>Please wait...</p></div>
+<div id='footer' class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="All Instructions" onclick='$(function(){$("#doc").load("doc/en-GB/instructions.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<html>
+<meta charset='utf-8'/>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<link rel="stylesheet" href="assets/web/assets/mobirise-icons/icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="facilinoOTA.css">
+  <link rel="stylesheet" type="text/css" href="javascript/highlight/styles/default.css">
+  <link rel="stylesheet" href="modal.css" type="text/css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-help mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="All Instructions" onclick='$(function(){$("#doc").load("doc/en-GB/instructions.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h2>Facilino Setup</h2>
+<h3 id="up">What do I need?</h3>
+<p>Welcome to Facilino setup. This guide will help you setting Facilino.</p>
+<h4>Requirements:</h4>
+<ul>
+	<li>Computer or laptop.</li>
+	<li>Arduino IDE or Visual Studio Code with PlatformIO IDE installed (see installation instructions).</li>
+	<li>Any Arduino-based electronics (see 'Hardware settings' below).</li>
+</ul>
+<h3>Icon Menu</h3>
+<h4>File</h4>
+<p>Here you will find a sub-menu with tools for creating a <b>new</b> program, <b>upload</b> an exisiting Facilino program, <b>download</b> a Facilino file with your current code or even to download the required, <b> export</b> your Facilino code to an ino file, <b>firmware</b> for the first-time use of the electronics.</p>
+<h4>Edit</h4>
+<p>In this sub-menu, you have '<b>Undo</b>' and '<b>Redo</b>' tools.</p>
+<h4>Language settings</h4>
+<p>Facilino has been translated into many languages, please feel free to choose the language that suits your needs by clicking on the '<b>Language</b>' icon in the top menu <image src="doc/common/language_settings.png" title="language_settings" alt="language_settings" style="height: 2.3rem"></image>. Once selected, Facilino page will be reloaded.</p>
+<p>Officially, English and Spanish are supported, but many other languages are fully operational (or mostly fully operational). Please, take into account that some translations may not contain a specific translated block instruction or help document.
+If you want to contribute to the translation of this software, please, contanct Leopoldo Armesto at <a href="mailto:soporte@roboticafacil.es?subject='Facilino Translation'&body='Dear Leopoldo, I would like to help to translate Facilino OTA in XXX. Can you please indicate to me how can I help you? Regards, XXX.'">soporte@roboticafacil.es</a>.</p>
+<h4>Facilino version</h4>
+<p>There are four versions: <b>Basic Facilino</b>, <b>Advanced Facilino</b>, <b>Basic Facilino OTA</b> and <b>Advanced Facilino OTA</b>.</p>
+<ul>
+<li><b>Basic Facilino</b>: It allows you generate Arduino code using simple block instructions. The kind of things you can do with the Basic version are obviously limited compared to the Advanced one, but still it allows you to develop amazing projects with simple block instructions. See migrating from Basic Facilino to Advanced Facilino section to learn how to develop advanced code and continue learning coding Arduino electronics.</li>
+<li><b>Advanced Facilino</b>: Just as Basic Facilino, but with an extended block instruction set and some extended options within the block instructions.</li>
+<li><b>Basic Facilino OTA</b>: Just as Basic Facilino, but it allows you to upload code directly from your tablet or iPAD using OTA (Over-The-Air) thechnology. It requires an additional computer, teacher's computer, facility server or even your own computer to upload the code to compile. Please, follow the setting instructions to learn how to set Facilino OTA (see the instructions below).</li>
+<li><b>Advanced Facilino OTA</b>: Just as Advanced Facilino, but it allows you to upload code directly from your tablet or iPAD using OTA (Over-The-Air) thechnology. It requires an additional computer, teacher's computer, facility server or even your own computer to upload the code to compile. Please, follow the setting instructions to learn how to set Facilino OTA (see the instructions below).</li>
+</ul>
+<h4>Hardware settings</h4>
+<p>Facilino instructions and code generation are adapted to the selected hardware (electronics). This represents a great advantage over classic text programming environments such as Arduino IDE, because the same block can be used with different hardware settings, which helps you to focus on the most important aspects of coding, rather than focusing on details. If you want to use a different processor in future projects, programming with Facilino will likely imply very few changes in your code. For that reason, selecting of your hardware is one of the first things you will need to do when programming with Facilino. Please, select your correct hardware setting by clicking on the 'Hardware settings' icon in the top menu <image src="doc/common/hardware_settings.png" title="hardware_settings" alt="hardware_settings" style="height: 2.3rem"></image>. Once selected, Facilino page will be reloaded.</p>
+<h3>Uploading code</h3>
+<p>This version of Facilino cannot upload code directly. It just generates the code that can be uploaded using a different tool such as classic Arduino IDE or a new IDE known as PlatformIO. We highly encourage to use PlatformIO, instead of classic Arduino IDE, because the PlatformIO Library Manager solves many library dependencies that can cause compilation errors. Here you have links to downloading papges:</p>
+<ul>
+<li><a href="https://www.arduino.cc/en/software" target="_blank">Arduino IDE</a></li>
+<li><a href="https://platformio.org/platformio-ide" taget="_blank">PlatformIO</a> (requires Visual Studio Code)</li>
+</ul>
+<p>Please, follow installation instructions with the links below.</p>
+<p>First thing you need to do to upload your code is to export your code to an Arduino IDE file, so once your done with Facilino coding, export the code in the File menu and save the 'ino' file <b>in a folder under the same name</b>.</p>
+<p>If you use <b>Arduino IDE</b>, you need to open the file using Arduino IDE and select your processor, port to be able to upload your code (this step depends on the hardware setting you are using). For instance, ESP board such as ESP8266 and ESP32 need additional setup instructions in order to be able to compile and upload code (see links below). Some block instructions require additional libraries. By default Arduino IDE come with some libraries installed, but others need to be installed manually. Use the 'Verify' and 'Upload' icons in the top-left side to proceed uploading your code (you don't need to verify your code every time, you can directly use the upload button). </p>
+<p>On the other hand, <b>PlatformIO</b> is integrated in Visual Studio Code, so if you want to use PlatformIO, you need to run Visual Studio Code and click on PlatformIO icon on the left side icon bar. Then, open to the PIO Home file and select 'Import Arduino Project'. Select your board (processor) and folder with the 'ino' file. Then, leave the magic behind PlatformIO to do the rest, because all dependencies, libraries and required additional files will be automatically installed. You can 'Build' and 'Upload' your code using the icons at the left-bottom side of the application.</p>
+<p>If you want to <b>modify your code</b>, you can go back to Facilino and modify your block instructions and copy your new generated code and paste it into your exisiting Arduino code (no need to export the file 'ino' file again, just copy the code using the utility icon in Facilino in the icon menu bar and paste it in Arduino IDE) <image src="doc/common/copy_code.png" title="copy_code" alt="copy_code" style="height: 2.3rem"></image>.</p>
+
+
+<h3>References</h3>
+<ul>
+<li><a href="https://www.arduino.cc/en/software" target="_blank">Arduino IDE</a> download</li>
+<li><a href="https://platformio.org/platformio-ide" taget="_blank">PlatformIO</a> download and installation</li>
+<li><a href="https://www.arduino.cc/en/guide/windows" target="_blank">Arduino IDE</a> install instructions for Windows</li>
+<li><a href="https://www.arduino.cc/en/guide/linux" target="_blank">Arduino IDE</a> install instructions for Linux</li>
+<li><a href="https://www.arduino.cc/en/Guide/MacOSX" target="_blank">Arduino IDE</a> install instructions for MacOSX</li>
+<li><a href="https://www.arduino.cc/en/Guide/Environment" target="_blank">Arduino IDE Guide</a></li>
+<li>Installing <a href="https://www.arduino.cc/en/Guide/Libraries" target="_blank">Libraries</a> in Arduino IDE</li>
+<li>Installing <a href="https://github.com/esp8266/Arduino" target="_blank">ESP8266</a> in Arduino IDE</li>
+<li>Installing <a href="https://github.com/espressif/arduino-esp32" target="_blank">ESP32</a> in Arduino IDE</li>
+</ul>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="All Instructions" onclick='$(function(){$("#doc").load("doc/en-GB/instructions.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+</body>
+</html>

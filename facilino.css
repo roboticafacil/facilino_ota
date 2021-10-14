@@ -1,0 +1,220 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#code {
+    margin: 0;
+    float: right;
+    width: 33%;
+    height: 100%;
+    background-color: #F0F0F0;
+    color: #5F5F5F;
+    overflow: auto;
+}
+
+#code1 {
+    margin: 0;
+    float: right;
+    width: 33%;
+    height: 100%;
+    background-color: #F0F0F0;
+    color: #5F5F5F;
+    overflow: auto;
+}
+
+#doc {
+    margin: 0;
+    float: right;
+    width: 33%;
+    height: 100%;
+    background-color: #FFFFFF;
+    overflow: auto;
+}
+
+
+#wrap {
+	position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#wrap1 {
+	position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#dragbar{
+  background-color:black;
+  height:100%;
+  float: right;
+  width: 3px;
+  cursor: col-resize;
+}
+
+#dragbar1{
+  background-color:black;
+  height:100%;
+  float: right;
+  width: 3px;
+  cursor: col-resize;
+}
+
+#dragbar2{
+  background-color:black;
+  width:100%;
+  float: right;
+  width: 3px;
+  cursor: col-resize;
+}
+
+#dragbar3{
+  background-color:black;
+  height:100%;
+  float: right;
+  width: 3px;
+  cursor: col-resize;
+}
+
+#ghostbar{
+  width:3px;
+  background-color:#000;
+  opacity:0.5;
+  position:absolute;
+  cursor: col-resize;
+  z-index:999
+}
+
+#ghostbar1{
+  height:3px;
+  background-color:#000;
+  opacity:0.5;
+  position:absolute;
+  cursor: col-resize;
+  z-index:999
+}
+
+#ghostbar2{
+  height:3px;
+  background-color:#000;
+  opacity:0.5;
+  position:absolute;
+  cursor: col-resize;
+  z-index:999
+}
+
+#ghostbar3{
+  height:3px;
+  background-color:#000;
+  opacity:0.5;
+  position:absolute;
+  cursor: col-resize;
+  z-index:999
+}
+
+.treeLabelBlock {
+  float: left;
+  margin: 0 5px 0 5px;
+  width: 10px;
+  height: 100%; 
+}
+
+h3 {
+	font-weight: bold;
+    font-size: 18px;
+}
+
+h4 {
+	font-weight: bold;
+    font-size: 16px;
+}
+
+h5 {
+	font-weight: bold;
+    font-size: 14px;
+}
+
+select.icon-menu option {
+background-repeat:no-repeat;
+background-position:left center;
+padding-left:0px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+		select.icon-menu option {
+background-repeat:no-repeat;
+background-position:bottom left;
+padding-left:30px;
+}
+
+#tabs {
+    float: top;
+    font-size: 2ex;
+    font-weight: bold;
+}
+
+#tabs ul{
+    margin-left: -40px;    
+}
+
+#tabs li{
+    list-style-type: none;
+    float: left;
+    text-align: center;
+    margin: 0px 2px -2px -0px;
+    background: darkgrey;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 2px solid #de7718;
+    border-bottom: dimgray;
+    padding: 0px 20px 0px 20px;
+}
+
+#tabs a:link{
+    text-decoration: none;
+    color: #de7718;
+}
+
+#ctabs{
+    clear: both;  
+    background: dimgray;    
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border: 2px solid #de7718;
+}
+
+
+#tabs #tab, #ctab{
+  background: #62aeb2;
+}
+
+#tabs #tab1, #ctab1{
+  background: #62aeb2;
+}
+
+#tabs #tab2, #ctab2{
+  background: #62aeb2;
+}
+
+#tabs #tab3, #ctab3{
+  background: #62aeb2;
+}
+
+#tabs #tabcode, #ctabcode{
+  background: #F0F0F0;
+}
+
+#tabs #tabdoc, #ctabdoc{
+  background: #FFFFFF;
+}

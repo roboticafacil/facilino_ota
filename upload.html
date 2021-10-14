@@ -1,0 +1,182 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<form method='POST' action='upload' enctype='multipart/form-data' id='compile_form'>
+<label>Code</label><textarea id="code_textarea" name="code"></textarea>
+<input type="text" id="user_input" name="user" value="leo.armesto"></input>
+<input type="text" id="compilation_flags_input" name="compilation_flags" value="esp32:esp32:d32"></input>
+<input type='submit' value='Update'>
+</form>
+<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>
+<input type='file' name='update'>
+<input type='submit' value='Update'>
+</form>
+<div id='prg'>progress: 0%</div>
+<script>
+$('form').submit(function(e){
+e.preventDefault();
+
+
+var form_compile = $('#compile_form')[0];
+
+var code_textarea = document.getElementById('code_textarea');
+var code = code_textarea.value;
+var user_input = document.getElementById('user_input');
+var user = user_input.value;
+var cf_input = document.getElementById('compilation_flags_input');
+var cf = cf_input.value;
+var compile_data={action: 'upload', code: code, user: user, compilation_flags: cf};
+//console.log(compile_data);
+var FD  = new FormData();
+for( name in compile_data ) {
+	FD.append( name, compile_data[ name ] );
+}
+
+var form_upload = $('#upload_form')[0];
+var data = new FormData(form_upload);
+
+const XHR = new XMLHttpRequest();
+
+XHR.addEventListener( 'load', function( event ) {
+  if (XHR.readyState === XHR.DONE) {
+  if (XHR.status === 200) {
+			{
+				console.log('compile done');
+			}
+		}
+	}
+} );
+
+XHR.addEventListener('loadstart',function(event){
+	console.log('compile loadstart');
+}
+);
+
+XHR.addEventListener('loadend',function(event){
+console.log('compile loadend');
+				var binFile = XHR.responseText;
+				console.log('compile done');
+				binFile=binFile.substring(binFile.indexOf("Hex file:")+9,binFile.length-5);
+				console.log(binFile);
+				const oReq = new XMLHttpRequest();
+				var serverip = 'localhost';
+				var url='http://';
+				url=url.concat(serverip,':4000/get_hex');
+				oReq.open("GET", url+"?file="+binFile, true);
+				oReq.responseType = "arraybuffer";
+				
+				oReq.onload = function (oEvent) {
+				  var arrayBuffer = oReq.response; // Note: not oReq.responseText
+				  console.log(arrayBuffer);
+				  console.log('uploding bin file');
+				  if (arrayBuffer) {
+					var byteArray = new Uint8Array(arrayBuffer);
+					for (var i = 0; i < byteArray.byteLength; i++) {
+					  // do something with each byte in the array
+					}
+				  }
+				  
+				  const XHR_upload = new XMLHttpRequest()
+				  
+				  
+				  
+				  var blob = new Blob(byteArray, {type: 'application/octet-stream'});
+				  
+				  var deviceip='192.168.137.117';
+				  var url='http://';
+				  url=url.concat(deviceip,'/update');
+				  
+				  XHR_upload.onload = function (oEvent) {
+					  // Uploaded.
+					  console.log('file uploaded');
+					};
+				  
+				  XHR_upload.open('POST', url,true);
+				  XHR_upload.setRequestHeader('Access-Control-Allow-Headers', '*');
+
+				  // Send our FormData object; HTTP headers are set automatically
+				  XHR_upload.send(blob);
+
+				};
+
+				oReq.send(null);
+				
+				/*console.log();
+				console.log('now I will upload the code');
+				//console.log(binData);
+				const XHR_upload = new XMLHttpRequest()
+				
+				var data = new FormData();
+				data.append("update",binData);
+				
+				XHR_upload.addEventListener( 'load', function( event ) {
+					if (XHR_upload.readyState === XHR_upload.DONE) {
+						console.log('upload done!');
+					}
+				});
+				
+				XHR_upload.addEventListener('loadstart',function(event){
+					//console.log('upload loadstart');
+				  }
+				  );
+			  
+				  
+				  XHR_upload.addEventListener('timeout',function(event){
+					//console.log('upload timeout');
+				  }
+				  );
+
+				  // Define what happens in case of error
+				  XHR_upload.addEventListener(' error', function( event ) {
+					//console.log('upload error');
+				  } );
+				  
+				  var deviceip='192.168.137.117';
+				  var url='http://';
+				  url=url.concat(deviceip,'/update');
+				  //console.log(url);
+				  XHR_upload.open( 'POST', url,true);
+
+				  // Send our FormData object; HTTP headers are set automatically
+				  XHR_upload.send(data);*/
+}
+);
+
+XHR.addEventListener('progress',function (event){
+console.log('compile progress');
+}
+);
+XHR.addEventListener('timeout',function(event){
+console.log('compile timeout');
+}
+);
+
+// Define what happens in case of error
+XHR.addEventListener(' error', function( event ) {
+console.log('compile error');
+} );
+
+// Set up our request
+//var serverip = $("#serverip").val();
+var serverip = 'localhost';
+//if (ValidateIPaddress(serverip))
+{
+var url='http://';
+url=url.concat(serverip,':4000/ota_upload');
+//console.log(url);
+XHR.open( 'POST', url,true);
+//XHR.responseType = "arraybuffer";
+// Send our FormData object; HTTP headers are set automatically
+XHR.send(FD);
+//console.log(FD);
+
+}
+});
+</script>
+</body>
+</html>

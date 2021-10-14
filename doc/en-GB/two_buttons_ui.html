@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<h3 id="up">User-interface with two buttons</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('two_buttons_ui','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction">Implements a User-interface (UI) with two buttons. One of the buttons is used as 'Next/select' button, while the other button is used as 'Cancel' (or 'Back'). The structure of the UI is like a tree, with the 'General Menu' as the main trunk and menus and options as branches and leaves, respectively. The logic to navigate through this simplistic UI is automatically created with this instruction, where you can create as many menus and options as required. By default, the 'General Menu' view will be displayed at the beginning. Menus and sub-menus are indeed a circular list, meaning that once the last menu is reached, the next one will be the first one. This can be done with a short click to move to the next item of the list. A long click will select the corresponding menu or option.</p>
+<p class="instruction">When a menu is selected, it starts displaying the sub-menus (options) list. Again, the different options can be displayed by pressing the 'Next' button (with a short click). To select an option, you have to hold the button (long click). You can always move back by pressing the 'Cancel' button.</p>
+<p class="instruction">Use in combination with this instruction</p>
+<div id='blocklyInstruction1'></div>
+<script>injectInstruction('two_buttons_ui_option','blocklyInstruction1');</script>
+<h4>Requirements</h4>
+<p class="instruction">Facilino's license.</p>
+<h4>Inputs</h4>
+<ul class="instruction">
+  <li>Next/Select Pin: Pin (digital input) to which the 'Next/Select' button is connected to.</li>
+  <li>Cancel Pin: Pin (digital input) to which the 'Cancel' button is connected to.</li>
+</ul>
+<h4>Fields</h4>
+<ul class="instruction">
+  <li>Refresh Time: The 'General Menu' is refreshed upon this time has been elapsed (i.e.: to update a temperature, signal value to show, etc...)</li> 
+</ul>
+<h4>Mutator</h4>
+<p class="instruction">Add as many menus as desired.</p>
+<h5>Container</h5>
+<div id='blocklyInstruction2'></div>
+<script>injectInstruction('two_buttons_ui_stack','blocklyInstruction2');</script>
+<h5>Elements</h5>
+<div id='blocklyInstruction3'></div>
+<script>injectInstruction('two_buttons_ui_item','blocklyInstruction3');</script>
+<div id='examples'></div>
+<p id='footer'></p><script>document.getElementById('footer').innerHTML=footer;</script>
+<script>createExamples(['buttons_ui']);</script>
+</body>
+</html>

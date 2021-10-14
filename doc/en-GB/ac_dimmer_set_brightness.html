@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css"></link>
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h3 id="up">AC Light Dimmer</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('ac_dimmer_set_brightness','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction" id="description">This instruction generates the PWM for a thyristor to control an AC load using an AC light dimmer. This instruction uses the 'zero-crossing' signal of the AC dimmer to detect when the current of the thyristor goes to zero (must be a signal that accepts interrupt handling).</p>
+<h4>Dropdown Lists</h4>
+<ul class="instruction">
+  <li>Zero-Crossing PIN: The digital PIN where the zero-crossing detector is connected to.</li>
+</ul>
+<h4>Inputs</h4>
+<ul class="instruction">
+  <li>Thyristor PIN: A PWM PIN where the thyristor is connected to.</li>
+  <li> Brightness: AC load percentage (a value between 0 and 100).</li>
+</ul>
+<div id='examples'>No example available yet</div>
+<div id='footer' class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<script>
+createInstructionDoc('ac_dimmer_set_brightness');
+</script>
+</body>
+</html>

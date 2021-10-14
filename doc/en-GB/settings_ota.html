@@ -1,0 +1,114 @@
+﻿<html>
+<meta charset='utf-8'/>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<link rel="stylesheet" href="assets/web/assets/mobirise-icons/icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="facilinoOTA.css">
+  <link rel="stylesheet" type="text/css" href="javascript/highlight/styles/default.css">
+  <link rel="stylesheet" href="modal.css" type="text/css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-help mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="All Instructions" onclick='$(function(){$("#doc").load("doc/en-GB/instructions.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h2>Facilino OTA</h2>
+<h3 id="up">What do I need?</h3>
+<p>Welcome to Facilino OTA. This guide will help you setting Facilino OTA in your classroom, lab or even at home.</p>
+<h4>Requirements:</h4>
+<ul>
+	<li>Wireless internet connection (WiFi).</li>
+	<li>Computer, laptop or server. Currently available OS are Windows and Linux.</li>
+	<li>For each student, you need an iPad or table to work with Facilino OTA.
+	<li>Any arduino-based electronics with WiFi connection (see 'Hardware settings' below).</li>
+</ul>
+<p>This figures show the main concept:</p>
+<p class="aligncenter"><image src="doc/common/facilino-ota.png" title="facilino_ota" alt="facilino_ota" style="width=50%"></image></p>
+<h3 id="up">Icon Menu</h3>
+<h4>File</h4>
+<p>Here you will find a sub-menu with tools for creating a <b>new</b> program, <b>upload</b> an exisiting Facilino OTA program, <b>download</b> a Facilino OTA file with your current code or even to download the required <b>firmware</b> for the first-time use of the electronics.</p>
+<h4>Edit</h4>
+<p>In this sub-menu, you have '<b>Undo</b>' and '<b>Redo</b>' tools.</p>
+<h4>Language settings</h4>
+<p>Facilino OTA has been translated into many languages, please feel free to choose the language that suits your needs by clicking on the '<b>Language</b>' icon in the top menu <image src="doc/common/language_settings_ota.png" title="language_settings_ota" alt="language_settings_ota" style="height: 2.3rem"></image>. Once selected, Facilino OTA page will be reloaded.</p>
+<p>Officially, English and Spanish are supported, but many other languages are fully operational (or mostly fully operational). Please, take into account that some translations may not contain a specific translated block instruction or help document.
+If you want to contribute to the translation of this software, please, contanct Leopoldo Armesto at <a href="mailto:soporte@roboticafacil.es?subject='Facilino Translation'&body='Dear Leopoldo, I would like to help to translate Facilino OTA in XXX. Can you please indicate to me how can I help you? Regards, XXX.'">soporte@roboticafacil.es</a>.</p>
+<h4>Hardware settings</h4>
+<p>Facilino OTA instructions and code generation are adapted to the selected hardware (electronics). This represents a great advantage over classic text programming environments such as Arduino IDE, because the same block can be used with different hardware settings, which helps to focus on coding to learn to do something rather than learning to code a specific electronic hardware. If you want to use a different processor in future projects, programming with Facilino OTA will likely imply very few changes in your code. For that reason, selecting of your hardware is one of the first things you will need to do when programming with Facilino OTA. Please, select your correct hardware setting by clicking on the 'Hardware settings' icon in the top menu <image src="doc/common/hardware_settings_ota.png" title="hardware_settings_ota" alt="hardware_settings_ota" style="height: 2.3rem"></image>. Once selected, Facilino OTA page will be reloaded.</p>
+<h4>Facilino OTA Server/Device</h4>
+<p>Facilino OTA needs a running OTA server and a OTA device that can be indicated either by their hostname or IP by clicking on 'Facilino OTA Server/Device' icon in the top menu <image src="doc/common/server_device_settings_ota.png" title="server_device_settings_ota" alt="server_device_settings_ota" style="height: 2.3rem"></image>. Once you click, you will need to fill two fields with the <b>server/device hostname</b> or <b>IP address</b> and if password protected, you will need to also indicate the <b>password</b> of your device. The corresponding setup of these two aspects are detailed below, in 'Setting up Facilino OTA Server'.</p>
+<h4>Upload Facilino OTA code</h4>
+<p>Once everything is properly set, clicking on 'Upload Arduino OTA code' icon in the top menu <image src="doc/common/upload_settings_ota.png" title="upload_settings_ota" alt="upload_settings_ota" style="height: 2.3rem"></image> will upload your actual code to your device. But, please, take into account that you need to complete some previous steps beforehand. So, don't be eager and keep reading in order to success with your settings.</p>
+<h3>Setting up Facilino OTA Server</h3>
+<p>Download the latest version of Facilino OTA Server from <a href="https://roboticafacil.es/en/download" target="_blank">Robótica Fácil website</a>. Select the proper file based on your Operating System (Windows or Linux) and run the installer.</p>
+<h4>Windows</h4>
+<p>Facilino OTA Server in Windows comes with an installer. Select the default options for a freshly new installation (particularly, the installation of Arduino IDE and library dependencies if Arduino IDE is not already installed in your computer and Python 2.7).</p>
+<h4>Linux</h4>
+<p><b>TODO</b></p>
+<p></p>
+<h4>Manual Setup of Arduino IDE</h4>
+<h5>Python 2.7</h5>
+<p>If you don't have Python 2.7 already installed or you haven't selected the option in the Facilino OTA installer, you might need to install <a href="https://www.python.org/downloads/" target="_blank">Python 2.7</a>. Please download the latest version of Python 2.7 and follow the default settings until complete.</p>
+<h5>Arduino IDE Settings</h5>
+<p>Facilino OTA installer installs and configures Arduino IDE, however, it is convenient to check your settings in Arduino IDE. In the <b>File->Preferences</b> menu of Arduino IDE:</p>
+<image src="doc/common/facilino_ota_server_setup1.png" title="facilino_ota_server_setup1" alt="facilino_ota_server_setup1"></image>
+<p>Check that the <b>Additional URLs</b> have been properly set:</p>
+<image src="doc/common/facilino_ota_server_setup2.png" title="facilino_ota_server_setup2" alt="facilino_ota_server_setup2" style="width: 50%"></image>
+<p>You should have as Additional URLs <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json" target="_blank">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a> and <a href="https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json" target="_blank">https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json</a> in order to be able to compile code for ESP8266 and ESP32 processors, respectively. If not, please add those URLs.</p>
+<p>Then, check that the hardware you intend to work with is among the board list in <b>Tools->Board</b>.</p>
+<p><image src="doc/common/facilino_ota_server_setup4.png" title="facilino_ota_server_setup4" alt="facilino_ota_server_setup4"></image></p>
+<p><image src="doc/common/facilino_ota_server_setup7.png" title="facilino_ota_server_setup7" alt="facilino_ota_server_setup7"></image></p>
+<p>If not, manually install your boards in <b>Tools->Board->Manager</b>:</p>
+<image src="doc/common/facilino_ota_server_setup3.png" title="facilino_ota_server_setup3" alt="facilino_ota_server_setup3" style="width: 40%"></image>
+<p>Search for '<b>ESP8266</b>' and '<b>ESP32</b>' to intall the boards:</p>
+<p><image src="doc/common/facilino_ota_server_setup5.png" title="facilino_ota_server_setup5" alt="facilino_ota_server_setup5" style="width: 50%"></image></p>
+<p><image src="doc/common/facilino_ota_server_setup6.png" title="facilino_ota_server_setup6" alt="facilino_ota_server_setup6" style="width: 50%"></image></p>
+<h4>Uploading firmware for the first time using the USB Cable</h4>
+<p>In order to be able to upload code wirelessly using Arduino OTA, you need a firmware that must be installed just the first time using the USB Cable. Download the firmware from Facilino OTA by clicking in <b>File->Firmware ESP8266</b> or <b>File->Firmware->ESP32</b>, depending on the processor you have.</p>
+<image src="doc/common/facilino_ota_server_setup9.png" title="facilino_ota_server_setup9" alt="facilino_ota_server_setup9"></image>
+<p>Then, open the downloaded file '<b>firmware_esp8266.ino</b>' using Arduino IDE and make sure that you have properly selected the processor '<b>Generic ESP8266 Module</b>' in case you use an ESP8266 processor. If you use an ESP32 processor, then open the downloaded file '<b>firmware_esp32.ino</b>' using Arduino IDE and select '<b>ESP32 Dev Module</b>'. Now, connect the USB cable to your computer and select the correct <b>COM</b> or <b>ttyUSB</b> port:</p>
+<image src="doc/common/facilino_ota_server_setup8.png" title="facilino_ota_server_setup8" alt="facilino_ota_server_setup8"></image>
+<p>The name of the USB port, in your case might, be different from the one shown. If you have more than one USB port, you can easily identify the correct one by observing which port number disappears when you disconnect the USB cable from the board.</p>
+<p>Now, change the lines with the defines '<b>SSID_NAME</b>' and '<b>SSID_PASSWORD</b>' and replace '<b>YOUR_SSID</b>' and '<b>YOUR_SSID_PASSWORD</b>' with the ones corresponding to your WiFi connection.</p>
+<image src="doc/common/facilino_ota_server_setup10.png" title="facilino_ota_server_setup10" alt="facilino_ota_server_setup10"></image>
+<p>Also, you can set a hostname and a password for your device (you need to uncomment lines calling functions '<b>setHostname</b>' and '<b>setPassword</b>' and provide with the desired values). By doing this, you can connect to your remote device through its hostname instead of its IP. But, every time you upload a new code, these values must be set again.</p>
+<image src="doc/common/facilino_ota_server_setup11.png" title="facilino_ota_server_setup11" alt="facilino_ota_server_setup11"></image>
+<p>Save the file to store your settings and click on the upload icon in Arduino IDE:</p>
+<image src="doc/common/upload_button_arduino_ide.png" title="upload_button_arduino_ide" alt="upload_button_arduino_ide"></image>
+<p>If everything is correct, you should see:</p>
+<image src="doc/common/done_uploading_arduino_ide.png" title="done_uploading_arduino_ide" alt="done_uploading_arduino_ide"></image>
+<h4>Uploading firmware using a Network Port</h4>
+<p>Now, select the port corresponding to your board in <b>Tools->Port</b>:</p>
+<image src="doc/common/facilino_ota_server_setup12.png" title="facilino_ota_server_setup12" alt="facilino_ota_server_setup12"></image>
+<p>Observe, that the port network discovery service included in Arduino IDE allows you to find out the hostname and IP assigned to your board as shown in the figure above. This information <b>will be crucial</b> to upload Facilino OTA code to your device. You can also obtain the IP address by reading the message printed in the <b>Serial Monitor</b> of Arduino IDE, by clicking on the magnifying glass icon:</p>
+<image src="doc/common/serial_monitor_arduino_ide.png" title="serial_monitor_arduino_ide" alt="serial_monitor_arduino_ide"></image>
+<p>Annotate your device IP address or hostname.</p>
+<p>If the port is not shown, that means that there might be a problem connecting to your router.</p>
+<p>On the other hand, if you have been able to select a port, that means that you can upload the same code again, but this time using a network port instead. If you truly want to make sure that the code is not uploaded through the USB cable, use a powerbank, a cell phone charger to power up your device instead of the USB port of your PC. Wait a short time to allow the device to boot and connect to your router and then, you will be able to see the network port again in Arduino IDE even there's no wire connection! Now, upload the code again to check everything is fine.</p>
+<h4>Uploading code from your iPAD or tablet</h4>
+<h5>Windows</h5>
+<p>If the server is running a Windows OS, run the command '<b>ipconfig</b>' in your console (cmd.exe) to find out the server IP address and annotate it. Then, run the command '<b>FacilinoOTAServer.exe -e</b>' inside the folder where Facilino OTA Server has been installed (by default the folder is '<b>C:/FacilinoOTA</b>').</p>
+<h5>Linux</h5>
+<p>If the server is based on a Linux system, run the commando '<b>ifconfig</b>' to find out the IP address and annotate it.</p>
+<p>Then, run the command <b>'./FacilinoOTA -e</b>' inside the folder where Facilino OTA has been installed.</p>
+<h5>Facilino OTA</h5>
+<p>Open a web page tab and in the URL bar type <a href="http://facilino-ota.roboticafacil.es" target="_blank">http://facilino-ota.roboticafacil.es</a>. Now, set the Facilino OTA Server IP address (or hostname) and your device IP address (or hostname) in the text fields visible when you click on '<b>Facilino OTA Server/Device</b>' icon in the top menu.</p>
+<p>By default, Facilino OTA comes with a empty program that includes a mandatory instruction to include your code in the <b>setup</b> and <b>loop</b> functions and mandatory WiFi instructions to set your connection. You will need to introduce your WiFi <b>SSID</b> and <b>password</b> so that one of the first tasks of the code is to connect your device to your router. Also, you might also need to <b>set a device hostname</b> and <b>set a password</b>, although these blocks are not mandatory.</p>
+<p>Now, just click on the '<b>Upload Facilino OTA code</b>' icon in the top menu and wait until the uploading in progress dialog disappears. It everything goes fine, the process will succeed and the dialog will be closed just after the upload is complete. If something goes wrong, you will get a time-out error. The progress bar is an estimation of the steps that your code will take (the first time you use it, it won't work properly, but next uploads will be more accurate for a similar code size).</p>
+<p></p>
+<p>Congratulations! You just have uploaded your first Facilino OTA program wirelessly.</p>
+<h5>Advices</h5>
+<ul>
+	<li>Do not forget to include your <b>SSID</b> and <b>password</b> to configure the WiFi settings. Otherwise, you might be able to upload the code this time, but next time will fail because is not able to connect to your WiFi network</li>
+	<li>Do not implement forever running routines inside your <b>loop</b> statement. Your <b>loop</b> needs to check as much as possible if there's a new upload request pending to attend. This is done automatically for you, but you need to ensure that the <b>loop</b> is repeated eventually.</li>
+	<li>If you print messages with the USB Serial, you won't be able to see them unless your device is connected to a computer with a serial monitor. If you want to show messages, use a LCD screen or OLED screen.</li>
+	<li>Check your code twice before you upload it, in the end, you will save time.</li>
+	<li>Facilino OTA need to have all library dependencies properly installed. This is usually done during the installation process, but it could fail, so check if you a specific library is required in Arduino IDE '<b>Program->Include Library->Library Manager</b>'. Every instruction comes with a handy help documentation that indicates if extra libraries are required.</li> 
+</ul>
+<p><image src="doc/common/home.png" title="home" alt="home" style="cursor: pointer;" onClick="$(function(){$('#doc').load('doc/en-GB/index.html');});"></image> | <image src="doc/common/language.png" title="Language" alt="Language" style="cursor: pointer;" onClick="alert('Do you want to colaborate in translating Facilino OTA to your language? Please, contact with soporte@roboticafacil.es')"></image> |<image src="doc/common/bug-fixing.png" title="bug-fixing" alt="bug-fixing" style="cursor: pointer;" onClick="alert('Have you found a bug? Please, contact with soporte@roboticafacil.es')"></image> | <image src="doc/common/info.png" title="about" alt="about" style="cursor: pointer;" onClick="$(function(){$('#doc').load('doc/en-GB/about.html');});"></image></p>
+</body>
+</html>

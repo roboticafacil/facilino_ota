@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css"></link>
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<h3 id="up">State machine transition</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('controls_statemachine_transition_to','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction">Defines a transition between states. An AND divergence can be created if it is combined with the concatenation instruction or OR divergences / convergences can be created if several of these instructions are stacked. This instruction is used in conjunction with the instructions:</p>
+<div id='blocklyInstruction1'></div>
+<script>injectInstruction('controls_statemachine','blocklyInstruction1');</script>
+<div id='blocklyInstruction2'></div>
+<script>injectInstruction('controls_statemachine_transition_state_end','blocklyInstruction2');</script>
+<div id='blocklyInstruction3'></div>
+<script>injectInstruction('controls_statemachine_transition_state','blocklyInstruction3');</script>
+<div id='blocklyInstruction4'></div>
+<script>injectInstruction('controls_statemachine_transition_from','blocklyInstruction4');</script>
+<h4>Requirements</h4>
+<p class="instruction">Facilino's License</p>
+<h4>Inputs</h4>
+<ul class="instruction">
+  <li>Condition: Transition condition. If true, the state(s) defined in "to" will be activated.</li>
+  <li>State: State(s) to be activated in case of transition condition becomes true.</li>
+</ul>
+<h4>Dropdown lists</h4>
+<ul class="instruction">
+  <li>State: state to be disable.</li> 
+</ul>
+<p id='examples'></p>
+<p id='footer'></p><script>document.getElementById('footer').innerHTML=footer;</script>
+<script>createExamples(['controls_statemachine_example1','controls_statemachine_example2','controls_statemachine_example3','controls_statemachine_example4']);</script>
+</body>
+</html>

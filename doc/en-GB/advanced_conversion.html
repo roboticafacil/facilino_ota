@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<h3 id="up">Prints number with format</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>
+injectInstruction('advanced_conversion','blocklyInstruction');
+</script>
+<h4>Description</h4>
+<p class="instruction" id="description">This instruction provides the specified format, decimal, hexadecimal, octal, or binary, to display (print) a number through the serial port. Use together with the instructions:</p>
+<div id='blocklyInstruction1'></div>
+<script>
+injectInstruction('serial_print','blocklyInstruction1');
+</script>
+<div id='blocklyInstruction2'></div>
+<script>
+injectInstruction('serial_println','blocklyInstruction2');
+</script>
+<h4>Dropdown lists</h4>
+<ul class="instruction">
+  <li>Format: Format to convert (Decimal, Hexadecimal, Octal or Binary).</li>
+</ul>
+<h4>Inputs</h4>
+<ul class="instruction">
+  <li>Value: Number to convert.</li>
+</ul>
+<h4>Output</h4>
+<p class="instruction">Number to convert, along with the format argument.</p>
+<h4>Example</h4>
+<p class="instruction">In this example the same number with different representations is shown on the console: decimal, hexadecimal, octal and binary.</p>
+<div class="button_wrapper">
+<p><button align="center" class="button" style="cursor: pointer;" onClick="openFunction('doc/examples/advanced_conversion_example.bly')">Open</button></p>
+All changes will be lost!
+</div>
+<h5>Circuit</h5>
+<image src="doc/circuits/nano_example_bb.png" title="nano_example_bb" alt="nano_example_bb"></image>
+<h5>Facilino Code</h5>
+<div id='blocklyExample' width='100%' height='100%'></div>
+<script>
+injectExample('advanced_conversion_example.bly','blocklyExample');
+</script>
+<div id='footer' class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-6" title="Documentation" onclick='$(function(){$("#doc").load("doc/en-GB/index.html#up");});'><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button><button class="btn btn-sm btn-primary-outline display-6" title="Facilino Help" onclick='$(function(){$("#doc").load("doc/en-GB/facilino_help.html#up");});'><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button></div>
+<script>
+createInstructionDoc('advanced_conversion');
+</script>
+</body>
+</html>

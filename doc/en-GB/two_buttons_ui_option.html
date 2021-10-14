@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<script src='doc/common/blocks_utils.js'></script>
+<script src='doc/common/examples.js'></script>
+<link rel="stylesheet" type="text/css" href="doc/common/style.css">
+<script src='doc/en-GB/footer.js'></script>
+</head>
+<body>
+<h3 id="up">Menu option</h3>
+<h4>Instruction</h4>
+<div id='blocklyInstruction'></div>
+<script>injectInstruction('two_buttons_ui_option','blocklyInstruction');</script>
+<h4>Description</h4>
+<p class="instruction">Implements an option for a two-button user-interface menu. Use in combination with this instruction</p>
+<div id='blocklyInstruction1'></div>
+<script>injectInstruction('two_buttons_ui','blocklyInstruction1');</script>
+<h4>Requirements</h4>
+<p class="instruction">Facilino's license.</p>
+<h4>Mutator</h4>
+Add as many options as desired.
+<h5>Container</h5>
+<div id='blocklyInstruction2'></div>
+<script>injectInstruction('two_buttons_ui_option_stack','blocklyInstruction2');</script>
+<h5>Elements</h5>
+<div id='blocklyInstruction3'></div>
+<script>injectInstruction('two_buttons_ui_option_item','blocklyInstruction3');</script>
+<h4>Output</h4>
+<p class="instruction">Options to add to a menu.</p>
+<div id='examples'></div>
+<p id='footer'></p><script>document.getElementById('footer').innerHTML=footer;</script>
+<script>createExamples(['buttons_ui']);</script>
+</body>
+</html>
