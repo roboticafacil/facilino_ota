@@ -1,4 +1,4 @@
-Facilino
+Facilino OTA
 =========
 
 Visual programming environment for Arduino and ESP.
@@ -21,9 +21,6 @@ Releases
 
 Download the latests releases at [https://roboticafacil.es/descargas]
 
-Facilino requires a key (license) to activate advanced instructions. You can get it for free under some conditions (see [https://roboticafacil.es/licencia-facilino], for further details).
-
-
 Support
 -------
 
@@ -35,13 +32,7 @@ Developer
 
 Deploy locally with Firefox.
 
-Facilino.html => Contains the front-end to Facilino (web)
-
-FacilinoMyBlocks.html => Contains the front-end to FacilinoMyBlocks
-
-FacilinoTranslate.html => Contains the front-end to FacilinoTranslate (translation tool for Blockly instructions). To effectively apply translation changes, replace the "facilino.json" file in "lang" folder.
-
-facilino.js => Contains Blockly instructions
+Setup a PHP server and mySQL server. Import the "sql" file to create the database.
 
 Credits
 -------
@@ -53,4 +44,6 @@ Credits
 License
 -------
 
-Check LICENSE file [https://github.com/roboticafacil/facilino/blob/master/LICENSE.md].
+Facilino OTA is free to use under MIT License.
+If you plan to use Facilino OTA locally, you are free to modify and adapt it to your own convenience.
+However, if you plan to upload Facilino OTA to a server, then you MUST KEEP ads to retribute the author and ensure that they are shown from a web-browser client. 
