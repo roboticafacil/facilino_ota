@@ -86,7 +86,7 @@ include("auth.php");
 				$default_arduino_code="void setup()\\n{\\n}\\nvoid loop()\\n{\\n}";
 				//TODO: Cuando seleccionamos Facilino OTA el código debería ser diferente
 				if ($_POST["inp_facil_id"]==3)
-					$default_facilino_code="<block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value><next><block type='communications_wifi_ota_sethostname'><value name='DEVICENAME'><block type='text'><field name='TEXT'>myesp</field></block></value></block></next></statement></block>";
+					$default_facilino_code="<block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value></statement></block>";
 				else
 					$default_facilino_code="<block type='controls_setupLoop' id='=:lA^uU=`^l!D9y!TLNi' deletable='false' x='10' y='10'></block>";
 				

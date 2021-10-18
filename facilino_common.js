@@ -2512,10 +2512,21 @@ this["JST"]["communications_wifi_ota_def_definitions"] = function(obj) {
 		__e = _.escape;
 	with(obj) {
 		__p += '#include <WiFiUdp.h>\n#include <ArduinoOTA.h>\n';
-
 	}
 	return __p
 };
+
+this["JST"]["communications_wifi_esp8266_webupdater_def_definitions"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p+='#include "ESPAsyncTCP.h"\n#include "ESPAsyncWebServer.h"\n';
+	}
+	return __p
+};
+
+
 
 this["JST"]["communications_wifi_def_setups2"] = function(obj) {
 	obj || (obj = {});
@@ -2544,6 +2555,18 @@ this["JST"]["communications_wifi_OTA_def_setups"] = function(obj) {
 	}
 	return __p
 };
+
+this["JST"]["ota_webupdater_definitions_variables"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += 'const char* serverIndex = \n"<script src=\'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js\'></script>"\n#if defined(ESP8266)\n"<div>ESP8266 OTA Web updater</div>"\n#elif defined(ESP32)\n"<div>ESP32 OTA Web updater</div>"\n#endif\n"<form method=\'POST\' action=\'#\' enctype=\'multipart/form-data\' id=\'upload_form\'>"\n  "<input type=\'file\' name=\'update\'>"  "<input type=\'submit\' value=\'Update\'>"\n"</form>"\n"<div id=\'prg\'>progress: 0%</div>"\n"<script>"\n"$(\'form\').submit(function(e){"\n  "e.preventDefault();"\n  "var form = $(\'#upload_form\')[0];"\n  "var data = new FormData(form);"\n  " $.ajax({"\n    "url:\'/update\',"\n    "type:\'POST\',"\n    "data: data,"\n    "contentType: false,"\n    "processData:false,"\n    "xhr: function() {"\n      "var xhr = new window.XMLHttpRequest();"\n      "xhr.upload.addEventListener(\'progress\', function(evt) {"\n        "if (evt.lengthComputable) {"\n          "var per = evt.loaded / evt.total;"\n          "$(\'#prg\').html(\'progress:\' + Math.round(per*100) + \'%\');"\n        "}"\n      "}, false);"\n    "return xhr;"\n  "}"\n    "});"\n  "});"\n"</script>";\n';
+		__p +='AsyncWebServer _server(80);\n';
+	}
+	return __p
+};
+
 
 this["JST"]["communications_wifi_def_setups3"] = function(obj) {
 	obj || (obj = {});

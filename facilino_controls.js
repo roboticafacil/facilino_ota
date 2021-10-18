@@ -922,7 +922,7 @@
 			
 			if (window.FacilinoOTA)
 			{
-				if (Blockly.Arduino.setups_['hostname'])
+				/*if (Blockly.Arduino.setups_['hostname'])
 				{
 					var otaCODE='ArduinoOTA.setHostname("'+Blockly.Arduino.setups_['hostname']+'");\n  ArduinoOTA.begin();\n';
 					branch=otaCODE+branch;
@@ -931,10 +931,15 @@
 				{
 					var otaCODE='ArduinoOTA.begin();\n';
 					branch=otaCODE+branch;
-				}
+				}*/
+				Blockly.Arduino.definitions_['declare_var_define_ota_webupdater'] = JST['ota_webupdater_definitions_variables']({});
+				var otaCODE='_server.on("/",HTTP_GET,[](AsyncWebServerRequest *request){\n request->send(200,"text/html",serverIndex);\n});\n';
+				otaCODE+='  _server.on("/update", HTTP_POST, [&](AsyncWebServerRequest *request) {\n    AsyncWebServerResponse *response = request->beginResponse((Update.hasError())?500:200, "text/plain", (Update.hasError())?"FAIL":"OK");\n    response->addHeader("Connection", "close");\n    response->addHeader("Access-Control-Allow-Origin", "*");\n    request->send(response);\n    yield();\n    delay(1000);\n    yield();\n    ESP.restart();\n  }, [&](AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {\n    if (!index) {\n      #if defined(ESP8266)\n        Update.runAsync(true);\n        uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;\n        if (!Update.begin(maxSketchSpace, U_FLASH)){\n      #elif defined(ESP32)\nif        (!Update.begin(UPDATE_SIZE_UNKNOWN, U_FLASH)) {\n      #endif\n        Update.printError(Serial);\n        return request->send(400, "text/plain", "OTA could not begin");\n      }\n    }\n    if(len){\n      if (Update.write(data, len) != len) {\n        return request->send(400, "text/plain", "OTA could not begin");\n      }\n    }\n    if (final) {\n      if (!Update.end(true)) {\n        Update.printError(Serial);\n        return request->send(400, "text/plain", "Could not end OTA");\n      }\n    }\n    else{\n      return;\n    }\n    });\n';
+				otaCODE+='  _server.begin();\n';
+				branch=otaCODE+branch;
 			}
-			if (window.FacilinoOTA)
-				Blockly.Arduino.definitions_['define_wifi_OTA'] = JST['communications_wifi_ota_def_definitions']({});
+			//if (window.FacilinoOTA)
+			//	Blockly.Arduino.definitions_['define_wifi_OTA'] = JST['communications_wifi_ota_def_definitions']({});
 			if (Blockly.Arduino.setups_['setup_int0_']) {
 			  branch += Blockly.Arduino.setups_['setup_int0_']
 			}
@@ -944,17 +949,13 @@
 			});
 
 			var content = Blockly.Arduino.statementToCode(this, 'LOOP');
-			/*if (Blockly.Arduino.loops_['loop_pubclient'])
-			{
-				content += Blockly.Arduino.loops_['loop_pubclient']
-			}*/
 			if (Blockly.Arduino.loops_['loop_thingsboard'])
 			{
 				content += Blockly.Arduino.loops_['loop_thingsboard']
 			}
 			
-			if (window.FacilinoOTA)
-				content +='ArduinoOTA.handle();\n';
+			//if (window.FacilinoOTA)
+			//	content +='ArduinoOTA.handle();\n';
 			
 			content = content.replace(/&quot;/g, '"');
 			content = JST['controls_setupLoop']({

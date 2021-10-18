@@ -295,11 +295,15 @@
 				{
 					Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					Blockly.Arduino.definitions_['define_wifi_dns'] = JST['communications_wifi_esp8266_dns_def_definitions']({});
+					if (window.FacilinoOTA)
+						Blockly.Arduino.definitions_['define_wifi_web_updater'] = JST['communications_wifi_esp8266_webupdater_def_definitions']({});
 				}
 				else if (Facilino.profiles['processor']==='ESP32')
 				{
 					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					Blockly.Arduino.definitions_['define_wifi_dns'] = JST['communications_wifi_esp32_dns_def_definitions']({});
+					if (window.FacilinoOTA)
+						Blockly.Arduino.definitions_['define_wifi_web_updater'] = JST['communications_wifi_esp32_webupdater_def_definitions']({});
 				}
 				/*if (window.FacilinoOTA)
 					Blockly.Arduino.definitions_['define_wifi_OTA'] = JST['communications_wifi_ota_def_definitions']({});*/
@@ -315,6 +319,7 @@
 					else
 						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups2']({'ssid': SSID,'password': Password});
 					Blockly.Arduino.definitions_['declare_var_wifi_status'] = 'bool _wifi_status=false;\n';
+					Blockly.Arduino.setups_['setup_wifi_']+='  Serial.begin(115200);\n  Serial.println(WiFi.localIP());\n';
 				}
 				else
 				{

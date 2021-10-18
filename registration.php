@@ -99,7 +99,6 @@ else if (isset($_REQUEST['username'])){
 		{
 			echo "<div class='form'><h3>Username '".$_REQUEST['username']."' is in use. Please, introduce another username.</h3><br/>Click here to <a href='login.php'>Login</a><br/>Click here to <a href='registration.php'>Registration</a></div>";
 		}
-		
     }else{
 ?>
 <div class="form">

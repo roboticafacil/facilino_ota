@@ -2,14 +2,8 @@
 require_once('db.php');
 require_once('website_translation.php');
 include("auth.php");
-?>
-<!DOCTYPE html>
-<html><?php include "head.php"; ?>
-	<body>
-		<div id="header"><?php include "inc-header.php" ?></div>
-		<!-- <div id="content">-->
-		<?php
-		if (isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
+
+		if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
 		{
 			//Save project, then open
 			$query = "SELECT facilino_code_id from `projects` where id= ".$_POST['project_id'];
@@ -17,15 +11,23 @@ include("auth.php");
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
-				
+				print_r("Hello again!");
 				$row=mysqli_fetch_row($result);
 				$query="UPDATE `facilino_code` SET `blockly_code`='".htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1)."',`arduino_code`='".$_POST["arduino_code"]."' WHERE id=".$row[0];
 				//echo htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1);
 				//print_r($_POST['facilino_code']);
 				$result = mysqli_query($con,$query);
+				header("Location: dashboard.php");
 			}
 		}
-		if (isset($_GET["id"])&&!isset($_POST["action"])){
+		elseif (isset($_GET["id"])&&!isset($_POST["action"])){
+			?>
+			<!DOCTYPE html>
+			<html><?php include "head.php"; ?>
+			<body>
+			<div id="header"><?php include "inc-header.php" ?></div>
+			<!-- <div id="content">-->
+			<?php
 			//Open facilino project
 			$project_id=$_GET["id"];
 			$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
@@ -65,7 +67,7 @@ include("auth.php");
 				
 				<xml id='startBlocksDefault' style='display: none'><block type='controls_setupLoop' deletable='true' x='20' y='5'></block></xml>
 				<xml id='startBlocks' style='display:none'><?php echo $row[5] ?></xml>
-				<xml id='startBlocksOTA' style='display:none'><block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value><next><block type='communications_wifi_ota_sethostname'><value name='DEVICENAME'><block type='text'><field name='TEXT'>myesp</field></block></value></block></next></statement></block></xml>
+				<xml id='startBlocksOTA' style='display:none'><block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value></statement></block></xml>
 				<div id="wrap" style="height: 89%;">
 					<div id="blockly" style="float: left; width: 100%;">
 						<span id="position"></span>
@@ -405,7 +407,7 @@ include("auth.php");
 			localStorage.setItem("saved",current);
 			const form = document.createElement('form');
 			form.method = "post";
-			form.action = "facilino.php?action=open&id="+window.project_id;
+			form.action = "facilino.php?action=save&id="+window.project_id;
 			const hiddenBlockly = document.createElement('input');
 			  hiddenBlockly.type = 'hidden';
 			  hiddenBlockly.name = 'facilino_code';
@@ -433,14 +435,15 @@ include("auth.php");
 			
 		function saveBeforeExit()
 		{
-			var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
+			saveAll();
+			/*var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
 			if (localStorage.getItem("saved")!==current)
 			{
 				if (confirm("There are unsaved changes. Are you sure you want to continue?"))
 					window.location.replace("dashboard.php");
 			}
-			else
-				window.location.replace("dashboard.php");
+			else*/
+				//window.location.replace("dashboard.php");
 		}
 		
 		function docHelp()
@@ -961,7 +964,7 @@ include("auth.php");
 		
 		function uploadOTAData(data,upload_code)
 		{
-			const XHR = new XMLHttpRequest(),FD  = new FormData();
+			var XHR = new XMLHttpRequest(),FD  = new FormData();
 			for( name in data ) {
 				FD.append( name, data[ name ] );
 			}
@@ -1129,6 +1132,7 @@ include("auth.php");
 				}
 			  }
 			  );
+			  
 			  XHR.addEventListener('timeout',function(event){
 				alert( 'I could not get a response!');
 				//player.stopVideo();
@@ -1151,7 +1155,12 @@ include("auth.php");
 		  	var url='http://';
 		  	url=url.concat(serverip,':4000/ota_upload');
 		  	console.log(url);
-		  	XHR.open( 'POST', url,true);
+			//console.log(FD);
+		  	XHR.open('POST', url,true);
+			//console.log('uploadOTAData');
+			//XHR.setRequestHeader('Access-Control-Allow-Headers', '*');
+			//XHR.setRequestHeader('Access-Control-Allow-Origin', '*');
+			
 		  	// Send our FormData object; HTTP headers are set automatically
 		  	XHR.send(FD);
 		  }
