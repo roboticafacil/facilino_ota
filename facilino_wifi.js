@@ -319,13 +319,13 @@
 					else
 						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups2']({'ssid': SSID,'password': Password});
 					Blockly.Arduino.definitions_['declare_var_wifi_status'] = 'bool _wifi_status=false;\n';
-					Blockly.Arduino.setups_['setup_wifi_']+='  Serial.begin(115200);\n  Serial.println(WiFi.localIP());\n';
+					Blockly.Arduino.setups_['setup_wifi_']+='  Serial.begin(115200);\n  Serial.println(); Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());\n';
 				}
 				else
 				{
 					Blockly.Arduino.setups_['setup_serial'] = JST['communications_serial_begin']({'bitrate': Facilino.profiles.default.serial});
 					if (window.FacilinoOTA)
-						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_OTA_def_setups']({'ssid': SSID,'password': Password})+'Serial.print("Connected to AP with IP: ");\nSerial.println(WiFi.localIP());\n';
+						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_OTA_def_setups']({'ssid': SSID,'password': Password})+' Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());';
 					else
 						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups3']({'ssid': SSID,'password': Password});
 					Blockly.Arduino.definitions_['declare_var_wifi_status'] = 'bool _wifi_status=true;\n';

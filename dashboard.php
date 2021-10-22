@@ -367,9 +367,9 @@ include("auth.php");
 				document.cookie = "cookieFacilinoVersionName="+document.getElementById('lbl_facil_id').innerHTML;
 				document.cookie = "cookieFacilinoVersionId="+document.getElementById('inp_facil_id').value;
 				if (id===3){
-				document.getElementById('OTA_settings').style.display="block";
+					document.getElementById('OTA_settings').style.display="block";
 				}else{
-				document.getElementById('OTA_settings').style.display="none";
+					document.getElementById('OTA_settings').style.display="none";
 				}
 				document.getElementById('version').style.display="none";
 				}
@@ -379,7 +379,7 @@ include("auth.php");
 			else
 			{
 				?>
-				<td><label id="lbl_version_id">Facilino</label></td>
+				<td><label id="lbl_facil_id">Facilino</label></td>
 				<?php
 			}
 			
@@ -542,7 +542,7 @@ include("auth.php");
 				<form action="dashboard.php?action=update&id=<?php echo $row[0]?>" method="POST" style="margin-bottom:0.5em">
 				<div class="datagrid">
 				<table width="100%">
-				<tr><th style="width:35%"><?php echo $website["NAME"]?></th><th style="width:20%"><?php echo $website["BOARD"]?></th><th style="width:15%"><?php echo $website["FACILINO_VERSION"]?></th><th style="width:20%"><?php echo $website["BLOCK_INSTRUCTION_SET"]?></th><th style="width:10%"><?php echo $website["LANGUAGE"]?></th></tr>
+				<tr><th style="width:35%"><?php echo $website["NAME"]?></th><th style="width:15%"><?php echo $website["BOARD"]?></th><th style="width:15%"><?php echo $website["FACILINO_VERSION"]?></th><th style="width:15%"><?php echo $website["BLOCK_INSTRUCTION_SET"]?></th><th style="width:15%"><?php echo $website["LANGUAGE"]?></th></tr>
 				<tr>
 				<td><input type="text" maxlength="50" size="50" name="edited_project_name" value="<?php echo $row[1]?>" style="margin-top: 0px; padding: 0px; padding-left: 10px; font-size: 12px; width: 100%"/></td>
 				<?php
@@ -627,33 +627,12 @@ include("auth.php");
 				?>
 				</tr>
 				</table>
-				<?php
-				if (isset($_COOKIE['cookieFacilinoVersionId']))
-				{
-					if ($_COOKIE['cookieFacilinoVersionId']==3)
-					{
-						?>
-						<div id="OTA_settings" style="margin-top: 10px; padding: 0px; padding-left: 10px">
-						<?php
-					}
-					else
-					{
-						?>
-						<div id="OTA_settings" style="display:none; margin-top: 10px; padding: 0px; padding-left: 10px; ">
-						<?php
-					}
-				}
-				else
-				{
-					?><div id="OTA_settings" style="display:none; margin-top: 10px; padding: 0px; padding-left: 10px; ">
-					<?php
-				}
-				?>
+				<div id="OTA_settings" style="display:block; margin-top: 10px; padding: 0px; padding-left: 10px">
 				<h5><?php echo $website["OTA_SETTINGS"]?></h5>
 				<table width="40%" >
 				<tr><th style="width:20%"><?php echo $website["SERVER_IP"]?></th><th style="width:20%"><?php echo $website["DEVICE_IP"]?></th></tr>
 				<tr>
-				<td><input name="inp_facil_server" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" style="font-size: 12px; padding: 0px;" value="<?php echo $row[11];?>"></input></td><td><input name="inp_facil_device" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" style="font-size: 12px; padding: 0px;" value="<?php echo $row[12];?>"></input></td>
+				<td><input name="edited_facil_server" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" style="font-size: 12px; padding: 0px;" value="<?php echo $row[11];?>"></input></td><td><input name="edited_facil_device" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" style="font-size: 12px; padding: 0px;" value="<?php echo $row[12];?>"></input></td>
 				</td>
 				</tr>
 				</table>
@@ -678,7 +657,7 @@ include("auth.php");
 		}
 		elseif  (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
 			//Update project modifications
-			$query="UPDATE `projects` SET `name`=\"".$_POST["edited_project_name"]."\",`processor_id`=".$_POST["edited_processor_id"].",`filter_id`=".$_POST["edited_filter_id"].",`version_id`=".$_POST["edited_facilino_version_id"].",`language_id`=".$_POST["edited_language_id"].",`server_ip`=\"".$_POST["inp_facil_server"]."\",`device_ip`=\"".$_POST["inp_facil_device"]."\" WHERE `projects`.id=".$_POST["project_id"];
+			$query="UPDATE `projects` SET `name`=\"".$_POST["edited_project_name"]."\",`processor_id`=".$_POST["edited_processor_id"].",`filter_id`=".$_POST["edited_filter_id"].",`version_id`=".$_POST["edited_facilino_version_id"].",`language_id`=".$_POST["edited_language_id"].",`server_ip`=\"".$_POST["edited_facil_server"]."\",`device_ip`=\"".$_POST["edited_facil_device"]."\" WHERE `projects`.id=".$_POST["project_id"];
 			$result = mysqli_query($con,$query);
 			header("Location: dashboard.php");
 		}
@@ -694,23 +673,23 @@ include("auth.php");
 				unset($_COOKIE['cookieProcessorName']);
 				setcookie('cookieProcessorName', '', time() - 3600, '/'); // empty value and old timestamp
 			}
-			if (isset($_COOKIE['cookieProcessorId'])) {
+			/*if (isset($_COOKIE['cookieProcessorId'])) {
 				unset($_COOKIE['cookieProcessorId']);
 				setcookie('cookieProcessorId', '', time() - 3600, '/'); // empty value and old timestamp
-			}
+			}*/
 			if (isset($_COOKIE['cookieFacilinoVersionName'])) {
 				unset($_COOKIE['cookieFacilinoVersionName']);
 				setcookie('cookieFacilinoVersionName', '', time() - 3600, '/'); // empty value and old timestamp
 			}
-			if (isset($_COOKIE['cookieFacilinoVersionId'])) {
+			/*if (isset($_COOKIE['cookieFacilinoVersionId'])) {
 				unset($_COOKIE['cookieFacilinoVersionId']);
 				setcookie('cookieFacilinoVersionId', '', time() - 3600, '/'); // empty value and old timestamp
-			}
+			}*/
 			
 		?>
 		<script type='text/javascript'>
 			document.cookie = "cookieProcessorName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-			document.cookie = "cookieProcessorId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+			//document.cookie = "cookieProcessorId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 			document.cookie = "cookieProjectName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 		</script>
 		<h3><?php echo $website["PROJECTS"]?></h3>
@@ -736,12 +715,12 @@ include("auth.php");
 		$result = mysqli_query($con,$query);
 		while ($row = mysqli_fetch_row($result)) {
 			 ?><tr><?php
-			 for ($j = 1; $j < 7; $j++) {
+			 ?><td><a href="facilino.php?action=open&id=<?php echo $row[0]?>" title="<?php echo $website["OPEN"]?>" style="text-decoration: none;"><?php echo $row[1];?></a></td><?php
+			 for ($j = 2; $j < 7; $j++) {
 				  ?><td><?php echo $row[$j]?></td><?php
 			 }
 			 ?>
 			 <td>
-			 <a href="facilino.php?action=open&id=<?php echo $row[0]?>" title="<?php echo $website["OPEN"]?>" style="text-decoration: none;"><span class="mbri-facilino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
 			 <a href="dashboard.php?action=edit&id=<?php echo $row[0]?>" title="<?php echo $website["EDIT"]?>" style="text-decoration: none;"><span class="mbri-edit mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
 			 <a href="dashboard.php?action=duplicate&id=<?php echo $row[0]?>" title="<?php echo $website["DUPLICATE"]?>" style="text-decoration: none;"><span class="mbri-pages mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
 			 <a title="<?php echo $website["DELETE"]?>" onclick="javascript: return confirm('<?php echo $website["DELETE_QUESTION"]?>');" href="dashboard.php?action=delete&id=<?php echo $row[0]?>" style="text-decoration: none;"><span class="mbri-trash mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;

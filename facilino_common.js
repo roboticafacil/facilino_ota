@@ -2526,6 +2526,16 @@ this["JST"]["communications_wifi_esp8266_webupdater_def_definitions"] = function
 	return __p
 };
 
+this["JST"]["communications_wifi_esp32_webupdater_def_definitions"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p+='#include "AsyncTCP.h"\n#include "Update.h"\n#include "ESPAsyncWebServer.h"\n';
+	}
+	return __p
+};
+
 
 
 this["JST"]["communications_wifi_def_setups2"] = function(obj) {

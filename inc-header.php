@@ -17,7 +17,7 @@ if(isset($_SESSION["username"]))
 	if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 	{
 		
-		$query = "SELECT name from `projects`where `projects`.id= ".$_GET["id"];
+		$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
 		$result = mysqli_query($con,$query);
 		$rows = mysqli_num_rows($result);
 		if ($rows==1)
@@ -44,10 +44,10 @@ if(isset($_SESSION["username"]))
 		{
 			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
 		}
-		echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
-		echo '<ins class="adsbygoogle" style="display:inline-block;width:550px;height:50px; text-align: center" data-ad-client="ca-pub-5054503364495454" data-ad-slot="6161628565"></ins>';
-		echo '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 	}
+	echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
+	echo '<ins class="adsbygoogle" style="display:inline-block;width:550px;height:50px; text-align: center" data-ad-client="ca-pub-5054503364495454" data-ad-slot="6161628565"></ins>';
+	echo '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 }
 else
 {
@@ -105,7 +105,7 @@ if(isset($_SESSION["username"]))
 	{
 		if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 		{
-			echo '</div>';
+			//
 			echo '<div>';
 			echo '<script>function saveBeforeExit(){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll(){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};</script>';;
 			echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
@@ -114,7 +114,6 @@ if(isset($_SESSION["username"]))
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Verify" onclick="compile();"><span class="mbri-success mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Upload" onclick="upload();"><span class="mbri-right mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["COMPILE_UPLOAD"].'" onclick="compile_upload();"><span class="mbri-play mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
-			
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Save" onclick="listPorts();"><span class="mbri-link mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<select id="ports" class="text-black dropdown-toggle display-6 icon-menu" onchange="portChange(this.value)" style="display: none"></select>';
 			echo '<div class="navbar-buttons mbr-section-btn"><a href="doc_help.php" target="_blank"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HELP"].'"><span class="mbri-question mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0); margin-left:0.25em;"></span></button></a></div>';
@@ -165,6 +164,7 @@ if(isset($_SESSION["username"]))
 						echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\''.$row[1].'\')" aria-expanded="false"><span>'.$row[2].'</span></button>';
 					}
 				}
+				echo '</div>';
 				echo '</div>';
 			}
 			echo '</div>';
