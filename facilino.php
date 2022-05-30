@@ -90,7 +90,7 @@ include("auth.php");
 					<span class="close" style="width:0.8em">&times;</span>
 					<section>
 					<?php
-					if ($row[3]="FacilinoOTA")
+					if ($row[3]=="FacilinoOTA")
 					{
 						echo "<div class='navbar-buttons mbr-section-btn'><button class='btn btn-sm btn-primary-outline display-4' title='Verify' onclick='compileOTA();' style='padding:0.3em'><span class='mbri-success mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button>&nbsp;<button class='btn btn-sm btn-primary-outline display-4' title='Upload' onclick='uploadOTA();' style='padding:0.3em'><span class='mbri-right mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em'></span></button>&nbsp;";
 						echo "<p class='btn' style='padding:0;font-size:12px'>".$website["SERVER_IP"].":<input id='server_ip_upload' name='server_ip_upload' type='text' value='".$row[10]."'></input>&nbsp;".$website["DEVICE_IP"].":<input id='device_ip_upload' name='device_ip_upload' type='text' value='".$row[11]."'></input></p>";
