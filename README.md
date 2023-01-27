@@ -30,8 +30,6 @@ E-mail support for Robotica Facil customers at <soporte@roboticafacil.es>
 Developer
 ---------
 
-Deploy locally with Firefox.
-
 Setup a PHP server and mySQL server. Import the "sql" file to create the database.
 
 Credits
