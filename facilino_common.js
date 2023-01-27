@@ -698,17 +698,6 @@ this["JST"]["movement_move_arms_definitions_variables"] = function(obj) {
 		return __p
 };
 
-this["JST"]["follow_definitions"] = function(obj) {
-	obj || (obj = {});
-		var __t, __p = '',
-			__e = _.escape;
-		with(obj) {
-			__p += 'int follow(int light, int gain)\n{\n  return (int)(((float)(gain)/100.0)*((float)((_white-_black)/2+_black)-(float)(light)));\n}\n';
-
-		}
-		return __p
-};
-
 this["JST"]["infrarred_follow"] = function(obj) {
 	obj || (obj = {});
 		var __t, __p = '',
@@ -717,57 +706,6 @@ this["JST"]["infrarred_follow"] = function(obj) {
 			__p += 'follow(' +((__t = (light)) == null ? '' : __t) +',' +((__t = (gain)) == null ? '' : __t) +')';
 		}
 		return __p
-};
-
-this["JST"]["infrarred_follow_binary"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-		__e = _.escape;
-	with(obj) {
-		__p += 'if(' +
-			((__t = (light)) == null ? '' : __t) +
-			'<(0.4*(_black-_white)+_white))\n{\n'+
-	((__t = (white)) == null ? '' : __t) +
-	'}\nelse if('+
-	((__t = (light)) == null ? '' : __t) +
-	'<(0.6*(_black-_white)+_white))\n{\n'+
-	((__t = (gray)) == null ? '' : __t) +
-	'}\nelse\n{'+
-	((__t = (black)) == null ? '' : __t) +
-			'\n}';
-	}
-	return __p
-};
-
-this["JST"]["infrarred_follow_definitions_variables"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-		__e = _.escape;
-	with(obj) {
-		__p += 'int _white=800;\nint _black=30;\n';
-
-	}
-	return __p
-	};
-
-this["JST"]["infrarred_white"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-	 __e = _.escape;
-	with(obj) {
-	__p += '_white=' +((__t = (white)) == null ? '' : __t) +';\n';
-	}
-	return __p
-};
-
-this["JST"]["infrarred_black"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-	 __e = _.escape;
-	with(obj) {
-	__p += '_black=' +((__t = (black)) == null ? '' : __t) +';\n';
-	}
-	return __p
 };
 
 this["JST"]["one_wire_temp_readTempCIdx"] = function (obj) {
@@ -816,6 +754,7 @@ this["JST"]["dallas_temp_setups"] = function(obj) {
 		__e = _.escape;
 	with(obj) {
 		__p += 'tempSensor'+((__t = (pin)) == null ? '' : __t)+'.begin();\n';
+		__p += 'tempSensor'+((__t = (pin)) == null ? '' : __t)+'.setResolution('+((__t = (resolution)) == null ? '' : __t)+');\n';
 	}
 	return __p
 	};
@@ -992,18 +931,6 @@ this["JST"]["esp32_dht_definitions_variables"] = function(obj) {
 	return __p
 };
 
-this["JST"]["dht_temp_alarm_definitions_variables"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-		__e = _.escape;
-	with(obj) {
-		__p += 'bool _dht_hot_'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
-		__p += 'bool _dht_cold_'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
-		__p += 'bool _dht_ok_'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
-	}
-	return __p
-};
-
 this["JST"]["dht_humid_alarm_definitions_variables"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
@@ -1024,31 +951,6 @@ this["JST"]["moist_alarm_definitions_variables"] = function(obj) {
 		__p += 'bool _moist_humid_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
 		__p += 'bool _moist_dry_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
 		__p += 'bool _moist_ok_'+((__t = (pin)) == null ? '' : __t)+'=false;\n';
-	}
-	return __p
-};
-
-this["JST"]["esp32_dht_temp_alarm"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-		__e = _.escape;
-	with(obj) {
-		__p += '{\n  TempAndHumidity _tempHumid=sensor'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'.getTempAndHumidity();\n  delay(1000);\n';
-		__p += '  if (isTooHot(_tempHumid.temperature,_tempHumid.humidity)){\n'+((__t = (high)) == null ? '' : __t)+'\n}\n  else if (isTooCold(_tempHumid.temperature,_tempHumid.humidity)){\n'+((__t = (low)) == null ? '' : __t)+'\n}\n  else{\n'+((__t = (ok)) == null ? '' : __t)+'}\n  delay(1000);\n';
-		__p += '}\n';
-	}
-	return __p
-};
-
-this["JST"]["dht_temp_alarm"] = function(obj) {
-	obj || (obj = {});
-	var __t, __p = '',
-		__e = _.escape;
-	with(obj) {
-		__p += '{\n  float _temp=sensor'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'.readTemperature();\n  delay(1000);\n';
-		__p += '  float _humid=sensor'+((__t = (type)) == null ? '' : __t)+'_'+((__t = (pin)) == null ? '' : __t)+'.readHumidity();\n  delay(1000);\n';
-		__p += '  if (isTooHot(_temp,_humid)){\n'+((__t = (high)) == null ? '' : __t)+'\n}\n  else if (isTooCold(_temp,_humid)){\n'+((__t = (low)) == null ? '' : __t)+'\n}\n  else{\n'+((__t = (ok)) == null ? '' : __t)+'}\n  delay(1000);\n';
-		__p += '}\n';
 	}
 	return __p
 };
@@ -1234,9 +1136,9 @@ this["JST"]["dyor_us_definitions_us_init"] = function(obj) {
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		if ((profiles['processor']==='ATmega328')||(profiles['processor']==='ATmega32U4')||(profiles['processor']==='ATmega2560'))
+		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 			__p += 'long US_init(int trigger_pin, int echo_pin)\n{\n  digitalWrite(trigger_pin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigger_pin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigger_pin, LOW);\n  long microseconds = _pulseIn(echo_pin ,HIGH,100000);\n  return microseconds;\n}\n';
-		else if ((profiles['processor']==='ESP32') || (profiles['processor']==='ESP8266'))
+		else if ((Facilino.profiles['processor']==='ESP32') || (Facilino.profiles['processor']==='ESP8266'))
 			__p += 'long US_init(int trigger_pin, int echo_pin)\n{\n  digitalWrite(trigger_pin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigger_pin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigger_pin, LOW);\n  long microseconds = pulseIn(echo_pin ,HIGH);\n  return microseconds;\n}\n';
 	}
 	return __p
@@ -2091,7 +1993,7 @@ this["JST"]["dyor_led_matrix_prepare_stream"] = function(obj) {
 	return __p
 };
 
-this["JST"]["dyor_prepare_RGBstream"] = function(obj) {
+/*this["JST"]["dyor_prepare_RGBstream"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
@@ -2104,7 +2006,7 @@ this["JST"]["dyor_prepare_RGBstream"] = function(obj) {
 
 	}
 	return __p
-};
+};*/
 
 this["JST"]["dyor_led_matrix_play_stream"] = function(obj) {
 	obj || (obj = {});
@@ -2131,7 +2033,7 @@ this["JST"]["dyor_led_matrix_play_stream"] = function(obj) {
 	return __p
 };
 
-this["JST"]["dyor_play_RGBstream"] = function(obj) {
+/*this["JST"]["dyor_play_RGBstream"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
@@ -2143,7 +2045,7 @@ this["JST"]["dyor_play_RGBstream"] = function(obj) {
 
 	}
 	return __p
-};
+};*/
 
 
 this["JST"]["dyor_music_definitions_play_melody"] = function(obj) {
@@ -2181,7 +2083,7 @@ this["JST"]["dyor_music_definitions_prepare_melody_ESP32"] = function(obj) {
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		__p += 'void prepareMelody(int channel,const uint16_t* melody, int length)\n{\n  //portENTER_CRITICAL_ISR(&playMelodyMux);\n  if (_melody_status==1)\n	return;\n  _melody_channel=channel;\n  _current_melody_ptr=(uint16_t*)melody;\n  _melody_length=length;\n  _melody_counter=0;\n  ledcWrite(_melody_channel,0);\n  _melody_next_time=millis()+2;\n  _melody_status=1;\n  //portEXIT_CRITICAL_ISR(&playMelodyMux);\n}\n';
+		__p += 'void prepareMelody(int channel,const uint16_t* melody, int length)\n{\n  if (_melody_status==1)\n	return;\n  _melody_channel=channel;\n  _current_melody_ptr=(uint16_t*)melody;\n  _melody_length=length;\n  _melody_counter=0;\n  ledcWrite(_melody_channel,0);\n  _melody_next_time=millis()+2;\n  _melody_status=1;\n}\n';
 	}
 	return __p
 };
@@ -2196,7 +2098,7 @@ this["JST"]["dyor_led_matrix_definitions_prepare_stream"] = function(obj) {
 	return __p
 };
 
-this["JST"]["dyor_definitions_prepare_RGBstream"] = function(obj) {
+/*this["JST"]["dyor_definitions_prepare_RGBstream"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
@@ -2204,7 +2106,17 @@ this["JST"]["dyor_definitions_prepare_RGBstream"] = function(obj) {
 		__p += 'void prepareRGBStream_'+((__t = (pin)) == null ? '' : __t)+'(const uint32_t stream[][7], int length, int duration)\n{\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==1)\n	return;\n  _current_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_ptr=(uint32_t*)&stream[0][0];\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_length=length;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter=0;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=1;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_duration=duration;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time=millis()+2; \n}\n';
 		}
 	return __p
-};
+};*/
+
+/*this["JST"]["dyor_definitions_prepare_RGBstream_ESP32"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += 'void prepareRGBStream_'+((__t = (pin)) == null ? '' : __t)+'(const uint32_t stream[][7], int length, int duration)\n{\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==1)\n	return;\n  _current_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_ptr=(uint32_t*)&stream[0][0];\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_length=length;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter=0;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=1;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_duration=duration;\n  _RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time=millis()+2; \n}\n';
+		}
+	return __p
+};*/
 
 this["JST"]["dyor_led_matrix_definitions_play_stream"] = function(obj) {
 	obj || (obj = {});
@@ -2216,7 +2128,7 @@ this["JST"]["dyor_led_matrix_definitions_play_stream"] = function(obj) {
 	return __p
 };
 
-this["JST"]["dyor_definitions_play_RGBstream"] = function(obj) {
+/*this["JST"]["dyor_definitions_play_RGBstream"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
@@ -2224,7 +2136,7 @@ this["JST"]["dyor_definitions_play_RGBstream"] = function(obj) {
 		__p += 'void playRGBStream_'+((__t = (pin)) == null ? '' : __t)+'(const uint32_t stream[][7], int length, int duration)\n{\n  int _length=length;\n  uint32_t _RGBbuffer[7];\n  uint16_t *ptr=(uint16_t*)&stream[0][0];\n  uint32_t _high;\n  uint32_t _low;\n  for (int j=0;j<_length;j++)\n  {\n	for (uint32_t i=0;i<7;i++)\n	{\n	  _low=(uint32_t)pgm_read_word_near(ptr++);\n	  _high=(uint32_t)pgm_read_word_near(ptr++);\n	  _RGBbuffer[i]=(_high<<16)+_low;\n	}\n	writepixels_'+((__t = (pin)) == null ? '' : __t)+'(_RGBbuffer[0],_RGBbuffer[1],_RGBbuffer[2],_RGBbuffer[3],_RGBbuffer[4],_RGBbuffer[5],_RGBbuffer[6]);\n	delay(duration);\n  }\n}\n';
 	}
 	return __p
-};
+};*/
 
 this["JST"]["dyor_music_definitions_play_melody_interrupt"] = function(obj) {
 	obj || (obj = {});
@@ -2256,7 +2168,7 @@ this["JST"]["dyor_led_matrix_definitions_play_stream_interrupt"] = function(obj)
 	return __p
 }
 
-this["JST"]["dyor_definitions_play_RGBstream_interrupt"] = function(obj) {
+/*this["JST"]["dyor_definitions_play_RGBstream_interrupt"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
@@ -2264,7 +2176,18 @@ this["JST"]["dyor_definitions_play_RGBstream_interrupt"] = function(obj) {
 		__p += 'void playRGBStreamInterrupt_'+((__t = (pin)) == null ? '' : __t)+'()\n{\n  unsigned long currentTime=millis();\n  uint32_t _RGBbuffer[7];\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==0)\n  {\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=-1;\n  }\n  else if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==1){\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter==_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_length)\n  {\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=0;\n  }\n  if (currentTime>=_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time)\n  {\n	uint16_t *ptr=(uint16_t*)_current_RGBstream_2_ptr;\n	uint32_t _high;\n	uint32_t _low;\n	for (uint32_t i=0;i<7;i++)\n  {\n	_low=(uint32_t)pgm_read_word_near(ptr++);\n	_high=(uint32_t)pgm_read_word_near(ptr++);\n	_RGBbuffer[i]=(_high<<16)+_low;\n  }\n	writepixels_'+((__t = (pin)) == null ? '' : __t)+'(_RGBbuffer[0],_RGBbuffer[1],_RGBbuffer[2],_RGBbuffer[3],_RGBbuffer[4],_RGBbuffer[5],_RGBbuffer[6]);\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time=currentTime+_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_duration;\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter++;\n	_current_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_ptr+=7;\n  }\n }\n}\n';
 	}
 	return __p
-}
+}*/
+
+/*this["JST"]["dyor_definitions_play_RGBstream_interrupt_ESP32"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += 'void IRAM_ATTR playRGBStreamInterrupt_'+((__t = (pin)) == null ? '' : __t)+'()\n{\n  portENTER_CRITICAL_ISR(&ledStripStreamMux);\n  unsigned long currentTime=millis();\n  uint32_t _RGBbuffer[7];\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==0)\n  {\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=-1;\n  }\n  else if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status==1){\n  if (_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter==_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_length)\n  {\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_status=0;\n  }\n  if (currentTime>=_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time)\n  {\n	uint16_t *ptr=(uint16_t*)_current_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_ptr;\n	uint32_t _high;\n	uint32_t _low;\n	for (uint32_t i=0;i<7;i++)\n  {\n	_low=(uint32_t)pgm_read_word_near(ptr++);\n	_high=(uint32_t)pgm_read_word_near(ptr++);\n	_RGBbuffer[i]=(_high<<16)+_low;\n  }\n	writepixels_'+((__t = (pin)) == null ? '' : __t)+'(_RGBbuffer[0],_RGBbuffer[1],_RGBbuffer[2],_RGBbuffer[3],_RGBbuffer[4],_RGBbuffer[5],_RGBbuffer[6]);\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_next_time=currentTime+_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_duration;\n	_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_counter++;\n	_current_RGBstream_'+((__t = (pin)) == null ? '' : __t)+'_ptr+=7;\n  }\n\nportEXIT_CRITICAL_ISR(&ledStripStreamMux); }\n}\n';
+	}
+	return __p
+}*/
+
 
 this["JST"]["dyor_piezo_buzzer"] = function(obj) {
 	obj || (obj = {});
@@ -2463,6 +2386,17 @@ this["JST"]["communications_softwareserial_def_setups"] = function(obj) {
 	return __p
 };
 
+this["JST"]["music_dfplayer_def_setups"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += '_mp3_device.begin(_mp3_serial);\n';
+
+	}
+	return __p
+};
+
 this["JST"]["communications_wifi_def_definitions"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
@@ -2473,6 +2407,19 @@ this["JST"]["communications_wifi_def_definitions"] = function(obj) {
 	}
 	return __p
 };
+
+this["JST"]["communications_wifi_def_definitions_serial"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += '#define ESP8266_USE_SOFTWARE_SERIAL';
+
+	}
+	return __p
+};
+
+
 
 this["JST"]["communications_wifi_def_definitions2"] = function(obj) {
 	obj || (obj = {});
@@ -2588,6 +2535,18 @@ this["JST"]["communications_wifi_def_setups3"] = function(obj) {
 			',' +
 			((__t = (password)) == null ? '' : __t) +
 			');\n  while (WiFi.status()!=WL_CONNECTED){\n	delay(500);\n	Serial.print(".");\n  }\n  Serial.println("Connected to AP");\n';
+	}
+	return __p
+};
+
+
+this["JST"]["dfplayer_def_definitions"] = function(obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += '#include <DFRobotDFPlayerMini.h>';
+
 	}
 	return __p
 };

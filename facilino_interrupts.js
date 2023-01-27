@@ -99,11 +99,17 @@
 					this.setColour(Facilino.LANG_COLOUR_CONTROL_INTERRUPTS);
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_TASK_MS')).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_ALWAYS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendValueInput('TASK0').setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_TASK')+'0 (ms)').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('DO0').appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
 					this.setMutator(new Blockly.Mutator(['dyor_task_item']));
 					this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_TASKS_TOOLTIP'));
-					this.taskCount_ = 0;
+					this.taskCount_ = 1;
+				},
+				default_inputs: function()
+				{
+					return '<value name="TASK0"><shadow type="math_number"><field name="NUM">100</field></shadow></value>';
 				},
 				isNotDuplicable: true,
 				mutationToDom: function() {
@@ -118,7 +124,7 @@
 				},
 				domToMutation: function(xmlElement) {
 					this.taskCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-					for (var x = 0; x < this.taskCount_; x++) {
+					for (var x = 1; x < this.taskCount_; x++) {
 						this.appendValueInput('TASK' + x).setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_TASK')+x+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
 						this.appendStatementInput('DO' + x).appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 					}
@@ -127,7 +133,11 @@
 					var containerBlock = workspace.newBlock('dyor_task_task');
 					containerBlock.initSvg();
 					var connection = containerBlock.getInput('STACK').connection;
-					for (var x = 0; x < this.taskCount_; x++) {
+					var taskBlock = workspace.newBlock('dyor_task_item');
+					taskBlock.initSvg();
+					connection.connect(taskBlock.previousConnection);
+					connection = taskBlock.nextConnection;
+					for (var x = 1; x < this.taskCount_; x++) {
 						var taskBlock = workspace.newBlock('dyor_task_item');
 						taskBlock.initSvg();
 						connection.connect(taskBlock.previousConnection);
@@ -137,33 +147,36 @@
 				},
 				compose: function(containerBlock) {
 					// Disconnect all the task input blocks and remove the inputs.
-					for (var x = this.taskCount_-1; x >= 0; x--) {
+					for (var x = this.taskCount_; x >= 1; x--) {
 						this.removeInput('TASK' + x);
 						this.removeInput('DO' + x);
 					}
-					this.taskCount_ = 0;
+					this.taskCount_ = 1;
 					// Rebuild the block's optional inputs.
 					var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-					while (clauseBlock) {
-						switch (clauseBlock.type) {
-							case 'dyor_task_item':
-								var taskInput = this.appendValueInput('TASK' + this.taskCount_).setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_TASK')+this.taskCount_+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
-								var doInput = this.appendStatementInput('DO' + this.taskCount_);
-								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-					this.taskCount_++;
-								// Reconnect any child blocks.
-								if (clauseBlock.valueConnection_) {
-									taskInput.connection.connect(clauseBlock.valueConnection_);
-								}
-								if (clauseBlock.statementConnection_) {
-									doInput.connection.connect(clauseBlock.statementConnection_);
-								}
-								break;
-							default:
-								throw 'Unknown block type.';
+					if (clauseBlock)
+					{
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+						while (clauseBlock) {
+							switch (clauseBlock.type) {
+								case 'dyor_task_item':
+									var taskInput = this.appendValueInput('TASK' + this.taskCount_).setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_TASK')+this.taskCount_+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
+									var doInput = this.appendStatementInput('DO' + this.taskCount_);
+									doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+									this.taskCount_++;
+									// Reconnect any child blocks.
+									if (clauseBlock.valueConnection_) {
+										taskInput.connection.connect(clauseBlock.valueConnection_);
+									}
+									if (clauseBlock.statementConnection_) {
+										doInput.connection.connect(clauseBlock.statementConnection_);
+									}
+									break;
+								default:
+									throw 'Unknown block type.';
+							}
+							clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 						}
-						clauseBlock = clauseBlock.nextConnection &&
-							clauseBlock.nextConnection.targetBlock();
 					}
 				},
 				saveConnections: function(containerBlock) {
@@ -202,6 +215,16 @@
 					this.appendStatementInput('STACK').setCheck('task');
 					this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_TASKS_TOOLTIP'));
 					this.contextMenu = false;
+				},
+				onchange: function()
+				{
+					var clauseBlock = this.getInputTargetBlock('STACK');
+					if (clauseBlock===null)
+					{
+						var blocks=this.workspace.getAllBlocks();
+						if (blocks[0].type==='dyor_task_task')
+							blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+					}
 				}
 			};
 

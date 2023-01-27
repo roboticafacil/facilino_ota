@@ -37,6 +37,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_LINEAR_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -68,6 +72,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_QUADRATIC_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -99,6 +107,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_CUBIC_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -130,6 +142,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_RECIPROCAL_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -161,6 +177,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_RECIPROCAL_QUADRATIC_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -192,6 +212,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_GAUSSIAN_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -223,6 +247,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_RATIONAL_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -254,6 +282,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_GEOMETRIC_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -285,6 +317,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_POWER_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -316,6 +352,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_ROOT_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
 			}
 		};
 
@@ -347,6 +387,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_SINUSOIDAL_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -378,6 +422,10 @@
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_FUNCTION_TRUNC_FOURIER_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				return '<value name="x"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 		}

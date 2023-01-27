@@ -7,14 +7,21 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		Facilino.indentSentences = function(sentences) {
-			var splitted_sentences = sentences.split('\n');
-			var final_sentences = '';
-			for (var i in splitted_sentences) {
-				final_sentences += '  ' + splitted_sentences[i] + '\n';
-			}
-			return final_sentences;
-		};
+		if (window.FacilinoAdvanced===true)
+		{
+			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
+			var infrared_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED');
+			var infrared_cat_colour=Facilino.LANG_COLOUR_LIGHT;
+			var infrared_digital_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
+		}
+		else
+		{
+			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
+			var infrared_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
+			var infrared_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
+			var infrared_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
+		}
+		
 		
 	Blockly.Arduino.ir_available = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
@@ -31,24 +38,26 @@
 			var code = 'if (irrecv_'+pin+'.decode(&_ir_results_'+pin+')) {\n	if (_ir_results_'+pin+'.decode_type>0)\n	{\n';
 			branch = Blockly.Arduino.statementToCode(this,'DO');
 			//branch = branch.replace(/&quot;/g, '"');
-			branch = indentSentences(branch);
+			branch = Facilino.indentSentences(branch);
 			branch = branch.substring(0, branch.length - 4);
-			code+=indentSentences(branch)+'	}\n	irrecv_'+pin+'.resume();\n  }\n';
+			code+=Facilino.indentSentences(branch)+'	}\n	irrecv_'+pin+'.resume();\n  }\n';
 			return code;
 		};
 
 		Blockly.Blocks.ir_available = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),
+			/*category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),*/
+			category: infrared_category,
+			subcategory: infrared_digital_subcategory,
 			helpUrl: Facilino.getHelpUrl('ir_available'),
 			tags: ['serial','communication'],
 			examples: ['serial_available_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_IR,
+			category_colour: infrared_cat_colour,
+			colour: infrared_digital_colour,
 			keys: ['LANG_IR_AVAILABLE_NAME','LANG_ADVANCED_SERIAL_AVAILABLE','LANG_IR_DO','LANG_IR_AVAILABLE_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_IR_AVAILABLE_NAME'),
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IR);
+				this.setColour(infrared_digital_colour);
 				this.appendDummyInput()
 					.appendField(Facilino.locales.getKey('LANG_IR_AVAILABLE')).appendField(new Blockly.FieldImage('img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
@@ -57,6 +66,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_AVAILABLE_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 			}
 		};
 
@@ -98,17 +111,19 @@
 		};
 
 		Blockly.Blocks.ir_read_code = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),
+			/*category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),*/
+			category: infrared_category,
+			subcategory: infrared_digital_subcategory,
 			helpUrl: Facilino.getHelpUrl('ir_read_code'),
 			tags: ['serial','communication'],
 			examples: ['logic_operation_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_IR,
+			category_colour: infrared_cat_colour,
+			colour: infrared_digital_colour,
 			keys: ['LANG_IR_READ_CODE_NAME','LANG_IR_READ_CODE','LANG_IR_READ_CODE_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_IR_READ_CODE_NAME'),
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IR);
+				this.setColour(infrared_digital_colour);
 				this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_IR_READ_CODE')).appendField(new Blockly.FieldImage('img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
 				this.setOutput(true,Number);
@@ -135,7 +150,7 @@
 			  //argument = Blockly.Arduino.valueToCode(this, 'DATA' + n, Blockly.Arduino.ORDER_NONE);
 			  argument = this.getFieldValue('DATA'+n);
 			  branch = Blockly.Arduino.statementToCode(this, 'ITEM' + n);
-			  branch = indentSentences(indentSentences(indentSentences(branch)));
+			  branch = Facilino.indentSentences(Facilino.indentSentences(Facilino.indentSentences(branch)));
 			  branch = branch.substring(0, branch.length - 9);
 			  code+='	  case '+argument+':\n'+branch+'  break;\n'
 			}
@@ -144,25 +159,33 @@
 		};
 
 		Blockly.Blocks.communications_ir_command = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),
+			/*category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IR'),*/
+			category: infrared_category,
+			subcategory: infrared_digital_subcategory,
 			tags: ['bluetooth'],
 			helpUrl: Facilino.getHelpUrl('dyor_bluetooth_app'),
 			examples: ['dyor_bluetooth_app_example.bly','dyor_bluetooth_app_example2.bly'],
-			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_IR,
+			category_colour: infrared_cat_colour,
+			colour: infrared_digital_colour,
 			keys: ['LANG_IR_COMMAND_NAME','LANG_IR_COMMAND','LANG_IR_COMMAND_PIN','LANG_IR_COMMAND_TOOLTIP','LANG_IR_COMMAND_CODE_RECV','LANG_IR_COMMAND_CODE','LANG_IR_DO'],
 			name: Facilino.locales.getKey('LANG_IR_COMMAND_NAME'),
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IR);
+				this.setColour(infrared_digital_colour);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND')).appendField(new Blockly.FieldImage('img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('DATA1').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setMutator(new Blockly.Mutator(['communications_ir_command_item']));
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_COMMAND_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 			},
 			isNotDuplicable: true,
 		mutationToDom: function() {
@@ -177,7 +200,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 1; x <= this.itemCount_; x++) {
+				for (var x = 2; x <= this.itemCount_; x++) {
 					this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA' + x).setAlign(Blockly.ALIGN_RIGHT);
 					//this.setFieldValue(xx,'DATA'+x);
 					this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -188,7 +211,7 @@
 				var containerBlock = workspace.newBlock('communications_ir_command_stack');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 1; x <= this.itemCount_; x++) {
+				for (var x = 2; x <= this.itemCount_; x++) {
 					var itemBlock = workspace.newBlock('communications_ir_command_item');
 					itemBlock.initSvg();
 					connection.connect(itemBlock.previousConnection);
@@ -198,11 +221,11 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the items input blocks and remove the inputs.
-				for (var x = this.itemCount_; x > 0; x--) {
+				for (var x = this.itemCount_; x > 1; x--) {
 					this.removeInput('DATA' + x);
 					this.removeInput('ITEM' + x);
 				}
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
 				while (clauseBlock) {
@@ -230,7 +253,7 @@
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 1;
+				var x = 2;
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'communications_ir_command_item':
@@ -252,10 +275,10 @@
 
 	Blockly.Blocks.communications_ir_command_stack = {
 			// App
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_IR,
+			colour: infrared_digital_colour,
 			keys: ['LANG_IR_COMMAND_DECODE','LANG_IR_COMMAND_TOOLTIP'],
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IR);
+				this.setColour(infrared_digital_colour);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_DECODE')).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('STACK').setCheck('ir_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_COMMAND_TOOLTIP'));
@@ -264,10 +287,10 @@
 		};
 
 	Blockly.Blocks.communications_ir_command_item = {
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_IR,
+			colour: infrared_digital_colour,
 			keys: ['LANG_IR_COMMAND_CODE','LANG_IR_COMMAND_TOOLTIP'],
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IR);
+				this.setColour(infrared_digital_colour);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE')).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'ir_item');
 				this.setNextStatement(true,'ir_item');

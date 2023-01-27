@@ -6,17 +6,23 @@ include("auth.php");
 		if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
 		{
 			//Save project, then open
-			$query = "SELECT facilino_code_id from `projects` where id= ".$_POST['project_id'];
-			$result = mysqli_query($con,$query);
+			//$query = "SELECT facilino_code_id from `projects` where id= ".$_POST['project_id'];
+			//$result = mysqli_query($con,$query);
+			$query = "SELECT facilino_code_id from `projects` where id=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("i",$_POST['project_id']);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
-				print_r("Hello again!");
 				$row=mysqli_fetch_row($result);
-				$query="UPDATE `facilino_code` SET `blockly_code`='".htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1)."',`arduino_code`='".$_POST["arduino_code"]."' WHERE id=".$row[0];
-				//echo htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1);
-				//print_r($_POST['facilino_code']);
-				$result = mysqli_query($con,$query);
+				//$query="UPDATE `facilino_code` SET `blockly_code`='".htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1)."',`arduino_code`='".$_POST["arduino_code"]."' WHERE id=".$row[0];
+				//$result = mysqli_query($con,$query);
+				$query="UPDATE `facilino_code` SET `blockly_code`=?,`arduino_code`=? WHERE id=?";
+				$statement=mysqli_prepare($con,$query);
+				$statement->bind_param("ssi",htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1),$_POST["arduino_code"],$row[0]);
+				$statement->execute();
 				header("Location: dashboard.php");
 			}
 		}
@@ -30,23 +36,37 @@ include("auth.php");
 			<?php
 			//Open facilino project
 			$project_id=$_GET["id"];
-			$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
-			//print_r($query);
-			$result = mysqli_query($con,$query);
+			//$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("is",$project_id,$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
 				$row = mysqli_fetch_row($result);
-				$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=".$project_id." and `meta_key`='TOOLBOX'";
-				$result_meta = mysqli_query($con,$query_meta);
+				//$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=".$project_id." and `meta_key`='TOOLBOX'";
+				//$result_meta = mysqli_query($con,$query_meta);
+				$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=? and `meta_key`='TOOLBOX'";
+				$statement_meta=mysqli_prepare($con,$query_meta);
+				$statement_meta->bind_param("i",$project_id);
+				$statement_meta->execute();
+				$result_meta=$statement_meta->get_result();
 				$rows_meta = mysqli_num_rows($result_meta);
 				if ($rows_meta==1)
 				{
 					$row_meta = mysqli_fetch_row($result_meta);
 					echo '<script>window.toolbox ='.$row_meta[0].';</script>';
 				}
-				$query_compilation_flags = "SELECT variant,compilation_flags FROM `processors_meta` INNER JOIN `processors` ON `processors`.`id`=`processors_meta`.`processor_id` WHERE `processors_meta`.`processor_id`=".$row[9];
-				$result_compilation_flags = mysqli_query($con,$query_compilation_flags);
+				//$query_compilation_flags = "SELECT variant,compilation_flags FROM `processors_meta` INNER JOIN `processors` ON `processors`.`id`=`processors_meta`.`processor_id` WHERE `processors_meta`.`processor_id`=".$row[9];
+				//$result_compilation_flags = mysqli_query($con,$query_compilation_flags);
+				$query_compilation_flags="SELECT variant,compilation_flags FROM `processors_meta` INNER JOIN `processors` ON `processors`.`id`=`processors_meta`.`processor_id` WHERE `processors_meta`.`processor_id`=?";
+				$statement_compilation=mysqli_prepare($con,$query_compilation_flags);
+				$statement_compilation->bind_param("i",$row[9]);
+				$statement_compilation->execute();
+				$result_compilation_flags=$statement_compilation->get_result();
 				$compilation_flags = array();
 				while ($row_compilation_flags=mysqli_fetch_row($result_compilation_flags))
 				{
@@ -85,7 +105,7 @@ include("auth.php");
 				<input name="submit" type="submit" value="save" />
 				</form>
 				</div>-->
-				<div id="modal_progress" class="modal" style="display:none">
+				<div id="modal_progress" class="modal" style="display:none;margin-left:3em">
 				  <div class="modal-content">
 					<span class="close" style="width:0.8em">&times;</span>
 					<section>
@@ -103,7 +123,7 @@ include("auth.php");
 					?>
 					&nbsp;<p class="btn" style="padding:0;font-size:12px"><?php echo $website["BOARD"];?>:</p><select  class="btn btn-select resizeselect" id="flags" class="text-black dropdown-toggle display-4 icon-menu" onchange="flagsChange(this.value)" style="font-size:12px;padding:0.3em"></select></div>
 					<div>
-					<textarea name="code_textarea" id="code_textarea" rows="15" style="margin-top:0.5em; margin-bottom:0.5em; width:100%; height: 70%; font-family:monospace; font-size: 1em; padding: 0.2rem 0.4rem; background-color: #f8f9fa; line-height: 1em"></textarea>
+						<textarea name="code_textarea" id="code_textarea" rows="15" style="margin-top:0.5em; margin-bottom:0.5em; width:100%; height: 70%; font-family:monospace; font-size: 1em; padding: 0.2rem 0.4rem; background-color: #f8f9fa; line-height: 1em"></textarea>
 					</div>
 					<ins class="adsbygoogle" style="display:block"
 				 data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86"
@@ -219,11 +239,11 @@ include("auth.php");
 					{
 						if (window.FacilinoBlockFilter==='DYOR')
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_VOICE','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 						}
 						else if (window.FacilinoBlockFilter==='bPED')
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_VOICE','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 						}
 						else if (window.FacilinoBlockFilter==='meArm')
 						{
@@ -231,19 +251,19 @@ include("auth.php");
 						}
 						else if (window.FacilinoBlockFilter==='Multisensor')
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
 						}
 						else if (window.FacilinoBlockFilter==='HomeAutomation')
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
 						}
 						else if (window.FacilinoBlockFilter==='T-Watch2020')
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS'];
 						}
 						else
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_SUBCATEGORY_OTHER','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_VOICE','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_MEARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_MEARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 						}
 					}
 					
@@ -286,7 +306,6 @@ include("auth.php");
 					FacilinoLDR.load(options);
 					FacilinoLightDimmer.load(options);
 					FacilinoBuzzer.load(options);
-					FacilinoVoice.load(options);
 					FacilinoMic.load(options);
 					FacilinoMelody.load(options);
 					FacilinoMP3.load(options);
@@ -341,15 +360,16 @@ include("auth.php");
 						}
 						if (updateCode)
 						{
-						  $('#code').html('<code class="c++"><pre>'
+						  $('#code').html('<code class="c++" style="display:inline-block; width:100%;height:100%"><pre id="pre" style="height:101%">'
 						  + escapeCode(Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace()))
 						  + '</pre></code>');
+						  //var codeSnipet='void sum(int a,int b){\nint c;\nreturn a+b;\n}\n';
 						}
 						else
 						{
 						}
 						  // Highlight
-						$("pre").each(function (i, e) {
+						$("#pre").each(function (i, e) {
 						  hljs.highlightBlock(e);
 						});
 						//Save History
@@ -384,6 +404,86 @@ include("auth.php");
 							window.dispatchEvent(new Event('resize'));
 						}
 					});
+					
+		function doAutoIndent(value, indent) {
+			indent || (indent = "\t");
+			
+			var lastValue='';
+			var selectionStart=0,selectionEnd=value.length;
+			var caret =selectionStart;
+			var change = value.length - lastValue.length;
+			
+			added = value.substr(caret - change, change) || '',
+            removed = lastValue.substr(caret, -change) || '';
+			
+			function setValue(text) {
+				ta.value = text;
+				return value;
+			}
+			
+			function str_repeat(str, n) {
+				var out = '';
+				while (n--) out += str;
+				return out;
+			}
+			
+			function isIndented(line) {
+				var regex = new RegExp('^(' + indent + '+)', 'g'),
+					match = line.match(regex);
+				return match && match[0].length / indent.length || 0;
+			}
+			
+			function addIndent(before, after, num) {
+				// num = num ? ~~num : 1;
+				if ( !num ) return;
+				lastValue = setValue(before + str_repeat(indent, num) + after);
+				selectionStart = selectionEnd = before.length + indent.length * num;
+			}
+			
+			function removeIndent(before, after) {
+				var remove = before.slice(before.length - 1 - indent.length, before.length - 1);
+				if ( remove != indent ) {
+					return;
+				}
+				
+				lastValue = setValue(before.slice(0, -1-indent.length) + '}' + after);
+				selectionStart = selectionEnd = before.length - indent.length;
+			}
+			
+			function getPrevLine(before) {
+				var lines = value.split(/\n/g),
+					line = before.trimRight().split(/\n/g).length - 1;
+				return lines[line] || '';
+			}
+			
+			before = value.substr(0, caret),
+			after = value.substr(caret),
+			lastChar = before.trim().slice(-1),
+			nextChar = after.substr(0, 1);
+					
+			// ENTER
+			if ( code == 13 ) {
+				// Immediately after a {
+				if ( lastChar == '{' ) {
+					var prevLine = getPrevLine(before),
+						indents = isIndented(prevLine),
+						more = nextChar == '}' ? 0 : 1;
+					return addIndent(before, after, indents + more);
+				}
+				
+				// After an indented line
+				var prevLine = getPrevLine(before),
+					indents = isIndented(prevLine),
+					more = nextChar == '}' ? -1 : 0;
+				if ( indents + more > 0 ) {
+					addIndent(before, after, indents + more);
+				}
+			}
+			else if ( added == '}' ) {
+				removeIndent(before, after);
+			}
+			console.log(value);
+		}
 		
 		function escapeCode(code) {
                 var str = code;
@@ -716,13 +816,20 @@ include("auth.php");
 					var option;
 					removeOptions(select);
 					result = eval(XHR.responseText);
-					console.log(result);
+					//console.log(result);
+					var prev_selected_port=window.selected_port;
+					window.selected_port=result[0];
 					result.forEach(function (value,idx){
 						option = document.createElement('option');
 						option.value = option.textContent = value;
 						select.appendChild(option);
+						if (prev_selected_port===value)
+						{
+							option.selected=true;
+							window.selected_port=prev_selected_port;
+						}
 					});
-					selected_port=result[0];
+					
 				}
 			}
 		}
@@ -763,6 +870,7 @@ include("auth.php");
 			var code = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
 			var code_textarea = document.getElementById('code_textarea');
 			code_textarea.value=code;
+			
 			if (window.FacilinoOTA)
 				listIPPorts();
 			else

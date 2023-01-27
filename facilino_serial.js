@@ -73,6 +73,10 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINT_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="CONTENT"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 		// Source: src/blocks/serial_println/serial_println.js
@@ -115,6 +119,10 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINTLN_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="CONTENT"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 
@@ -146,6 +154,10 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PLOT_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 		
@@ -201,6 +213,10 @@
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
 				this.itemCount_ = 2;
+			},
+			default_inputs: function()
+			{
+				return '<value name="ADD0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="ADD1"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			},
 			mutationToDom: function() {
 				var container = document.createElement('mutation');
@@ -448,6 +464,10 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_WRITE_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="DATA"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="DATA"><shadow type="math_1DArray_constructor2"></shadow></value>','<value name="DATA"><shadow type="variables_get"></shadow></value>'];
 			}
 		};
 		// Source: src/blocks/serial_println/serial_println.js
@@ -536,6 +556,10 @@
 					.setCheck([Number,'Variable']);
 				this.setOutput(true,String);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_CONVERSION_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 		Blockly.Arduino.serial_timeout = function() {
@@ -564,6 +588,10 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_TIMEOUT_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="TIMEOUT"><shadow type="math_number"><field name="NUM">1000</field></shadow></value>';
 			}
 		};
 			}

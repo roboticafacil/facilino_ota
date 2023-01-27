@@ -15,23 +15,32 @@
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 			var value_degree = Blockly.Arduino.valueToCode(this, 'DEGREE', Blockly.Arduino.ORDER_ATOMIC);
 			var code = '';
-
-			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+			//Facilino.ServosIDs[this.id]=pin;
+			if (this.getInputTargetBlock('PIN')!==undefined)
 			{
-				Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
-				Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+				if (this.getInputTargetBlock('PIN').type==='pin_digital')
+				{
+					Facilino.ServosIDs[this.id]=pin;
+					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+					{
+						Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
+						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+					}
+					else if (Facilino.profiles['processor']==='ESP32')
+					{
+						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
+					}
+					else
+						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+					Blockly.Arduino.setups_['movement_servo_move_' + pin] = JST['dyor_servo_setups']({'pin': pin});
+					code += JST['movement_servo_move']({'pin': pin,'value_degree': value_degree});
+				}
+				else
+				{
+					code += '_servos['+pin+']->write('+value_degree+');\n';
+				}
 			}
-			else if (Facilino.profiles['processor']==='ESP32')
-			{
-				Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
-				Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
-			}
-			else
-				Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
-
-			Blockly.Arduino.setups_['movement_servo_move_' + pin] = JST['dyor_servo_setups']({'pin': pin});
-
-			code += JST['movement_servo_move']({'pin': pin,'value_degree': value_degree});
 			return code;
 		};
 
@@ -48,13 +57,17 @@
 			//servo_move initialization
 			init: function() {
 				this.setColour(robot_colour);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 52*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
 		this.appendValueInput('DEGREE', Number).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_DEGREES')).appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_SERVO_MOVE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="DEGREE"><shadow type="math_number"><field name="NUM">90</field></shadow></value>';
 			}
 		};
 	}
@@ -62,24 +75,33 @@
 	{
 		Blockly.Arduino.movement_servo_cont1 = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE) || '';
-			var value_speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC);
-
+			var value_speed = Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '';
+			//Facilino.ServosIDs[this.id]=pin;
 			var code = '';
-
-			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+			if (this.getInputTargetBlock('PIN')!==undefined)
 			{
-				Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
-				Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
-			}
-			else if (Facilino.profiles['processor']==='ESP32')
-			{
-				Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
-				Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
-			}
+				if (this.getInputTargetBlock('PIN').type==='pin_digital')
+				{
+					Facilino.ServosIDs[this.id]=pin;
+					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+					{
+						Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
+						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+					}
+					else if (Facilino.profiles['processor']==='ESP32')
+					{
+						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
+					}
 
-			Blockly.Arduino.setups_['movement_servo_move_' + pin] = JST['dyor_servo_setups']({'pin': pin});
-
-			code += JST['movement_servo_cont1']({'pin': pin,'value_speed': value_speed});
+					Blockly.Arduino.setups_['movement_servo_move_' + pin] = JST['dyor_servo_setups']({'pin': pin});
+					code += JST['movement_servo_cont1']({'pin': pin,'value_speed': value_speed});
+				}
+				else
+				{
+					code += '_servos['+pin+']->write('+value_speed+');\n';
+				}
+			}
 			return code;
 		};
 
@@ -95,7 +117,7 @@
 			name: Facilino.locales.getKey('LANG_SERVO_CONT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendValueInput('PIN').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 63*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
 				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage('img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
@@ -103,6 +125,10 @@
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_SERVO_CONT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="SPEED"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			},
 			isVariable: function(varValue) {
 				for (var i in Blockly.Variables.allUsedVariables) {
@@ -113,6 +139,102 @@
 				return false;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===true)
+		{
+			Blockly.Arduino.movement_servo_attach = function() {
+				var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
+				var code = '';
+				Facilino.ServosIDs[this.id]=pin;
+				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+				{
+					Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+				}
+				else if (Facilino.profiles['processor']==='ESP32')
+				{
+					//Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
+					Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
+				}
+				else
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+				code += '_servo'+pin+'.attach('+pin+','+this.getFieldValue('MIN')+','+this.getFieldValue('MAX')+');\n';
+				return code;
+			};
+
+			Blockly.Blocks.movement_servo_attach = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_MOVEMENT'),
+				subcategory: robot_subcategory,
+				tags: ['servo','movement'],
+				helpUrl: Facilino.getHelpUrl('movement_servo_move'),
+				examples: ['movement_servo_move_example.bly'],
+				category_colour: Facilino.LANG_COLOUR_MOVEMENT,
+				colour: robot_colour,
+				keys: ['LANG_SERVO_ATTACH_NAME','LANG_SERVO_ATTACH','LANG_SERVO_MOVE_PIN','LANG_SERVO_ATTACH_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_SERVO_ATTACH_NAME'),
+				//servo_move initialization
+				init: function() {
+					this.setColour(robot_colour);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_ATTACH')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField('us').appendField(new Blockly.FieldNumber(500,400,1500),'MIN').appendField(new Blockly.FieldNumber(2500,1500,2600),'MAX')
+					this.setPreviousStatement(true,'code');
+					this.setNextStatement(true,'code');
+					this.setTooltip(Facilino.locales.getKey('LANG_SERVO_ATTACH_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+				}
+			};
+			
+			Blockly.Arduino.movement_servo_detach = function() {
+				var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
+				var code = '';
+
+				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
+				{
+					Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+				}
+				else if (Facilino.profiles['processor']==='ESP32')
+				{
+					Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
+				}
+				else
+					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
+
+				code += '_servo'+pin+'.detach('+pin+');\n';
+				return code;
+			};
+
+			Blockly.Blocks.movement_servo_detach = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_MOVEMENT'),
+				subcategory: robot_subcategory,
+				tags: ['servo','movement'],
+				helpUrl: Facilino.getHelpUrl('movement_servo_move'),
+				examples: ['movement_servo_move_example.bly'],
+				category_colour: Facilino.LANG_COLOUR_MOVEMENT,
+				colour: robot_colour,
+				keys: ['LANG_SERVO_DETACH_NAME','LANG_SERVO_DETACH','LANG_SERVO_MOVE_PIN','LANG_SERVO_DETACH_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_SERVO_DETACH_NAME'),
+				//servo_move initialization
+				init: function() {
+					this.setColour(robot_colour);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_DETACH')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+					this.setPreviousStatement(true,'code');
+					this.setNextStatement(true,'code');
+					this.setTooltip(Facilino.locales.getKey('LANG_SERVO_DETACH_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+				}
+			};
+		}
 
 		Blockly.Arduino.dyor_dc_motor1 = function() {
 			var pin1 = Blockly.Arduino.valueToCode(this, 'PIN1', Blockly.Arduino.ORDER_ATOMIC) || '';
@@ -153,24 +275,35 @@
 			name: Facilino.locales.getKey('LANG_SERVO_DC_MOTOR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DC_MOTOR')).appendField(new Blockly.FieldImage('img/blocks/engine.svg', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-		//this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/drv8833.png', 63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/add-icon.png',63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/micro_gear_motor.png', 63*options.zoom, 63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN1').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'1').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN2').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'2').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DC_MOTOR')).appendField(new Blockly.FieldImage('img/blocks/engine.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				//this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/drv8833.png', 63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/add-icon.png',63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/micro_gear_motor.png', 63*options.zoom, 63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN1').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'1').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN2').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'2').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage('img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_SERVO_DC_MOTOR_TOOLTIP'));
-			},
-			isVariable: function(varValue) {
-				for (var i in Blockly.Variables.allUsedVariables) {
-					if (Blockly.Variables.allUsedVariables[i] === varValue) {
-						return true;
+				},
+				default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="PIN1"><shadow type="pin_pwm"></shadow></value>';
+					if (Facilino.profiles.default.pwm.length>1)
+						xml+='<value name="PIN2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="PIN2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+					xml +='<value name="SPEED"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+					return xml;
+				},
+				isVariable: function(varValue) {
+					for (var i in Blockly.Variables.allUsedVariables) {
+						if (Blockly.Variables.allUsedVariables[i] === varValue) {
+							return true;
+						}
 					}
+					return false;
 				}
-				return false;
-			}
 		};
 
 		if (window.FacilinoAdvanced===true)
@@ -209,6 +342,16 @@
 			this.setInputsInline(false);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
 			this.setTooltip(Facilino.locales.getKey('LANG_STEPPER_SET_SPEED_TOOLTIP'));
+			if (Facilino.profiles.default.digital.length>1)
+				this.setFieldValue(Facilino.profiles.default.digital[1][1],'PIN2');
+			if (Facilino.profiles.default.digital.length>2)
+				this.setFieldValue(Facilino.profiles.default.digital[2][1],'PIN3');
+			if (Facilino.profiles.default.digital.length>3)
+				this.setFieldValue(Facilino.profiles.default.digital[3][1],'PIN4');
+		  },
+		  default_inputs: function()
+		  {
+			  return '<value name="SPEED"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 		  }
 		};
 		}
@@ -247,6 +390,16 @@
 			this.setInputsInline(false);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
 			this.setTooltip(Facilino.locales.getKey('LANG_STEPPER_STEPS_TOOLTIP'));
+			if (Facilino.profiles.default.digital.length>1)
+				this.setFieldValue(Facilino.profiles.default.digital[1][1],'PIN2');
+			if (Facilino.profiles.default.digital.length>2)
+				this.setFieldValue(Facilino.profiles.default.digital[2][1],'PIN3');
+			if (Facilino.profiles.default.digital.length>3)
+				this.setFieldValue(Facilino.profiles.default.digital[3][1],'PIN4');
+		  },
+		  default_inputs: function()
+		  {
+			  return '<value name="STEPS"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 		  }
 		};
 	}

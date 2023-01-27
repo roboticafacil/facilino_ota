@@ -140,6 +140,10 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_SET_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="VALUE"><shadow type="text"><field name="TEXT"></field></shadow></value>'];
+			},
 			getVariables: function() {
 				var variables = Blockly.Variables.allVariables();
 				var dropdown = [];
@@ -245,10 +249,14 @@
 				varType = 'int *';
 				code += varType + varName + '=' + '(int*)malloc(3*sizeof(int));\n';
 				code += varName + '=' + varValue + ';\n';
-			} else if ((varValue.search('analogRead') >= 0) || (varValue.search('digitalRead') >= 0) || (varValue.search('Distanc') >= 0) || (!isNaN(parseFloat(varValue))) || (varValue.search('random') >= 0) || (varValue.search('map') >= 0) || varValue.search('\\[') >= 0 || (varValue.search('abs') >= 0) || (varValue.search('sqrt') >= 0) || (varValue.search('log') >= 0) || (varValue.search('exp') >= 0) || (varValue.search('pow') >= 0) || (varValue.search('\\+'))) {
+			} else if ((varValue.search('analogRead') >= 0) || (varValue.search('digitalRead') >= 0) || (varValue.search('Distanc') >= 0) || (!isNaN(parseFloat(varValue))) || (varValue.search('random') >= 0) || (varValue.search('map') >= 0) || varValue.search('\\[') >= 0 || (varValue.search('\\+'))) {
 				varType = 'int';
 				code += varType + ' ' + varName + sufix + '=' + varValue + ';\n';
-			} else {
+			} else if ((varValue.search('abs') >= 0) || (varValue.search('sqrt') >= 0) || (varValue.search('log') >= 0) || (varValue.search('exp') >= 0) || (varValue.search('pow') >= 0)) {
+				varType = 'int';
+				code += varType + ' ' + varName + sufix + '=' + varValue + ';\n';
+			}
+			else {
 				varType = 'unknown';
 				code += varType + ' ' + varName + '=' + varValue + ';\n';
 			}
@@ -275,6 +283,10 @@
 				this.setNextStatement(true,'code');
 				this.last_variable='';
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="VALUE"><shadow type="text"><field name="TEXT"></field></shadow></value>'];
 			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];
@@ -342,99 +354,8 @@
 				}
 			}
 		};
-
-
-		Blockly.Arduino.variables_local_type = function() {
-			// Variable setter.
-			var varType = this.getFieldValue('VAR_TYPE');
-			var varValue = Blockly.Arduino.valueToCode(this, 'VALUE', Blockly.Arduino.ORDER_ASSIGNMENT);
-			var varName = this.getFieldValue('VAR') || '';
-			var code = '';
-
-
-			code += varType + ' ' + varName + '=' + varValue + ';\n';
-
-			Facilino.variables[varName] = [varType, 'local','variable'];
-
-			return code;
-		};
-		Blockly.Blocks.variables_local_type = {
-			// Variable setter.
-			category: Facilino.locales.getKey('LANG_CATEGORY_VARIABLES'), // Variables are handled specially.
-			helpUrl: Facilino.getHelpUrl('variables_local_type'),
-			tags: ['variables'],
-			examples: ['variables_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_VARIABLES,
-			colour: Facilino.LANG_COLOUR_VARIABLES,
-			keys: ['LANG_VARIABLES_LOCAL_TYPE_NAME','LANG_VARIABLES_LOCAL','LANG_VARIABLES_LOCAL_TYPE','LANG_VARIABLES_TYPE_STRING','LANG_VARIABLES_TYPE_INTEGER','LANG_VARIABLES_TYPE_INTEGER_LONG','LANG_VARIABLES_TYPE_INTEGER_SHORT','LANG_VARIABLES_TYPE_BYTE','LANG_VARIABLES_TYPE_BOOL','LANG_VARIABLES_TYPE_FLOAT','LANG_VARIABLES_GLOBAL_EQUALS','LANG_VARIABLES_LOCAL_TOOLTIP2'],
-			name: Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_VARIABLES);
-				this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL')).
-				appendField(new Blockly.FieldTextInput(''), 'VAR').
-				appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE')).
-				appendField(new Blockly.FieldDropdown([
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_STRING'), 'String'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_CHAR'), 'char'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_SHORT'), 'short'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_LONG'), 'long'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE'), 'byte'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BOOL'), 'bool'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_FLOAT'), 'float']
-				]), "VAR_TYPE").
-				appendField(Facilino.locales.getKey('LANG_VARIABLES_GLOBAL_EQUALS')).setCheck([Boolean,Number,String,'Variable','Array']);
-				this.setInputsInline(false);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP2'));
-			},
-			getVars: Blockly.Blocks.variables_local.getVars,
-			renameVar: Blockly.Blocks.variables_local.renameVar,
-			isVariable: Blockly.Blocks.variables_local.isVariable,
-			validName: Blockly.Blocks.variables_local.validName,
-			onchange: Blockly.Blocks.variables_local.onchange
-		};
 		
-		Blockly.Arduino.variables_local_custom_type = function() {
-			var varType = this.getFieldValue('VAR_TYPE');
-			var varName = this.getFieldValue('VAR') || '';
-			var code = '';
-			code += varType + ' ' + varName + ';\n';
-			Facilino.variables[varName] = [varType, 'local','variable'];
-			return code;
-		};
-		Blockly.Blocks.variables_local_custom_type = {
-			// Variable setter.
-			category: Facilino.locales.getKey('LANG_CATEGORY_VARIABLES'), // Variables are handled specially.
-			helpUrl: Facilino.getHelpUrl('variables_local_custom_type'),
-			tags: ['variables'],
-			examples: ['variables_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_VARIABLES,
-			colour: Facilino.LANG_COLOUR_VARIABLES,
-			keys: ['LANG_VARIABLES_LOCAL_CUSTOM_TYPE_NAME','LANG_VARIABLES_LOCAL','LANG_VARIABLES_LOCAL_TOOLTIP3'],
-			name: Facilino.locales.getKey('LANG_VARIABLES_LOCAL_CUSTOM_TYPE_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_VARIABLES);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL')).
-				appendField(new Blockly.FieldTextInput(''), 'VAR').
-				appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE')).
-				appendField(new Blockly.FieldTextInput(''), 'VAR_TYPE');
-				
-
-				this.setInputsInline(false);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-				this.varName='';
-				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP3'));
-			},
-			getVars: function() {
-				if (this.varName!=='')
-					return [this.varName];
-				else
-					return [];
-			}
-		};
+		
 
 		// Source: src/blocks/variables_global/variables_global.js
 		Blockly.Arduino.variables_global = function() {
@@ -522,6 +443,67 @@
 				//this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_GLOBAL_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="VALUE"><shadow type="text"><field name="TEXT"></field></shadow></value>'];
+			},
+			getVars: Blockly.Blocks.variables_local.getVars,
+			renameVar: Blockly.Blocks.variables_local.renameVar,
+			isVariable: Blockly.Blocks.variables_local.isVariable,
+			validName: Blockly.Blocks.variables_local.validName,
+			onchange: Blockly.Blocks.variables_local.onchange
+		};
+
+
+		Blockly.Arduino.variables_local_type = function() {
+			// Variable setter.
+			var varType = this.getFieldValue('VAR_TYPE');
+			var varValue = Blockly.Arduino.valueToCode(this, 'VALUE', Blockly.Arduino.ORDER_ASSIGNMENT);
+			var varName = this.getFieldValue('VAR') || '';
+			var code = '';
+
+
+			code += varType + ' ' + varName + '=' + varValue + ';\n';
+
+			Facilino.variables[varName] = [varType, 'local','variable'];
+
+			return code;
+		};
+		Blockly.Blocks.variables_local_type = {
+			// Variable setter.
+			category: Facilino.locales.getKey('LANG_CATEGORY_VARIABLES'), // Variables are handled specially.
+			helpUrl: Facilino.getHelpUrl('variables_local_type'),
+			tags: ['variables'],
+			examples: ['variables_example.bly'],
+			category_colour: Facilino.LANG_COLOUR_VARIABLES,
+			colour: Facilino.LANG_COLOUR_VARIABLES,
+			keys: ['LANG_VARIABLES_LOCAL_TYPE_NAME','LANG_VARIABLES_LOCAL','LANG_VARIABLES_LOCAL_TYPE','LANG_VARIABLES_TYPE_STRING','LANG_VARIABLES_TYPE_INTEGER','LANG_VARIABLES_TYPE_INTEGER_LONG','LANG_VARIABLES_TYPE_INTEGER_SHORT','LANG_VARIABLES_TYPE_BYTE','LANG_VARIABLES_TYPE_BOOL','LANG_VARIABLES_TYPE_FLOAT','LANG_VARIABLES_GLOBAL_EQUALS','LANG_VARIABLES_LOCAL_TOOLTIP2'],
+			name: Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE_NAME'),
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_VARIABLES);
+				this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL')).
+				appendField(new Blockly.FieldTextInput(''), 'VAR').
+				appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE')).
+				appendField(new Blockly.FieldDropdown([
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_STRING'), 'String'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_CHAR'), 'char'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_SHORT'), 'short'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_LONG'), 'long'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE'), 'byte'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BOOL'), 'bool'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_FLOAT'), 'float']
+				]), "VAR_TYPE").
+				appendField(Facilino.locales.getKey('LANG_VARIABLES_GLOBAL_EQUALS')).setCheck([Boolean,Number,String,'Variable','Array']);
+				this.setInputsInline(false);
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
+				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP2'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="character"><field name="TEXT">c</field></shadow></value><field name="VAR_TYPE">char</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">1.2</field></shadow></value><field name="VAR_TYPE">float</field>'];
+			},
 			getVars: Blockly.Blocks.variables_local.getVars,
 			renameVar: Blockly.Blocks.variables_local.renameVar,
 			isVariable: Blockly.Blocks.variables_local.isVariable,
@@ -580,6 +562,10 @@
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_GLOBAL_TOOLTIP2'));
 			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="character"><field name="TEXT">c</field></shadow></value><field name="VAR_TYPE">char</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">1.2</field></shadow></value><field name="VAR_TYPE">float</field>'];
+			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];
 			},
@@ -591,6 +577,46 @@
 			isVariable: Blockly.Blocks.variables_local.isVariable,
 			onchange: Blockly.Blocks.variables_local.onchange,
 			validName: Blockly.Blocks.variables_local.validName
+		};
+		
+		Blockly.Arduino.variables_local_custom_type = function() {
+			var varType = this.getFieldValue('VAR_TYPE');
+			var varName = this.getFieldValue('VAR') || '';
+			var code = '';
+			code += varType + ' ' + varName + ';\n';
+			Facilino.variables[varName] = [varType, 'local','variable'];
+			return code;
+		};
+		Blockly.Blocks.variables_local_custom_type = {
+			// Variable setter.
+			category: Facilino.locales.getKey('LANG_CATEGORY_VARIABLES'), // Variables are handled specially.
+			helpUrl: Facilino.getHelpUrl('variables_local_custom_type'),
+			tags: ['variables'],
+			examples: ['variables_example.bly'],
+			category_colour: Facilino.LANG_COLOUR_VARIABLES,
+			colour: Facilino.LANG_COLOUR_VARIABLES,
+			keys: ['LANG_VARIABLES_LOCAL_CUSTOM_TYPE_NAME','LANG_VARIABLES_LOCAL','LANG_VARIABLES_LOCAL_TOOLTIP3'],
+			name: Facilino.locales.getKey('LANG_VARIABLES_LOCAL_CUSTOM_TYPE_NAME'),
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_VARIABLES);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL')).
+				appendField(new Blockly.FieldTextInput(''), 'VAR').
+				appendField(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TYPE')).
+				appendField(new Blockly.FieldTextInput(''), 'VAR_TYPE');
+				
+
+				this.setInputsInline(false);
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
+				this.varName='';
+				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP3'));
+			},
+			getVars: function() {
+				if (this.varName!=='')
+					return [this.varName];
+				else
+					return [];
+			}
 		};
 		
 		Blockly.Arduino.variables_global_custom_type = function() {
@@ -687,6 +713,10 @@
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_GLOBAL_VOLATILE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="VAR_TYPE">int</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">1.2</field></shadow></value><field name="VAR_TYPE">float</field>'];
 			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];

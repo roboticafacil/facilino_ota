@@ -15,14 +15,23 @@ if (isset($_GET["key"])&&isset($_GET["action"])&&($_GET["action"]=="activate")&&
 {
 	$key = $_GET["key"];
 	//Checking is user existing in the database or not
-	$query = "SELECT * FROM `users` WHERE `key`='$key'";
-	$result = mysqli_query($con,$query) or die(mysql_error());
+	//$query = "SELECT * FROM `users` WHERE `key`='$key'";
+	//$result = mysqli_query($con,$query) or die(mysql_error());
+	$query = "SELECT * FROM `users` WHERE `key`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$key);
+	$statement->execute() or die(mysql_error());
+	$result=$statement->get_result();
 	$rows = mysqli_num_rows($result);
 	if ($rows==1)
 	{
 		$obj= $result->fetch_object();
-		$query2= "update `users` set `validate` = '1' where `id` = '$obj->id'";
-		$result2 = mysqli_query($con,$query2) or die(mysql_error());
+		//$query2= "update `users` set `validate` = '1' where `id` = '$obj->id'";
+		//$result2 = mysqli_query($con,$query2) or die(mysql_error());
+		$query2= "update `users` set `validate` = '1' where `id`=?";
+		$statement2=mysqli_prepare($con,$query2);
+		$statement2->bind_param("i",$obj->id);
+		$statement2->execute() or die(mysql_error());
 		$email = $obj->email;
 		$mail=create_email_activated($email,$key);
 		if(!$mail->Send()){
@@ -41,8 +50,13 @@ else if (isset($_GET["key"])&&isset($_GET["action"])&&($_GET["action"]=="resend"
 {
 	$key = $_GET["key"];
 	//Checking is user existing in the database or not
-	$query = "SELECT * FROM `users` WHERE `key`='$key'";
-	$result = mysqli_query($con,$query) or die(mysql_error());
+	//$query = "SELECT * FROM `users` WHERE `key`='$key'";
+	//$result = mysqli_query($con,$query) or die(mysql_error());
+	$query = "SELECT * FROM `users` WHERE `key`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$key);
+	$statement->execute() or die(mysqli_error());
+	$result = $statement->get_result();
 	$rows = mysqli_num_rows($result);
 	if ($rows==1)
 	{
@@ -70,8 +84,13 @@ elseif (isset($_POST['username'])){
 	$password = stripslashes($_REQUEST['password']);
 	$password = mysqli_real_escape_string($con,$password);
 	//Checking is user existing in the database or not
-	$query = "SELECT * FROM `users` WHERE (username='$username' or email='$username') and password='".md5($password)."'";
-	$result = mysqli_query($con,$query) or die(mysql_error());
+	//$query = "SELECT * FROM `users` WHERE (username='$username' or email='$username') and password='".md5($password)."'";
+	//$result = mysqli_query($con,$query) or die(mysql_error());
+	$query = "SELECT * FROM `users` WHERE (username=? or email=?) and password=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("sss",$username,$username,md5($password));
+	$statement->execute() or die(mysql_error());
+	$result=$statement->get_result();
 	$rows = mysqli_num_rows($result);
 	if($rows==1){
 		$obj= $result->fetch_object();

@@ -46,6 +46,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_TEXT_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="TEXT"><shadow type="text"><field name="TEXT"></field></shadow></value><value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			  }
 		};
 
@@ -138,6 +142,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_IMAGE_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return ['<value name="IMAGE"><shadow type="oled_128x32_image_browse"></shadow></value><value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="IMAGE"><shadow type="oled_128x32_image_empty"></shadow></value><value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
 			  }
 		};
 
@@ -180,6 +188,10 @@
 				this.setInputsInline(true);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_CLEAR_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="W"><shadow type="math_number"><field name="NUM">128</field></shadow></value><value name="H"><shadow type="math_number"><field name="NUM">32</field></shadow></value>';
 			  }
 		};
 		
@@ -203,7 +215,6 @@
 			Blockly.Blocks.oled_128x32_set_header_text = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_header_text'),
@@ -218,6 +229,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_HEADER_TEXT_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="TEXT"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 			  }
 		};
 
@@ -238,7 +253,6 @@
 			Blockly.Blocks.oled_128x32_set_main_text = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_main_text'),
@@ -253,6 +267,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_MAIN_TEXT_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="TEXT"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 			  }
 		};
 
@@ -273,7 +291,6 @@
 			Blockly.Blocks.oled_128x32_set_footer_text = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_footer_text'),
@@ -288,6 +305,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_FOOTER_TEXT_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="TEXT"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 			  }
 		};
 
@@ -364,7 +385,6 @@
 			Blockly.Blocks.oled_128x32_set_small_icon = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_small_icon'),
@@ -382,6 +402,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_SMALL_ICON_TOOLTIP'));
+			  },
+			  default_inputs: function ()
+			  {
+				  return ['<value name="IMAGE"><shadow type="oled_128x32_small_icon"></shadow></value><field name="ICON">TOP_LEFT</field>','<value name="IMAGE"><shadow type="oled_128x32_small_icon"></shadow></value><field name="ICON">TOP_RIGHT</field>','<value name="IMAGE"><shadow type="oled_128x32_small_icon"></shadow></value><field name="ICON">BOTTOM_LEFT</field>','<value name="IMAGE"><shadow type="oled_128x32_small_icon"></shadow></value><field name="ICON">BOTTOM_RIGHT</field>'];
 			  }
 		};
 
@@ -443,7 +467,6 @@
 			Blockly.Blocks.oled_128x32_set_large_icon = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_large_icon'),
@@ -459,6 +482,10 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_LARGE_ICON_TOOLTIP'));
+			  },
+			  default_inputs: function ()
+			  {
+				  return ['<value name="IMAGE"><shadow type="oled_128x32_large_icon"></shadow></value><field name="ICON">LEFT</field>','<value name="IMAGE"><shadow type="oled_128x32_large_icon"></shadow></value><field name="ICON">RIGHT</field>'];
 			  }
 		};
 
@@ -510,7 +537,6 @@
 		Blockly.Blocks.oled_128x32_set_main_image = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_LAYOUT'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_set_main_image'),
@@ -525,10 +551,95 @@
 				this.setOutput(false);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SET_MAIN_IMAGE_TOOLTIP'));
+			  },
+			  default_inputs: function ()
+			  {
+				  return '<value name="IMAGE"><shadow type="oled_128x32_main_image"></shadow></value>';
 			  }
 		};
 		
 		}
+		
+		if (window.FacilinoAdvanced===true)
+			{
+
+			Blockly.Arduino.oled_128x32_image_browse = function() {
+					var code = '';
+					//console.log(this.data);
+					if (this.data!==null)
+					{
+						var image = JSON.parse(this.data);
+						code=image.data;
+					}
+					return [code, Blockly.Arduino.ORDER_ATOMIC];
+			};
+
+			Blockly.Blocks.oled_128x32_image_browse = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
+				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
+				tags: ['oled','screen'],
+				helpUrl: Facilino.getHelpUrl('oled_128x32_image_browse'),
+				examples: [''],
+				category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
+				colour: Facilino.LANG_COLOUR_SCREEN_OLED,
+				keys: ['LANG_OLED_IMAGE_BROWSE_NAME','LANG_OLED_IMAGE_BROWSE_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_OLED_IMAGE_BROWSE_NAME'),
+				init: function() {
+					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(new Blockly.FieldTextInput('image_name'),'IMAGE_NAME').appendField(new Blockly.FieldButton('Browse...',null),'IMAGE').setAlign(Blockly.ALIGN_RIGHT);
+					this.setOutput(true,'oled_custom_image');
+					this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
+					Facilino.NumImages=Facilino.NumImages+1;
+					this.NumImages=Facilino.NumImages;
+					//this.setFieldValue('Image'+this.NumImages,'IMAGE_LABEL');
+					this.setTooltip(Facilino.locales.getKey('LANG_OLED_IMAGE_BROWSE_TOOLTIP'));
+				},
+				onchange: function()
+				{
+					if (this.data!==null){
+						var image = JSON.parse(this.data);
+						if (image.name!==undefined)
+						{
+							image.name=this.getFieldValue('IMAGE_NAME');
+							this.data=JSON.stringify(image);
+							this.setWarningText(null);
+						}
+						else
+							this.setWarningText('No image selected!');
+					}
+					else
+						this.setWarningText('No image selected!');
+				}
+			};
+			
+			}
+
+			Blockly.Arduino.oled_128x32_image_empty = function() {
+					var code = '';
+					return [code, Blockly.Arduino.ORDER_ATOMIC];
+			};
+
+			Blockly.Blocks.oled_128x32_image_empty = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
+				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
+				tags: ['oled','screen'],
+				helpUrl: Facilino.getHelpUrl('oled_128x32_image_empty'),
+				examples: [''],
+				category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
+				colour: Facilino.LANG_COLOUR_SCREEN_OLED,
+				keys: ['LANG_OLED_EMPTY_IMAGE_NAME','LANG_OLED_EMPTY','LANG_OLED_EMPTY_IMAGE_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_OLED_EMPTY_IMAGE_NAME'),
+				init: function() {
+					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_EMPTY')).setAlign(Blockly.ALIGN_RIGHT);
+					this.setPreviousStatement(false,null);
+					this.setNextStatement(false,null);
+					this.setOutput(true,'oled_empty_image');
+					this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
+					Facilino.NumImages=Facilino.NumImages+1;
+					this.NumImages=Facilino.NumImages;
+					//this.setFieldValue('Image'+this.NumImages,'IMAGE_LABEL');
+					this.setTooltip(Facilino.locales.getKey('LANG_OLED_EMPTY_IMAGE_TOOLTIP'));
+				}
+			};
 
 		Blockly.Arduino.oled_128x32_small_icon = function()
 		{
@@ -652,6 +763,7 @@
 			Blockly.Blocks.oled_128x32_small_icon = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_IMAGES'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_small_icon'),
@@ -659,6 +771,38 @@
 			  examples: [],
 			  keys: ['LANG_OLED_SMALL_ICON_NAME','LANG_OLED_SMALL_ICON','LANG_LED_MATRIX_DRAWING_NO_CONNECTION','LANG_LED_MATRIX_DRAWING_POOR_CONNECTION','LANG_LED_MATRIX_DRAWING_GOOD_CONNECTION','LANG_LED_MATRIX_DRAWING_EXCELLECT_CONNECTION','LANG_LED_MATRIX_DRAWING_NO_BATTERY','LANG_LED_MATRIX_DRAWING_LOW_BATTERY','LANG_LED_MATRIX_DRAWING_MEDIUM_BATTERY','LANG_LED_MATRIX_DRAWING_FULL_BATTERY','LANG_LED_MATRIX_DRAWING_CORRECT','LANG_LED_MATRIX_DRAWING_WRONG','LANG_LED_MATRIX_DRAWING_ARROW_UP','LANG_LED_MATRIX_DRAWING_ARROW_DOWN','LANG_LED_MATRIX_DRAWING_ARROW_RIGHT','LANG_LED_MATRIX_DRAWING_ARROW_LEFT','LANG_LED_MATRIX_DRAWING_TRIANGLE_UP','LANG_LED_MATRIX_DRAWING_TRIANGLE_DOWN','LANG_LED_MATRIX_DRAWING_TRIANGLE_RIGHT','LANG_LED_MATRIX_DRAWING_TRIANGLE_LEFT','LANG_LED_MATRIX_DRAWING_SMILE','LANG_LED_MATRIX_DRAWING_DIAMOND','LANG_LED_MATRIX_DRAWING_CROSS','LANG_LED_MATRIX_DRAWING_SPADE','LANG_LED_MATRIX_DRAWING_CIRCLE_FULL','LANG_LED_MATRIX_DRAWING_CIRCLE','LANG_LED_MATRIX_DRAWING_MALE','LANG_LED_MATRIX_DRAWING_FEMALE','LANG_LED_MATRIX_DRAWING_NOTE','LANG_LED_MATRIX_DRAWING_NOTES','LANG_LED_MATRIX_DRAWING_SNOW','LANG_LED_MATRIX_DRAWING_ARROW_UP_DOWN','LANG_LED_MATRIX_DRAWING_ARROW_LEFT_RIGHT','LANG_OLED_SMALL_ICON_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SMALL_ICON_NAME'),
+			  icons: [
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NO_CONNECTION'),'NO_CONN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_POOR_CONNECTION'),'POOR_CONN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_GOOD_CONNECTION'),'GOOD_CONN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_EXCELLECT_CONNECTION'),'EXCEL_CONN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NO_BATTERY'),'NO_BATT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_LOW_BATTERY'),'LOW_BATT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_MEDIUM_BATTERY'),'MEDIUM_BATT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_FULL_BATTERY'),'FULL_BATT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_CORRECT'),'CORRECT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_WRONG'),'WRONG'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_UP'),'ARROW_UP'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_DOWN'),'ARROW_DOWN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_RIGHT'),'ARROW_RIGHT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_LEFT'),'ARROW_LEFT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_TRIANGLE_UP'),'TRIAG_UP'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_TRIANGLE_DOWN'),'TRIAG_DOWN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_TRIANGLE_RIGHT'),'TRIAG_RIGHT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_TRIANGLE_LEFT'),'TRIAG_LEFT'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_SMILE'),'SMILE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_DIAMOND'),'DIAMOND'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_CROSS'),'CROSS'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_SPADE'),'SPADE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_CIRCLE_FULL'),'CIRCLE_FULL'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_CIRCLE'),'CIRCLE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_MALE'),'MALE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_FEMALE'),'FEMALE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NOTE'),'NOTE'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NOTES'),'NOTES'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_SNOW'),'SNOW'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_UP_DOWN'),'ARROW_UP_DOWN'],
+					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_LEFT_RIGHT'),'ARROW_LEFT_RIGHT']],
 			  init: function() {
 				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SMALL_ICON')).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NO_CONNECTION'),'NO_CONN'],
@@ -695,7 +839,13 @@
 				this.setOutput(true,'oled_small_icon');
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_SMALL_ICON_TOOLTIP'));
-			  }
+			  },
+			default_inputs: function()
+			{
+				var icons_blocks=[];
+				Blockly.Blocks.oled_128x32_small_icon.icons.forEach((element,index) =>{ icons_blocks.push('<field name="ICON">'+element[1]+'</field>');});
+				return icons_blocks;
+			}
 		};
 
 		Blockly.Arduino.oled_128x32_large_icon = function()
@@ -827,6 +977,7 @@
 			Blockly.Blocks.oled_128x32_large_icon = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_IMAGES'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_large_icon'),
@@ -834,6 +985,61 @@
 			  examples: [],
 			  keys: ['LANG_OLED_LARGE_ICON_NAME','LANG_OLED_LARGE_ICON','LANG_OLED_LARGE_ICON_HOME','LANG_OLED_LARGE_ICON_ARROW_UP','LANG_OLED_LARGE_ICON_ARROW_DOWN','LANG_OLED_LARGE_ICON_ARROW_LEFT','LANG_OLED_LARGE_ICON_ARROW_RIGHT','LANG_OLED_LARGE_ICON_BAT0','LANG_OLED_LARGE_ICON_BAT1','LANG_OLED_LARGE_ICON_BAT2','LANG_OLED_LARGE_ICON_BAT3','LANG_OLED_LARGE_ICON_BAT4','LANG_OLED_LARGE_ICON_BLUETOOTH','LANG_OLED_LARGE_ICON_BULB','LANG_OLED_LARGE_ICON_BULB_ON','LANG_OLED_LARGE_ICON_BULB_OFF','LANG_OLED_LARGE_ICON_BULLET','LANG_OLED_LARGE_ICON_CANCEL','LANG_OLED_LARGE_ICON_CHECK','LANG_OLED_LARGE_ICON_FILL1','LANG_OLED_LARGE_ICON_FILL2','LANG_OLED_LARGE_ICON_FILL3','LANG_OLED_LARGE_ICON_FILL4','LANG_OLED_LARGE_ICON_SPEAK','LANG_OLED_LARGE_ICON_HEART','LANG_OLED_LARGE_ICON_NOCONN','LANG_OLED_LARGE_ICON_TOOL','LANG_OLED_LARGE_ICON_PLUG','LANG_OLED_LARGE_ICON_POWER_BUTTON','LANG_OLED_LARGE_ICON_WALL_PLUG','LANG_OLED_LARGE_ICON_WIFI1','LANG_OLED_LARGE_ICON_WIFI2','LANG_OLED_LARGE_ICON_CLOCK','LANG_OLED_LARGE_ICON_TIMER','LANG_OLED_LARGE_ICON_WATER_TAP','LANG_OLED_LARGE_ICON_HUMIDITY','LANG_OLED_LARGE_ICON_HUMIDITY2','LANG_OLED_LARGE_ICON_SUN','LANG_OLED_LARGE_ICON_TEMPERATURE','LANG_OLED_LARGE_ICON_NON_INVERTED','LANG_OLED_LARGE_ICON_INVERTED','LANG_OLED_LARGE_ICON_LOCK_CLOSED','LANG_OLED_LARGE_ICON_LOCK_OPEN','LANG_OLED_LARGE_ICON_PERSON','LANG_OLED_LARGE_ICON_WINDOW','LANG_OLED_LARGE_ICON_DOOR','LANG_OLED_LARGE_ICON_FACE','LANG_OLED_LARGE_ICON_SIREN','LANG_OLED_LARGE_ICON_WARNING','LANG_OLED_LARGE_ICON_PLUS','LANG_OLED_LARGE_ICON_MINUS','LANG_OLED_LARGE_ICON_MOBILE','LANG_OLED_LARGE_ICON_SIGNAL','LANG_OLED_LARGE_ICON_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_LARGE_ICON_NAME'),
+			  icons: [
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HOME'),'HOME'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_UP'),'ARROWUP'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_DOWN'),'ARROWDOWN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_LEFT'),'ARROWLEFT'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_RIGHT'),'ARROWRIGHT'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BAT0'),'BAT0'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BAT1'),'BAT1'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BAT2'),'BAT2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BAT3'),'BAT3'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BAT4'),'BAT4'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BLUETOOTH'),'BLUETOOTH'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BULB'),'BULB'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BULB_ON'),'BULBON'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BULB_OFF'),'BULBOFF'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_BULLET'),'BULLET'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_CANCEL'),'CANCEL'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_CHECK'),'CHECK'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FILL1'),'FILL1'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FILL2'),'FILL2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FILL3'),'FILL3'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FILL4'),'FILL4'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SPEAK'),'SPEAK'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HEART'),'HEART'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_NOCONN'),'NOCONN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TOOL'),'TOOL'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_PLUG'),'PLUG'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_POWER_BUTTON'),'POWER_BUTTON'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WALL_PLUG'),'WALL_PLUG'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WIFI1'),'WIFI1'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WIFI2'),'WIFI2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_CLOCK'),'CLOCK'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TIMER'),'TIMER'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WATER_TAP'),'WATERTAP'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY'),'HUMIDITY'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY2'),'HUMIDITY2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SUN'),'SUN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TEMPERATURE'),'TEMPERATURE'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_NON_INVERTED'),'NONINVERTED'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_INVERTED'),'INVERTED'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_LOCK_CLOSED'),'LOCKCLOSED'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_LOCK_OPEN'),'LOCKOPEN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_PERSON'),'PERSON'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WINDOW'),'WINDOW'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_DOOR'),'DOOR'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FACE'),'FACE'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIREN'),'SIREN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WARNING'),'WARNING'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_PLUS'),'PLUS'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_MINUS'),'MINUS'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_MOBILE'),'MOBILE'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'1','SIGNAL1'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'2','SIGNAL2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'3','SIGNAL3'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'4','SIGNAL4']],
 			  init: function() {
 				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_LARGE_ICON')).appendField(new Blockly.FieldDropdown([
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HOME'),'HOME'],
@@ -895,7 +1101,13 @@
 				this.setOutput(true,'oled_large_icon');
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TOOLTIP'));
-			  }
+			  },
+			default_inputs: function()
+			{
+				var icons_blocks=[];
+				Blockly.Blocks.oled_128x32_large_icon.icons.forEach((element,index) =>{ icons_blocks.push('<field name="ICON">'+element[1]+'</field>');});
+				return icons_blocks;
+			}
 		};
 
 
@@ -960,6 +1172,7 @@
 			Blockly.Blocks.oled_128x32_main_image = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED_IMAGES'),
 			  category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  colour: Facilino.LANG_COLOUR_SCREEN_OLED,
 			  helpUrl: Facilino.getHelpUrl('oled_128x32_main_image'),
@@ -967,6 +1180,27 @@
 			  examples: [],
 			  keys: ['LANG_OLED_MAIN_IMAGE_NAME','LANG_OLED_96x16_IMAGE','LANG_OLED_CENTRAL_ICON_BORED','LANG_OLED_CENTRAL_ICON_CALM','LANG_OLED_CENTRAL_ICON_CONFUSED','LANG_OLED_CENTRAL_ICON_COOL','LANG_OLED_CENTRAL_ICON_CRYING','LANG_OLED_CENTRAL_ICON_KISS','LANG_OLED_CENTRAL_ICON_KISS','LANG_OLED_CENTRAL_ICON_MUSTACHE','LANG_OLED_CENTRAL_ICON_MUTE','LANG_OLED_CENTRAL_ICON_NERVOUS','LANG_OLED_CENTRAL_ICON_BAD','LANG_OLED_CENTRAL_ICON_SAD','LANG_OLED_CENTRAL_ICON_SHOUTING','LANG_OLED_CENTRAL_ICON_SICK','LANG_OLED_CENTRAL_ICON_SMILE','LANG_OLED_CENTRAL_ICON_SMILE_TEETH','LANG_OLED_CENTRAL_ICON_TONGUE','LANG_OLED_CENTRAL_ICON_WIDE_SMILE','LANG_OLED_MAIN_IMAGE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_MAIN_IMAGE_NAME'),
+			  icons: [
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_BORED'),'BORED'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_CALM'),'CALM'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_CONFUSED'),'CONFUSED'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_COOL'),'COOL'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_CRYING'),'CRYING'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_KISS'),'KISS'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_KISS')+'1','KISS1'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_KISS')+'2','KISS2'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_KISS')+'3','KISS3'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_MUSTACHE'),'MUSTACHE'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_MUTE'),'MUTE'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_NERVOUS'),'NERVOUS'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_BAD'),'BAD'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_SAD'),'SAD'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_SHOUTING'),'SHOUTING'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_SICK'),'SICK'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_SMILE'),'SMILE'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_SMILE_TEETH'),'SMILE_TEETH'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_TONGUE'),'TONGUE'],
+				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_WIDE_SMILE'),'WIDE_SMILE']],
 			  init: function(){
 				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_96x16_IMAGE')).appendField(new Blockly.FieldDropdown([
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_BORED'),'BORED'],
@@ -992,89 +1226,14 @@
 				this.setOutput(true,'oled_central_image');
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_MAIN_IMAGE_TOOLTIP'));
-			  }
-		};
-
-			if (window.FacilinoAdvanced===true)
+			  },
+			default_inputs: function()
 			{
-
-			Blockly.Arduino.oled_128x32_image_browse = function() {
-					var code = '';
-					//console.log(this.data);
-					if (this.data!==null)
-					{
-						var image = JSON.parse(this.data);
-						code=image.data;
-					}
-					return [code, Blockly.Arduino.ORDER_ATOMIC];
-			};
-
-			Blockly.Blocks.oled_128x32_image_browse = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-				tags: ['oled','screen'],
-				helpUrl: Facilino.getHelpUrl('oled_128x32_image_browse'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
-				colour: Facilino.LANG_COLOUR_SCREEN_OLED,
-				keys: ['LANG_OLED_IMAGE_BROWSE_NAME','LANG_OLED_IMAGE_BROWSE_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_OLED_IMAGE_BROWSE_NAME'),
-				init: function() {
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(new Blockly.FieldTextInput('image_name'),'IMAGE_NAME').appendField(new Blockly.FieldButton('Browse...',null),'IMAGE').setAlign(Blockly.ALIGN_RIGHT);
-					this.setOutput(true,'oled_custom_image');
-					this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
-					Facilino.NumImages=Facilino.NumImages+1;
-					this.NumImages=Facilino.NumImages;
-					//this.setFieldValue('Image'+this.NumImages,'IMAGE_LABEL');
-					this.setTooltip(Facilino.locales.getKey('LANG_OLED_IMAGE_BROWSE_TOOLTIP'));
-				},
-				onchange: function()
-				{
-					if (this.data!==null){
-						var image = JSON.parse(this.data);
-						if (image.name!==undefined)
-						{
-							image.name=this.getFieldValue('IMAGE_NAME');
-							this.data=JSON.stringify(image);
-							this.setWarningText(null);
-						}
-						else
-							this.setWarningText('No image selected!');
-					}
-					else
-						this.setWarningText('No image selected!');
-				}
-			};
-			
+				var icons_blocks=[];
+				Blockly.Blocks.oled_128x32_main_image.icons.forEach((element,index) =>{ icons_blocks.push('<field name="ICON">'+element[1]+'</field>');});
+				return icons_blocks;
 			}
-
-			Blockly.Arduino.oled_128x32_image_empty = function() {
-					var code = '';
-					return [code, Blockly.Arduino.ORDER_ATOMIC];
-			};
-
-			Blockly.Blocks.oled_128x32_image_empty = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_OLED'),
-				tags: ['oled','screen'],
-				helpUrl: Facilino.getHelpUrl('oled_128x32_image_empty'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_SCREEN_OLED,
-				colour: Facilino.LANG_COLOUR_SCREEN_OLED,
-				keys: ['LANG_OLED_EMPTY_IMAGE_NAME','LANG_OLED_EMPTY','LANG_OLED_EMPTY_IMAGE_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_OLED_EMPTY_IMAGE_NAME'),
-				init: function() {
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_EMPTY')).setAlign(Blockly.ALIGN_RIGHT);
-					this.setPreviousStatement(false,null);
-					this.setNextStatement(false,null);
-					this.setOutput(true,'oled_empty_image');
-					this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
-					Facilino.NumImages=Facilino.NumImages+1;
-					this.NumImages=Facilino.NumImages;
-					//this.setFieldValue('Image'+this.NumImages,'IMAGE_LABEL');
-					this.setTooltip(Facilino.locales.getKey('LANG_OLED_EMPTY_IMAGE_TOOLTIP'));
-				}
-			};
+		};
 
 		
 			Blockly.Arduino.oled_128x32_draw_line = function()
@@ -1117,6 +1276,10 @@
 				this.setInputsInline(true);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_LINE_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="X0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="X1"><shadow type="math_number"><field name="NUM">127</field></shadow></value><value name="Y1"><shadow type="math_number"><field name="NUM">31</field></shadow></value>';
 			  }
 		};
 		
@@ -1166,6 +1329,10 @@
 				this.setInputsInline(true);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_RECT_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="X0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="W"><shadow type="math_number"><field name="NUM">128</field></shadow></value><value name="H"><shadow type="math_number"><field name="NUM">32</field></shadow></value>';
 			  }
 		};
 		
@@ -1213,6 +1380,10 @@
 				this.setInputsInline(true);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_CIRCLE_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="X0"><shadow type="math_number"><field name="NUM">63</field></shadow></value><value name="Y0"><shadow type="math_number"><field name="NUM">15</field></shadow></value><value name="R"><shadow type="math_number"><field name="NUM">15</field></shadow></value>';
 			  }
 		};
 		
@@ -1266,6 +1437,10 @@
 				this.setInputsInline(true);
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 				this.setTooltip(Facilino.locales.getKey('LANG_OLED_TRIANGLE_TOOLTIP'));
+			  },
+			  default_inputs: function()
+			  {
+				  return '<value name="X0"><shadow type="math_number"><field name="NUM">63</field></shadow></value><value name="Y0"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="X1"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="Y1"><shadow type="math_number"><field name="NUM">31</field></shadow></value><value name="X2"><shadow type="math_number"><field name="NUM">127</field></shadow></value><value name="Y2"><shadow type="math_number"><field name="NUM">31</field></shadow></value>';
 			  }
 		};
 		

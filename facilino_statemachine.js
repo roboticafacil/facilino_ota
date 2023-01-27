@@ -61,13 +61,16 @@
 			statements: [Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATEMENT_STATE')],
 			init:  function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL_STATEMACHINE);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_TITLE')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_TITLE')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('STATE0').appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_INITIAL_STATE')+' 0').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO0').appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setMutator(new Blockly.Mutator(['controls_statemachine_initial_state','controls_statemachine_state']));
 		this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_TOOLTIP'));
-				this.stateCount_ = 0;
+				this.stateCount_ = 1;
 				this.stateType_ = [];
+				this.stateType_.push('true');
 			},
 			isNotDuplicable: true,
 			mutationToDom: function() {
@@ -87,7 +90,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.stateCount_ = window.parseInt(xmlElement.getAttribute('state'), 10);
-				for (var x = 0; x < +this.stateCount_; x++) {
+				for (var x = 1; x < +this.stateCount_; x++) {
 					this.stateType_.push(xmlElement.getAttribute('type'+x));
 					if (this.stateType_[x]=='false')
 					  this.appendDummyInput('STATE' + x).appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATE')+' '+x).setAlign(Blockly.ALIGN_RIGHT);
@@ -101,64 +104,74 @@
 				var containerBlock = workspace.newBlock('controls_statemachine_ss');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 0; x < this.stateCount_; x++) {
+				var stateBlock = workspace.newBlock('controls_statemachine_initial_state');
+				stateBlock.initSvg();
+				connection.connect(stateBlock.previousConnection);
+				connection = stateBlock.nextConnection;
+				
+				for (var x = 1; x < this.stateCount_; x++) {
 					if (this.stateType_[x]=='false')
 						  var stateBlock = workspace.newBlock('controls_statemachine_state');
-					  else
+					else
 						  var stateBlock = workspace.newBlock('controls_statemachine_initial_state');
-					  stateBlock.initSvg();
-					  connection.connect(stateBlock.previousConnection);
-					  connection = stateBlock.nextConnection;
+				  stateBlock.initSvg();
+				  connection.connect(stateBlock.previousConnection);
+				  connection = stateBlock.nextConnection;
 				}
 				return containerBlock;
 			},
 			compose: function(containerBlock) {
 				// Disconnect and remove all the state input blocks.
-				for (var x = (this.stateCount_)-1; x >= 0; x--) {
+				for (var x = (this.stateCount_)-1; x >= 1; x--) {
 					this.removeInput('STATE' + x);
 					this.removeInput('DO' + x);
 					delete this.stateType_[x];
 				}
 				//this.transitionCount_ = 0;
-				this.stateCount_ = 0;
+				this.stateCount_ = 1;
 				this.stateType_= [];
+				this.stateType_.push('true');
+							// Reconnect any child blocks.
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'controls_statemachine_state':
-							var stateInput = this.appendDummyInput('STATE' + this.stateCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATE')+' '+this.stateCount_).setAlign(Blockly.ALIGN_RIGHT);
-							var doInput = this.appendStatementInput('DO' + this.stateCount_);
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-							this.stateCount_++;
-							this.stateType_.push('false');
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								stateInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						case 'controls_statemachine_initial_state':
-							var stateInput = this.appendDummyInput('STATE' + this.stateCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_INITIAL_STATE')+' '+this.stateCount_).setAlign(Blockly.ALIGN_RIGHT);
-							var doInput = this.appendStatementInput('DO' + this.stateCount_);
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-							this.stateCount_++;
-							this.stateType_.push('true');
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								stateInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
+				if (clauseBlock)
+				{
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'controls_statemachine_state':
+								var stateInput = this.appendDummyInput('STATE' + this.stateCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATE')+' '+this.stateCount_).setAlign(Blockly.ALIGN_RIGHT);
+								var doInput = this.appendStatementInput('DO' + this.stateCount_);
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								this.stateCount_++;
+								this.stateType_.push('false');
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									stateInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							case 'controls_statemachine_initial_state':
+								var stateInput = this.appendDummyInput('STATE' + this.stateCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_INITIAL_STATE')+' '+this.stateCount_).setAlign(Blockly.ALIGN_RIGHT);
+								var doInput = this.appendStatementInput('DO' + this.stateCount_);
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								this.stateCount_++;
+								this.stateType_.push('true');
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									stateInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
 				}
 				Facilino.NumStates= this.stateCount_;
 			},
@@ -207,6 +220,16 @@
 				this.appendStatementInput('STACK').setCheck('state');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATE_TOOLTIP'));
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='controls_statemachine_ss')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 
@@ -327,6 +350,12 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_STATE_AND_TOOLTIP'));
 				this.last_state=-1;
 			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="TRANSITION_INPUT"><shadow type="controls_statemachine_transition_state_end"></shadow></value>';
+				return xml;
+			},
 			getStates: function() {
 				var states = [['','']];
 				for (var x=0;x<Facilino.NumStates;x++)
@@ -401,6 +430,13 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_TRANSITION_TO_TOOLTIP'));
 				this.last_from_state=-1;
 				this.last_to_state=-1;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="TRANSITION_COND"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				xml+='<value name="TRANSITION_TO"><shadow type="controls_statemachine_transition_state_end"></shadow></value>';
+				return xml;
 			},
 			getStates: function() {
 				var states = [['','']];
@@ -478,6 +514,13 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_STATE_MACHINE_TRANSITION_FROM_TOOLTIP'));
 				this.last_from_state=-1;
 				this.last_to_state=-1;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="TRANSITION_COND"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				xml+='<value name="TRANSITION_FROM"><shadow type="controls_statemachine_transition_state_end"></shadow></value>';
+				return xml;
 			},
 			getStates: function() {
 				var states = [['','']];

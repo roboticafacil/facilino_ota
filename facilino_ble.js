@@ -45,7 +45,8 @@
 								var characteristic_var = 'pChar_'+characteristic_name;
 								Blockly.Arduino.definitions_['declare_var_ble_characteristic'+characteristic_name]='BLECharacteristic *'+characteristic_var+';\n';
 								var options_str='';
-								if (characteristic_input.getFieldValue('READ')==='TRUE')
+								options_str='BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_NOTIFY';
+								/*if (characteristic_input.getFieldValue('READ')==='TRUE')
 								{
 									if (characteristic_input.getFieldValue('WRITE')==='TRUE')
 									{
@@ -80,13 +81,14 @@
 								else
 								{
 									characteristic_input.setWarningText('At least one option should be selected');
-								}
+								}*/
 								Blockly.Arduino.setups_['setup_ble_create_characteristic'+characteristic_name]=characteristic_var+'=pService->createCharacteristic("'+characteristic_uuid+'",'+options_str+');\n';
-								if (characteristic_input.getFieldValue('WRITE')==='TRUE')
+								//if (characteristic_input.getFieldValue('WRITE')==='TRUE')
 								{
 									Blockly.Arduino.setups_['setup_ble_create_characteristic'+characteristic_name]+=characteristic_var+'->setCallbacks(new CharacteristicCallbacks_'+characteristic_name+'());\n';
 									var write_code = Blockly.Arduino.statementToCode(characteristic_input,'CALLBACK') || "\n";
-									Blockly.Arduino.definitions_['define_class_ble_characteristic_callbacks'+characteristic_name]='class CharacteristicCallbacks_'+characteristic_name+': public BLECharacteristicCallbacks {\n  void onWrite(BLECharacteristic *pCharacteristic) {\n	'+write_code+'  };\n};\n';
+									//var write_code = Blockly.Arduino.valueToCode(characteristic_input,'CALLBACK') || "";
+									Blockly.Arduino.definitions_['define_class_ble_characteristic_callbacks'+characteristic_name]='class CharacteristicCallbacks_'+characteristic_name+': public BLECharacteristicCallbacks {\n  void onWrite(BLECharacteristic *pCharacteristic) {\n	'+write_code+'\n };\n};\n';
 								}
 								Blockly.Arduino.setups_['setup_ble_create_characteristic'+characteristic_name]+=characteristic_var+'->addDescriptor(new BLE2902());\n';
 							}
@@ -116,13 +118,18 @@
 					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_DEVICE_MANUFACTURER')).appendField(new Blockly.FieldTextInput('MyCompany'),'MANUFACTURER').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendStatementInput('CONNECT').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_ON_CONNECT'));
 					this.appendStatementInput('DISCONNECT').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_ON_DISCONNECT'));
+					this.appendValueInput('SERVICE0').appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setOutput(false);
 					this.setMutator(new Blockly.Mutator(['ble_service_item']));
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
 					this.setNextStatement(false);
 					this.setTooltip(Facilino.locales.getKey('LANG_BLE_SERVER_TOOLTIP'));
-					this.servCount_ = 0;
+					this.servCount_ = 1;
+				},
+				default_inputs: function ()
+				{
+					return '<value name="SERVICE0"><block type="ble_service"><value name="CHARACTERISTIC0"><block type="ble_characteristic"></block></value></block></value>';
 				},
 				isNotDuplicable: true,
 				mutationToDom: function() {
@@ -137,7 +144,7 @@
 				},
 				domToMutation: function(xmlElement) {
 					this.servCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-					for (var x = 0; x < this.servCount_; x++) {
+					for (var x = 1; x < this.servCount_; x++) {
 						this.appendValueInput('SERVICE'+x).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 				},
@@ -145,7 +152,7 @@
 					var containerBlock = workspace.newBlock('ble_service_stack');
 					containerBlock.initSvg();
 					var connection = containerBlock.getInput('STACK').connection;
-					for (var x = 0; x < this.servCount_; x++) {
+					for (var x = 1; x < this.servCount_; x++) {
 						var taskBlock = workspace.newBlock('ble_service_item');
 						taskBlock.initSvg();
 						connection.connect(taskBlock.previousConnection);
@@ -155,10 +162,10 @@
 				},
 				compose: function(containerBlock) {
 					// Disconnect all the task input blocks and remove the inputs.
-					for (var x = this.servCount_-1; x >= 0; x--) {
+					for (var x = this.servCount_-1; x >= 1; x--) {
 						this.removeInput('SERVICE' + x);
 					}
-					this.servCount_ = 0;
+					this.servCount_ = 1;
 					// Rebuild the block's optional inputs.
 					var clauseBlock = containerBlock.getInputTargetBlock('STACK');
 					while (clauseBlock) {
@@ -180,7 +187,7 @@
 				saveConnections: function(containerBlock) {
 					// Store a pointer to any connected child blocks.
 					var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-					var x = 0;
+					var x = 1;
 					while (clauseBlock) {
 						switch (clauseBlock.type) {
 							case 'ble_service_item':
@@ -246,15 +253,20 @@
 				name: Facilino.locales.getKey('LANG_BLE_SERVICE_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput(''),'SERVICE_NAME');
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput(''),'SERVICE_UUID').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyService'),'SERVICE_NAME');
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput('9a205495-11b9-4015-be1b-3ea39e788298'),'SERVICE_UUID').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('CHARACTERISTIC0').appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setMutator(new Blockly.Mutator(['ble_characteristic_item']));
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
 					this.setNextStatement(false);
 					this.setOutput(true,'ble_service');
 					this.setTooltip(Facilino.locales.getKey('LANG_BLE_SERVICE_TOOLTIP'));
-					this.charCount_ = 0;
+					this.charCount_ = 1;
+				},
+				default_inputs: function()
+				{
+					return '<value name="CHARACTERISTIC0"><block type="ble_characteristic"></block></value>';
 				},
 				mutationToDom: function() {
 					if (!this.charCount_) {
@@ -268,7 +280,7 @@
 				},
 				domToMutation: function(xmlElement) {
 					this.charCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-					for (var x = 0; x < this.charCount_; x++) {
+					for (var x = 1; x < this.charCount_; x++) {
 						this.appendValueInput('CHARACTERISTIC'+x).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 				},
@@ -276,7 +288,7 @@
 					var containerBlock = workspace.newBlock('ble_characteristic_stack');
 					containerBlock.initSvg();
 					var connection = containerBlock.getInput('STACK').connection;
-					for (var x = 0; x < this.charCount_; x++) {
+					for (var x = 1; x < this.charCount_; x++) {
 						var taskBlock = workspace.newBlock('ble_characteristic_item');
 						taskBlock.initSvg();
 						connection.connect(taskBlock.previousConnection);
@@ -286,10 +298,10 @@
 				},
 				compose: function(containerBlock) {
 					// Disconnect all the task input blocks and remove the inputs.
-					for (var x = this.charCount_-1; x >= 0; x--) {
+					for (var x = this.charCount_-1; x >= 1; x--) {
 						this.removeInput('CHARACTERISTIC' + x);
 					}
-					this.charCount_ = 0;
+					this.charCount_ = 1;
 					// Rebuild the block's optional inputs.
 					var clauseBlock = containerBlock.getInputTargetBlock('STACK');
 					while (clauseBlock) {
@@ -311,7 +323,7 @@
 				saveConnections: function(containerBlock) {
 					// Store a pointer to any connected child blocks.
 					var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-					var x = 0;
+					var x = 1;
 					while (clauseBlock) {
 						switch (clauseBlock.type) {
 							case 'ble_characteristic_item':
@@ -490,10 +502,10 @@
 				name: Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput(''),'CHARACTERISTIC_NAME');
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput(''),'CHARACTERISTIC_UUID').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_READ')).appendField(new Blockly.FieldCheckbox('TRUE'),'READ').appendField(Facilino.locales.getKey('LANG_BLE_WRITE')).appendField(new Blockly.FieldCheckbox('FALSE'),'WRITE').appendField(Facilino.locales.getKey('LANG_BLE_NOTIFIES')).appendField(new Blockly.FieldCheckbox('FALSE'),'NOTIFIES').setAlign(Blockly.ALIGN_RIGHT);
-					//this.appendStatementInput('CALLBACK').appendField(Facilino.locales.getKey('LANG_BLE_CALLBACK')).setCheck('code');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyCharacteristic'),'CHARACTERISTIC_NAME');
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput('a4c2745f-1adc-4eb0-b376-b52b8ebfff28'),'CHARACTERISTIC_UUID').setAlign(Blockly.ALIGN_RIGHT);
+					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_READ')).appendField(new Blockly.FieldCheckbox('TRUE'),'READ').appendField(Facilino.locales.getKey('LANG_BLE_WRITE')).appendField(new Blockly.FieldCheckbox('FALSE'),'WRITE').appendField(Facilino.locales.getKey('LANG_BLE_NOTIFIES')).appendField(new Blockly.FieldCheckbox('FALSE'),'NOTIFIES').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('CALLBACK').appendField(Facilino.locales.getKey('LANG_BLE_CALLBACK')).setCheck('code');
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
 					this.setNextStatement(false);
@@ -501,49 +513,28 @@
 					this.setTooltip(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC_TOOLTIP'));
 					this.has_callback=false;
 				},
-				mutationToDom: function() {
-					var container = document.createElement('mutation');
-					container.setAttribute('has_callback', this.has_callback);
-					return container;
-				},
-				domToMutation: function(xmlElement) {
-					this.has_callback=xmlElement.getAttribute('has_callback');
-					if (this.has_callback)
-					{
-						this.appendStatementInput('CALLBACK').appendField(Facilino.locales.getKey('LANG_BLE_CALLBACK')).setCheck('code');
-					}
-				},
 				onchange: function(){
 					var char_name = this.getFieldValue('CHARACTERISTIC_NAME');
 					if (char_name!=="")
 					{
-						Facilino.BLE_characteristics[this.id]=char_name;
-						if (this.getFieldValue('NOTIFY')==='TRUE')
-							Facilino.BLE_notify_characteristics[this.id]=char_name;
-						else
-							delete Facilino.BLE_notify_characteristics[this.id];
-					}
-					var write = this.getFieldValue('WRITE');
-					if (write==='TRUE')
-					{
-						if (!this.has_callback)
-						{
-							this.appendStatementInput('CALLBACK').appendField(Facilino.locales.getKey('LANG_BLE_CALLBACK')).setCheck('code');
-							//this.getInput('CALLBACK').setVisible(true);
-							this.has_callback=true;
-						}
-					}
-					else
-					{
-						if (this.has_callback)
-						{
-							this.removeInput('CALLBACK');
-							//this.getInput('CALLBACK').setVisible(false);
-							this.has_callback=false;
+						if (char_name!=="MyCharacteristic")
+						{	Facilino.BLE_characteristics[this.id]=char_name;
+							//if (this.getFieldValue('NOTIFY')==='TRUE')
+							//	Facilino.BLE_notify_characteristics[this.id]=char_name;
+							//else
+							//	delete Facilino.BLE_notify_characteristics[this.id];
 						}
 					}
 				}
 			};
+			/*
+			e.getAllBlocks();
+			for (var o = [], t = [], n = 0; n < e.length; n++)
+        if (e[n].getProcedureDef) {
+            var r = e[n].getProcedureDef();
+            r && (r[2] ? o.push(r) : t.push(r))
+        }*/
+		
 
 			/*Blockly.Arduino.ble_standard_characteristic = function() {
 				var code = '';
@@ -642,10 +633,34 @@
 					}
 				}
 			};*/
+			
+			/*Blockly.Arduino.ble_characteristic_value = function() {
+				var code = 'String(pChar_'+this.getFieldValue('NAME')+'->getValue().c_str())';
+				return [code, Blockly.Arduino.ORDER_ATOMIC];
+			}
+
+			Blockly.Blocks.ble_characteristic_value = {
+					category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+					subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
+					tags: ['bluetooth','communication'],
+					helpUrl: '',
+					examples: [],
+					category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+					colour: Facilino.LANG_COLOUR_VARIABLES,
+					keys: [],
+					name: '',
+					toolbox_hidden: true,
+					init: function() {
+						this.setColour(Facilino.LANG_COLOUR_VARIABLES);
+						this.appendDummyInput('').appendField('value','NAME').setAlign(Blockly.ALIGN_RIGHT);
+						this.setOutput(true,String);
+						this.contextMenu = false;
+					}
+			};*/
 
 			Blockly.Arduino.ble_get_characteristic = function() {
 				var code = '';
-				code='(pChar_'+this.getFieldValue('CHARACTERISTIC')+'->getValue().c_str())';
+				code='String(pChar_'+this.getFieldValue('CHARACTERISTIC')+'->getValue().c_str())';
 				return [code,Blockly.Arduino.ORDER_ATOMIC];
 			}
 
@@ -662,11 +677,11 @@
 				name: Facilino.locales.getKey('LANG_BLE_GET_NAME'),
 				init:  function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('VALUE').appendField(Facilino.locales.getKey('LANG_BLE_GET')).appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('VALUE').appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setInputsInline(false);
-				this.setOutput(true,'Array');
+				this.setOutput(true,String);
 				this.setTooltip(Facilino.locales.getKey('LANG_BLE_GET_CHARACTERISTIC_VALUE_TOOLTIP'));
 				this.last_characteristic="";
 				this.first_time=true;
@@ -693,114 +708,12 @@
 					 {
 						 update=true;
 					 }
-					 else
-					 {
-						 fieldOptions.forEach(function(element){
-			   //It was giving errors when compressing the file (and likely when obfuscating the file)
-							/*if (characteristics.find(key=>Facilino.BLE_characteristics[key]===element[1])===undefined)
-			  {
-								update=true;
-							}*/
-						 });
-						 characteristics.forEach(function(key){
-							 /*if (fieldOptions.filter(value=>Facilino.BLE_characteristics[key]===value[1]).length==0)
-							 {
-								 update=true;
-							 }*/
-						 });
-					 }
 					 if (update || this.first_time )
 					 {
 						var currentValue=this.getFieldValue('CHARACTERISTIC');
 						var input = this.getInput('VALUE');
 						input.removeField('CHARACTERISTIC');
-						input.insertFieldAt(1,new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC');
-						var found=false;
-						this.getField('CHARACTERISTIC').getOptions().forEach(function(el1) {
-							 if (el1[1]===currentValue)
-							 {
-								 found=true;
-							 }
-						 });
-						 if (found)
-							 this.getField('CHARACTERISTIC').setValue(currentValue);
-						 this.setWarningText(null);
-						 this.first_time=false;
-					 }
-				}
-			}
-
-			Blockly.Arduino.ble_get_characteristic_length = function() {
-				var code = '';
-				code='(pChar_'+this.getFieldValue('CHARACTERISTIC')+'->getValue().length())';
-				return [code,Blockly.Arduino.ORDER_ATOMIC];
-			}
-
-			Blockly.Blocks.ble_get_characteristic_length = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
-				subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLE'),
-				tags: ['ble','bluetooth','characteristic'],
-				helpUrl: Facilino.getHelpUrl('ble_get_characteristic_length'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-				colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
-				keys: ['LANG_BLE_GET_LENGTH_NAME','LANG_BLE_GET','LANG_BLE_VALUE','LANG_BLE_SET_CHARACTERISTIC_VALUE_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_BLE_GET_LENGTH_NAME'),
-				init:  function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('VALUE').appendField(Facilino.locales.getKey('LANG_BLE_GET_LENGTH')).appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').setAlign(Blockly.ALIGN_RIGHT);
-				this.setPreviousStatement(false);
-				this.setNextStatement(false);
-				this.setInputsInline(false);
-				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_BLE_GET_CHARACTERISTIC_VALUE_TOOLTIP'));
-				this.last_characteristic="";
-				this.first_time=true;
-				},
-				getCharacteristics: function() {
-					var characteristics = [];
-					if (Object.keys(Facilino.BLE_characteristics).length>0)
-					{
-						Object.keys(Facilino.BLE_characteristics).forEach(function (key) {
-							characteristics.push([Facilino.BLE_characteristics[key],Facilino.BLE_characteristics[key]]);
-						});
-					}
-					else
-					{
-						characteristics.push(['','']);
-					}
-					return characteristics;
-				},
-				onchange: function() {
-					var fieldOptions=this.getField('CHARACTERISTIC').getOptions();
-					 var update=false;
-					 var characteristics = Object.keys(Facilino.BLE_characteristics);
-					 if (characteristics.length!==fieldOptions.length)
-					 {
-						 update=true;
-					 }
-					 else
-					 {
-						 fieldOptions.forEach(function(element){
-							/*if (characteristics.find(key=>Facilino.BLE_characteristics[key]===element[1])===undefined)
-							{
-								update=true;
-							}*/
-						 });
-						 characteristics.forEach(function(key){
-							 /*if (fieldOptions.filter(value=>Facilino.BLE_characteristics[key]===value[1]).length==0)
-							 {
-								 update=true;
-							 }*/
-						 });
-					 }
-					 if (update || this.first_time )
-					 {
-						var currentValue=this.getFieldValue('CHARACTERISTIC');
-						var input = this.getInput('VALUE');
-						input.removeField('CHARACTERISTIC');
-						input.insertFieldAt(1,new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC');
+						input.insertFieldAt(0,new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC');
 						var found=false;
 						this.getField('CHARACTERISTIC').getOptions().forEach(function(el1) {
 							 if (el1[1]===currentValue)
@@ -821,6 +734,7 @@
 				var input_block = this.getInputTargetBlock('VALUE');
 				if (input_block!==null)
 				{
+					var char_code=this.getFieldValue('CHARACTERISTIC');
 					var input_code=Blockly.Arduino.valueToCode(this,'VALUE',Blockly.Arduino.ORDER_NONE);
 					if (input_block.type==='variables_get')
 					{
@@ -828,19 +742,30 @@
 						{
 								var byte_count=Facilino.variables[input_block.getFieldValue('VAR')][4];
 								input_code='&'+input_code+','+byte_count;
+								code='pChar_'+char_code+'->setValue('+input_code+');\n';
 						}
-						code='pChar_'+this.getFieldValue('CHARACTERISTIC')+'->setValue('+input_code+');\n';
+						else if (Facilino.variables[input_block.getFieldValue('VAR')][2]==='variable')
+						{
+								if (Facilino.variables[input_block.getFieldValue('VAR')][0]==='String')
+								{
+									code='pChar_'+char_code+'->setValue('+input_code+'.c_str());\n';
+								}
+								else
+								{
+									code='pChar_'+char_code+'->setValue('+input_code+');\n';
+								}
+						}
 					}
 					else if ((input_block.type==='math_1DArray_constructor2')||(input_block.type==='math_1DArray_constructor3')||(input_block.type==='math_1DArray_constructor4')||(input_block.type==='math_1DArray_constructor'))
 					{
 						code+='{\n'
 						code+='uint8_t myValue['+input_block.itemCount_+']='+input_code+';\n';
-						code+='pChar_'+this.getFieldValue('CHARACTERISTIC')+'->setValue(myValue,'+(input_block.itemCount_)+');\n';
+						code+='pChar_'+char_code+'->setValue(myValue,'+(input_block.itemCount_)+');\n';
 						code+='}\n';
 					}
 					else
 					{
-						code='pChar_'+this.getFieldValue('CHARACTERISTIC')+'->setValue('+input_code+');\n';
+						code='pChar_'+char_code+'->setValue('+input_code+');\n';
 					}
 
 				}
@@ -860,10 +785,10 @@
 				name: Facilino.locales.getKey('LANG_BLE_SET_NAME'),
 				init:  function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_BLE_SET')).appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').appendField('=').setCheck([Boolean,Number,String,'Variable','Array']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('VALUE').appendField(new Blockly.FieldDropdown(this.getCharacteristics()),'CHARACTERISTIC').appendField('=').setCheck([String,'Variable','Array']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
-				this.setInputsInline(false);
+				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_BLE_SET_CHARACTERISTIC_VALUE_TOOLTIP'));
 				this.last_characteristic="";
 				this.first_time=true;
@@ -890,27 +815,12 @@
 					 {
 						 update=true;
 					 }
-					 else
-					 {
-						 fieldOptions.forEach(function(element){
-							if (characteristics.find(key=>Facilino.BLE_characteristics[key]===element[1])===undefined)
-							{
-								update=true;
-							}
-						 });
-						 characteristics.forEach(function(key){
-							 if (fieldOptions.filter(value=>Facilino.BLE_characteristics[key]===value[1]).length==0)
-							 {
-								 update=true;
-							 }
-						 });
-					 }
 					 if (update || this.first_time )
 					 {
 						var currentValue=this.getFieldValue('CHARACTERISTIC');
 						var input = this.getInput('VALUE');
 						input.removeField('CHARACTERISTIC');
-						input.insertFieldAt(1,new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC');
+						input.insertFieldAt(0,new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC');
 						var found=false;
 						this.getField('CHARACTERISTIC').getOptions().forEach(function(el1) {
 							 if (el1[1]===currentValue)
@@ -944,20 +854,20 @@
 				keys: ['LANG_BLE_NOTIFY_NAME','LANG_BLE_NOTIFY','LANG_BLE_NOTIFY_CHARACTERISTIC_VALUE_TOOLTIP'],
 				name: Facilino.locales.getKey('LANG_BLE_NOTIFY_NAME'),
 				init:  function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('VALUE').appendField(Facilino.locales.getKey('LANG_BLE_NOTIFY')).appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').setAlign(Blockly.ALIGN_RIGHT);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-				this.setInputsInline(false);
-				this.setTooltip(Facilino.locales.getKey('LANG_BLE_NOTIFY_CHARACTERISTIC_VALUE_TOOLTIP'));
-				this.first_time=true;
+					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
+					this.appendDummyInput('VALUE').appendField(Facilino.locales.getKey('LANG_BLE_NOTIFY')).appendField(new Blockly.FieldDropdown(this.getCharacteristics()), 'CHARACTERISTIC').setAlign(Blockly.ALIGN_RIGHT);
+					this.setPreviousStatement(true,'code');
+					this.setNextStatement(true,'code');
+					this.setInputsInline(false);
+					this.setTooltip(Facilino.locales.getKey('LANG_BLE_NOTIFY_CHARACTERISTIC_VALUE_TOOLTIP'));
+					this.first_time=true;
 				},
 				getCharacteristics: function() {
 					var characteristics = [];
-					if (Object.keys(Facilino.BLE_notify_characteristics).length>0)
+					if (Object.keys(Facilino.BLE_characteristics).length>0)
 					{
-						Object.keys(Facilino.BLE_notify_characteristics).forEach(function (key) {
-							characteristics.push([Facilino.BLE_notify_characteristics[key],Facilino.BLE_notify_characteristics[key]]);
+						Object.keys(Facilino.BLE_characteristics).forEach(function (key) {
+							characteristics.push([Facilino.BLE_characteristics[key],Facilino.BLE_characteristics[key]]);
 						});
 					}
 					else
@@ -969,25 +879,10 @@
 				onchange: function() {
 					var fieldOptions=this.getField('CHARACTERISTIC').getOptions();
 					 var update=false;
-					 var characteristics = Object.keys(Facilino.BLE_notify_characteristics);
+					 var characteristics = Object.keys(Facilino.BLE_characteristics);
 					 if (characteristics.length!==fieldOptions.length)
 					 {
 						 update=true;
-					 }
-					 else
-					 {
-						 fieldOptions.forEach(function(element){
-							if (characteristics.find(key=>Facilino.BLE_notify_characteristics[key]===element[1])===undefined)
-							{
-								update=true;
-							}
-						 });
-						 characteristics.forEach(function(key){
-							 if (fieldOptions.filter(value=>Facilino.BLE_notify_characteristics[key]===value[1]).length==0)
-							 {
-								 update=true;
-							 }
-						 });
 					 }
 					 if (update || this.first_time )
 					 {

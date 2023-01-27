@@ -51,6 +51,10 @@
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,[Number,'LineFollowing']);
 				this.setTooltip(Facilino.locales.getKey('LANG_INFRARED_ANALOG_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
@@ -79,6 +83,10 @@
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_INFRARED_DIGITAL_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 			}
 		};
 		
@@ -95,15 +103,9 @@
 			var gain = Blockly.Arduino.valueToCode(this, 'GAIN', Blockly.Arduino.ORDER_ATOMIC);
 			var code = '';
 			//Blockly.Arduino.definitions_['include_line_following'] = JST['infrarred_follow_definitions_include']({});
-		Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
+			Blockly.Arduino.definitions_['define_line_following'] = 'int follow(int light, int gain)\n{\n  return (int)(((float)(gain)/100.0)*((float)(('+this.getFieldValue('WHITE')+'-'+this.getFieldValue('BLACK')+')/2+'+this.getFieldValue('BLACK')+')-(float)(light)));\n}\n';
 
-		Blockly.Arduino.definitions_['define_line_following'] = JST['follow_definitions']({});
-
-		code += JST['infrarred_follow']({
-				'light': light,
-				'gain': gain
-			});
-
+			code += 'follow('+light+','+gain+')';
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};
 
@@ -122,10 +124,15 @@
 				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
 				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('GAIN').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage("img/blocks/knob.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-						this.setInputsInline(false);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(800,0,4096),'WHITE').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(30,0,4096),'BLACK');
+				this.setInputsInline(false);
 				this.setOutput(true,[Number,'Turn']);
 					this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_TOOLTIP'));
-					}
+			},
+			default_inputs: function ()
+			{
+				return '<value name="LIGHT"><block type="dyor_infrared"><value name="PIN"><shadow type="pin_analog"></shadow></value></block></value><value name="GAIN"><shadow type="math_number"><field name="NUM">10</field></shadow></value>';
+			}
 		};
 
 	Blockly.Arduino.infrarred_follow_binary = function() {
@@ -135,15 +142,7 @@
 		var black = Blockly.Arduino.statementToCode(this,'BLACK');
 			var code = '';
 
-		Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
-
-		code += JST['infrarred_follow_binary']({
-				'light': light,
-				'white': white,
-		'gray' : grey,
-		'black' : black
-			});
-
+			code += 'if('+light+'<(0.4*('+this.getFieldValue('BLACK')+'-'+this.getFieldValue('WHITE')+')+'+this.getFieldValue('WHITE')+'))\n{\n'+white+	'}\nelse if('+light+	'<(0.6*('+this.getFieldValue('BLACK')+'-'+this.getFieldValue('WHITE')+')+'+this.getFieldValue('WHITE')+'))\n{\n'+grey+	'}\nelse\n{'+black+			'\n}';
 			return code;
 		};
 
@@ -161,7 +160,8 @@
 		this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
 		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
 		this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
-		this.appendStatementInput('BLACK').appendField(Facilino.locales.getKey('LANG_BLACK')).setCheck('code');
+		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(800,0,4096),'WHITE').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(30,0,4096),'BLACK');
+				this.appendStatementInput('BLACK').appendField(Facilino.locales.getKey('LANG_BLACK')).setCheck('code');
 		this.appendStatementInput('GREY').appendField(Facilino.locales.getKey('LANG_GRAY')).setCheck('code');
 		this.appendStatementInput('WHITE').appendField(Facilino.locales.getKey('LANG_WHITE')).setCheck('code');
 		this.setInputsInline(false);
@@ -169,120 +169,12 @@
 				this.setNextStatement(true,'code');
 			this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_BINARY_TOOLTIP'));
 			}
-		};
-
-	Blockly.Arduino.dyor_white = function() {
-			Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
-
-		code = '(_white)';
-
-			return [code, Blockly.Arduino.ORDER_ATOMIC];
-		};
-
-	Blockly.Blocks.dyor_white = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_LIGHT'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED'),
-			tags: ['light'],
-			helpUrl: Facilino.getHelpUrl('dyor_white'),
-			examples: ['dyor_infrared_calibration_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_LIGHT,
-			colour: Facilino.LANG_COLOUR_LIGHT_INFRARED,
-			keys: ['LANG_WHITE_NAME','LANG_WHITE','LANG_LINE_FOLLOWING_WHITE_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_WHITE_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-				this.appendDummyInput('LIGHT').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldImage("img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_WHITE_TOOLTIP'));
+			,
+			default_inputs: function ()
+			{
+				return '<value name="LIGHT"><block type="dyor_infrared"><value name="PIN"><shadow type="pin_analog"></shadow></value></block></value>';
 			}
-		};
-
-	Blockly.Arduino.dyor_black = function() {
-			Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
-
-		code = '(_black)';
-
-			return [code, Blockly.Arduino.ORDER_ATOMIC];
-		};
-
-	Blockly.Blocks.dyor_black = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_LIGHT'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED'),
-			tags: ['light'],
-			helpUrl: Facilino.getHelpUrl('dyor_black'),
-			examples: ['dyor_infrared_calibration_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_LIGHT,
-			colour: Facilino.LANG_COLOUR_LIGHT_INFRARED,
-			keys: ['LANG_BLACK_NAME','LANG_BLACK','LANG_LINE_FOLLOWING_BLACK_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_BLACK_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-				this.appendDummyInput('LIGHT').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldImage("img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_BLACK_TOOLTIP'));
-			}
-		};
-
-
-	Blockly.Arduino.infrarred_white = function() {
-		var light = Blockly.Arduino.valueToCode(this, 'LIGHT', Blockly.Arduino.ORDER_ATOMIC);
-			Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
-
-		code = JST['infrarred_white']({
-				'white': light
-			});
-
-			return code;
-		};
-
-	Blockly.Blocks.infrarred_white = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_LIGHT'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED'),
-			tags: ['light'],
-			helpUrl: Facilino.getHelpUrl('infrarred_white'),
-			examples: ['dyor_infrared_calibration_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_LIGHT,
-			colour: Facilino.LANG_COLOUR_LIGHT_INFRARED,
-			keys: ['LANG_LINE_FOLLOWING_WHITE_NAME','LANG_LINE_FOLLOWING_WHITE','LANG_LINE_FOLLOWING_CALIBRATE_WHITE_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_LINE_FOLLOWING_WHITE_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_WHITE')).appendField(new Blockly.FieldImage("img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
-				this.setInputsInline(true);
-				this.setPreviousStatement(true,'code');
-						this.setNextStatement(true,'code');
-					this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_CALIBRATE_WHITE_TOOLTIP'));
-			}
-		};
-
-	Blockly.Arduino.infrarred_black = function() {
-		var light = Blockly.Arduino.valueToCode(this, 'LIGHT', Blockly.Arduino.ORDER_ATOMIC);
-			Blockly.Arduino.definitions_['declare_var_define_light_following'] = JST['infrarred_follow_definitions_variables']({});
-		code = JST['infrarred_black']({
-				'black': light
-			});
-
-			return code;
-		};
-
-	Blockly.Blocks.infrarred_black = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_LIGHT'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED'),
-			tags: ['light'],
-			helpUrl: Facilino.getHelpUrl('infrarred_black'),
-			examples: ['dyor_infrared_calibration_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_LIGHT,
-			colour: Facilino.LANG_COLOUR_LIGHT_INFRARED,
-			keys: ['LANG_LINE_FOLLOWING_BLACK_NAME','LANG_LINE_FOLLOWING_BLACK','LANG_LINE_FOLLOWING_CALIBRATE_BLACK_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_LINE_FOLLOWING_BLACK_NAME'),
-			init: function() {
-		this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-		this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_BLACK')).appendField(new Blockly.FieldImage("img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
-		this.setInputsInline(true);
-		this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-			this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_CALIBRATE_BLACK_TOOLTIP'));
-			}
+			
 		};
 	}
 	

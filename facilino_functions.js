@@ -24,7 +24,7 @@
 		statements: [Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE_STATEMENTS_DO')],
 		init: function() {
 		this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
-		var name = new Blockly.FieldTextInput('',Blockly.Procedures.rename);
+		var name = new Blockly.FieldTextInput('my_procedure',Blockly.Procedures.rename);
 		name.setSpellcheck(false);
 		this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE')).appendField(name,'NAME').appendField('', 'PARAMS');
 		this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
@@ -407,7 +407,7 @@
 			var returnType = this.getFieldValue('RETURN_TYPE');
 			//console.log(returnType);
 			var args = this.paramString;
-			code += JST['procedures_defreturn']({'returnType': returnType,'funcName': funcName,'args': args,'branch': branch,'returnValue': returnValue});
+			code += JST['procedures_defreturn']({'returnType': returnType,'funcName': funcName,'args': args,'branch': branch,'returnValue': returnValue,'semicolon': ';'});
 			// code=code.replace(/&amp;/g, '');
 
 			code = Blockly.Arduino.scrub_(this, code);
@@ -431,7 +431,7 @@
 		fields: [Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE_FIELD_NAME')],
 		statements: [Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE_STATEMENTS_DO')],
 		init: function() {
-			var nameField = new Blockly.FieldTextInput('',Blockly.Procedures.rename);
+			var nameField = new Blockly.FieldTextInput('my_function',Blockly.Procedures.rename);
 			nameField.setSpellcheck(false);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE')).appendField(nameField, 'NAME').appendField('', 'PARAMS');
 			//this.appendStatementInput('STACK').appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_DO'));
@@ -512,7 +512,7 @@
 			inputs: [Facilino.locales.getKey('LANG_PROCEDURES_IF_RETURN_INPUT_IF'),Facilino.locales.getKey('LANG_PROCEDURES_IF_RETURN_INPUT_RETURN')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
-				this.appendValueInput('CONDITION').setCheck(Boolean).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF')).setCheck([Boolean,'VARIABLES']);
+				this.appendValueInput('CONDITION').setCheck(Boolean).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF')).setCheck([Boolean,'Variable']);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_RETURN'));
 				this.appendValueInput('VALUE').setCheck([Boolean,Number,String,'Variable']);
 				this.setInputsInline(true,'function');
@@ -520,6 +520,10 @@
 				this.setNextStatement(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_PROCEDURES_IFRETURN_TOOLTIP'));
 				this.hasReturnValue_ = true;
+			},
+			default_inputs: function()
+			{
+				return '<value name="CONDITION"><shadow type="variables_get"></shadow></value><value name="VALUE"><shadow type="math_number"></shadow></value>';
 			},
 			mutationToDom: function() {
 				// Save whether this block has a return value.
@@ -603,6 +607,10 @@
 				this.setNextStatement(true,'function');
 				this.setTooltip(Facilino.locales.getKey('LANG_PROCEDURES_RETURN_TOOLTIP'));
 				this.hasReturnValue_ = true;
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="math_number"></shadow></value>';
 			},
 			mutationToDom: function() {
 				// Save whether this block has a return value.
@@ -896,12 +904,16 @@
 			var args = [];
 			var a;
 			var code = '';
-			for (var x = 0; x < this.getVariables(funcName).length; x++) {
-				args[x] = Blockly.Arduino.valueToCode(this, 'ARG' + x, Blockly.Arduino.ORDER_NONE) || 'null';
+			console.log(this.getVariables(funcName));
+			if (this.getVariables(funcName)!==undefined)
+			{
+				for (var x = 0; x < this.getVariables(funcName).length; x++) {
+					args[x] = Blockly.Arduino.valueToCode(this, 'ARG' + x, Blockly.Arduino.ORDER_NONE) || 'null';
+				}
+				var funcArgs = args.join(', ');
+				code += JST['procedures_callreturn']({'funcName': funcName,'funcArgs': funcArgs});
+				//funcName + '(' + args.join(', ') + ')';
 			}
-			var funcArgs = args.join(', ');
-			code += JST['procedures_callreturn']({'funcName': funcName,'funcArgs': funcArgs});
-			//funcName + '(' + args.join(', ') + ')';
 			return [code, Blockly.Arduino.ORDER_UNARY_POSTFIX];
 		};
 		Blockly.Blocks.procedures_callreturn = {

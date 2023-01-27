@@ -17,8 +17,13 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
 if (!$email) {
    $error .="<p>Invalid email address please type a valid email address!</p>";
    }else{
-   $sel_query = "SELECT * FROM `users` WHERE email='".$email."'";
-   $results = mysqli_query($con,$sel_query);
+   //$sel_query = "SELECT * FROM `users` WHERE email='".$email."'";
+   //$results = mysqli_query($con,$sel_query);
+   $sel_query = "SELECT * FROM `users` WHERE email=?";
+   $statement_sel=mysqli_prepare($con,$sel_query);
+   $statement_sel->bind_param("s",$email);
+   $statement_sel->execute();
+   $results=$statement_sel->get_result();
    $row = mysqli_num_rows($results);
    if ($row==""){
    $error .= "<p>No user is registered with this email address!</p>";
@@ -36,9 +41,12 @@ if (!$email) {
    $addKey = substr(md5(uniqid(rand(),1)),3,10);
    $key = $key . $addKey;
 // Insert Temp Table
-mysqli_query($con,
-"INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`)
-VALUES ('".$email."', '".$key."', '".$expDate."');");
+//$query="INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) VALUES ('".$email."', '".$key."', '".$expDate."')";
+//mysqli_query($con,$query);
+$query="INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`) VALUES (?,?,?)";
+$statement=mysqli_prepare($con,$query);
+$statement->bind_param("sss",$email,$key,$expDate);
+$statement->execute();
  $mail=create_email_password_recovery($email,$key);
 if(!$mail->Send()){
 echo "Mailer Error: " . $mail->ErrorInfo;

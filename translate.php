@@ -15,8 +15,13 @@ include("auth.php");
 			//Upload JSON file
 			$upload_dir = 'uploads/';
 			$uploaded_file = $upload_dir . basename($_FILES['translation_file']['name']);
-			$query_lang = "SELECT `lang_key` from `languages` where id=".$_POST["language_id"];
-			$result_lang = mysqli_query($con,$query_lang);
+			//$query_lang = "SELECT `lang_key` from `languages` where id=".$_POST["language_id"];
+			//$result_lang = mysqli_query($con,$query_lang);
+			$query_lang = "SELECT `lang_key` from `languages` where id=?";
+			$statement_lang=mysqli_prepare($con,$query_lang);
+			$statement_lang->bind_param("i",$_POST["language_id"]);
+			$statement_lang->execute();
+			$result_lang=$statement_lang->get_result();
 			$rows_lang = mysqli_num_rows($result_lang);
 			if ($rows_lang==1)
 			{
@@ -30,8 +35,13 @@ include("auth.php");
 					{
 						$lang_keys=$json_a["langs"][$row_lang[0]]["keys"];
 						foreach ($lang_keys as $key => $lang_key) {
-							$query = "SELECT `key`,`value` FROM `lang_keys_".$row_lang[0]."` WHERE `key`='".$key."'";
-							$result = mysqli_query($con,$query);
+//							$query = "SELECT `key`,`value` FROM `lang_keys_".$row_lang[0]."` WHERE `key`='".$key."'";
+							//$result = mysqli_query($con,$query);
+							$query = "SELECT `key`,`value` FROM `lang_keys_".$row_lang[0]."` WHERE `key`=?";
+							$statement=mysqli_prepare($con,$query);
+							$statement->bind_param("s",$key);
+							$statement->execute();
+							$result=$statement->get_result();
 							$rows = mysqli_num_rows($result);
 							if ($rows==1)
 							{
@@ -40,22 +50,34 @@ include("auth.php");
 								$row_key_lang = mysqli_fetch_row($result);
 								if (is_null($row_key_lang[1]))
 								{
-									$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value`=\"".$lang_key."\" WHERE `key`='".$key."'";
-									$result = mysqli_query($con,$query);
+									//$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value`=\"".$lang_key."\" WHERE `key`='".$key."'";
+									//$result = mysqli_query($con,$query);
+									$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value`=? WHERE `key`=?";
+									$statement=mysqli_prepare($con,$query);
+									$statement->bind_param("ss",$lang_key,$key);
+									$statement->execute();
 									echo "lang_keys[".$row_lang[0]."] update ".$key.": ".$lang_key."\n";
 								}
 								else
 								{
-									$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value_temp`=\"".$lang_key."\" WHERE `key`='".$key."'";
-									$result = mysqli_query($con,$query);
+									//$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value_temp`=\"".$lang_key."\" WHERE `key`='".$key."'";
+									//$result = mysqli_query($con,$query);
+									$query = "UPDATE `lang_keys_".$row_lang[0]."` SET `value_temp`=? WHERE `key`=?";
+									$statement=mysqli_prepare($con,$query);
+									$statement->bind_param("ss",$lang_key,$key);
+									$statement->execute();
 									echo "lang_keys[".$row_lang[0]."] update temp ".$key.": ".$lang_key."\n";
 								}
 							}
 							elseif ($rows==0)
 							{
 								//Key not found. Insert a new one
-								$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value`) VALUES ('".$key."',\"".$lang_key."\")";
-								$result = mysqli_query($con,$query);
+								//$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value`) VALUES ('".$key."',\"".$lang_key."\")";
+								//$result = mysqli_query($con,$query);
+								$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value`) VALUES (?,?)";
+								$statement=mysqli_prepare($con,$query);
+								$statement->bind_param("ss",$key,$lang_key);
+								$statement->execute();
 								echo "lang_keys[".$row_lang[0]."] insert ".$key.": ".$lang_key."\n";
 							}
 						}
@@ -72,8 +94,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["translate_button"])){ 
 			//Upload a single translation
-			$query_translator = "SELECT id FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result_translator = mysqli_query($con,$query_translator);
+			//$query_translator = "SELECT id FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result_translator = mysqli_query($con,$query_translator);
+			$query_translator = "SELECT id FROM `users` WHERE `username`=?";
+			$statement_translator=mysqli_prepare($con,$query_translator);
+			$statement_translator->bind_param("s",$_SESSION["username"]);
+			$statement_translator->execute();
+			$result_translator=$statement_translator->get_result();
 			$rows_translator = mysqli_num_rows($result_translator);
 			if ($rows_translator==1)
 			{
@@ -91,8 +118,12 @@ include("auth.php");
 						array_push($languages,['name' => $row_lang[1], 'key' => $row_lang[2]]);
 					}
 					echo "<h3>Your translation has been submitted to a reviewer. Thanks for your contribution!</h3>";
-					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=\"".$_POST["translated_text"]."\" `translator_id`=".$translator_id." `translation_date`=GETDATE() WHERE `key`=\"".$translated_key."\"";
-					$result = mysqli_query($con,$query);
+					//$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=\"".$_POST["translated_text"]."\" `translator_id`=".$translator_id." `translation_date`=GETDATE() WHERE `key`=\"".$translated_key."\"";
+					//$result = mysqli_query($con,$query);
+					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=?,`translator_id`=?,`translation_date`=GETDATE() WHERE `key`=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("sis",$_POST["translated_text"],$translator_id,$translated_key);
+					$statement->execute();
 				}
 				else
 				{
@@ -107,8 +138,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["accept_translation_button"])){
 			//Accept a given translation
-			$query_reviewer = "SELECT id FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result_reviewer = mysqli_query($con,$query_reviewer);
+			//$query_reviewer = "SELECT id FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result_reviewer = mysqli_query($con,$query_reviewer);
+			$query_reviewer = "SELECT id FROM `users` WHERE `username`=?";
+			$statement_reviewer=mysqli_prepare($con,$query_reviewer);
+			$statement_reviewer->bind_param("s",$_SESSION["username"]);
+			$statement_reviewer->execute();
+			$result_reviewer=$statement_reviewer->get_result();
 			$rows_reviewer = mysqli_num_rows($result_reviewer);
 			if ($rows_reviewer==1)
 			{
@@ -125,8 +161,12 @@ include("auth.php");
 						$row_lang = mysqli_fetch_row($result_lang);
 						array_push($languages,['name' => $row_lang[1], 'key' => $row_lang[2]]);
 					}
-					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=\"".$_POST["reviewed_text"]."\", `value_temp`=NULL `reviewer_id=`".$reviewer_id." `review_date`=GETDATE()` WHERE `key`=\"".$reviewed_key."\"";
-					$result = mysqli_query($con,$query);
+					//$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=\"".$_POST["reviewed_text"]."\", `value_temp`=NULL `reviewer_id=`".$reviewer_id." `review_date`=GETDATE()` WHERE `key`=\"".$reviewed_key."\"";
+					//$result = mysqli_query($con,$query);
+					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=?,`value_temp`=NULL,`reviewer_id=`?,`review_date`=GETDATE()` WHERE `key`=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("sis",$_POST["reviewed_text"],$reviewer_id,$reviewed_key);
+					$statement->execute();
 					header("Location: translate.php");
 				}
 				else
@@ -156,8 +196,12 @@ include("auth.php");
 					array_push($languages,['name' => $row_lang[1], 'key' => $row_lang[2]]);
 				}
 			}
-			$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=\"".$reviewed_key."\"";
-			$result = mysqli_query($con,$query);
+			//$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=\"".$reviewed_key."\"";
+			//$result = mysqli_query($con,$query);
+			$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$reviewed_key);
+			$statement->execute();
 			header("Location: translate.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["report_translation_button"])){
@@ -175,23 +219,36 @@ include("auth.php");
 					array_push($languages,['name' => $row_lang[1], 'key' => $row_lang[2]]);
 				}
 			}
-			$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=\"".$reviewed_key."\"";
-			$result = mysqli_query($con,$query);
-			
+			//$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=\"".$reviewed_key."\"";
+			//$result = mysqli_query($con,$query);
+			$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value_temp`=NULL WHERE `key`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$reviewed_key);
+			$statement->execute();
 			//TODO: Pending send the report e-mail.
 			echo "<h3>".$website["EMAIL_SENT_REPORT_TRANSLATION"]."</h3>";
 			echo '<form action="translate.php"><input type="submit" value="'.$website["CONTINUE"].'" /></from>';
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["apply_reviewer"])){
 			require("functions.php");
-			$query="SELECT `email`,`key` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `email`,`key` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `email`,`key` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
 				$row = mysqli_fetch_row($result);
-				$query_lang = "SELECT `name` FROM `languages` WHERE `id`=".$_POST["language_id"];
-				$result_lang = mysqli_query($con,$query_lang);
+				//$query_lang = "SELECT `name` FROM `languages` WHERE `id`=".$_POST["language_id"];
+				//$result_lang = mysqli_query($con,$query_lang);
+				$query_lang = "SELECT `name` FROM `languages` WHERE `id`=?";
+				$statement_lang=mysqli_prepare($con,$query_lang);
+				$statement_lang->bind_param("i",$_POST["language_id"]);
+				$statement_lang->execute();
+				$result_lang=$statement_lang->get_result();
 				$rows_lang = mysqli_num_rows($result_lang);
 				if ($rows_lang==1)
 				{
@@ -214,8 +271,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_reviewer")){
 			//Decline a user as a reviewer
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name`,`last_name` FROM `users` WHERE `username`=\"".$_GET["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `id`,`user_role_id`,`email`,`first_name`,`last_name` FROM `users` WHERE `username`=\"".$_GET["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `id`,`user_role_id`,`email`,`first_name`,`last_name` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_GET["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -246,8 +308,13 @@ include("auth.php");
 		}
 		else
 		{
-			$query_user = "SELECT `key`,`user_role_id` from `users` where username='".$_SESSION["username"]."' and active=1";
-			$result_user = mysqli_query($con,$query_user);
+			//$query_user = "SELECT `key`,`user_role_id` from `users` where username='".$_SESSION["username"]."' and active=1";
+			//$result_user = mysqli_query($con,$query_user);
+			$query_user = "SELECT `key`,`user_role_id` from `users` where username=? and active=1";
+			$statement_user=mysqli_prepare($con,$query_user);
+			$statement_user->bind_param("s",$_SESSION["username"]);
+			$statement_user->execute();
+			$result_user=$statement->get_result();
 			$rows_user = mysqli_num_rows($result_user);
 			if ($rows_user==1)
 			{

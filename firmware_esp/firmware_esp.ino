@@ -1,11 +1,11 @@
-#include "Arduino.h"
-#include "stdlib_noniso.h"
+//#include "Arduino.h"
+//#include "stdlib_noniso.h"
 
 #if defined(ESP8266)
     #include "ESP8266WiFi.h"
     #include "ESPAsyncTCP.h"
-    #include "flash_hal.h"
-    #include "FS.h"
+    //#include "flash_hal.h"
+    //#include "FS.h"
 #elif defined(ESP32)
     #include "WiFi.h"
     #include "AsyncTCP.h"
@@ -17,8 +17,8 @@
 #include "Hash.h"
 #include "ESPAsyncWebServer.h"
 
-#define SSID_NAME "YOUR_SSID"
-#define SSID_PASSWORD "YOUR_PASSWORD"
+#define SSID_NAME "ROBOTICA"
+#define SSID_PASSWORD "Robotica"
 
 const char* serverIndex = 
 "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>"
@@ -109,13 +109,12 @@ void setup()
                 //Upload handler chunks in data
                 if (!index) {
                    #if defined(ESP8266)
-                        int cmd = (filename == "filesystem") ? U_FS : U_FLASH;
+                        int cmd = U_FLASH;
                         Update.runAsync(true);
-                        size_t fsSize = ((size_t) &_FS_end - (size_t) &_FS_start);
                         uint32_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
-                        if (!Update.begin((cmd == U_FS)?fsSize:maxSketchSpace, cmd)){ // Start with max available size
+                        if (!Update.begin(maxSketchSpace, cmd)){ // Start with max available size
                     #elif defined(ESP32)
-                        int cmd = (filename == "filesystem") ? U_SPIFFS : U_FLASH;
+                        int cmd = U_FLASH;
                         if (!Update.begin(UPDATE_SIZE_UNKNOWN, cmd)) { // Start with max available size
                     #endif
                         Update.printError(Serial);

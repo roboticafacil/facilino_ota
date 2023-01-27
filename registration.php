@@ -82,12 +82,16 @@ else if (isset($_REQUEST['username'])){
 			$key = md5($email);
 			$addKey = substr(md5(uniqid(rand(),1)),3,10);
 			$key = $key . $addKey;
+			//$mail=create_email_activation($email,$key);
+			//var_dump($mail);
 			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."')";
 			$result = mysqli_query($con,$query);
 			if($result){
 				$mail=create_email_activation($email,$key);
+				
 				if(!$mail->Send()){
 				echo "Mailer Error: " . $mail->ErrorInfo;
+				var_dump($mail);
 				}else{
 				echo "<div class='form'>
 				<h3>You have been successfully registered. We have sent you an e-mail with a link to activate your account. Please, check your mailbox.</h3>

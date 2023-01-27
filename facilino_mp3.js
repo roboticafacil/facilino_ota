@@ -14,15 +14,18 @@
 				var rx, tx;
 				rx = Blockly.Arduino.valueToCode(this, 'RX', Blockly.Arduino.ORDER_NONE);
 				tx = Blockly.Arduino.valueToCode(this, 'TX', Blockly.Arduino.ORDER_NONE);
-				Blockly.Arduino.definitions_['declare_var_MP3Serial'] = 'SoftwareSerial _mp3_device(' + rx + ',' + tx + ');\n';
+				Blockly.Arduino.definitions_['declare_var_MP3Serial'] = 'SoftwareSerial _mp3_serial(' + rx + ',' + tx + ');\n';
 				Blockly.Arduino.definitions_['define_softwareserial'] = JST['softwareserial_def_definitions']({});
-				Blockly.Arduino.setups_['setup_mp3serial'] = JST['communications_softwareserial_def_setups']({'device': '_mp3_device', 'baud_rate': 9600,'rx': rx,'tx': tx});
+				Blockly.Arduino.setups_['setup_mp3serial'] = JST['communications_softwareserial_def_setups']({'device': '_mp3_serial', 'baud_rate': 9600,'rx': rx,'tx': tx});
 			}
 			else if (Facilino.profiles['processor']==='ATmega2560')
 			{
-				Blockly.Arduino.definitions_['declare_var_MP3Serial'] = '#define _mp3_device Serial'+port+'\n';
-				Blockly.Arduino.setups_['setup_serial_'+port] = '_mp3_device.begin(9600);\n';
+				Blockly.Arduino.definitions_['declare_var_MP3Serial'] = '#define _mp3_serial Serial'+port+'\n';
+				Blockly.Arduino.setups_['setup_serial_'+port] = '_mp3_serial.begin(9600);\n';
 			}
+			Blockly.Arduino.definitions_['declare_var_MP3Serial_device'] = 'DFRobotDFPlayerMini _mp3_device;\n';
+			Blockly.Arduino.definitions_['define_DFPlayer'] = JST['dfplayer_def_definitions']({});
+			Blockly.Arduino.setups_['setup_mp3serial_device'] = JST['music_dfplayer_def_setups']({});
 			var code='';
 			return code;
 		};
@@ -56,6 +59,16 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="RX"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="TX"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="TX"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				return xml;
+			},
 			isNotDuplicable: true
 		};
 		
@@ -84,6 +97,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="SONG_NUMBER"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
 			}
 		};
 		
@@ -116,6 +133,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_FOLDER_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="FOLDER_NUMBER"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="SONG_NUMBER"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
 			}
 		};
 		
@@ -170,6 +191,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_VOLUME_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VOLUME"><shadow type="math_number"><field name="NUM">15</field></shadow></value>';
 			}
 		};
 		
@@ -309,6 +334,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_LOOP_FOLDER_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="FOLDER_NUMBER"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
 			}
 		};
 		

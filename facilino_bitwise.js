@@ -45,6 +45,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_OPERATION_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="OP">&amp;</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">|</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">^</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
 			}
 		};
 
@@ -77,6 +81,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_NOT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -114,6 +122,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_SHIFT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="OP">&lt;&lt;</field><value name="A"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">2</field></shadow></value>','<field name="OP">&gt;&gt;</field><value name="A"><shadow type="math_number"><field name="NUM">4</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'];
 			}
 		};
 		
@@ -147,6 +159,10 @@
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE8_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="A"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">255</field></shadow></value>';
 			}
 		};
 		
@@ -184,6 +200,10 @@
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE8x4_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="A"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">255</field></shadow></value><value name="C"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="D"><shadow type="math_number"><field name="NUM">128</field></shadow></value>';
 			}
 		};
 		
@@ -217,6 +237,10 @@
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE16_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="A"><shadow type="math_number"><field name="NUM">1024</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">512</field></shadow></value>';
 			}
 		};
 		}

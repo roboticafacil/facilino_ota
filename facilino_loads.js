@@ -36,7 +36,7 @@ FacilinoColor.load(options);
 FacilinoLDR.load(options);
 FacilinoLightDimmer.load(options);
 FacilinoBuzzer.load(options);
-FacilinoVoice.load(options);
+//FacilinoVoice.load(options);
 FacilinoMic.load(options);
 FacilinoMelody.load(options);
 FacilinoMP3.load(options);

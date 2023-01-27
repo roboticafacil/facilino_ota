@@ -31,7 +31,7 @@
 			fields: [Facilino.locales.getKey('LANG_PROGRAMMING_INCLUDE_LIBRARY_FIELD_LIBRARY')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_PROGRAMMING);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PROGRAMMING_INCLUDE_LIBRARY')).appendField(new Blockly.FieldTextInput(''),'LIBRARY');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PROGRAMMING_INCLUDE_LIBRARY')).appendField(new Blockly.FieldTextInput('library_name'),'LIBRARY');
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_PROGRAMMING_INCLUDE_LIBRARY_TOOLTIP'));
@@ -83,6 +83,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_EXECUTE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="CONTENT"><shadow type="text"><field name="TEXT"></field></shadow></value>';
+				return xml;
 			}
 		};
 		}

@@ -54,6 +54,10 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Number);
 			this.setTooltip(Facilino.locales.getKey('LANG_GAS_ANALOG_READ_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
@@ -84,6 +88,10 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Boolean);
 			this.setTooltip(Facilino.locales.getKey('LANG_GAS_DIGITAL_READ_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 			}
 		};
 		
@@ -93,7 +101,7 @@
 				var code = '';
 				var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 				Blockly.Arduino.definitions_['define_calibrate_gas_sensor'] = JST['calibrate_gas_sensor']({});
-				if (profiles['processor']==='ESP32')
+				if (Facilino.profiles['processor']==='ESP32')
 					Blockly.Arduino.definitions_['define_resistance_gas_sensor'] = JST['resistance_gas_sensor_ESP32']({});
 				else
 					Blockly.Arduino.definitions_['define_resistance_gas_sensor'] = JST['resistance_gas_sensor']({});
@@ -137,6 +145,10 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Number);
 			this.setTooltip(Facilino.locales.getKey('LANG_GAS_CALIBRATE_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
@@ -150,7 +162,7 @@
 					var r0_default ='';
 				var r0 = Blockly.Arduino.valueToCode(this, 'R0', Blockly.Arduino.ORDER_NONE) || r0_default;
 				Blockly.Arduino.definitions_['define_calibrated_gas_sensor'] = JST['calibrated_gas_sensor']({});
-				if (profiles['processor']==='ESP32')
+				if (Facilino.profiles['processor']==='ESP32')
 					Blockly.Arduino.definitions_['define_resistance_gas_sensor'] = JST['resistance_gas_sensor_ESP32']({});
 				else
 					Blockly.Arduino.definitions_['define_resistance_gas_sensor'] = JST['resistance_gas_sensor']({});
@@ -317,6 +329,10 @@
 					else if (this._sensor=='MQ135')
 						this.getInput('GAS_TYPE').appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_GAS_CO2'),'CO2'],[Facilino.locales.getKey('LANG_GAS_CO'),'CO'],[Facilino.locales.getKey('LANG_GAS_SMOKE'),'SMOKE'],[Facilino.locales.getKey('LANG_GAS_NH4'),'NH4'],[Facilino.locales.getKey('LANG_GAS_BENZENE'),'BENZENE'],[Facilino.locales.getKey('LANG_GAS_NH3'),'NH3']]),'GAS_TYPE');
 				}
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value><value name="R0"><shadow type="math_number"><field name="NUM">0.28</field></shadow></value>';
 			}
 		};
 		}

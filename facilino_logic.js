@@ -35,6 +35,10 @@
 						[Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_FALSE'), 'FALSE']
 					]), 'BOOL');
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="BOOL">TRUE</field>','<field name="BOOL">FALSE</field>'];
 			}
 		};
 		// Source: src/blocks/logic_compare/logic_compare.js
@@ -86,6 +90,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_COMPARE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="OP">EQ</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">NEQ</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">LT</field><value name="A"><shadow type="math_number"><field name="NUM">3</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">10</field></shadow></value>','<field name="OP">LTE</field><value name="A"><shadow type="math_number"><field name="NUM">3</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">10</field></shadow></value>','<field name="OP">GT</field><value name="A"><shadow type="math_number"><field name="NUM">10</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">3</field></shadow></value>','<field name="OP">GTE</field><value name="A"><shadow type="math_number"><field name="NUM">10</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">3</field></shadow></value>'];
 			}
 		};
 
@@ -153,6 +161,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_OPERATION_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="OP">AND</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="OP">OR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XNOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">IMPLIES</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 
@@ -185,6 +197,10 @@
 				this.setOutput(true,Boolean);
 				this.appendValueInput('BOOL').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_LOGIC_NEGATE_INPUT_NOT'));
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_NEGATE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="BOOL"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
 			}
 		};
 		
@@ -218,6 +234,10 @@
 				this.appendValueInput('NUM').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_LOGIC_TO_BOOLEAN'));
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_TO_BOOLEAN_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'];
 			}
 		};
 		}

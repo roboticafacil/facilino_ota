@@ -113,6 +113,10 @@
 					this.setOutput(true,Number);
 					this.setColour(Facilino.LANG_COLOUR_VARIABLES);
 					this.setTooltip(Facilino.locales.getKey('LANG_EEPROM_READ_BYTE_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="ADDRESS"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 
@@ -155,7 +159,7 @@
 					this.appendValueInput('VARIABLE')
 						.setAlign(Blockly.ALIGN_RIGHT)
 						.appendField(Facilino.locales.getKey('LANG_EEPROM_READ_BYTES'))
-						.appendField(Facilino.locales.getKey('LANG_EEPROM_READ_BYTES_WITH')).setCheck('Array');
+						.appendField(Facilino.locales.getKey('LANG_EEPROM_READ_BYTES_WITH')).setCheck(['Variable']);
 					this.appendValueInput('ADDRESS')
 						.appendField(Facilino.locales.getKey('LANG_EEPROM_ADDRESS')).setCheck(Number);
 						//.appendField(new Blockly.FieldTextInput("0",Blockly.Blocks.i2c_read_byte.validator), "ADDRESS");
@@ -165,6 +169,10 @@
 					this.setNextStatement(true,'code');
 					this.setColour(Facilino.LANG_COLOUR_VARIABLES);
 					this.setTooltip(Facilino.locales.getKey('LANG_EEPROM_READ_BYTES_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="VARIABLE"><shadow type="variables_get"></shadow></value><value name="ADDRESS"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 
@@ -283,14 +291,17 @@
 						.appendField(Facilino.locales.getKey('LANG_EEPROM_ADDRESS')).setCheck(Number);
 					this.appendValueInput('DATA')
 						//.appendField(new Blockly.FieldTextInput("0",Blockly.Blocks.i2c_read_byte.validator), "ADDRESS")
-						.appendField(Facilino.locales.getKey('LANG_EEPROM_BYTES'))
-						.setCheck([Number,'Variable']);
+						.appendField('Data').setCheck([Number,'Variable']);
 					this.setOutput(false);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
 					this.setInputsInline(true);
 					this.setColour(Facilino.LANG_COLOUR_VARIABLES);
 					this.setTooltip(Facilino.locales.getKey('LANG_EEPROM_WRITE_BYTES_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return ['<value name="ADDRESS"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DATA"><shadow type="math_number"><field name="NUM">1.2</field></shadow></value>','<value name="ADDRESS"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DATA"><shadow type="variables_get"></shadow></value>'];
 				}
 			};
 			}

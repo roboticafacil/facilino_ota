@@ -22,10 +22,14 @@
 	Blockly.Arduino.dyor_move_grip = function() {
 			var left = Blockly.Arduino.valueToCode(this, 'LEFT', Blockly.Arduino.ORDER_NONE);
 			var right = Blockly.Arduino.valueToCode(this, 'RIGHT', Blockly.Arduino.ORDER_NONE);
+			var left_close = this.getFieldValue('TO1');
+			var left_open = this.getFieldValue('FROM1');
+			var right_close = this.getFieldValue('TO2');
+			var right_open = this.getFieldValue('FROM2');
 			var code = '';
 			var option = this.getFieldValue('OPTION');
 			var attach = this.getFieldValue('ATTACH') || 'FALSE';
-			Blockly.Arduino.definitions_['declare_var_define_move_grip'] = JST['movement_move_grip_definitions_variables']({});
+			//Blockly.Arduino.definitions_['declare_var_define_move_grip'] = JST['movement_move_grip_definitions_variables']({});
 			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266'))
 			{
 				Blockly.Arduino.definitions_['include_servo'] = '#include <Servo.h>';
@@ -45,13 +49,13 @@
 				Blockly.Arduino.setups_['movement_servo_move_' + right] = JST['dyor_servo_setups']({'pin': right});
 
 			if (option==='5' || option==='1')
-			  code +='_servo'+left+'.write(_left_close);\n';
+			  code +='_servo'+left+'.write('+left_close+');\n';
 			if (option==='5' || option==='3')
-			  code +='_servo'+right+'.write(_right_close);\n';
+			  code +='_servo'+right+'.write('+right_close+');\n';
 			if (option==='6' || option==='2')
-			  code +='_servo'+left+'.write(_left_open);\n';
+			  code +='_servo'+left+'.write('+left_open+');\n';
 			if (option==='6' || option==='4')
-			  code +='_servo'+right+'.write(_right_open);\n';
+			  code +='_servo'+right+'.write('+right_open+');\n';
 			}
 			else
 			{
@@ -65,13 +69,13 @@
 				if (option==='6' || option==='4')
 				  code +='if (!_servo'+right+'.attached())\n	_servo'+right+'.attach('+right+');\n';
 				if (option==='5' || option==='1')
-				  code +='_servo'+left+'.write(_left_close);\n';
+				  code +='_servo'+left+'.write('+left_close+');\n';
 				if (option==='5' || option==='3')
-				  code +='_servo'+right+'.write(_right_close);\n';
+				  code +='_servo'+right+'.write('+right_close+');\n';
 				if (option==='6' || option==='2')
-				  code +='_servo'+left+'.write(_left_open);\n';
+				  code +='_servo'+left+'.write('+left_open+');\n';
 				if (option==='6' || option==='4')
-				  code +='_servo'+right+'.write(_right_open);\n';
+				  code +='_servo'+right+'.write('+right_open+');\n';
 				code +='delay('+time+');\n';
 				if (option==='5' || option==='1')
 				  code +='  _servo'+left+'.detach();\n';
@@ -100,8 +104,10 @@
 			init: function() {
 				this.setColour(robot_colour);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_GRIPPER')).appendField(new Blockly.FieldImage('img/blocks/gripper.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('LEFT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')||'Left').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')||'Right').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('LEFT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')||'Left').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_FROM')||'From').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(135,0,180,1),'FROM1').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_TO')||'to').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(45,0,180,1),'TO1').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('RIGHT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')||'Right').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_FROM')||'From').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(135,0,180,1),'FROM2').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_TO')||'to').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(45,0,180,1),'TO2').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(new Blockly.FieldDropdown([
 		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_GRIP') || 'Grip left', '1'],
 		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_RELEASE') || 'Release left', '2'],
@@ -121,6 +127,16 @@
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_MOVE_GRIP_TOOLTIP'));
 			},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="LEFT"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					return xml;
+				},
 			onchange: function()
 			{
 				if (window.FacilinoAdvanced===true)
@@ -140,7 +156,7 @@
 		
 		if (window.FacilinoAdvanced===true)
 				{
-	Blockly.Arduino.dyor_set_grip = function() {
+	/*Blockly.Arduino.dyor_set_grip = function() {
 			var value = Blockly.Arduino.valueToCode(this, 'VALUE', Blockly.Arduino.ORDER_ATOMIC);
 		var option = this.getFieldValue('OPTION');
 		Blockly.Arduino.definitions_['declare_var_define_move_grip'] = JST['movement_move_grip_definitions_variables']({});
@@ -190,7 +206,7 @@
 				}
 				return false;
 			}
-		};
+		};*/
 				}
 
 		/*Blockly.Blocks.dyor_move_arms = {
@@ -242,9 +258,13 @@
 	Blockly.Arduino.dyor_move_arms = function() {
 			var left = Blockly.Arduino.valueToCode(this, 'LEFT', Blockly.Arduino.ORDER_NONE);
 			var right = Blockly.Arduino.valueToCode(this, 'RIGHT', Blockly.Arduino.ORDER_NONE);
+			var left_up = this.getFieldValue('TO1');
+			var left_down = this.getFieldValue('FROM1');
+			var right_up = this.getFieldValue('TO2');
+			var right_down = this.getFieldValue('FROM2');
 			var option = this.getFieldValue('OPTION');
 			var attach = this.getFieldValue('ATTACH') || 'FALSE';
-			Blockly.Arduino.definitions_['declare_var_define_move_arms'] = JST['movement_move_arms_definitions_variables']({});
+			//Blockly.Arduino.definitions_['declare_var_define_move_arms'] = JST['movement_move_arms_definitions_variables']({});
 			var code='';
 
 			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP32'))
@@ -266,13 +286,13 @@
 				Blockly.Arduino.setups_['movement_servo_move_' + right] = JST['dyor_servo_setups']({'pin': right});
 
 		if (option==='5' || option==='1')
-		  code +='_servo'+left+'.write(_left_up);\n';
+		  code +='_servo'+left+'.write('+left_up+');\n';
 		if (option==='5' || option==='3')
-		  code +='_servo'+right+'.write(_right_up);\n';
+		  code +='_servo'+right+'.write('+right_up+');\n';
 		if (option==='6' || option==='2')
-		  code +='_servo'+left+'.write(_left_down);\n';
+		  code +='_servo'+left+'.write('+left_down+');\n';
 		if (option==='6' || option==='4')
-		  code +='_servo'+right+'.write(_right_down);\n';
+		  code +='_servo'+right+'.write('+right_down+');\n';
 			}
 			else
 			{
@@ -286,13 +306,13 @@
 				if (option==='6' || option==='4')
 				  code +='if (!_servo'+right+'.attached())\n	_servo'+right+'.attach('+right+');\n';
 				if (option==='5' || option==='1')
-				  code +='_servo'+left+'.write(_left_up);\n';
+				  code +='_servo'+left+'.write('+left_up+');\n';
 				if (option==='5' || option==='3')
-				  code +='_servo'+right+'.write(_right_up);\n';
+				  code +='_servo'+right+'.write('+right_up+');\n';
 				if (option==='6' || option==='2')
-				  code +='_servo'+left+'.write(_left_down);\n';
+				  code +='_servo'+left+'.write('+left_down+');\n';
 				if (option==='6' || option==='4')
-				  code +='_servo'+right+'.write(_right_down);\n';
+				  code +='_servo'+right+'.write('+right_down+');\n';
 				code +='delay('+time+');\n';
 				if (option==='5' || option==='1')
 				  code +='  _servo'+left+'.detach();\n';
@@ -321,7 +341,9 @@
 				this.setColour(robot_colour);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ARMS')).appendField(new Blockly.FieldImage('img/blocks/arms.svg', 52*options.zoom, 25*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('LEFT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')||'Left').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_FROM')||'From').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(135,0,180,1),'FROM1').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_TO')||'to').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(45,0,180,1),'TO1').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('RIGHT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')||'Right').appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_FROM')||'From').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(135,0,180,1),'FROM2').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_TO')||'to').appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(45,0,180,1),'TO2').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(new Blockly.FieldDropdown([
 		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_UP') || 'Left hand up', '1'],
 		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_DOWN') || 'Left hand down', '2'],
@@ -341,6 +363,16 @@
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_MOVE_ARMS_TOOLTIP'));
 			},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="LEFT"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					return xml;
+				},
 			onchange: function()
 			{
 				if (window.FacilinoAdvanced===true)
@@ -360,7 +392,7 @@
 
 	if (window.FacilinoAdvanced===true)
 	{
-	Blockly.Arduino.dyor_set_arms = function() {
+	/*Blockly.Arduino.dyor_set_arms = function() {
 			var value = Blockly.Arduino.valueToCode(this, 'VALUE', Blockly.Arduino.ORDER_ATOMIC);
 		var option = this.getFieldValue('OPTION');
 		Blockly.Arduino.definitions_['declare_var_define_move_arms'] = JST['movement_move_arms_definitions_variables']({});
@@ -410,7 +442,7 @@
 				}
 				return false;
 			}
-		};
+		};*/
 
 		Blockly.Arduino.dyor_attack_defend = function() {
 			var pin1 = Blockly.Arduino.valueToCode(this, 'LEFT', Blockly.Arduino.ORDER_NONE);
@@ -489,7 +521,19 @@
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_SERVO_MOVE_ATTACK_DEFEND_TOOLTIP'));
-			}
+			},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="LEFT"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					xml+='<value name="TIME"><shadow type="math_number"><field name="NUM">500</field></shadow></value>';
+					
+					return xml;
+				}
 		};
 		}
 	}

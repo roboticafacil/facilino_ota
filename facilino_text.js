@@ -6,42 +6,6 @@
 	}
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
-		
-		if (window.FacilinoAdvanced===true)
-		{
-		Blockly.Arduino.serial_special = function() {
-			var code = '';
-			code += JST['serial_special']({'char': '\''+this.getFieldValue('CHAR')+'\''});
-			return [code, Blockly.Arduino.ORDER_NONE];
-		}
-		
-		Blockly.Blocks.serial_special = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_TEXT'),
-			tags: ['text'],
-			helpUrl: Facilino.getHelpUrl('serial_special'),
-			tags: ['serial'],
-			examples: ['serial_special_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_TEXT,
-			colour: Facilino.LANG_COLOUR_TEXT,
-			keys: ['LANG_ADVANCED_SERIAL_SPECIAL_NAME','LANG_ADVANCED_SERIAL_SPECIAL','LANG_ADVANCED_SERIAL_SPECIAL_TAB','LANG_ADVANCED_SERIAL_SPECIAL_CARRIAGE_RETURN','LANG_ADVANCED_SERIAL_SPECIAL_LINE_FEED','LANG_ADVANCED_SERIAL_SPECIAL_QUOTE','LANG_ADVANCED_SERIAL_SPECIAL_DOUBLE_QUOTE','LANG_ADVANCED_SERIAL_SPECIAL_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_TEXT);
-				this.appendDummyInput('')
-					.appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL'))
-					.appendField(new Blockly.FieldDropdown([
-						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_TAB') || 'TAB', '\\t'],
-						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_CARRIAGE_RETURN') || 'CARRIAGE RETURN', '\\r'],
-						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_LINE_FEED') || 'LINE FEED', '\\n'],
-						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_QUOTE') || 'QUOTE', "\\'"],
-						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_DOUBLE_QUOTE') || 'DOUBLE_QUOTE', '\\"']
-					]), 'CHAR');
-				this.setOutput(true,String);
-				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_TOOLTIP'));
-			}
-		};
-		}
-
 
 		Blockly.Arduino.text = function() {
 			// Text value.
@@ -128,6 +92,10 @@
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_APPEND_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return '<value name="TEXT"><shadow type="text"><field name="TEXT"></field></shadow></value><value name="VAR"><shadow type="variables_get"></shadow></value>';
+			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];
 			},
@@ -178,12 +146,16 @@
 			name: Facilino.locales.getKey('LANG_TEXT_CHARAT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_TEXT);
-				this.appendValueInput('STRING').setCheck([String,'Variable','Array']);
+				this.appendValueInput('STRING').setCheck(['Variable']);
 				this.appendValueInput('POS').appendField(Facilino.locales.getKey('LANG_TEXT_CHARAT')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
 				this.setInputsInline(true);
 
 				this.setOutput(true,[Number,String]);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_CHARAT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="STRING"><shadow type="variables_get"></shadow></value><value name="POS"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			}
 		};
 
@@ -217,6 +189,10 @@
 
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_EQUALSIGNORECASE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="STRING1"><shadow type="variables_get"></shadow></value><value name="STRING2"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="STRING1"><shadow type="variables_get"></shadow></value><value name="STRING2"><shadow type="variables_get"></shadow></value>'];
 			}
 		};
 		}
@@ -266,35 +242,39 @@
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_JOIN_TOOLTIP'));
 				this.itemCount_ = 2;
 			},
+			default_inputs: function()
+			{
+				return ['<value name="ADD0"><shadow type="text"><field name="TEXT"></field></shadow></value><value name="ADD1"><shadow type="text"><field name="TEXT"></field></shadow></value>'];
+			},
 			mutationToDom: function() {
 				var container = document.createElement('mutation');
 				container.setAttribute('items', this.itemCount_);
 				return container;
 			},
 			domToMutation: function(xmlElement) {
-				for (var x = 0; x < this.itemCount_; x++) {
+				for (var x = 2; x < this.itemCount_; x++) {
 					this.removeInput('ADD' + x);
 				}
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('items'), 10);
-				for (x = 0; x < this.itemCount_; x++) {
+				for (x = 2; x < this.itemCount_; x++) {
 					var input = this.appendValueInput('ADD' + x).setCheck([Number,String,'Variable']);
-					if (x === 0) {
+					/*if (x === 0) {
 						input.appendField(Facilino.locales.getKey('LANG_TEXT_JOIN_Field_CREATEWITH'));
-					}
+					}*/
 				}
-				if (this.itemCount_ === 0) {
+				/*if (this.itemCount_ === 0) {
 					this.appendDummyInput('EMPTY')
 						.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
 							'media/quote0.png', 12, 12))
 						.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
 							'media/quote1.png', 12, 12));
-				}
+				}*/
 			},
 			decompose: function(workspace) {
 				var containerBlock = workspace.newBlock('text_create_join_container');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 0; x < this.itemCount_; x++) {
+				for (var x = 2; x < this.itemCount_; x++) {
 					var itemBlock = workspace.newBlock('text_create_join_item');
 					itemBlock.initSvg();
 					connection.connect(itemBlock.previousConnection);
@@ -304,21 +284,21 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all input blocks and remove all inputs.
-				if (this.itemCount_ === 0) {
-					this.removeInput('EMPTY');
-				} else {
-					for (var x = this.itemCount_ - 1; x >= 0; x--) {
+				//if (this.itemCount_ === 0) {
+				//	this.removeInput('EMPTY');
+				//} else {
+					for (var x = this.itemCount_ - 1; x >= 2; x--) {
 						this.removeInput('ADD' + x);
 					}
-				}
-				this.itemCount_ = 0;
+				//}
+				this.itemCount_ = 2;
 				// Rebuild the block's inputs.
 				var itemBlock = containerBlock.getInputTargetBlock('STACK');
 				while (itemBlock) {
 					var input = this.appendValueInput('ADD' + this.itemCount_).setCheck([Number,String,'Variable']);
-					if (this.itemCount_ === 0) {
-						input.appendField(Facilino.locales.getKey('LANG_TEXT_JOIN_Field_CREATEWITH'));
-					}
+					//if (this.itemCount_ === 0) {
+					//	input.appendField(Facilino.locales.getKey('LANG_TEXT_JOIN_Field_CREATEWITH'));
+					//}
 					// Reconnect any child blocks.
 					if (itemBlock.valueConnection_) {
 						input.connection.connect(itemBlock.valueConnection_);
@@ -326,18 +306,18 @@
 					this.itemCount_++;
 					itemBlock = itemBlock.nextConnection && itemBlock.nextConnection.targetBlock();
 				}
-				if (this.itemCount_ === 0) {
-					this.appendDummyInput('EMPTY')
-						.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
-							'media/quote0.png', 12, 12))
-						.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
-							'media/quote1.png', 12, 12));
-				}
+				//if (this.itemCount_ === 0) {
+				//	this.appendDummyInput('EMPTY')
+				//		.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+				//			'media/quote0.png', 12, 12))
+				//		.appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+				//			'media/quote1.png', 12, 12));
+				//}
 			},
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var itemBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 0;
+				var x = 2;
 				while (itemBlock) {
 					var input = this.getInput('ADD' + x);
 					itemBlock.valueConnection_ = input && input.connection.targetConnection;
@@ -384,9 +364,21 @@
 			// String length.
 			var argument0 = Blockly.Arduino.valueToCode(this, 'VALUE', Blockly.Arduino.ORDER_UNARY_POSTFIX) || '';
 			var code = '';
-			code += JST['text_length']({
-				'argument0': argument0
-			});
+			var input = this.getInputTargetBlock('VALUE');
+			if (input!==null)
+			{
+				if (input.type==='text')
+				{
+					code+='String('+argument0+')';
+				}
+				else if (input.type==='variables_get')
+				{
+					if (Facilino.variables[input.getFieldValue('VAR')][0]==='String')
+						code += JST['text_length']({'argument0': argument0});
+					else
+						code+='String('+argument0+')';
+				}
+			}
 
 			return [code, Blockly.Arduino.ORDER_UNARY_POSTFIX];
 		};
@@ -406,10 +398,51 @@
 				this.appendValueInput('VALUE').setCheck(['Variable',String]).appendField(Facilino.locales.getKey('LANG_TEXT_LENGTH_INPUT_LENGTH'));
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_LENGTH_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 			}
 		};
 		// Source: src/blocks/text_substring/text_substring.js
-
+		if (window.FacilinoAdvanced===true)
+		{
+		Blockly.Arduino.serial_special = function() {
+			var code = '';
+			code += JST['serial_special']({'char': '\''+this.getFieldValue('CHAR')+'\''});
+			return [code, Blockly.Arduino.ORDER_NONE];
+		}
+		
+		Blockly.Blocks.serial_special = {
+			category: Facilino.locales.getKey('LANG_CATEGORY_TEXT'),
+			tags: ['text'],
+			helpUrl: Facilino.getHelpUrl('serial_special'),
+			tags: ['serial'],
+			examples: ['serial_special_example.bly'],
+			category_colour: Facilino.LANG_COLOUR_TEXT,
+			colour: Facilino.LANG_COLOUR_TEXT,
+			keys: ['LANG_ADVANCED_SERIAL_SPECIAL_NAME','LANG_ADVANCED_SERIAL_SPECIAL','LANG_ADVANCED_SERIAL_SPECIAL_TAB','LANG_ADVANCED_SERIAL_SPECIAL_CARRIAGE_RETURN','LANG_ADVANCED_SERIAL_SPECIAL_LINE_FEED','LANG_ADVANCED_SERIAL_SPECIAL_QUOTE','LANG_ADVANCED_SERIAL_SPECIAL_DOUBLE_QUOTE','LANG_ADVANCED_SERIAL_SPECIAL_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_NAME'),
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_TEXT);
+				this.appendDummyInput('')
+					.appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL'))
+					.appendField(new Blockly.FieldDropdown([
+						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_TAB') || 'TAB', '\\t'],
+						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_CARRIAGE_RETURN') || 'CARRIAGE RETURN', '\\r'],
+						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_LINE_FEED') || 'LINE FEED', '\\n'],
+						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_QUOTE') || 'QUOTE', "\\'"],
+						[Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_DOUBLE_QUOTE') || 'DOUBLE_QUOTE', '\\"']
+					]), 'CHAR');
+				this.setOutput(true,String);
+				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_SPECIAL_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="CHAR">\\t</field>','<field name="CHAR">\\r</field>','<field name="CHAR">\\n</field>','<field name="CHAR">\\\'</field>','<field name="CHAR">\\"</field>'];
+			}
+		};
+		}
 
 		Blockly.Arduino.text_lower = function() {
 			// String length.
@@ -440,6 +473,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_LENGTH_LOWER_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="variables_get"></shadow></value>';
 			}
 		};
 
@@ -472,6 +509,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_LENGTH_UPPER_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="variables_get"></shadow></value>';
 			}
 		};
 
@@ -513,6 +554,10 @@
 
 				this.setOutput(true,String);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_SUBSTRING_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="STRING1"><shadow type="variables_get"></shadow></value><value name="FROM"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="TO"><shadow type="math_number"><field name="NUM">10</field></shadow></value>';
 			}
 		};
 
@@ -551,6 +596,10 @@
 				this.setInputsInline(true);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_SEARCH_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="STRING1"><shadow type="text"><field name="TEXT"></field></shadow></value><value name="STRING2"><shadow type="variables_get"></shadow></value><field name="POSITION">FIRST</field>','<value name="STRING1"><shadow type="text"><field name="TEXT"></field></shadow></value><value name="STRING2"><shadow type="variables_get"></shadow></value><field name="POSITION">LAST</field>'];
 			}
 		};
 
@@ -574,11 +623,17 @@
 			name: Facilino.locales.getKey('LANG_TEXT_CONTAINS_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_TEXT);
-				this.appendValueInput('STRING2').setCheck('Variable').appendField(Facilino.locales.getKey('LANG_TEXT_CONTAINS'));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_TEXT_CONTAINS'));
+				this.appendValueInput('STRING2').setCheck('Variable');
 				this.appendValueInput('STRING1').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_EXPRESSION'));
+				this.appendDummyInput('').appendField('?');
 				this.setInputsInline(true);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_CONTAINS_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="STRING2"><shadow type="variables_get"></shadow></value><value name="STRING1"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 			}
 		};
 
@@ -612,6 +667,10 @@
 				//this.setInputsInline(true);
 				this.setOutput(true,String);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_CAST_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="CAST">String</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">30</field></shadow></value><field name="CAST">char</field>'];
 			}
 		};
 
@@ -663,10 +722,14 @@
 			name: Facilino.locales.getKey('LANG_TEXT_CSV_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_TEXT);
-				this.appendValueInput('VALUE').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_CSV')).appendField(Facilino.locales.getKey('LANG_TEXT_FORMAT')).appendField(new Blockly.FieldNumber(8,1,20,1),'LENGTH').appendField('.').appendField(new Blockly.FieldNumber(2,1,10,1),'DECIMAL').setCheck('Array');
+				this.appendValueInput('VALUE').setCheck(['Array','Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_CSV')).appendField(Facilino.locales.getKey('LANG_TEXT_FORMAT')).appendField(new Blockly.FieldNumber(8,1,20,1),'LENGTH').appendField('.').appendField(new Blockly.FieldNumber(2,1,10,1),'DECIMAL').setCheck('Array');
 				this.setOutput(true,String);
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_CSV_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="math_1DArray_constructor2"></shadow></value>';
 			}
 		};
 		}
@@ -697,6 +760,10 @@
 				//this.setInputsInline(true);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_NUMBER_CAST_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="STRING"><shadow type="variables_get"></shadow></value><field name="CAST">toInt()</field>','<value name="STRING"><shadow type="variables_get"></shadow></value><field name="CAST">toFloat()</field>'];
 			}
 		};
 	}

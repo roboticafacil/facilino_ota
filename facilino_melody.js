@@ -22,16 +22,24 @@
 			{
 				if (Facilino.profiles['processor']==='ESP32')
 				{
-					Facilino.PWMChannelsIDs[this.id]=pin;
-					var unique = [];
-					this.uniqueVariables = [];
-					$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-						if($.inArray(el, unique) === -1) unique.push(el);
-					});
-					var channel = unique.indexOf(pin);
-					Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+					if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+					{
+						Facilino.PWMChannelsIDs[this.id]=pin;
+						var unique = [];
+						this.uniqueVariables = [];
+						$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+							if($.inArray(el, unique) === -1) unique.push(el);
+						});
+						Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+						var channels_map = 'std::map<int,int> _channels={';
+						unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+						channels_map +='};\n';
+						Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+						var channel = unique.indexOf(pin);
+						Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+					}
 					Blockly.Arduino.definitions_['define_play_melody'] = JST['dyor_music_definitions_play_melody_ESP32']({});
-					code += JST['dyor_music_play_melody']({'pin': channel,'melody': melody});
+					code += JST['dyor_music_play_melody']({'pin': '_channels['+pin+']','melody': melody});
 				}
 				else
 				{
@@ -46,17 +54,26 @@
 				Blockly.Arduino.definitions_['declare_var_current_melody_ptr']='volatile uint16_t* _current_melody_ptr;\n';
 				if (Facilino.profiles['processor']==='ESP32')
 				{
-					Facilino.PWMChannelsIDs[this.id]=pin;
-					var unique = [];
-					this.uniqueVariables = [];
-					$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-						if($.inArray(el, unique) === -1) unique.push(el);
-					});
-					var channel = unique.indexOf(pin);
-					Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+					if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+					{
+						Facilino.PWMChannelsIDs[this.id]=pin;
+						var unique = [];
+						this.uniqueVariables = [];
+						$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+							if($.inArray(el, unique) === -1) unique.push(el);
+						});
+						Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+						var channels_map = 'std::map<int,int> _channels={';
+						unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+						channels_map +='};\n';
+						Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+						var channel = unique.indexOf(pin);
+						Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+					}
 					Blockly.Arduino.setups_['playMelody_timer']='playMelodyTimer = timerBegin(1, 80, true);\n  timerAttachInterrupt(playMelodyTimer, &playMelodyInterrupt, true);\n  timerAlarmWrite(playMelodyTimer, 1000, true);\n  timerAlarmEnable(playMelodyTimer);\n';
 					Blockly.Arduino.definitions_['define_prepare_melody'] = JST['dyor_music_definitions_prepare_melody_ESP32']({});
 					Blockly.Arduino.definitions_['declare_var_melody_channel']='volatile int _melody_channel=0;\n';
+					
 				}
 				else
 				{
@@ -73,7 +90,7 @@
 					Blockly.Arduino.definitions_['declare_var_melody_mux'] ='portMUX_TYPE playMelodyMux = portMUX_INITIALIZER_UNLOCKED;\n';
 					Blockly.Arduino.definitions_['define_play_melody_interrupt'] = JST['dyor_music_definitions_play_melody_interrupt_ESP32']({});
 
-					code += JST['dyor_music_prepare_melody']({'pin': channel,'melody': melody});
+					code += JST['dyor_music_prepare_melody']({'pin': '_channels['+pin+']','melody': melody});
 				}
 				else
 				{
@@ -105,16 +122,24 @@
 			var melody = Blockly.Arduino.valueToCode(this, 'MELODY', Blockly.Arduino.ORDER_ATOMIC);
 			if (Facilino.profiles['processor']==='ESP32')
 			{
-				Facilino.PWMChannelsIDs[this.id]=pin;
-				var unique = [];
-				this.uniqueVariables = [];
-				$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-					if($.inArray(el, unique) === -1) unique.push(el);
-				});
-				var channel = unique.indexOf(pin);
-				Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+				if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+				{
+					Facilino.PWMChannelsIDs[this.id]=pin;
+					var unique = [];
+					this.uniqueVariables = [];
+					$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+						if($.inArray(el, unique) === -1) unique.push(el);
+					});
+					Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+					var channels_map = 'std::map<int,int> _channels={';
+					unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+					channels_map +='};\n';
+					Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+					var channel = unique.indexOf(pin);
+					Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+				}
 				Blockly.Arduino.definitions_['define_play_melody'] = JST['dyor_music_definitions_play_melody_ESP32']({});
-				code += JST['dyor_music_play_melody1']({'pin': channel,'melody': melody});
+				code += JST['dyor_music_play_melody1']({'pin': '_channels['+pin+']','melody': melody});
 			}
 			else
 			{
@@ -122,6 +147,14 @@
 				code += JST['dyor_music_play_melody1']({'pin': pin,'melody': melody});
 			}
 			Blockly.Arduino.play_melody = '';
+		}
+		else if (this.getInputTargetBlock('MELODY').type==='dyor_bluetooth_telegram_item_melody')
+		{
+			if (Facilino.profiles['processor']==='ESP32')
+			{
+				Blockly.Arduino.definitions_['define_play_melody'] = JST['dyor_music_definitions_play_melody_ESP32']({});
+				code += JST['dyor_music_play_melody1']({'pin': '_channels['+pin+']','melody': 'melody'});
+			}
 		}
 		else
 		{
@@ -143,16 +176,24 @@
 				{
 					if (Facilino.profiles['processor']==='ESP32')
 					{
-						Facilino.PWMChannelsIDs[this.id]=pin;
-						var unique = [];
-						this.uniqueVariables = [];
-						$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-							if($.inArray(el, unique) === -1) unique.push(el);
-						});
-						var channel = unique.indexOf(pin);
-						Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+						if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+						{
+							Facilino.PWMChannelsIDs[this.id]=pin;
+							var unique = [];
+							this.uniqueVariables = [];
+							$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+								if($.inArray(el, unique) === -1) unique.push(el);
+							});
+							Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+							var channels_map = 'std::map<int,int> _channels={';
+							unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+							channels_map +='};\n';
+							Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+							var channel = unique.indexOf(pin);
+							Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+						}
 						Blockly.Arduino.definitions_['define_play_melody'] = JST['dyor_music_definitions_play_melody_ESP32']({});
-						code += JST['dyor_music_play_melody']({'pin': channel,'melody': enc});
+						code += JST['dyor_music_play_melody']({'pin': '_channels['+pin+']','melody': enc});
 					}
 					else
 					{
@@ -170,14 +211,22 @@
 					Blockly.Arduino.definitions_['declare_var_current_melody_ptr']='volatile uint16_t* _current_melody_ptr;\n';
 					if (Facilino.profiles['processor']==='ESP32')
 					{
-						Facilino.PWMChannelsIDs[this.id]=pin;
-						var unique = [];
-						this.uniqueVariables = [];
-						$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-							if($.inArray(el, unique) === -1) unique.push(el);
-						});
-						var channel = unique.indexOf(pin);
-						Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+						if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+						{
+							Facilino.PWMChannelsIDs[this.id]=pin;
+							var unique = [];
+							this.uniqueVariables = [];
+							$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+								if($.inArray(el, unique) === -1) unique.push(el);
+							});
+							Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+							var channels_map = 'std::map<int,int> _channels={';
+							unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+							channels_map +='};\n';
+							Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+							var channel = unique.indexOf(pin);
+							Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+						}
 						Blockly.Arduino.setups_['playMelody_timer']='playMelodyTimer = timerBegin(1, 80, true);\n  timerAttachInterrupt(playMelodyTimer, &playMelodyInterrupt, true);\n  timerAlarmWrite(playMelodyTimer, 1000, true);\n  timerAlarmEnable(playMelodyTimer);\n';
 						Blockly.Arduino.definitions_['define_prepare_melody'] = JST['dyor_music_definitions_prepare_melody_ESP32']({});
 						Blockly.Arduino.definitions_['declare_var_melody_channel']='volatile int _melody_channel=0;\n';
@@ -197,7 +246,7 @@
 						Blockly.Arduino.definitions_['declare_var_melody_mux'] ='portMUX_TYPE playMelodyMux = portMUX_INITIALIZER_UNLOCKED;\n';
 						Blockly.Arduino.definitions_['define_play_melody_interrupt'] = JST['dyor_music_definitions_play_melody_interrupt_ESP32']({});
 
-						code += JST['dyor_music_prepare_melody']({'pin': channel,'melody': enc});
+						code += JST['dyor_music_prepare_melody']({'pin': '_channels['+pin+']','melody': enc});
 					}
 					else
 					{
@@ -241,7 +290,7 @@
 		this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER'))
 					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('MELODY').appendField(new Blockly.FieldImage('img/blocks/clef.svg', 36*options.zoom, 36*options.zoom)).setCheck(['Melody','Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				if (window.FacilinoAdvanced===true)
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_WAIT')).appendField(new Blockly.FieldCheckbox('FALSE'),'WAIT').setAlign(Blockly.ALIGN_RIGHT);
@@ -252,6 +301,10 @@
 				this.NumMelodies=Facilino.NumMelodies;
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_BUZZER_MELODY_TOOLTIP'));
 			},
+		  default_inputs: function()
+		  {
+			return ['<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="MELODY"><shadow type="dyor_piezo_buzzer_predef_melody"></shadow></value>','<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="MELODY"><shadow type="dyor_piezo_music_do_negra"><value name="MELODY"><shadow type="dyor_piezo_music_re_negra"><value name="MELODY"><shadow type="dyor_piezo_music_mi_negra"><value name="MELODY"><shadow type="dyor_piezo_music_fa_negra"><value name="MELODY"><shadow type="dyor_piezo_music_sol_negra"><value name="MELODY"><shadow type="dyor_piezo_music_end"></shadow></value></shadow></value></shadow></value></shadow></value></shadow></value></shadow></value>'];
+		  },
 			onchange: function()
 			{
 				if (this!==undefined)
@@ -260,7 +313,6 @@
 		};
 
 	Blockly.Arduino.dyor_piezo_buzzer_predef_melody = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version';
 		var code= '';
 
 		var option = this.getFieldValue('OPTION');
@@ -393,7 +445,6 @@
 	if (window.FacilinoAdvanced===true)
 	{
 	Blockly.Arduino.dyor_piezo_buzzer_stop_melody = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 		var code ='';
 		Blockly.Arduino.definitions_['declare_var_melody_status']='volatile uint8_t _melody_status=-1;\n';
 
@@ -426,7 +477,6 @@
 		};
 
 		Blockly.Arduino.dyor_piezo_buzzer_isplaying_melody = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 		var code ='';
 		Blockly.Arduino.definitions_['declare_var_melody_status']='volatile uint8_t _melody_status=-1;\n';
 
@@ -604,7 +654,6 @@
 			var note_name=item.note+'_'+item.duration+octave;
 			//console.log(note_name);
 			Blockly.Arduino['dyor_piezo_music_'+note_name] = function() {
-			if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version';
 				var melody = Blockly.Arduino.valueToCode(this, 'MELODY', Blockly.Arduino.ORDER_ATOMIC) || '';
 				code = ','+note+','+duration+melody;
 				return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -691,7 +740,6 @@
 		notes.forEach(noteCreator);
 
 	Blockly.Arduino.dyor_piezo_music_end = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version';
 		var code = ';';
 		return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};

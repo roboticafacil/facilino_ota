@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   version="1.2"
+   x="0px"
+   y="0px"
+   width="51.02px"
+   height="45.35px"
+   viewBox="0 0 51.02 45.35"
+   xml:space="preserve"
+   id="svg216"
+   sodipodi:docname="adafruit-1899_breadboard.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs220" /><sodipodi:namedview
+   id="namedview218"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="10.407939"
+   inkscape:cx="23.683845"
+   inkscape:cy="42.371503"
+   inkscape:window-width="2560"
+   inkscape:window-height="1494"
+   inkscape:window-x="-11"
+   inkscape:window-y="-11"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="breadboard" />
+<g
+   id="breadboard"
+   style="fill:#ff0000">
+	
+
+		
+
+		
+
+		
+	
+	
+	
+	
+
+		
+<g
+   id="g1114"
+   transform="rotate(180,25.232804,22.441)"><path
+     display="inline"
+     fill="#175C7A"
+     stroke="#000000"
+     stroke-miterlimit="10"
+     d="m 49.641,37.276 c 0,6.508 -1.348,6.874 -7.855,6.874 H 8.665 c -6.508,0 -7.856,-0.366 -7.856,-6.874 V 7.606 c 0,-6.508 1.348,-6.874 7.856,-6.874 h 35.084 c 6.508,0 5.892,0.366 5.892,6.874 z"
+     id="path204"
+     style="fill:#ff0000" /><ellipse
+     id="connector5pad"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#ebc96c"
+     stroke-miterlimit="10"
+     cx="11.511564"
+     cy="39.178001"
+     rx="2.835"
+     ry="2.76"
+     style="fill:#ffffff;stroke:#b3afa4;stroke-opacity:1" /><ellipse
+     id="connector4pad"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#ebc96c"
+     stroke-miterlimit="10"
+     cx="20.698563"
+     cy="39.028"
+     rx="2.835"
+     ry="2.76"
+     style="fill:#ffffff;stroke:#b3afa4;stroke-opacity:1" /><ellipse
+     id="connector3pad"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#ebc96c"
+     stroke-miterlimit="10"
+     cx="29.857563"
+     cy="39.028"
+     rx="2.8340001"
+     ry="2.76"
+     style="fill:#ffffff;stroke:#b3afa4;stroke-opacity:1" /><path
+     id="connector2pad"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#ebc96c"
+     stroke-miterlimit="10"
+     d="m 41.933564,39.028 c 0,-1.526 -1.27,-2.76 -2.836,-2.76 -1.569,0 -2.833,1.233 -2.833,2.76 0,1.521 1.264,2.76 2.833,2.76 1.566,0 2.836,-1.238 2.836,-2.76 z"
+     style="fill:#ffffff;stroke:#b3afa4;stroke-opacity:1" /><path
+     id="connector5pad_2_"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#000000"
+     stroke-miterlimit="10"
+     d="m 10.839,6.911 c 0,-2.344 -1.902,-4.252 -4.254,-4.252 -2.347,0 -4.251,1.908 -4.251,4.252 0,2.344 1.904,4.252 4.251,4.252 2.352,0 4.254,-1.908 4.254,-4.252 z"
+     style="fill:#ffffff" /><path
+     id="connector5pad_1_"
+     display="inline"
+     fill="#FFFFFF"
+     stroke="#000000"
+     stroke-miterlimit="10"
+     d="m 48.64,6.91 c 0,-2.344 -1.902,-4.252 -4.255,-4.252 -2.346,0 -4.25,1.908 -4.25,4.252 0,2.344 1.904,4.252 4.25,4.252 2.352,10e-4 4.255,-1.908 4.255,-4.252 z"
+     style="fill:#ffffff" /><rect
+     x="18.228193"
+     y="8.0319624"
+     display="inline"
+     fill="#454545"
+     stroke="#000000"
+     stroke-miterlimit="10"
+     width="13.237"
+     height="10.432"
+     id="rect213"
+     style="fill:#2b0000" /><text
+     xml:space="preserve"
+     style="font-size:4.39599px;fill:#ffffff;stroke-width:0.366333"
+     x="-32.258362"
+     y="-20.502474"
+     id="text953"
+     transform="scale(-1.0018445,-0.9981589)"><tspan
+       sodipodi:role="line"
+       id="tspan951"
+       x="-32.258362"
+       y="-20.502474"
+       style="stroke-width:0.366333">HTU2x</tspan></text><text
+     xml:space="preserve"
+     style="font-size:3.01701px;fill:#ffffff;stroke-width:0.251417"
+     x="-31.408113"
+     y="-3.9013503"
+     id="text1007"
+     transform="scale(-1.0052535,-0.99477396)"><tspan
+       sodipodi:role="line"
+       id="tspan1005"
+       x="-31.408113"
+       y="-3.9013503"
+       style="stroke-width:0.251417">Humidity</tspan></text><text
+     xml:space="preserve"
+     style="font-size:5.87246px;fill:#ffffff;stroke-width:0.489372"
+     x="8.8976498"
+     y="33.946747"
+     id="text1011"
+     transform="scale(1.0296666,0.97118815)"><tspan
+       sodipodi:role="line"
+       id="tspan1009"
+       x="8.8976498"
+       y="33.946747"
+       style="stroke-width:0.489372">+</tspan></text><text
+     xml:space="preserve"
+     style="font-size:5.87246px;fill:#ffffff;stroke-width:0.489372"
+     x="18.872301"
+     y="33.923161"
+     id="text1011-9"
+     transform="scale(1.0296666,0.97118815)"><tspan
+       sodipodi:role="line"
+       id="tspan1009-3"
+       x="18.872301"
+       y="33.923161"
+       style="stroke-width:0.489372">-</tspan></text><text
+     xml:space="preserve"
+     style="font-size:5.87246px;fill:#ffffff;stroke-width:0.489372"
+     x="-32.992359"
+     y="-30.146805"
+     id="text1011-9-8"
+     transform="scale(-1.0296666,-0.97118815)"><tspan
+       sodipodi:role="line"
+       id="tspan1009-3-2"
+       x="-32.992359"
+       y="-30.146805"
+       style="stroke-width:0.489372">DA</tspan></text><text
+     xml:space="preserve"
+     style="font-size:5.87246px;fill:#ffffff;stroke-width:0.489372"
+     x="-42.030567"
+     y="-30.215611"
+     id="text1011-9-8-1"
+     transform="scale(-1.0296666,-0.97118815)"><tspan
+       sodipodi:role="line"
+       id="tspan1009-3-2-8"
+       x="-42.030567"
+       y="-30.215611"
+       style="stroke-width:0.489372">CL</tspan></text></g></g>
+</svg>

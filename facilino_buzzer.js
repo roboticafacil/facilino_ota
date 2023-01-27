@@ -114,7 +114,11 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_BUZZER_TOOLTIP'));
-			}
+			},
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+		  }
 		};
 
 
@@ -122,7 +126,7 @@
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE) || '';
 			var code = '';
 
-			if (profiles['processor']==='ESP32')
+			if (Facilino.profiles['processor']==='ESP32')
 				{
 					Facilino.PWMChannelsIDs[this.id]=pin;
 					var unique = [];
@@ -163,28 +167,38 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_BUZZER_TOOLTIP'));
-			}
+			},
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+		  }
 		};
 
 		Blockly.Arduino.dyor_piezo_buzzer_predef_sounds = function() {
-		//if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE) || '';
 			var code= '';
-			var pin='';
-			if (profiles['processor']==='ESP32')
+			if (Facilino.profiles['processor']==='ESP32')
 			{
-				//Blockly.Arduino.setups_['setup_simpleexpressions_buzzer_'+pin]='ledcSetup(5,2000,8);\n  ledcAttachPin('+pin+',5);\n';
-				Facilino.PWMChannelsIDs[this.id]=pin;
-				var unique = [];
-				this.uniqueVariables = [];
-				$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-					if($.inArray(el, unique) === -1) unique.push(el);
-				});
-				var channel = unique.indexOf(pin);
-				Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+				if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+				{
+					//Blockly.Arduino.setups_['setup_simpleexpressions_buzzer_'+pin]='ledcSetup(5,2000,8);\n  ledcAttachPin('+pin+',5);\n';
+					Facilino.PWMChannelsIDs[this.id]=pin;
+					var unique = [];
+					this.uniqueVariables = [];
+					$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+						if($.inArray(el, unique) === -1) unique.push(el);
+					});
+					Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+					var channels_map = 'std::map<int,int> _channels={';
+					unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+					channels_map +='};\n';
+					Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+					var channel = unique.indexOf(pin);
+					Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+				}
+				pin='_channels['+pin+'],';
 				Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int channel, float noteFrequency, long noteDuration, int silentDuration){\nledcWriteTone(channel, noteFrequency);\n  delay(noteDuration);\n  ledcWrite(channel, 0);\n  delay(silentDuration);\n}\n';
 				Blockly.Arduino.definitions_['define_simpleexpressions_buzzer_bendtones']='void bendTones (int channel, float initFrequency, float finalFrequency, float prop, long noteDuration, int silentDuration){\n  if(initFrequency < finalFrequency){\n	for (int i=initFrequency; i<finalFrequency; i=i*prop) {\n	  _tone(channel,i,noteDuration,silentDuration);\n	}\n  }  else{\n	for (int i=initFrequency; i>finalFrequency; i=i/prop) {\n	  _tone(channel,i,noteDuration,silentDuration);\n	}\n  }\n}\n';
-				pin = channel+',';
 			}
 			else
 			{
@@ -276,50 +290,92 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PREDEF_SOUNDS_TOOLTIP'));
-			}
+			},
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+		  }
 		};
 		
 		if (window.FacilinoAdvanced===true)
 		{
 
 		Blockly.Arduino.zum_piezo_buzzerav = function() {
-			if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE) || '';
+			console.log(pin);
 			var in1 = Blockly.Arduino.valueToCode(this, 'TONE', Blockly.Arduino.ORDER_ATOMIC);
 			var in2 = Blockly.Arduino.valueToCode(this, 'DURA', Blockly.Arduino.ORDER_ATOMIC);
 			var code = '';
-			var pin='';
-			if (profiles['processor']==='ESP32')
+			if (this.getInputTargetBlock('PIN')!==undefined)
 			{
-				Facilino.PWMChannelsIDs[this.id]=pin;
-				var unique = [];
-				this.uniqueVariables = [];
-				$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
-					if($.inArray(el, unique) === -1) unique.push(el);
-				});
-				var channel = unique.indexOf(pin);
-				Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',0,8);\n  ledcAttachPin('+pin+','+channel+');\n'
-				if (this.getFieldValue('OPTION')!=='1')
+				if (this.getInputTargetBlock('PIN').type==='pin_digital')
 				{
-					Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int channel, float noteFrequency, long noteDuration, int silentDuration){\nledcWriteTone(channel, noteFrequency);\n  delay(noteDuration);\n  ledcWrite(channel, 0);\n  delay(silentDuration);\n}\n';
-				}
-				if (this.getFieldValue('OPTION')==='1')
-				{
-					Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int channel, int maximum)\n{\n  ledcSetup(channel,2000,8);\n  for (int i=0;i<maximum;i++){\n	ledcWrite(channel,255);\n	delayMicroseconds(i);\n	ledcWrite(channel,0);\n	delayMicroseconds(i);\n  }\n  ledcSetup(channel,0,8);\n}\n';
-				}
-				pin+=channel;
-			}
-			else
-			{
-				if (this.getFieldValue('OPTION')!=='1')
-				{
-					Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int buzzerPin, float noteFrequency, long noteDuration, int silentDuration){\n  tone(buzzerPin, noteFrequency, noteDuration);\n  delay(noteDuration);\n  delay(silentDuration);\n}\n';
+					if (Facilino.profiles['processor']==='ESP32')
+					{
+						if (Blockly.Arduino.setups_['ledc_'+pin]===undefined)
+						{
+							Facilino.PWMChannelsIDs[this.id]=pin;
+							var unique = [];
+							this.uniqueVariables = [];
+							$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+								if($.inArray(el, unique) === -1) unique.push(el);
+							});
+							Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+							var channels_map = 'std::map<int,int> _channels={';
+							unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+							channels_map +='};\n';
+							Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+							var channel = unique.indexOf(pin);
+							Blockly.Arduino.setups_['ledc_'+pin] = 'ledcSetup('+channel+',1000,8);\n  ledcAttachPin('+pin+','+channel+');\n';
+						}
+						if (this.getFieldValue('OPTION')!=='1')
+						{
+							Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int channel, float noteFrequency, long noteDuration, int silentDuration){\nledcWriteTone(channel, noteFrequency);\n  delay(noteDuration);\n  ledcWrite(channel, 0);\n  delay(silentDuration);\n}\n';
+						}
+						if (this.getFieldValue('OPTION')==='1')
+						{
+							Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int channel, int maximum)\n{\n  ledcSetup(channel,2000,8);\n  for (int i=0;i<maximum;i++){\n	ledcWrite(channel,255);\n	delayMicroseconds(i);\n	ledcWrite(channel,0);\n	delayMicroseconds(i);\n  }\n  ledcSetup(channel,0,8);\n}\n';
+						}
+						pin='_channels['+pin+']';
+					}
+					else
+					{
+						if (this.getFieldValue('OPTION')!=='1')
+						{
+							Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int buzzerPin, float noteFrequency, long noteDuration, int silentDuration){\n  tone(buzzerPin, noteFrequency, noteDuration);\n  delay(noteDuration);\n  delay(silentDuration);\n}\n';
+						}
+						else
+						{
+							Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int pin, int maximum)\n{\n  pinMode(pin,OUTPUT);\n  for (int i=0;i<maximum;i++){\n	digitalWrite(pin,HIGH);\n	delayMicroseconds(i);\n	digitalWrite(pin,LOW);\n	delayMicroseconds(i);\n  }\n  noTone(pin);\n}\n';
+						}
+					}
 				}
 				else
 				{
-					Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int pin, int maximum)\n{\n  pinMode(pin,OUTPUT);\n  for (int i=0;i<maximum;i++){\n	digitalWrite(pin,HIGH);\n	delayMicroseconds(i);\n	digitalWrite(pin,LOW);\n	delayMicroseconds(i);\n  }\n  noTone(pin);\n}\n';
+					if (Facilino.profiles['processor']==='ESP32')
+					{
+						if (this.getFieldValue('OPTION')!=='1')
+						{
+							Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int channel, float noteFrequency, long noteDuration, int silentDuration){\nledcWriteTone(channel, noteFrequency);\n  delay(noteDuration);\n  ledcWrite(channel, 0);\n  delay(silentDuration);\n}\n';
+						}
+						if (this.getFieldValue('OPTION')==='1')
+						{
+							Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int channel, int maximum)\n{\n  ledcSetup(channel,2000,8);\n  for (int i=0;i<maximum;i++){\n	ledcWrite(channel,255);\n	delayMicroseconds(i);\n	ledcWrite(channel,0);\n	delayMicroseconds(i);\n  }\n  ledcSetup(channel,0,8);\n}\n';
+						}
+						pin='_channels['+pin+']';
+					}
+					else
+					{
+						if (this.getFieldValue('OPTION')!=='1')
+						{
+							Blockly.Arduino.definitions_['define_adv_buzzer_tone']='void _tone(int buzzerPin, float noteFrequency, long noteDuration, int silentDuration){\n  tone(buzzerPin, noteFrequency, noteDuration);\n  delay(noteDuration);\n  delay(silentDuration);\n}\n';
+						}
+						else
+						{
+							Blockly.Arduino.definitions_['define_spacegun']='void spaceGun(int pin, int maximum)\n{\n  pinMode(pin,OUTPUT);\n  for (int i=0;i<maximum;i++){\n	digitalWrite(pin,HIGH);\n	delayMicroseconds(i);\n	digitalWrite(pin,LOW);\n	delayMicroseconds(i);\n  }\n  noTone(pin);\n}\n';
+						}
+					}
 				}
-				pin+=pin;
 			}
 
 			if (this.getFieldValue('OPTION')==='0')
@@ -387,10 +443,7 @@
 			name: Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_BUZZER);
-				this.appendValueInput('PIN')
-					.appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom))
-					.appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_PIN')).setCheck(['DigitalPin','PWMPin']);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV')).appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom)).appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_PIN')).setCheck(['DigitalPin','PWMPin']);
 				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/speaker.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_TONE'), '0'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SPACEGUN'), '1'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_RANDOM'), '2'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '3'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '4'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '5'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '6'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"1", '7'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"2", '8'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '9'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '10'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DISTANCE'), '11']]), 'OPTION').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('TONE')
 					.setCheck([Number,'Variable'])
@@ -406,6 +459,15 @@
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				var xml;
+				xml +='';
+				xml+='<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+				xml +='<value name="TONE"><shadow type="math_number"><field name="NUM">440</field></shadow></value>';
+				xml +='<value name="DURA"><shadow type="math_number"><field name="NUM">200</field></shadow></value>';
+				return xml;
 			},
 			onchange: function()
 			{
@@ -478,7 +540,6 @@
 		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ATmega32U4'))
 		{
 	Blockly.Arduino.dyor_piezo_buzzer_voice = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 		var voice = Blockly.Arduino.valueToCode(this, 'VOICE', Blockly.Arduino.ORDER_ATOMIC);
 
 		var code ='';
@@ -521,7 +582,6 @@
 		};
 
 	Blockly.Arduino.dyor_piezo_buzzer_predef_voice = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version';
 		var code ='';
 		var word = this.getFieldValue('WORD');
 

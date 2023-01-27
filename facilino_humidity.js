@@ -7,15 +7,6 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		Facilino.indentSentences = function(sentences) {
-			var splitted_sentences = sentences.split('\n');
-			var final_sentences = '';
-			for (var i in splitted_sentences) {
-				final_sentences += '  ' + splitted_sentences[i] + '\n';
-			}
-			return final_sentences;
-		};
-		
 		if (window.FacilinoAdvanced===true)
 		{
 			var humidity_category=Facilino.locales.getKey('LANG_CATEGORY_AMBIENT');
@@ -39,19 +30,35 @@
 				var code = '';
 				var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 				var type = this.getFieldValue('TYPE');
-				if (Facilino.profiles['processor']==='ESP32')
+				if (this.getInputTargetBlock('PIN').type==='pin_digital')
 				{
-					Blockly.Arduino.definitions_['dht']=JST['esp32_dht_definitions_include']({});
-					Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['esp32_dht_definitions_variables']({pin : pin, type: type});
-					Blockly.Arduino.setups_['setup_dht' + pin] = JST['esp32_dht_setups']({pin: pin, type: type});
-					code += 'sensor'+type+'_'+pin+'.getHumidity()';
+					Facilino.DHTHumidityIDs[this.id]={pin: pin, type: type};
+					if (Facilino.profiles['processor']==='ESP32')
+					{
+						Blockly.Arduino.definitions_['dht']=JST['esp32_dht_definitions_include']({});
+						Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['esp32_dht_definitions_variables']({pin : pin, type: type});
+						Blockly.Arduino.setups_['setup_dht' + pin] = JST['esp32_dht_setups']({pin: pin, type: type});
+						code += 'sensor'+type+'_'+pin+'.getHumidity()';
+					}
+					else
+					{
+						Blockly.Arduino.definitions_['dht']=JST['dht_definitions_include']({});
+						Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['dht_definitions_variables']({pin : pin, type: type});
+						Blockly.Arduino.setups_['setup_dht' + pin] = JST['dht_setups']({pin: pin, type: type});
+						code += 'sensor'+type+'_'+pin+'.readHumidity()';
+					}
 				}
 				else
 				{
-					Blockly.Arduino.definitions_['dht']=JST['dht_definitions_include']({});
-					Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['dht_definitions_variables']({pin : pin, type: type});
-					Blockly.Arduino.setups_['setup_dht' + pin] = JST['dht_setups']({pin: pin, type: type});
-					code += 'sensor'+type+'_'+pin+'.readHumidity()';
+					if (Facilino.profiles['processor']==='ESP32')
+						Blockly.Arduino.definitions_['dht']=JST['esp32_dht_definitions_include']({});
+					else
+						Blockly.Arduino.definitions_['dht']=JST['dht_definitions_include']({});
+					if (Facilino.profiles['processor']==='ESP32')
+						code+='_dhts['+pin+']->getHumidity()';
+					else
+						code+='_dhts['+pin+']->readHumidity()';
+
 				}
 				return [code,Blockly.Arduino.CODE_ATOMIC];
 		};
@@ -64,8 +71,8 @@
 			examples: ['ambient_humid_humidityDHT_example.bly'],
 			category_colour: humidity_cat_colour,
 			colour: humidity_digital_colour,
-			keys: ['LANG_HUMID_READ_HUMID_NAME','LANG_HUMID_READ_HUMID','LANG_HUMID_PIN','LANG_HUMID_READ_HUMID_DHT_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_HUMID_READ_HUMID_NAME'),
+			keys: ['LANG_HUMID_READ_HUMID_DHT_NAME','LANG_HUMID_READ_HUMID','LANG_HUMID_PIN','LANG_HUMID_READ_HUMID_DHT_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_HUMID_READ_HUMID_DHT_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
 			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
@@ -75,6 +82,45 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Number);
 			this.setTooltip(Facilino.locales.getKey('LANG_HUMID_READ_HUMID_DHT_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+			}
+		};
+		
+		Blockly.Arduino.ambient_humid_humidityHTU = function() {
+				var code = '';
+				Blockly.Arduino.definitions_['htu21d']='#include <SparkFunHTU21D.h>';
+				Blockly.Arduino.definitions_['declare_var_define_htu21d']='HTU21D _htu21d;\n';
+				Blockly.Arduino.setups_['setup_htu21d']='_htu21d.begin();';
+				code+='_htu21d.readHumidity()';
+				return [code,Blockly.Arduino.CODE_ATOMIC];
+		};
+
+		Blockly.Blocks.ambient_humid_humidityHTU = {
+			category: humidity_category,
+			subcategory: humidity_digital_subcategory,
+			tags: ['humidity','ambient'],
+			helpUrl: Facilino.getHelpUrl('ambient_humid_humidityDHT'),
+			examples: ['ambient_humid_humidityDHT_example.bly'],
+			category_colour: humidity_cat_colour,
+			colour: humidity_digital_colour,
+			keys: ['LANG_HUMID_READ_HUMID_HTU_NAME','LANG_HUMID_READ_HUMID','LANG_TEMP_READ_TEMP_HTU_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_HUMID_READ_HUMID_HTU_NAME'),
+			description: Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_DESCRIPTION'),
+			requirements: [Facilino.locales.getKey('LANG_TEMP_DHT_REQUIREMENTS')],
+			dropdown: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_DROPDOWN_MODEL')],
+			inputs: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_INPUT_PIN')],
+			output: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_OUTPUT')],
+			init: function() {
+			this.setColour(humidity_digital_colour);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField('HTU21D').appendField(new Blockly.FieldImage("img/blocks/htu21.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.setInputsInline(false);
+			this.setPreviousStatement(false);
+			this.setNextStatement(false);
+			this.setOutput(true,Number);
+			this.setTooltip(Facilino.locales.getKey('LANG_TEMP_READ_TEMP_HTU_TOOLTIP'));
 			}
 		};
 
@@ -82,35 +128,19 @@
 		{
 		Blockly.Arduino.ambient_humid_alarm = function() {
 			var code = '';
-			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
+			var humidity=Blockly.Arduino.valueToCode(this,'HUMIDITY') || '';
 			var high = Blockly.Arduino.statementToCode(this,'HIGH') || '';
 			var low = Blockly.Arduino.statementToCode(this,'LOW') || '';
 			var ok = Blockly.Arduino.statementToCode(this,'OK') || '';
-			var type = this.getFieldValue('TYPE');
 			var once = this.getFieldValue('ONCE');
 			if (once==='TRUE')
 			{
-				Blockly.Arduino.definitions_['declare_var_define_humid_alarm_dht'+type+pin]=JST['dht_humid_alarm_definitions_variables']({pin : pin, type: type});
-				high='if (!_dht_humid_'+type+'_'+pin+'){\n  _dht_humid_'+type+'_'+pin+'=true;\n  _dht_dry_'+type+'_'+pin+'=false;\n  _dht_humid_ok_'+type+'_'+pin+'=false;\n'+indentSentences(high)+'\n}\n';
-				low='if (!_dht_dry_'+type+'_'+pin+'){\n  _dht_dry_'+type+'_'+pin+'=true;\n  _dht_humid_'+type+'_'+pin+'=false;\n  _dht_humid_ok_'+type+'_'+pin+'=false;\n'+indentSentences(low)+'\n}\n';
-				ok='if (!_dht_humid_ok_'+type+'_'+pin+'){\n  _dht_humid_ok_'+type+'_'+pin+'=true;\n  _dht_dry_'+type+'_'+pin+'=false;\n  _dht_humid_'+type+'_'+pin+'=false;\n'+indentSentences(ok)+'\n}\n';
+				Blockly.Arduino.definitions_['declare_var_define_humidity_alarm']='bool _humid_high=false;\nbool _humid_low=false;\nbool _humid_ok=false;\n';				
+				high='if (!_humid_high){\n  _humid_high=true;\n  _humid_low=false;\n  _humid_ok=false;\n'+Facilino.indentSentences(high)+'\n}\n';
+				low='if (!_humid_low){\n  _humid_low=true;\n  _humid_high=false;\n  _humid_ok=false;\n'+Facilino.indentSentences(low)+'\n}\n';
+				ok='if (!_humid_ok){\n  _humid_ok=true;\n  _humid_low=false;\n  _humid_high=false;\n'+Facilino.indentSentences(ok)+'\n}\n';
 			}
-			if (profiles['processor']==='ESP32')
-			{
-				Blockly.Arduino.definitions_['dht']=JST['esp32_dht_definitions_include']({});
-				Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['esp32_dht_definitions_variables']({pin : pin, type: type});
-				Blockly.Arduino.setups_['setup_dht' + pin] = JST['esp32_dht_setups']({pin: pin, type: type});
-				code += JST['esp32_dht_humid_alarm']({pin: pin, type: type, high: high, ok: ok, low: low});
-			}
-			else
-			{
-				Blockly.Arduino.definitions_['dht']=JST['dht_definitions_include']({});
-				Blockly.Arduino.definitions_['declare_var_define_dht'+type+pin]=JST['dht_definitions_variables']({pin : pin, type: type});
-				Blockly.Arduino.setups_['setup_dht' + pin] = JST['dht_setups']({pin: pin, type: type});
-				code += JST['dht_humid_alarm']({pin: pin, type: type, high: high, ok: ok, low: low});
-			}
-			Blockly.Arduino.definitions_['define_dht_tooHumid'] = 'bool isTooHumid(float temperature, float humidity)\n{\n  if((temperature+(humidity*56.5-3981.2))>0)\n	return true;\n  else\n	return false;\n}\n';
-			Blockly.Arduino.definitions_['define_dht_tooDry'] = 'bool isTooDry(float temperature,float humidity)\n{\n  if ((\n((humidity*77.8-2364)+temperature))<0)\n	return true;\n  else\n	return false;\n}\n';
+			code+='{\n  float _humidity='+humidity+';\nif (_humidity>='+this.getFieldValue('HIGH')+'){\n'+high+'}\nelse if(_humidity<='+this.getFieldValue('LOW')+'){\n'+low+'}\nelse{\n'+ok+'}\n}\n';
 			return code;
 		};
 
@@ -126,17 +156,21 @@
 			name: Facilino.locales.getKey('LANG_HUMID_ALARM_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_HUMID_ALARM')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_HUMID_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('HUMIDITY').appendField(Facilino.locales.getKey('LANG_HUMID_ALARM')).appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_HUMID_ONCE')).appendField(new Blockly.FieldCheckbox('FALSE'),'ONCE').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/humidity_high.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(70,0,100),'HIGH').appendField(new Blockly.FieldImage("img/blocks/humidity_low.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(30,0,100),'LOW');
 				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/humidity_high.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.appendStatementInput('OK').appendField(new Blockly.FieldImage("img/blocks/humidity_ok.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/humidity_low.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
-		this.setPreviousStatement(true,'code');
-			this.setNextStatement(true,'code');
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_HUMID_ALARM_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return ['<value name="HUMIDITY"><block type="ambient_humid_humidityDHT"><value name="PIN"><shadow type="pin_digital"></shadow></value></block></value>','<value name="HUMIDITY"><block type="ambient_humid_humidityHTU"></block></value>'];
 			}
 		};
 		}
@@ -163,7 +197,7 @@
 		Blockly.Blocks.ambient_moist = {
 			category: humidity_category,
 			subcategory: humidity_analog_subcategory,
-			tags: ['humidity','ambient'],
+			tags: ['moist','ambient'],
 			helpUrl: Facilino.getHelpUrl('ambient_moist'),
 			examples: ['ambient_humid_humidityDHT_example.bly'],
 			category_colour: humidity_cat_colour,
@@ -179,46 +213,37 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Number);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOIST_READ_MOIST_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
 		if (window.FacilinoAdvanced===true)
 		{
 		Blockly.Arduino.ambient_moist_alarm = function() {
-			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 			var code = '';
+			var moist=Blockly.Arduino.valueToCode(this,'MOIST') || '';
 			var high = Blockly.Arduino.statementToCode(this,'HIGH') || '';
 			var low = Blockly.Arduino.statementToCode(this,'LOW') || '';
 			var ok = Blockly.Arduino.statementToCode(this,'OK') || '';
-			if (Facilino.isVariable(pin)) {
-				code += JST['inout_digital_input']({'pin': pin});
-			} else {
-				Blockly.Arduino.setups_['setup_green_analog_read' + pin] = JST['inout_digital_input']({'pin': pin});
-			}
 			var once = this.getFieldValue('ONCE');
 			if (once==='TRUE')
 			{
-				Blockly.Arduino.definitions_['declare_var_define_moist_alarm'+pin]=JST['moist_alarm_definitions_variables']({pin : pin});
-				high='if (!_moist_'+pin+'){\n  _moist_humid_'+pin+'=true;\n  _moist_dry_'+pin+'=false;\n  _moist_ok_'+pin+'=false;\n'+indentSentences(high)+'\n}\n';
-				low='if (!_moist_dry_'+pin+'){\n  _moist_dry_'+pin+'=true;\n  _moist_humid_'+pin+'=false;\n  _moist_ok_'+pin+'=false;\n'+indentSentences(low)+'\n}\n';
-				ok='if (!_moist_ok_'+pin+'){\n  _moist_ok_'+pin+'=true;\n  _moist_dry_'+pin+'=false;\n  _moist_humid_'+pin+'=false;\n'+indentSentences(ok)+'\n}\n';
+				Blockly.Arduino.definitions_['declare_var_define_moist_alarm']='bool _moist_dried=false;\nbool _moist_humid=false;\nbool _moist_ok=false;\n';				
+				high='if (!_moist_dried){\n  _moist_dried=true;\n  _moist_humid=false;\n  _moist_ok=false;\n'+Facilino.indentSentences(high)+'\n}\n';
+				low='if (!_moist_humid){\n  _moist_humid=true;\n  _moist_dried=false;\n  _moist_ok=false;\n'+Facilino.indentSentences(low)+'\n}\n';
+				ok='if (!_moist_ok){\n  _moist_ok=true;\n  _moist_humid=false;\n  _moist_dried=false;\n'+Facilino.indentSentences(ok)+'\n}\n';
 			}
-			if (profiles['processor']==='ESP32')
-			{
-				code += JST['moist_alarm']({pin: pin, high_value: '1000', low_value: '600', high: high, ok: ok, low: low});
-			}
-			else
-			{
-				code += JST['moist_alarm']({pin: pin, high_value: '250', low_value: '150', high: high, ok: ok, low: low});
-			}
-
+			code+='{\n  float _moist='+moist+';\nif (_moist>='+this.getFieldValue('LOW')+'){\n'+high+'}\nelse if(_moist<='+this.getFieldValue('HIGH')+'){\n'+low+'}\nelse{\n'+ok+'}\n}\n';
 			return code;
 		};
 
 		Blockly.Blocks.ambient_moist_alarm = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_AMBIENT'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_HUMIDITY'),
-			tags: ['humidity','ambient'],
+			tags: ['moist','ambient'],
 			helpUrl: Facilino.getHelpUrl('ambient_moist_alarm'),
 			examples: ['ambient_moist_alarm_example.bly'],
 			category_colour: Facilino.LANG_COLOUR_AMBIENT,
@@ -227,17 +252,21 @@
 			name: Facilino.locales.getKey('LANG_MOIST_ALARM_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOIST_ALARM')).appendField(new Blockly.FieldImage("img/blocks/moist.svg",64*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MOIST_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('MOIST').appendField(Facilino.locales.getKey('LANG_MOIST_ALARM')).appendField(new Blockly.FieldImage("img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_HUMID_ONCE')).appendField(new Blockly.FieldCheckbox('FALSE'),'ONCE').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_humid.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/sprout_humid.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(1000,0,4096),'HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(2000,0,4096),'LOW');
+				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/sprout_humid.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.appendStatementInput('OK').appendField(new Blockly.FieldImage("img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 		this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_MOIST_ALARM_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="MOIST"><block type="ambient_moist"><value name="PIN"><shadow type="pin_analog"></shadow></value></block></value>';
 			}
 		};
 		}

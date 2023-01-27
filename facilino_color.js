@@ -7,15 +7,6 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		Facilino.indentSentences = function(sentences) {
-			var splitted_sentences = sentences.split('\n');
-			var final_sentences = '';
-			for (var i in splitted_sentences) {
-				final_sentences += '  ' + splitted_sentences[i] + '\n';
-			}
-			return final_sentences;
-		};
-		
 		if (window.FacilinoAdvanced===true)
 		{
 			var color_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
@@ -39,17 +30,17 @@
 			Blockly.Arduino.setups_['inout_digital_output' + pinR] = JST['inout_digital_output']({'pin': pinR});
 			Blockly.Arduino.setups_['inout_digital_output' + pinG] = JST['inout_digital_output']({'pin': pinG});
 			var state = this.getFieldValue('STATE') || '#000000';
-			if (color === 'OFF')
+			if (state === 'OFF')
 			{
 				code += JST['inout_digital_write']({'pin': pinR,'state': 'LOW'});
 				code += JST['inout_digital_write']({'pin': pinG,'state': 'LOW'});
 			}
-			else if (color ==='RED')
+			else if (state ==='RED')
 			{
 				code += JST['inout_digital_write']({'pin': pinR,'state': 'HIGH'});
 				code += JST['inout_digital_write']({'pin': pinG,'state': 'LOW'});
 			}
-			else if (color ==='GREEN')
+			else if (state ==='GREEN')
 			{
 				code += JST['inout_digital_write']({'pin': pinR,'state': 'LOW'});
 				code += JST['inout_digital_write']({'pin': pinG,'state': 'HIGH'});
@@ -77,6 +68,15 @@
 		this.setPreviousStatement(true,'code');
 		this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_RG_LED_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='<value name="PIN_R"><shadow type="pin_digital"></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="PIN_G"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_G"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -169,6 +169,19 @@
 		this.setPreviousStatement(true,'code');
 		this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_RGB_LED_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='<value name="PIN_R"><shadow type="pin_digital"></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="PIN_G"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_G"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>2)
+					xml+='<value name="PIN_B"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_B"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 		
@@ -242,6 +255,27 @@
 				this.setNextStatement(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_RGB_RAW_SENSOR_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='<value name="PIN_S0"><shadow type="pin_digital"></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>2)
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>3)
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[3][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>4)
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[4][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -296,6 +330,27 @@
 				this.setNextStatement(false);
 				this.setOutput(true,'ColorDetect');
 				this.setTooltip(Facilino.locales.getKey('LANG_RGB_SENSOR_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='<value name="PIN_S0"><shadow type="pin_digital"></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>2)
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>3)
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[3][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>4)
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[4][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -310,7 +365,6 @@
 			for (n=1;n<this.itemCount_;n++){
 				argument = Blockly.Arduino.valueToCode(this, 'DATA' + n, Blockly.Arduino.ORDER_NONE);
 				branch = Blockly.Arduino.statementToCode(this, 'ITEM' + n);
-				branch = indentSentences(branch);
 				branch = branch.substring(0, branch.length - 1);
 				code+='  case '+argument+':\n';
 				code+=branch;
@@ -334,12 +388,36 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_COLOR);
 				this.appendValueInput('COLOR_INPUT').setCheck('ColorDetect').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY')).appendField(new Blockly.FieldImage('img/blocks/color.png', 20*options.zoom, 20*options.zoom));
+				this.appendValueInput('DATA1').setCheck('Color').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_COLOR')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setMutator(new Blockly.Mutator(['rgb_classify_color_item']));
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_RGB_CLASSIFY_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='<value name="COLOR_INPUT"><block type="rgb_sensor"><value name="PIN_S0"><shadow type="pin_digital"></shadow></value>';
+				if (Facilino.profiles.default.digital.length>1)
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S1"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>2)
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>3)
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[3][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_S3"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.digital.length>4)
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[4][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PIN_OUT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+				xml+='</block></value><value name="DATA1"><shadow type="rgb_colour"></shadow></value>';
+				return xml;
 			},
 		mutationToDom: function() {
 				if (!this.itemCount_ ) {
@@ -353,7 +431,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 1; x <= this.itemCount_; x++) {
+				for (var x = 2; x <= this.itemCount_; x++) {
 				this.appendValueInput('DATA' + x).setCheck('Color').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_COLOR')).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -363,7 +441,11 @@
 				var containerBlock = workspace.newBlock('rgb_classify_color_stack');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 1; x <= this.itemCount_; x++) {
+				var itemBlock = workspace.newBlock('rgb_classify_color_item');
+				itemBlock.initSvg();
+				connection.connect(itemBlock.previousConnection);
+				connection = itemBlock.nextConnection;
+				for (var x = 2; x <= this.itemCount_; x++) {
 					var itemBlock = workspace.newBlock('rgb_classify_color_item');
 					itemBlock.initSvg();
 					connection.connect(itemBlock.previousConnection);
@@ -373,38 +455,42 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the items input blocks and remove the inputs.
-				for (var x = this.itemCount_; x > 0; x--) {
+				for (var x = this.itemCount_; x > 1; x--) {
 					this.removeInput('DATA' + x);
 					this.removeInput('ITEM' + x);
 				}
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'rgb_classify_color_item':
-							this.itemCount_++;
-							this.setInputsInline(false);
-							var dataInput = this.appendValueInput('DATA' + this.itemCount_).setCheck('Color').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_COLOR')).setAlign(Blockly.ALIGN_RIGHT);
-							var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								dataInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								itemInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
-					}
+				if (clauseBlock)
+				{
 					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'rgb_classify_color_item':
+								this.itemCount_++;
+								this.setInputsInline(false);
+								var dataInput = this.appendValueInput('DATA' + this.itemCount_).setCheck('Color').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_COLOR')).setAlign(Blockly.ALIGN_RIGHT);
+								var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									dataInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									itemInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					}
 				}
 			},
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 1;
+				var x = 2;
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'rgb_classify_color_item':
@@ -436,6 +522,16 @@
 				this.appendStatementInput('STACK').setCheck('color_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_RGB_CLASSIFY_STACK_TOOLTIP'));
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='rgb_classify_color_stack')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 

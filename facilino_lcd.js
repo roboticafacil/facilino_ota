@@ -18,6 +18,7 @@
 		};
 
 		Blockly.Blocks.lcd_def = {
+
 			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_LCD'),
 			tags: ['lcd','screen'],
@@ -41,12 +42,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_LCD_DEF_TOOLTIP'));
-				this.setFieldValue(Facilino.profiles['default'].digital[0][0],'LCD_1');
-				this.setFieldValue(Facilino.profiles['default'].digital[1][0],'LCD_2');
-				this.setFieldValue(Facilino.profiles['default'].digital[2][0],'LCD_3');
-				this.setFieldValue(Facilino.profiles['default'].digital[3][0],'LCD_4');
-				this.setFieldValue(Facilino.profiles['default'].digital[4][0],'LCD_5');
-				this.setFieldValue(Facilino.profiles['default'].digital[5][0],'LCD_6');
+				this.setFieldValue(Facilino.profiles['default'].digital[0][1],'LCD_1');
+				this.setFieldValue(Facilino.profiles['default'].digital[1][1],'LCD_2');
+				this.setFieldValue(Facilino.profiles['default'].digital[2][1],'LCD_3');
+				this.setFieldValue(Facilino.profiles['default'].digital[3][1],'LCD_4');
+				this.setFieldValue(Facilino.profiles['default'].digital[4][1],'LCD_5');
+				this.setFieldValue(Facilino.profiles['default'].digital[5][1],'LCD_6');
 			},
 			isNotDuplicable: true
 		};
@@ -143,6 +144,13 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_LCD_CURSOR_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="XCOOR"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				xml+='<value name="YCOOR"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				return xml;
 			}
 		};
 		}
@@ -174,6 +182,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_LCD_PRINT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="VAL"><shadow type="text"><field name="text">0</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -196,6 +210,14 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_LCD_SCROLL_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="VAL"><shadow type="text"><field name="text">0</field></shadow></value>';
+				xml+='<value name="DELAY_TIME"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+				xml+='<value name="XCOOR"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				return xml;
 			},
 			onchange: function() {
 				var Blocks=Blockly.getMainWorkspace().getAllBlocks();

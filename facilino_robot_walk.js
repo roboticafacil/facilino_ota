@@ -31,10 +31,10 @@
 				name: Facilino.locales.getKey('LANG_HIPPIE_INIT_NAME'),
 				init: function () {
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_ROBOT'));
-					this.appendValueInput('YR').appendField(new Blockly.FieldImage('img/blocks/hippie_YR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YR')).appendField(new Blockly.FieldImage('img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','PWMPin']);
-					this.appendValueInput('YL').appendField(new Blockly.FieldImage('img/blocks/hippie_YL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YL')).appendField(new Blockly.FieldImage('img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','PWMPin']);
-					this.appendValueInput('RR').appendField(new Blockly.FieldImage('img/blocks/hippie_RR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RR')).appendField(new Blockly.FieldImage('img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','PWMPin']);
-					this.appendValueInput('RL').appendField(new Blockly.FieldImage('img/blocks/hippie_RL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RL')).appendField(new Blockly.FieldImage('img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','PWMPin']);
+					this.appendValueInput('YR').appendField(new Blockly.FieldImage('img/blocks/hippie_YR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YR')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('YL').appendField(new Blockly.FieldImage('img/blocks/hippie_YL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YL')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('RR').appendField(new Blockly.FieldImage('img/blocks/hippie_RR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RR')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('RL').appendField(new Blockly.FieldImage('img/blocks/hippie_RL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RL')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 					if (window.FacilinoAdvanced===true)
 					{
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_OFFSET'));
@@ -48,6 +48,24 @@
 					this.setInputsInline(false);
 					this.setColour(robot_colour);
 					this.setTooltip(Facilino.locales.getKey('LANG_HIPPIE_INIT_TOOLTIP'));
+				},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="YR"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="YL"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="YL"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					if (Facilino.profiles.default.digital.length>2)
+						xml+='<value name="RR"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[2][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RR"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					if (Facilino.profiles.default.digital.length>3)
+						xml+='<value name="RL"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[3][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RL"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					return xml;
 				},
 				isNotDuplicable: true
 			};
@@ -256,6 +274,10 @@
 					this.setNextStatement(true,'code');
 				this.setOutput(false);
 					this.setTooltip(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_TOOLTIP'));
+				},
+				default_inputs: function ()
+				{
+					return ['<field name="MOVEMENT">0</field>','<field name="MOVEMENT">1</field>','<field name="MOVEMENT">2</field>','<field name="MOVEMENT">3</field>','<field name="MOVEMENT">4</field>','<field name="MOVEMENT">5</field>','<field name="MOVEMENT">6</field>','<field name="MOVEMENT">7</field>','<field name="MOVEMENT">8</field>','<field name="MOVEMENT">9</field>','<field name="MOVEMENT">10</field>','<field name="MOVEMENT">11</field>','<field name="MOVEMENT">12</field>','<field name="MOVEMENT">13</field>','<field name="MOVEMENT">14</field>','<field name="MOVEMENT">15</field>','<field name="MOVEMENT">16</field>','<field name="MOVEMENT">17</field>','<field name="MOVEMENT">18</field>','<field name="MOVEMENT">19</field>','<field name="MOVEMENT">20</field>'];
 				}
 			};
 
@@ -343,6 +365,10 @@
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_HIPPIE_ADV_MOVEMENT_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INP1"><shadow type="math_number"><field name="NUM">4</field></shadow></value><value name="INP2"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
 				}
 			};
 
@@ -446,6 +472,10 @@
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_HIPPIE_ADV_MOVEMENT_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INP1"><shadow type="math_number"><field name="NUM">4</field></shadow></value><value name="INP2"><shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="INP3"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
 				}
 			};
 

@@ -46,6 +46,12 @@
 				this.setNextStatement(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_ARRAY_GET_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml='<value name="INPUT"><shadow type="variables_get"></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -85,6 +91,13 @@
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_ARRAY_SET_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml='<value name="INPUT"><shadow type="variables_get"></shadow></value>';
+				xml+='<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -229,13 +242,18 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
 				this.appendDummyInput('ITEMS').appendField(Facilino.locales.getKey('LANG_VARIABLES_ARRAY'));
+				this.appendValueInput('ITEM0').setCheck([Number,Boolean,'Variable']);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setOutput(true,'Array');
 				this.setMutator(new Blockly.Mutator(['math_1DArray_constructor_item']));
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_TOOLTIP'));
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
+			},
+			default_inputs: function()
+			{
+				return ['<value name="ITEM0"><shadow type="math_number"></shadow></value>','<value name="ITEM0"><shadow type="logic_boolean"></shadow></value>','<value name="ITEM0"><shadow type="variables_get"></shadow></value>'];
 			},
 			mutationToDom: function() {
 				if (!this.itemCount_) {
@@ -249,7 +267,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 0; x < this.itemCount_; x++) {
+				for (var x = 1; x < this.itemCount_; x++) {
 					this.appendValueInput('ITEM'+x).setCheck([Number,Boolean,'Variable']);
 				}
 			},
@@ -257,7 +275,11 @@
 				var containerBlock = workspace.newBlock('math_1DArray_constructor_constructor');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 0; x < this.itemCount_; x++) {
+				var itemBlock = workspace.newBlock('math_1DArray_constructor_item');
+				itemBlock.initSvg();
+				connection.connect(itemBlock.previousConnection);
+				connection = itemBlock.nextConnection;
+				for (var x = 1; x < this.itemCount_; x++) {
 					var itemBlock = workspace.newBlock('math_1DArray_constructor_item');
 					itemBlock.initSvg();
 					connection.connect(itemBlock.previousConnection);
@@ -267,27 +289,30 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the task input blocks and remove the inputs.
-				for (var x = this.itemCount_-1; x >= 0; x--) {
+				for (var x = this.itemCount_; x >= 1; x--) {
 					this.removeInput('ITEM' + x);
 				}
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'math_1DArray_constructor_item':
-							var itemInput = this.appendValueInput('ITEM' + this.itemCount_).setCheck([Number,Boolean,'Variable']);
-							this.itemCount_++;
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								itemInput.connection.connect(clauseBlock.valueConnection_);
-							}
-
-							break;
-						default:
-							throw 'Unknown block type.';
-					}
+				if (clauseBlock)
+				{
 					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'math_1DArray_constructor_item':
+								var itemInput = this.appendValueInput('ITEM' + this.itemCount_).setCheck([Number,Boolean,'Variable']);
+								this.itemCount_++;
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									itemInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					}
 				}
 				//this.getInput('ITEMS').removeField('SEP'+(this.itemCount_-1));
 				//this.getInput('ITEMS').appendField('}','SEP'+(this.itemCount_-1));
@@ -321,6 +346,16 @@
 				this.appendStatementInput('STACK').setCheck('array_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_TOOLTIP'));
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='math_1DArray_constructor_constructor')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 
@@ -348,10 +383,13 @@
 			for (i=0;i<this.itemCount_;i++)
 			{
 				var item = Blockly.Arduino.valueToCode(this, 'ITEM'+i, Blockly.Arduino.ORDER_NONE);
-				var var_type = Facilino.variables[item][0];
-				code+=item+'=('+var_type+')(*(('+var_type+'*)pData));\n';
-				if (i<(this.itemCount_-1))
-					code+='pData+=sizeof('+var_type+');\n';
+				if (Facilino.variables.length>0)
+				{
+					var var_type = Facilino.variables[item][0];
+					code+=item+'=('+var_type+')(*(('+var_type+'*)pData));\n';
+					if (i<(this.itemCount_-1))
+						code+='pData+=sizeof('+var_type+');\n';
+				}
 			}
 			code+='}\n';
 			return code;
@@ -385,6 +423,12 @@
 				this.setMutator(new Blockly.Mutator(['math_1DArray_decode_item']));
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_DECODE_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml='<value name="ARRAY"><shadow type="variables_get"></shadow></value>';
+				return xml;
 			},
 			mutationToDom: function() {
 				if (!this.itemCount_) {
@@ -535,6 +579,12 @@
 				this.setMutator(new Blockly.Mutator(['math_1DArray_encode_item']));
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_ENCODE_TOOLTIP'));
 				this.itemCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml='<value name="ARRAY"><shadow type="variables_get"></shadow></value>';
+				return xml;
 			},
 			mutationToDom: function() {
 				if (!this.itemCount_) {

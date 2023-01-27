@@ -7,15 +7,6 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		Facilino.indentSentences = function(sentences) {
-			var splitted_sentences = sentences.split('\n');
-			var final_sentences = '';
-			for (var i in splitted_sentences) {
-				final_sentences += '  ' + splitted_sentences[i] + '\n';
-			}
-			return final_sentences;
-		};
-		
 	Blockly.Arduino.controls_doWhile = function() {
 			// Do while/until loop.
 			var argument0 = Blockly.Arduino.valueToCode(this, 'WHILE', Blockly.Arduino.ORDER_NONE) || '';
@@ -65,6 +56,13 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_DOWHILE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				/*var xml='';
+				xml+='<value name="WHILE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				return xml;*/
+				return ['<field name="MODE">WHILE</field><value name="WHILE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="MODE">UNTIL</field><value name="WHILE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 		
@@ -112,6 +110,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK')+' '+Facilino.locales.getKey('LANG_LOGIC_OPERATION_OR')+' '+Facilino.locales.getKey('LANG_CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="FLOW">BREAK</field>','<field name="FLOW">CONTINUE</field>'];
 			},
 			onchange: function() {
 				if (!this.workspace) {
@@ -243,6 +245,14 @@
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_FOR_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="VAR"><shadow type="variables_get"></shadow></value>'
+				xml+='<value name="FROM"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
+				xml+='<value name="TO"><shadow type="math_number"><field name="NUM">10</field></shadow></value>';
+				return xml;
+			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];
 			},
@@ -317,14 +327,18 @@
 				this.appendStatementInput('DO0').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
-				this.setMutator(new Blockly.Mutator(['controls_if_elseif',
-					'controls_if_else'
-				]));
+				this.setMutator(new Blockly.Mutator(['controls_if_elseif','controls_if_else']));
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_IF_TOOLTIP_1'));
 				this.elseifCount_ = 0;
 				this.elseCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="IF0"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				return xml;
 			},
 			mutationToDom: function() {
 				if (!this.elseifCount_ && !this.elseCount_) {
@@ -383,58 +397,58 @@
 				this.elseifCount_ = 0;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'controls_if_elseif':
-							this.elseifCount_++;
-							var ifInput = this.appendValueInput('IF' + this.elseifCount_).setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSEIF_Field_ELSEIF'));
-							var doInput = this.appendStatementInput('DO' + this.elseifCount_).setCheck('code');
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT);
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								ifInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						case 'controls_if_else':
-							this.elseCount_++;
-							this.appendDummyInput('ELSE_LABEL').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSE_Field_ELSE'));
-							var elseInput = this.appendStatementInput('ELSE').setCheck('code');
-							elseInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN'))
-								.setAlign(Blockly.ALIGN_RIGHT);
-							// Reconnect any child blocks.
-							if (clauseBlock.statementConnection_) {
-								elseInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
+				if (clauseBlock)
+				{
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'controls_if_elseif':
+								this.elseifCount_++;
+								var ifInput = this.appendValueInput('IF' + this.elseifCount_).setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSEIF_Field_ELSEIF'));
+								var doInput = this.appendStatementInput('DO' + this.elseifCount_).setCheck('code');
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT);
+								// Reconnect any child blocks.
+								//console.log(this.workspace);
+								//console.log(containerBlock.workspace);
+								if (clauseBlock.valueConnection_) {
+									ifInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							case 'controls_if_else':
+								this.elseCount_++;
+								this.appendDummyInput('ELSE_LABEL').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSE_Field_ELSE'));
+								var elseInput = this.appendStatementInput('ELSE').setCheck('code');
+								elseInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT);
+								// Reconnect any child blocks.
+								if (clauseBlock.statementConnection_) {
+									elseInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
 				}
 			},
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 1;
+				var x = 1; //No modificar porque genera error de bloques que no pertenecen al mismo workspace
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'controls_if_elseif':
 							var inputIf = this.getInput('IF' + x);
 							var inputDo = this.getInput('DO' + x);
-							clauseBlock.valueConnection_ =
-								inputIf && inputIf.connection.targetConnection;
-							clauseBlock.statementConnection_ =
-								inputDo && inputDo.connection.targetConnection;
+							clauseBlock.valueConnection_ = inputIf && inputIf.connection.targetConnection;
+							clauseBlock.statementConnection_ = inputDo && inputDo.connection.targetConnection;
 							x++;
 							break;
 						case 'controls_if_else':
 							inputDo = this.getInput('ELSE');
-							clauseBlock.statementConnection_ =
-								inputDo && inputDo.connection.targetConnection;
+							clauseBlock.statementConnection_ = inputDo && inputDo.connection.targetConnection;
 							break;
 						default:
 							throw 'Unknown block type.';
@@ -494,6 +508,53 @@
 			}
 		};
 		
+		Blockly.Arduino.controls_ifelse = function() {
+			var argument = Blockly.Arduino.valueToCode(this, 'IF', Blockly.Arduino.ORDER_NONE);
+			argument = argument.replace(/&quot;/g, '"');
+			var branch = Blockly.Arduino.statementToCode(this,'DO');
+			var code = '';
+			code += JST['controls_if']({'argument': argument,'branch': branch});
+			code +='\n';
+			branch = Blockly.Arduino.statementToCode(this, 'ELSE');
+			code += JST['controls_else']({'argument': argument,'branch': branch});
+			branch = branch.replace(/&quot;/g, '"');
+			code = code.replace(/&quot;/g, '"');
+			return code + '\n';
+		};
+
+		Blockly.Blocks.controls_ifelse = {
+			category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_CONTROL'),
+			helpUrl: Facilino.getHelpUrl('controls_if'),
+			examples: ['controls_if_example'],
+			category_colour: Facilino.LANG_COLOUR_CONTROL,
+			colour: Facilino.LANG_COLOUR_CONTROL,
+			keys: ['LANG_CONTROLS_IF_MSG_IF_NAME','LANG_CONTROLS_IF_MSG_IF_DESCRIPTION','LANG_CONTROLS_IF_MSG_IF_STATEMENTS_DO','LANG_CONTROLS_IF_MSG_IF_MUTATOR_DESC','LANG_CONTROLS_IF_MSG_IF_INPUTS_CONDITION','LANG_CONTROLS_IF_MSG_IF','LANG_CONTROLS_IF_MSG_THEN','LANG_CONTROLS_IF_TOOLTIP_1','LANG_CONTROLS_IF_ELSEIF_Field_ELSEIF','LANG_CONTROLS_IF_MSG_THEN','LANG_CONTROLS_IF_ELSE_Field_ELSE'],
+			name: Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_NAME'),
+			description: Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_DESCRIPTION'),
+			statements: [Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_STATEMENTS_DO')],
+			mutator_desc: Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_MUTATOR_DESC'),
+			mutator_container: 'controls_if_if',
+			mutator_items: ['controls_if_elseif','controls_if_else'],
+			inputs: [Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_INPUTS_CONDITION')],
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_CONTROL);
+				this.appendValueInput('IF').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF'));
+				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSE_Field_ELSE'));
+				this.appendStatementInput('ELSE').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');		
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
+				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_IF_TOOLTIP_1'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="IF"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				return xml;
+			}
+		};
+		
 		if (window.FacilinoAdvanced===true)
 		{
 		Blockly.Arduino.controls_switch = function() {
@@ -548,6 +609,9 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
 				this.appendValueInput('IF0').appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				this.appendValueInput('SWITCH1').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_CASE')).setAlign(Blockly.ALIGN_RIGHT);
+				this.setInputsInline(true);
+				this.appendStatementInput('DO1').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setMutator(new Blockly.Mutator(['controls_switch_case', 'controls_switch_default']));
@@ -555,6 +619,12 @@
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_TOOLTIP'));
 				this.defaultCount_ = 0;
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="IF0"><shadow type="variables_get"></shadow></value><value name="SWITCH1"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				return xml;				
 			},
 			mutationToDom: function() {
 				if (!this.switchCount_ && !this.defaultCount_) {
@@ -572,7 +642,7 @@
 			domToMutation: function(xmlElement) {
 				this.switchCount_ = window.parseInt(xmlElement.getAttribute('case'), 10);
 				this.defaultCount_ = window.parseInt(xmlElement.getAttribute('default'), 10);
-				for (var x = 1; x <= this.switchCount_; x++) {
+				for (var x = 2; x <= this.switchCount_; x++) {
 					this.appendValueInput('SWITCH' + x).setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_CASE')).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(true);
 					this.appendStatementInput('DO' + x).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -585,7 +655,11 @@
 				var containerBlock = workspace.newBlock('controls_switch_switch');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 1; x <= this.switchCount_; x++) {
+				var switchBlock = workspace.newBlock('controls_switch_case');
+				switchBlock.initSvg();
+				connection.connect(switchBlock.previousConnection);
+				connection = switchBlock.nextConnection;
+				for (var x = 2; x <= this.switchCount_; x++) {
 					var switchBlock = workspace.newBlock('controls_switch_case');
 					switchBlock.initSvg();
 					connection.connect(switchBlock.previousConnection);
@@ -595,6 +669,7 @@
 					var defaultBlock = workspace.newBlock('controls_switch_default');
 					defaultBlock.initSvg();
 					connection.connect(defaultBlock.previousConnection);
+					//connection = defaultBlock.nextConnection;
 				}
 				return containerBlock;
 			},
@@ -605,52 +680,56 @@
 				}
 				this.defaultCount_ = 0;
 				// Disconnect all the switch input blocks and remove the inputs.
-				for (var x = this.switchCount_; x > 0; x--) {
+				for (var x = this.switchCount_; x > 1; x--) {
 					this.removeInput('SWITCH' + x);
 					this.removeInput('DO' + x);
 				}
-				this.switchCount_ = 0;
+				this.switchCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'controls_switch_case':
-							this.switchCount_++;
-							var case_lang;
-							case_lang = Facilino.locales.getKey('LANG_CONTROLS_SWITCH_CASE');
-							var switchInput = this.appendValueInput('SWITCH' + this.switchCount_).setCheck([Number,'Variable']).appendField(case_lang).setAlign(Blockly.ALIGN_RIGHT);
-							this.setInputsInline(true);
-
-							var doInput = this.appendStatementInput('DO' + this.switchCount_).setCheck('code');
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT);
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								switchInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						case 'controls_switch_default':
-							this.defaultCount_++;
-							var defaultInput = this.appendStatementInput('DEFAULT').setCheck('code');
-							defaultInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_DEFAULT'))
-								.setAlign(Blockly.ALIGN_RIGHT);
-							// Reconnect any child blocks.
-							if (clauseBlock.statementConnection_) {
-								defaultInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
-					}
+				if (clauseBlock)
+				{
 					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'controls_switch_case':
+								this.switchCount_++;
+								var case_lang;
+								case_lang = Facilino.locales.getKey('LANG_CONTROLS_SWITCH_CASE');
+								var switchInput = this.appendValueInput('SWITCH' + this.switchCount_).setCheck([Number,'Variable']).appendField(case_lang).setAlign(Blockly.ALIGN_RIGHT);
+								this.setInputsInline(true);
+
+								var doInput = this.appendStatementInput('DO' + this.switchCount_).setCheck('code');
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT);
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									switchInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							case 'controls_switch_default':
+								this.defaultCount_++;
+								var defaultInput = this.appendStatementInput('DEFAULT').setCheck('code');
+								defaultInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_DEFAULT'))
+									.setAlign(Blockly.ALIGN_RIGHT);
+								// Reconnect any child blocks.
+								if (clauseBlock.statementConnection_) {
+									defaultInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					}
 				}
 			},
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 1;
+				var x = 0;
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'controls_switch_case':
@@ -685,9 +764,19 @@
 				this.appendDummyInput()
 					.appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH'))
 					.setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('STACK').setCheck('code');
+				this.appendStatementInput('STACK').setCheck('switch');
 				this.setTooltip('Switch');
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='controls_switch_switch')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 
@@ -700,8 +789,8 @@
 				this.appendDummyInput()
 					.appendField(Facilino.locales.getKey('LANG_CONTROLS_SWITCH_CASE'))
 					.setAlign(Blockly.ALIGN_RIGHT);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
+				this.setPreviousStatement(true,'switch');
+				this.setNextStatement(true,'switch');
 				this.setTooltip('Switch case');
 				this.contextMenu = false;
 			}
@@ -775,6 +864,10 @@
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_TOOLTIP_WHILE')+' '+Facilino.locales.getKey('LANG_LOGIC_OPERATION_OR')+' '+Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL'));
+			},
+			default_inputs: function()
+			{
+				return ['<field name="MODE">WHILE</field><value name="BOOL"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="MODE">UNTIL</field><value name="BOOL"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
 		
@@ -808,6 +901,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_BASE_DELAY_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="DELAY_TIME"><shadow type="math_number"><field name="NUM">100</field></shadow></value>';
+				return xml;
 			}
 		};
 		
@@ -843,6 +942,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_BASE_DELAY_SEC_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="DELAY_TIME"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
+				return xml;
 			}
 		};
 		
@@ -991,7 +1096,7 @@
 		
 		if (window.FacilinoAdvanced===true)
 		{
-		Blockly.Arduino.dyor_controls_wait = function() {
+		/*Blockly.Arduino.dyor_controls_wait = function() {
 			var value1 = Blockly.Arduino.valueToCode(this, 'VALUE1', Blockly.Arduino.ORDER_ATOMIC);
 			var value2 = Blockly.Arduino.valueToCode(this, 'VALUE2', Blockly.Arduino.ORDER_ATOMIC);
 			var cond = this.getFieldValue('COND');
@@ -1029,7 +1134,23 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_WAIT_TOOLTIP'));
 			}
-		};
+		};*/
+		
+		Blockly.Blocks.controls_every_item = {
+				colour: Facilino.LANG_COLOUR_CONTROL,
+				// Task item.
+				keys: ['LANG_CONTROLS_EVERY_ELAPSED','LANG_CONTROLS_EVERY_TOOLTIP'],
+				init: function() {
+					this.setColour(Facilino.LANG_COLOUR_CONTROL);
+					this.appendDummyInput()
+						.appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED'))
+						.setAlign(Blockly.ALIGN_RIGHT);
+					this.setPreviousStatement(true,'task');
+					this.setNextStatement(true,'task');
+					this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_EVERY_TOOLTIP'));
+					this.contextMenu = false;
+				}
+			};
 
 
 		Blockly.Arduino.controls_every = function() {
@@ -1072,11 +1193,17 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
 		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TASK0').setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED')+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO0').appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setMutator(new Blockly.Mutator(['controls_every_item']));
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_EVERY_TOOLTIP'));
-				this.taskCount_ = 0;
+				this.taskCount_ = 1;
+			},
+			default_inputs: function()
+			{
+				return '<value name="TASK0"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			},
 			isNotDuplicable: true,
 			mutationToDom: function() {
@@ -1091,7 +1218,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.taskCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 0; x < this.taskCount_; x++) {
+				for (var x = 1; x < this.taskCount_; x++) {
 					this.appendValueInput('TASK' + x)
 						.setCheck(Number)
 						.appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED')+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
@@ -1102,7 +1229,11 @@
 				var containerBlock = workspace.newBlock('controls_every_container');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 0; x < this.taskCount_; x++) {
+				var taskBlock = workspace.newBlock('controls_every_item');
+				taskBlock.initSvg();
+				connection.connect(taskBlock.previousConnection);
+				connection = taskBlock.nextConnection;
+				for (var x = 1; x < this.taskCount_; x++) {
 					var taskBlock = workspace.newBlock('controls_every_item');
 					taskBlock.initSvg();
 					connection.connect(taskBlock.previousConnection);
@@ -1112,35 +1243,43 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the task input blocks and remove the inputs.
-				for (var x = this.taskCount_-1; x >= 0; x--) {
+				for (var x = this.taskCount_-1; x >= 1; x--) {
 					this.removeInput('TASK' + x);
 					this.removeInput('DO' + x);
 				}
-				this.taskCount_ = 0;
+				this.taskCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'controls_every_item':
-							var taskInput = this.appendValueInput('TASK' + this.taskCount_)
-								.setCheck(Number)
-								.appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED')+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
-							var doInput = this.appendStatementInput('DO' + this.taskCount_);
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.taskCount_++;
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								taskInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
+				if (clauseBlock)
+				{
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'controls_every_item':
+								//var defaultArgument = Blockly.mainWorkspace.newBlock('math_number');
+								//defaultArgument.setShadow(true);
+								//defaultArgument.setFieldValue(100,'NUM');
+								//var taskInput = this.appendValueInput('TASK' + this.taskCount_).setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED')+' (ms)').setAlign(Blockly.ALIGN_RIGHT).connection.connect(defaultArgument.outputConnection);
+								var taskInput = this.appendValueInput('TASK' + this.taskCount_).setCheck(Number).appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED')+' (ms)').setAlign(Blockly.ALIGN_RIGHT);
+								//taskInput.connection.connect(defaultArgument.outputConnection);
+								var doInput = this.appendStatementInput('DO' + this.taskCount_);
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								this.taskCount_++;
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_)
+								{
+									if (taskInput!==undefined)
+										taskInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
 				}
 			},
 			saveConnections: function(containerBlock) {
@@ -1161,8 +1300,7 @@
 						default:
 							throw 'Unknown block type.';
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 				}
 			}
 		};
@@ -1179,24 +1317,20 @@
 				this.appendStatementInput('STACK').setCheck('task');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_EVERY_TOOLTIP'));
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='controls_every_container')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 
-		Blockly.Blocks.controls_every_item = {
-				colour: Facilino.LANG_COLOUR_CONTROL,
-				// Task item.
-				keys: ['LANG_CONTROLS_EVERY_ELAPSED','LANG_CONTROLS_EVERY_TOOLTIP'],
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_CONTROL);
-					this.appendDummyInput()
-						.appendField(Facilino.locales.getKey('LANG_CONTROLS_EVERY_ELAPSED'))
-						.setAlign(Blockly.ALIGN_RIGHT);
-					this.setPreviousStatement(true,'task');
-					this.setNextStatement(true,'task');
-					this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_EVERY_TOOLTIP'));
-					this.contextMenu = false;
-				}
-			};
+		
 			
 			
 			Blockly.Arduino.controls_alternate = function() {
@@ -1233,13 +1367,15 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('TASK0').appendField(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_CASE')+' 1').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO0').appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setMutator(new Blockly.Mutator(['controls_alternate_item']));
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_TOOLTIP'));
 				Facilino.NumAlternateCases=Facilino.NumAlternateCases+1;
 				this.NumAlternateCases=Facilino.NumAlternateCases;
-				this.taskCount_ = 0;
+				this.taskCount_ = 1;
 			},
 			mutationToDom: function() {
 				if (!this.taskCount_) {
@@ -1253,7 +1389,7 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.taskCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 0; x < this.taskCount_; x++) {
+				for (var x = 1; x < this.taskCount_; x++) {
 					this.appendDummyInput('TASK' + x)
 						.appendField(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_CASE')+' '+(x+1)).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendStatementInput('DO' + x).appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -1263,7 +1399,11 @@
 				var containerBlock = workspace.newBlock('controls_alternate_container');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 0; x < this.taskCount_; x++) {
+				var taskBlock = workspace.newBlock('controls_alternate_item');
+				taskBlock.initSvg();
+				connection.connect(taskBlock.previousConnection);
+				connection = taskBlock.nextConnection;
+				for (var x = 1; x < this.taskCount_; x++) {
 					var taskBlock = workspace.newBlock('controls_alternate_item');
 					taskBlock.initSvg();
 					connection.connect(taskBlock.previousConnection);
@@ -1273,35 +1413,38 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the task input blocks and remove the inputs.
-				for (var x = this.taskCount_-1; x >= 0; x--) {
+				for (var x = this.taskCount_; x >= 1; x--) {
 					this.removeInput('TASK' + x);
 					this.removeInput('DO' + x);
 				}
-				this.taskCount_ = 0;
+				this.taskCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				while (clauseBlock) {
-					switch (clauseBlock.type) {
-						case 'controls_alternate_item':
-							var taskInput = this.appendDummyInput('TASK' + this.taskCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_CASE')+' '+(this.taskCount_+1)).setAlign(Blockly.ALIGN_RIGHT);
-							var doInput = this.appendStatementInput('DO' + this.taskCount_);
-							doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-							this.taskCount_++;
-							// Reconnect any child blocks.
-							if (clauseBlock.valueConnection_) {
-								if (taskInput.connection!==null)
-									taskInput.connection.connect(clauseBlock.valueConnection_);
-							}
-							if (clauseBlock.statementConnection_) {
-								if (doInput.connection!==null)
-									doInput.connection.connect(clauseBlock.statementConnection_);
-							}
-							break;
-						default:
-							throw 'Unknown block type.';
+				if (clauseBlock)
+				{
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+					while (clauseBlock) {
+						switch (clauseBlock.type) {
+							case 'controls_alternate_item':
+								var taskInput = this.appendDummyInput('TASK' + this.taskCount_).appendField(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_CASE')+' '+(this.taskCount_+1)).setAlign(Blockly.ALIGN_RIGHT);
+								var doInput = this.appendStatementInput('DO' + this.taskCount_);
+								doInput.appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								this.taskCount_++;
+								// Reconnect any child blocks.
+								if (clauseBlock.valueConnection_) {
+									if (taskInput.connection!==null)
+										taskInput.connection.connect(clauseBlock.valueConnection_);
+								}
+								if (clauseBlock.statementConnection_) {
+									if (doInput.connection!==null)
+										doInput.connection.connect(clauseBlock.statementConnection_);
+								}
+								break;
+							default:
+								throw 'Unknown block type.';
+						}
+						clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
 				}
 			},
 			saveConnections: function(containerBlock) {
@@ -1313,16 +1456,13 @@
 						case 'controls_alternate_item':
 							var inputTask = this.getInput('TASK' + x);
 							var inputDo = this.getInput('DO' + x);
-							clauseBlock.valueConnection_ =
-								//inputTask && inputTask.connection.targetConnection;
 							clauseBlock.statementConnection_ = inputDo && inputDo.connection.targetConnection;
 							x++;
 							break;
 						default:
 							throw 'Unknown block type.';
 					}
-					clauseBlock = clauseBlock.nextConnection &&
-						clauseBlock.nextConnection.targetBlock();
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
 				}
 			}
 		};
@@ -1339,6 +1479,16 @@
 				this.appendStatementInput('STACK').setCheck('task');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_ALTERNATE_TOOLTIP'));
 				this.contextMenu = false;
+			},
+			onchange: function()
+			{
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				if (clauseBlock===null)
+				{
+					var blocks=this.workspace.getAllBlocks();
+					if (blocks[0].type==='controls_alternate_container')
+						blocks[0].getInput('STACK').connection.connect(blocks[1].previousConnection);
+				}
 			}
 		};
 
@@ -1376,10 +1526,41 @@
 			description: Facilino.locales.getKey('LANG_CONTROLS_COMMENT_DESCRIPTION'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendDummyInput('').appendField('//').appendField(new Blockly.FieldTextInput(''),'COMMENT');
+				this.appendDummyInput('').appendField('//').appendField(new Blockly.FieldTextInput('Comment'),'COMMENT');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_COMMENT_TOOLTIP'));
+			}
+		};
+		
+		Blockly.Arduino.controls_ignore = function() {
+			// Do while/until loop.
+			var input = Blockly.Arduino.valueToCode(this, 'INPUT', Blockly.Arduino.ORDER_NONE) || '';
+			var code = input+';';
+			return code;
+		};
+
+		Blockly.Blocks.controls_ignore = {
+			// Do/while loop.
+			category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_CONTROL'),
+			helpUrl: Facilino.getHelpUrl('controls_ignore'),
+			examples: [''],
+			category_colour: Facilino.LANG_COLOUR_CONTROL,
+			colour: Facilino.LANG_COLOUR_CONTROL,
+			keys: ['LANG_CONTROLS_IGNORE_NAME','LANG_CONTROLS_IGNORE_DESCRIPTION','LANG_CONTROLS_IGNORE_IGNORE','LANG_CONTROLS_IGNORE_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_CONTROLS_IGNORE_NAME'),
+			description: Facilino.locales.getKey('LANG_CONTROLS_IGNORE_DESCRIPTION'),
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_CONTROL);
+				this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_CONTROLS_IGNORE_IGNORE'));
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
+				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_IGNORE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="INPUT"><shadow type="logic_boolean"></shadow></value>','<value name="INPUT"><shadow type="math_number"></shadow></value>','<value name="INPUT"><shadow type="text"></shadow></value>'];
 			}
 		};
 
@@ -1444,6 +1625,12 @@
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(false);
 					this.setTooltip(Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					var xml='';
+					xml+='<value name="SLEEP_TIME"><shadow type="math_number"><field name="NUM">60</field></shadow></value>';
+					return xml;
 				}
 			};
 			}

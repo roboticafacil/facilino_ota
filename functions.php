@@ -9,7 +9,7 @@ function create_email_password_recovery($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$reset='http://'.$dir.'/Facilino/src/facilino-ota/html2/reset-password.php';
+		$reset='reset-password.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -35,19 +35,19 @@ $body = $output;
 $subject = "Facilino Password Recovery";
  
 $email_to = $email;
-$fromserver = "no-reply@roboticafacil.es"; 
+$fromserver = "email"; 
 require("PHPMailer/PHPMailerAutoload.php");
 $mail = new PHPMailer();
 $mail->IsSMTP();
-$mail->Host = "smtp.hostinger.es"; // Enter your host here
+$mail->Host = "host"; // Enter your host here
 $mail->SMTPAuth = true;
 $mail->CharSet = 'UTF-8';
 $mail->Encoding = 'base64';
-$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-$mail->Password = "xxx"; //Enter your password here
+$mail->Username = "email"; // Enter your email here
+$mail->Password = "Password"; //Enter your password here
 $mail->Port = 587;
 $mail->IsHTML(true);
-$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+$mail->setFrom('email', 'Robótica Fácil');
 $mail->AddAddress($email);
 $mail->Sender = $fromserver; // indicates ReturnPath header
 $mail->Subject = $subject;
@@ -59,7 +59,7 @@ function create_email_activation($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$registration='http://'.$dir.'/Facilino/src/facilino-ota/html2/registration.php';
+		$registration='registration.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -69,6 +69,7 @@ function create_email_activation($email,$key)
 		}
 		$registration='https://'.$dir.'registration.php';
 	 }
+	
 	$output='<p>Dear user,</p>';
 	$output.='<p>Please click on the following link to activate your account.</p>';
 	$output.='<p>-------------------------------------------------------------</p>';
@@ -84,19 +85,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Account Activation";
  
 	$email_to = $email;
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email";
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -108,7 +109,7 @@ function create_email_activated($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$login='http://'.$dir.'/Facilino/src/facilino-ota/html2/login.php';
+		$login='login.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -132,19 +133,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Account Activated";
  
 	$email_to = $email;
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -157,8 +158,8 @@ function create_email_reviewer_request($username,$email,$key,$language,$academic
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_reviewer';
-		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/translate.php?username='.$username.'&action=decline_as_reviewer';
+		$accept='user.php?username='.$username.'&action=accept_as_reviewer';
+		$decline='translate.php?username='.$username.'&action=decline_as_reviewer';
 	 }
 	 else
 	 {
@@ -192,19 +193,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Translation Request";
  
 	$email_to = "soporte@roboticafacil.es";
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email_to);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -233,19 +234,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Translation Response";
  
 	$email_to = $email;
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email_to);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -258,8 +259,8 @@ function create_email_academic_request($username,$email,$key,$academic,$id_card,
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_academic';
-		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/academy_program.php?username='.$username.'&action=decline_as_academic';
+		$accept='user.php?username='.$username.'&action=accept_as_academic';
+		$decline='academy_program.php?username='.$username.'&action=decline_as_academic';
 	 }
 	 else
 	 {
@@ -294,19 +295,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Academic Request";
  
 	$email_to = "soporte@roboticafacil.es";
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email_to);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -335,19 +336,19 @@ your account and change your security password as someone may have guessed it.</
 	$subject = "Facilino Academic Membership Response";
  
 	$email_to = $email;
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email_to);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;
@@ -366,19 +367,19 @@ your account and change your security password as someone may have guessed it an
 	$subject = "Facilino Standard User Downgrade";
  
 	$email_to = $email;
-	$fromserver = "no-reply@roboticafacil.es"; 
+	$fromserver = "email"; 
 	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "smtp.hostinger.es"; // Enter your host here
+	$mail->Host = "host"; // Enter your host here
 	$mail->SMTPAuth = true;
 	$mail->CharSet = 'UTF-8';
 	$mail->Encoding = 'base64';
-	$mail->Username = "no-reply@roboticafacil.es"; // Enter your email here
-	$mail->Password = "xxx"; //Enter your password here
+	$mail->Username = "email"; // Enter your email here
+	$mail->Password = "Password"; //Enter your password here
 	$mail->Port = 587;
 	$mail->IsHTML(true);
-	$mail->setFrom('no-reply@roboticafacil.es', 'Robótica Fácil');
+	$mail->setFrom('email', 'Robótica Fácil');
 	$mail->AddAddress($email_to);
 	$mail->Sender = $fromserver; // indicates ReturnPath header
 	$mail->Subject = $subject;

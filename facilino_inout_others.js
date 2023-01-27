@@ -7,20 +7,10 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		if (window.FacilinoAdvanced===true)
-		{
-			var other_analog=Facilino.locales.getKey('LANG_SUBCATEGORY_OTHER');
-			var other_digital=Facilino.locales.getKey('LANG_SUBCATEGORY_OTHER');
-			var other_analog_colour=Facilino.LANG_COLOUR_ADVANCED_OTHER;
-			var other_digital_colour=Facilino.LANG_COLOUR_ADVANCED_OTHER;
-		}
-		else
-		{
-			var other_analog=Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG');
-			var other_digital=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
-			var other_analog_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
-			var other_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
-		}
+		var other_analog=Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG');
+		var other_digital=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
+		var other_analog_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
+		var other_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
 	
 	Blockly.Arduino.joystick_dir = function() {
 			var pinx = Blockly.Arduino.valueToCode(this, 'PINX', Blockly.Arduino.ORDER_NONE);
@@ -49,6 +39,16 @@
 				// this.setPreviousStatement(true, null);
 				// this.setNextStatement(true, null);
 				this.setTooltip(Facilino.locales.getKey('LANG_BQ_JOYSTICK_DIR_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="PINX"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.analog.length>1)
+					xml+='<value name="PINY"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="PINY"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[0][1]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -79,6 +79,16 @@
 				// this.setPreviousStatement(true, null);
 				// this.setNextStatement(true, null);
 				this.setTooltip(Facilino.locales.getKey('LANG_BQ_JOYSTICK_MAG_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="PINX"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[0][0]+'</field></shadow></value>';
+				if (Facilino.profiles.default.analog.length>1)
+					xml+='<value name="PINY"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[1][0]+'</field></shadow></value>';
+				else
+					xml+='<value name="PINY"><shadow type="pin_analog"><field name="PIN">'+Facilino.profiles.default.analog[0][0]+'</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -108,6 +118,13 @@
 				this.setPreviousStatement('code');
 				this.setNextStatement('code');
 				this.setTooltip(Facilino.locales.getKey('LANG_RELE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+				xml+='<value name="VALUE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				return xml;
 			}
 		};
 	

@@ -36,6 +36,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_SPI_BEGIN_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				var xml='';
+				xml+='<value name="BAUDRATE"><shadow type="math_number"><field name="NUM">4000000</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -71,6 +77,10 @@
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_SPI_TRANSFER_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="DATA"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="MODE">1</field>','<value name="DATA"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="MODE">2</field>'];
 			}
 		};
 
@@ -106,6 +116,10 @@
 				this.setNextStatement(false,'code');
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_SPI_TRANSFER_RECV_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="DATA"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="MODE">1</field>','<value name="DATA"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="MODE">2</field>'];
 			}
 		};
 

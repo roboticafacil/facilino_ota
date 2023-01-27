@@ -12,16 +12,25 @@ include("auth.php");
 		<h3><?php echo $website["USER_DATA"]?></h3>
 		<?php
 		if (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
-			$query = "UPDATE `users` SET `first_name`=\"".$_POST["first_name"]."\",`last_name`=\"".$_POST["last_name"]."\" WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query = "UPDATE `users` SET `first_name`=\"".$_POST["first_name"]."\",`last_name`=\"".$_POST["last_name"]."\" WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query = "UPDATE `users` SET `first_name`=?,`last_name`=? WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_params("sss",$_POST["first_name"],$_POST["last_name"],$_SESSION["username"]);
+			$statement->execute();
 			header("Location: dashboard.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["upgrade_button"])){
 			header("Location: upgrade.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["recover_button"])){
-			$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -49,8 +58,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&(($_GET["action"]=="modify_to_pro")||($_GET["action"]=="modify_to_standard")||($_GET["action"]=="modify_to_academic"))){
 			//Modify user account
-			$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -58,8 +72,12 @@ include("auth.php");
 				if ($row[1]==2)
 				{
 					require("functions.php");
-					$query="UPDATE `users` SET `user_role_id`=".$row[4].", `prev_user_role_id`=NULL WHERE `id`=".$row[0];
-					$result = mysqli_query($con,$query);
+					//$query="UPDATE `users` SET `user_role_id`=".$row[4].", `prev_user_role_id`=NULL WHERE `id`=".$row[0];
+					//$result = mysqli_query($con,$query);
+					$query="UPDATE `users` SET `user_role_id`=?, `prev_user_role_id`=NULL WHERE `id`=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("ii",$row[4],$row[0]);
+					$statement->execute();
 					$mail=create_email_account_changed($row[2],$row[3],$row[5]);
 					if(!$mail->Send()){
 						echo "Mailer Error: " . $mail->ErrorInfo;
@@ -72,8 +90,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="accept_as_reviewer")){
 			//Accept a user as a reviewer
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -81,8 +104,12 @@ include("auth.php");
 				if ($row[1]>1)
 				{
 					require("functions.php");
-					$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=".$row[1]." WHERE `id`=".$row[0];
-					$result = mysqli_query($con,$query);
+					//$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=".$row[1]." WHERE `id`=".$row[0];
+					//$result = mysqli_query($con,$query);
+					$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=? WHERE `id`=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("ii",$row[1],$row[0]);
+					$statement->execute();
 					$mail=create_email_reviewer_response($row[2],$row[3],1);
 					if(!$mail->Send()){
 						echo "Mailer Error: " . $mail->ErrorInfo;
@@ -108,8 +135,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_reviewer")){
 			//Decline a user as an academic
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_POST["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -135,8 +167,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="accept_as_academic")){
 			//Accept a user as an academic
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -144,8 +181,12 @@ include("auth.php");
 				if ($row[1]>1)
 				{
 					require("functions.php");
-					$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=".$row[0];
-					$result = mysqli_query($con,$query);
+					//$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=".$row[0];
+					//$result = mysqli_query($con,$query);
+					$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("i",$row[0]);
+					$statement->execute();
 					$mail=create_email_academic_response($row[2],$row[3],1);
 					if(!$mail->Send()){
 						echo "Mailer Error: " . $mail->ErrorInfo;
@@ -171,8 +212,13 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_academic")){
 			//Decline a user as an academic
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
-			$result = mysqli_query($con,$query);
+			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
+			//$result = mysqli_query($con,$query);
+			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("s",$_POST["username"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -198,8 +244,13 @@ include("auth.php");
 		}
 		else
 		{
-			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username='".$_SESSION["username"]."' and active=1";
-			$result_user = mysqli_query($con,$query_user);
+			//$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username='".$_SESSION["username"]."' and active=1";
+			//$result_user = mysqli_query($con,$query_user);
+			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username=? and active=1";
+			$statement_user=mysqli_prepare($con,$query_user);
+			$statement_user->bind_param("s",$_SESSION["username"]);
+			$statement_user->execute();
+			$result_user=$statement_user->get_result();
 			$rows_user = mysqli_num_rows($result_user);
 			if ($rows_user==1)
 			{

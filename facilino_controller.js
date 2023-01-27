@@ -41,16 +41,19 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_CONTROL);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/pid_control.png', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER'));
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('SETPOINT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SETPOINT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/pid_control.png', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('SETPOINT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SETPOINT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_INPUT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_GAINS')).appendField('P').appendField(new Blockly.FieldTextInput('1'),'P').appendField('I').appendField(new Blockly.FieldTextInput('0'),'I').appendField('D').appendField(new Blockly.FieldTextInput('0'),'D').setAlign(Blockly.ALIGN_RIGHT);
 					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_OUTPUT')).appendField('min').appendField(new Blockly.FieldTextInput('0'),'MIN').appendField('max').appendField(new Blockly.FieldTextInput('255'),'MAX').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
 					this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="SETPOINT"><shadow type="math_number"><field name="NUM">50</field></shadow></value><value name="INPUT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 			

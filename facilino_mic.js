@@ -53,7 +53,11 @@
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_AO')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_TOOLTIP'));
-			}
+			},
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
+		  }
 		};
 
 	Blockly.Arduino.dyor_mic_digital = function() {
@@ -84,7 +88,11 @@
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_DO')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_DIGITAL_TOOLTIP'));
-			}
+			},
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
+		  }
 		};
 		
 	}

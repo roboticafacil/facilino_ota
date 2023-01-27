@@ -26,6 +26,10 @@
 		Facilino.BLE_characteristics={};
 		Facilino.BLE_notify_characteristics={};
 		Facilino.PWMChannelsIDs={};
+		Facilino.ServosIDs={};
+		Facilino.RGBLEDStripIDs={};
+		Facilino.DHTTemperatureIDs={};
+		Facilino.DHTHumidityIDs={};
 
 		Facilino.removedBlocks = function(ids) {
 			ids.forEach(function(blockId){
@@ -35,6 +39,10 @@
 					delete Facilino.BLE_notify_characteristics[blockId];
 				if (Facilino.PWMChannelsIDs[blockId]!==undefined)
 					delete Facilino.PWMChannelsIDs[blockId];
+				if (Facilino.ServosIDs[blockId]!==undefined)
+					delete Facilino.ServosIDs[blockId];
+				if (Facilino.RGBLEDStripIDs[blockId]!==undefined)
+					delete Facilino.RGBLEDStripIDs[blockId];
 			});
 		}
 
@@ -268,14 +276,16 @@
 		Facilino.LANG_COLOUR_COMMUNICATION_USB = '#4263CE'; // #2E489B, #283F8A
 		Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH = '#3B5ABD';
 		Facilino.LANG_COLOUR_COMMUNICATION_WIFI = '#3551AC';
+		Facilino.LANG_COLOUR_HTML = '#3551AC';
+		Facilino.LANG_COLOUR_ESPUI = '#283F8A'; //A6A6A6, 9A9A9A, 8F8F8F
 		Facilino.LANG_COLOUR_COMMUNICATION_IOT = '#2E489B';
-		Facilino.LANG_COLOUR_COMMUNICATION_IR = '#283F8A';
 		Facilino.LANG_COLOUR_ADVANCED = '#9142CE'; //853BBE, 7A34AF, 6E2DA0, 632791
+		Facilino.LANG_COLOUR_IR = '#9142CE';
 		Facilino.LANG_COLOUR_ADVANCED_ANALOG = '#9142CE';
 		Facilino.LANG_COLOUR_ADVANCED_DIGITAL = '#853BBE';
-		Facilino.LANG_COLOUR_ADVANCED_BUTTON = '#7A34AF';
-		Facilino.LANG_COLOUR_ADVANCED_BUS = '#6E2DA0';
-		Facilino.LANG_COLOUR_ADVANCED_OTHER = '#632791';
+		Facilino.LANG_COLOUR_ADVANCED_PWM = '#7A34AF';
+		Facilino.LANG_COLOUR_ADVANCED_BUTTON = '#6E2DA0';
+		Facilino.LANG_COLOUR_ADVANCED_BUS = '#632791';
 		Facilino.LANG_COLOUR_VARIABLES = '#B244CC';
 		Facilino.LANG_COLOUR_PROCEDURES = '#CE42B3';
 		//Facilino.LANG_COLOUR_COLOUR ='#9FD388';
@@ -290,8 +300,6 @@
 		Facilino.LANG_COLOUR_AMBIENT_RAIN = '#58ABFD';
 		Facilino.LANG_COLOUR_AMBIENT_GAS = '#389AFC';
 		Facilino.LANG_COLOUR_AMBIENT_MISC = '#188AFB';
-		Facilino.LANG_COLOUR_HTML = '#BDBDBD';
-		Facilino.LANG_COLOUR_ESPUI = '#B1B1B1'; //A6A6A6, 9A9A9A, 8F8F8F
 		Facilino.LANG_COLOUR_BLOCKS = '#FF00FF';
 		Facilino.LANG_COLOUR_SYSTEM = '#ADAD85';  //#adad85, #a3a375, #999966, #8a8a5c,#7a7a52, #6b6b47, #5c5c3d, #4d4d33
 		Facilino.LANG_COLOUR_SYSTEM_CONTROL = '#ADAD85';
@@ -422,7 +430,51 @@
 			var toolbox = '<xml id="toolbox" style="display: none">';
 
 			var categoryItem = function(type) {
-				toolbox += '<block type="' + type + '"></block>';
+				if (Blockly.Blocks[type].toolbox_hidden===undefined)
+				{
+					if (Blockly.Blocks[type].default_inputs!==undefined)
+					{
+						var def_inputs=Blockly.Blocks[type].default_inputs();
+						if (Array.isArray(def_inputs))
+						{
+							def_inputs.forEach(function (el) {toolbox +='<block type="' + type + '">'+el+'</block>';});
+						}
+						else
+							toolbox +='<block type="' + type + '">'+def_inputs+'</block>';
+					}
+					else
+					{
+						toolbox += '<block type="' + type + '"></block>';
+					}
+					if (type==='ble_characteristic')
+					{
+						/*console.log(Facilino.BLE_characteristics);
+						if (Blockly.getMainWorkspace()!==null)
+						{
+							Blockly.getMainWorkspace().getAllBlocks().forEach(function (b){ if (b.type==='ble_characteristic'){
+							toolbox += '<block type="ble_characteristic_value"><field name="NAME">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							}});
+							
+						}*/
+						/*Object.keys(Facilino.BLE_characteristics).forEach(function (c){
+							toolbox += '<block type="ble_characteristic_value"><field name="NAME">'+Facilino.BLE_characteristics[c]+'</field></block>';
+							toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC">'+Facilino.BLE_characteristics[c]+'</field></block>';
+							toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC">'+Facilino.BLE_characteristics[c]+'</field></block>';
+						});*/
+						
+						var unique = [];
+						$.each(Object.values(Facilino.BLE_characteristics), function(i, el){
+							if($.inArray(el, unique) === -1) unique.push(el);
+						});
+						unique.forEach(function (element){
+							toolbox += '<block type="ble_characteristic_value"><field name="NAME">'+element+'</field></block>';
+							toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC">'+element+'</field></block>';
+							toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC">'+element+'</field></block>';
+						});
+					}
+				}				
 			};
 
 			for (category in blocks) {
@@ -500,7 +552,24 @@
 			var toolbox = '<xml id="toolbox1" style="display: none">';
 
 			var categoryItem = function(type) {
-				toolbox += '<block type="' + type + '"></block>';
+				//toolbox += '<block type="' + type + '"></block>';
+				if (Blockly.Blocks[type].toolbox_hidden===undefined)
+				{
+					if (Blockly.Blocks[type].default_inputs!==undefined)
+					{
+						var def_inputs=Blockly.Blocks[type].default_inputs();
+						if (Array.isArray(def_inputs))
+						{
+							def_inputs.forEach(function (el) {toolbox +='<block type="' + type + '">'+el+'</block>';});
+						}
+						else
+							toolbox +='<block type="' + type + '">'+def_inputs+'</block>';
+					}
+					else
+					{
+						toolbox += '<block type="' + type + '"></block>';
+					}
+				}		
 			};
 
 			for (category in blocks) {
@@ -579,7 +648,51 @@
 			var toolbox = '<xml id="toolbox" style="display: none">';
 
 			var categoryItem = function(type) {
-				toolbox += '<block type="' + type + '"></block>';
+				//toolbox += '<block type="' + type + '"></block>';
+				if (Blockly.Blocks[type].toolbox_hidden===undefined)
+				{
+					if (Blockly.Blocks[type].default_inputs!==undefined)
+					{
+						var def_inputs=Blockly.Blocks[type].default_inputs();
+						if (Array.isArray(def_inputs))
+						{
+							def_inputs.forEach(function (el) {toolbox +='<block type="' + type + '">'+el+'</block>';});
+						}
+						else
+							toolbox +='<block type="' + type + '">'+def_inputs+'</block>';
+					}
+					else
+					{
+						toolbox += '<block type="' + type + '"></block>';
+					}
+					if (type==='ble_characteristic')
+					{
+						/*if (Blockly.getMainWorkspace()!==null)
+						{
+							Blockly.getMainWorkspace().getAllBlocks().forEach(function (b){ if (b.type==='ble_characteristic'){ 
+							toolbox += '<block type="ble_characteristic_value"><field name="NAME">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC">'+b.getFieldValue('CHARACTERISTIC_NAME')+'</field></block>';
+							}});
+							
+						}*/
+						toolbox += '<block type="ble_characteristic_value"><field name="NAME"></field></block>';
+						toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC"></field></block>';
+						toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC"></field></block>';
+						/*Object.keys(Facilino.BLE_characteristics).forEach(function (c){
+							toolbox += '<block type="ble_characteristic_value"><field name="NAME">'+Facilino.BLE_characteristics[c]+'</field></block>';
+							toolbox += '<block type="ble_set_characteristic"><field name="CHARACTERISTIC">'+Facilino.BLE_characteristics[c]+'</field></block>';
+							toolbox += '<block type="ble_notify_characteristic"><field name="CHARACTERISTIC">'+Facilino.BLE_characteristics[c]+'</field></block>';
+						});
+						var unique = [];
+						$.each(Object.values(Facilino.BLE_characteristics), function(i, el){
+							if($.inArray(el, unique) === -1) unique.push(el);
+						});
+						unique.forEach(function (element){
+							
+						});*/
+					}
+				}		
 			};
 
 			for (category in blocks) {

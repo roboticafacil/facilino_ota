@@ -45,6 +45,10 @@
 		this.appendValueInput('PIN').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ')).appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 		
@@ -59,16 +63,16 @@
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 			Blockly.Arduino.definitions_['define_rational_function'] = 'float rational(float x, float a, float b, float c, float d){\n return (a+b*x)/(1.0+c*x+d*x*x);\n}\n';
 			Blockly.Arduino.definitions_['define_illuminance_function'] = 'float illuminance (float LDR) {\nfloat logLDR=log(LDR)/log(10);\n  float\nlogLux=rational(logLDR,0.60520301477,-0.199225473,-0.602130415,0.0897771308217);\n  return logLux;\n }\n';
-			Blockly.Arduino.definitions_['declare_var_define_min_lux'] = 'float _min_lux=100;\n';
-			Blockly.Arduino.definitions_['declare_var_define_max_lux'] = 'float _max_lux=4000;\n';
+			//Blockly.Arduino.definitions_['declare_var_define_min_lux'] = 'float _min_lux=100;\n';
+			//Blockly.Arduino.definitions_['declare_var_define_max_lux'] = 'float _max_lux=4000;\n';
 
 			var code = '';
 			if ((Facilino.profiles['processor']=== 'ATmega328') || (Facilino.profiles['processor']=== 'ATmega2560') || (Facilino.profiles['processor']=== 'ATmega32U4'))
-				code += 'max(0,min((map(pow(10,illuminance('+JST['inout_analog_read']({'pin': pin})+')),_min_lux,_max_lux,0,100)),100))';
+				code += 'max(0,min((map(pow(10,illuminance('+JST['inout_analog_read']({'pin': pin})+')),'+this.getFieldValue('MIN')+','+this.getFieldValue('MAX')+',0,100)),100))';
 			else if (Facilino.profiles['processor']=== 'ESP8266')
-				code += '_max(0,_min((map(pow(10,illuminance('+JST['inout_analog_read']({'pin': pin})+')),_min_lux,_max_lux,0,100)),100))';
+				code += '_max(0,_min((map(pow(10,illuminance('+JST['inout_analog_read']({'pin': pin})+')),'+this.getFieldValue('MIN')+','+this.getFieldValue('MAX')+',0,100)),100))';
 			else if (Facilino.profiles['processor']=== 'ESP32')
-				code += '_max(0,_min((map(pow(10,illuminance(map('+JST['inout_analog_read']({'pin': pin})+',4095,1492,621,205))),_min_lux,_max_lux,0,100)),100))';
+				code += '_max(0,_min((map(pow(10,illuminance(map('+JST['inout_analog_read']({'pin': pin})+',4095,1492,621,205))),'+this.getFieldValue('MIN')+','+this.getFieldValue('MAX')+',0,100)),100))';
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};
 
@@ -85,9 +89,15 @@
 			name: Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-		this.appendValueInput('PIN').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED')).appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED')).appendField(new Blockly.FieldImage("img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(4000,0,4096),'MAX').appendField(new Blockly.FieldImage("img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(100,0,4096),'MIN');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
+				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
@@ -116,13 +126,19 @@
 			name: Facilino.locales.getKey('LANG_LDR_READ_LUX_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-		this.appendValueInput('PIN').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_LUX')).appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_LUX'));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
+				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_LUX_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 
-		Blockly.Arduino.ldr_max_lux = function() {
+		/*Blockly.Arduino.ldr_max_lux = function() {
 			var light = Blockly.Arduino.valueToCode(this, 'LIGHT', Blockly.Arduino.ORDER_ATOMIC);
 			Blockly.Arduino.definitions_['declare_var_define_max_lux'] = 'float _max_lux=4000;\n';
 			code = '_max_lux='+light+';\n';
@@ -174,7 +190,7 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_MIN_LUX_TOOLTIP'));
 			}
-		};
+		};*/
 		}
 	
 	}

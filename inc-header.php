@@ -16,10 +16,14 @@ if(isset($_SESSION["username"]))
 {
 	if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 	{
-		
-		$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
-		$result = mysqli_query($con,$query);
-		$rows = mysqli_num_rows($result);
+		//$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
+		//$result = mysqli_query($con,$query);
+		$query = "SELECT name from `projects` where `projects`.id=?";
+		$statement=mysqli_prepare($con,$query);
+		$statement->bind_param("i",$_GET["id"]);
+		$statement->execute();
+		$result=$statement->get_result();
+		$rows=mysqli_num_rows($result);
 		if ($rows==1)
 		{
 			$row = mysqli_fetch_row($result);
@@ -81,8 +85,13 @@ if(isset($_SESSION["username"]))
 {
 	if(strpos($_SERVER['PHP_SELF'],'dashboard.php') !== false){
 		require_once('db.php');
-		$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=\"".$_SESSION["username"]."\"";
-		$result = mysqli_query($con,$query);
+		//$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=\"".$_SESSION["username"]."\"";
+		//$result = mysqli_query($con,$query);
+		$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=?";
+		$statement=mysqli_prepare($con,$query);
+		$statement->bind_param("s",$_SESSION["username"]);
+		$statement->execute();
+		$result=$statement->get_result();
 		$rows = mysqli_num_rows($result);
 		if ($rows==1)
 		{

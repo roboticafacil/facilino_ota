@@ -44,6 +44,10 @@
 			this.setInputsInline(false);
 			this.setColour(Facilino.LANG_COLOUR_LIGHT_DIMMER);
 			this.setTooltip(Facilino.locales.getKey('LANG_DIMMER_SET_BRIGHTNESS_TOOLTIP'));
+		  },
+		  default_inputs: function()
+		  {
+			return '<value name="PIN"><shadow type="pin_pwm"></shadow></value><value name="BRIGHTNESS"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
 		  }
 		};
 	}

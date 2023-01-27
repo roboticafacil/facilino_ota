@@ -37,6 +37,10 @@
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_GET_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return '<value name="INDEX"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+			},
 			getVariables: function() {
 				var variables = Blockly.Variables.allVariables();
 				var dropdown = [];
@@ -127,6 +131,10 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_SET_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="INDEX"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			},
 			getVariables: Blockly.Blocks.variables_set.getVariables,
 			renameVar: Blockly.Blocks.variables_set.renameVar,
@@ -232,6 +240,10 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_LOCAL_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="math_1DArray_constructor2"></shadow></value>';
+			},
 			getVars: Blockly.Blocks.variables_local.getVars,
 			renameVar: Blockly.Blocks.variables_local.renameVar,
 			isVariable: Blockly.Blocks.variables_local.isVariable,
@@ -258,9 +270,9 @@
 					count = array.itemCount_;
 					if (varType==='int')
 					{
-						if ((profiles['processor']==='ATmega328')||(profiles['processor']==='ATmega32U4')||(profiles['processor']==='ATmega2560'))
+						if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 							byte_count=count*2;
-						else if ((profiles['processor']==='ESP8266')||(profiles['processor']==='ESP32'))
+						else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
 							byte_count=count*4;
 					}
 					else if (varType==='short')
@@ -285,9 +297,9 @@
 						varType=variable[0];
 						count=variable[3];
 						if (varType==='int')
-							if ((profiles['processor']==='ATmega328')||(profiles['processor']==='ATmega32U4')||(profiles['processor']==='ATmega2560'))
+							if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 								byte_count=count*2;
-							else if ((profiles['processor']==='ESP8266')||(profiles['processor']==='ESP32'))
+							else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
 								byte_count=count*4;
 						else if (varType==='short')
 							byte_count=count*2;
@@ -349,6 +361,10 @@
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_LOCAL_TOOLTIP2'));
 			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-32768</field><field name="NUM1">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-2147483648</field><field name="NUM1">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">0</field><field name="NUM1">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">float</field>'];
+			},
 			getVars: Blockly.Blocks.variables_local.getVars,
 			renameVar: Blockly.Blocks.variables_local.renameVar,
 			isVariable: Blockly.Blocks.variables_local.isVariable,
@@ -393,6 +409,10 @@
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_GLOBAL_TOOLTIP'));
 			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="math_1DArray_constructor2"></shadow></value>';
+			},
 			getVars: Blockly.Blocks.variables_local.getVars,
 			renameVar: Blockly.Blocks.variables_local.renameVar,
 			isVariable: Blockly.Blocks.variables_local.isVariable,
@@ -416,9 +436,9 @@
 				var byte_count=array.itemCount_;
 				if (varType==='int')
 				{
-					if ((profiles['processor']==='ATmega328')||(profiles['processor']==='ATmega32U4')||(profiles['processor']==='ATmega2560'))
+					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 							byte_count=array.itemCount_*2;
-					else if ((profiles['processor']==='ESP8266')||(profiles['processor']==='ESP32'))
+					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
 						byte_count=array.itemCount_*4;
 				}
 				else if (varType==='short')
@@ -471,6 +491,10 @@
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_GLOBAL_TOOLTIP2'));
 			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-32768</field><field name="NUM1">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-2147483648</field><field name="NUM1">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">0</field><field name="NUM1">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">float</field>'];
+			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];
 			},
@@ -500,9 +524,9 @@
 				var byte_count=array.itemCount_;
 				if (varType==='int')
 				{
-					if ((profiles['processor']==='ATmega328')||(profiles['processor']==='ATmega32U4')||(profiles['processor']==='ATmega2560'))
+					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 						byte_count=array.itemCount_*2;
-					else if ((profiles['processor']==='ESP8266')||(profiles['processor']==='ESP32'))
+					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
 						byte_count=array.itemCount_*4;
 				}
 				else if (varType==='short')
@@ -554,6 +578,10 @@
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_ARRAY_GLOBAL_VOLATILE_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">0</field><field name="NUM1">0</field></shadow></value><field name="VAR_TYPE">int</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-32768</field><field name="NUM1">32767</field></shadow></value><field name="VAR_TYPE">short</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">-2147483648</field><field name="NUM1">2147483647</field></shadow></value><field name="VAR_TYPE">long</field>','<value name="VALUE"><shadow type="math_1DArray_constructor2"><field name="NUM0">0</field><field name="NUM1">255</field></shadow></value><field name="VAR_TYPE">byte</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">bool</field>','<value name="VALUE"><shadow type="math_1DArray_constructor"></shadow></value><field name="VAR_TYPE">float</field>'];
 			},
 			getVars: function() {
 				return [this.getFieldValue('VAR')];

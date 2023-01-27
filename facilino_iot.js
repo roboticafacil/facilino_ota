@@ -27,7 +27,7 @@
 					}
 					Blockly.Arduino.definitions_['define_thingsboard'] = '#include <ThingsBoard.h>';
 					Blockly.Arduino.definitions_['declare_var_thingsboardclient']='ThingsBoard _tb(_client);\n';
-					Blockly.Arduino.setups_['setup_thingsboard_connect']='  _tb.connect("demo.thingsboard.io",_token.c_str());\n  if (_wifi_status&_tb.connected())\n	Serial.println("Connected to Thingsboard!");\n';
+					Blockly.Arduino.setups_['setup_thingsboard_connect']='  _tb.connect("thingsboard.cloud",_token.c_str());\n  if (_wifi_status&_tb.connected())\n	Serial.println("Connected to Thingsboard!");\n';
 					Blockly.Arduino.loops_['loop_thingsboard']='_tb.loop();\n';
 					return code;
 				}
@@ -749,7 +749,24 @@
 				Blockly.Arduino.definitions_['define_fauxmo'] = '#include <fauxmoESP.h>';
 				Blockly.Arduino.definitions_['declare_var_fauxmo']='fauxmoESP _fauxmo;\n';
 				Blockly.Arduino.setups_['setup_fauxmo']='_fauxmo.createServer(true);\n  _fauxmo.setPort(80);\n  _fauxmo.enable(true);\n';
-				for (var i=0;i<this.itemCount_;i++)
+				
+				//code+=Blockly.Arduino.statementToCode(this,'STACK');
+				
+				var clauseBlock = this.getInputTargetBlock('STACK');
+				while(clauseBlock)
+				{
+					Blockly.Arduino.setups_['setup_fauxmo']+='  _fauxmo.addDevice("'+clauseBlock.getFieldValue('DEVICE_NAME')+'");\n';
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+				}
+				Blockly.Arduino.setups_['setup_fauxmo']+='_fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state, unsigned char value) {\n';
+				clauseBlock = this.getInputTargetBlock('STACK');
+				while(clauseBlock)
+				{
+					Blockly.Arduino.setups_['setup_fauxmo']+='if ((strcmp(device_name,"'+clauseBlock.getFieldValue('DEVICE_NAME')+'")==0)){\n'+Blockly.Arduino.statementToCode(clauseBlock,'DEVICE_STACK')+'}\n';
+					clauseBlock = clauseBlock.nextConnection && clauseBlock.nextConnection.targetBlock();
+				}
+				Blockly.Arduino.setups_['setup_fauxmo']+='});';
+				/*for (var i=0;i<this.itemCount_;i++)
 				{
 					Blockly.Arduino.setups_['setup_fauxmo']+='  _fauxmo.addDevice("'+this.getFieldValue('DEVICE_NAME'+i)+'");\n';
 				}
@@ -758,7 +775,7 @@
 				{
 					Blockly.Arduino.setups_['setup_fauxmo']+='if ((strcmp(device_name,"'+this.getFieldValue('DEVICE_NAME'+i)+'")==0)){\n'+Blockly.Arduino.statementToCode(this,'DEVICE_STACK'+i)+'}\n';
 				}
-				Blockly.Arduino.setups_['setup_fauxmo']+='});';
+				Blockly.Arduino.setups_['setup_fauxmo']+='});';*/
 				return code;
 			}
 
@@ -776,18 +793,20 @@
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
 					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO')).appendField(new Blockly.FieldImage('img/blocks/amazon_echo.svg', 20*options.zoom, 30*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.setMutator(new Blockly.Mutator(['communications_wifi_iot_amazon_echo_set_digital','communications_wifi_iot_amazon_echo_set_analog']));
+					//this.setMutator(new Blockly.Mutator(['communications_wifi_iot_amazon_echo_set_digital','communications_wifi_iot_amazon_echo_set_analog']));
+					this.appendStatementInput('STACK').setCheck('echo_item');
 					this.setInputsInline(false);
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
-					this.itemCount_=0;
-					this.name_=[];
-					this.type_=[];
-					this.variables=[];
+					//this.itemCount_=0;
+					//this.name_=[];
+					//this.type_=[];
+					//this.variables=[];
 					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_TOOLTIP'));
+					//this.disableAutomaticConnection=false;
 				},
 				isNotDuplicable: true,
-				mutationToDom: function() {
+				/*mutationToDom: function() {
 					if (!this.itemCount_) {
 						return null;
 					}
@@ -815,13 +834,13 @@
 						if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_amazon_echo_set_digital')
 						{
 							this.appendDummyInput('DEVICE'+x).appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE')).appendField(new Blockly.FieldTextInput(''),'DEVICE_NAME'+x).setAlign(Blockly.ALIGN_LEFT);
-							this.appendDummyInput('STATE'+x).appendField(Facilino.locales.getKey('LANG_AMAZON_STATE'));
+							this.appendValueInput('STATE'+x).appendField(Facilino.locales.getKey('LANG_AMAZON_STATE')).setCheck(Number);
 							this.appendStatementInput('DEVICE_STACK'+x);
 						}
 						if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_amazon_echo_set_analog')
 						{
 							this.appendDummyInput('DEVICE'+x).appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE')).appendField(new Blockly.FieldTextInput(''),'DEVICE_NAME'+x).setAlign(Blockly.ALIGN_LEFT);
-							this.appendDummyInput('STATE'+x).appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE'));
+							this.appendValueInput('STATE'+x).appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE')).setCheck(Boolean);
 							this.appendStatementInput('DEVICE_STACK'+x);
 						}
 					}
@@ -830,12 +849,14 @@
 					var containerBlock = workspace.newBlock('communications_wifi_iot_amazon_echo_stack');
 					containerBlock.initSvg();
 					var connection = containerBlock.getInput('STACK').connection;
+					this.disableAutomaticConnection=true;
 					for (var x = 0; x < this.itemCount_; x++) {
 						var taskBlock = workspace.newBlock(this.type_[x]);
 						taskBlock.initSvg();
 						connection.connect(taskBlock.previousConnection);
 						connection = taskBlock.nextConnection;
 					}
+					this.disableAutomaticConnection=false;
 					return containerBlock;
 				},
 				compose: function(containerBlock) {
@@ -854,9 +875,18 @@
 								if (clauseBlock.valueField_===undefined)
 									clauseBlock.valueField_='device_name';
 								this.appendDummyInput('DEVICE'+this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'DEVICE_NAME'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
-								this.appendDummyInput('STATE'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_AMAZON_STATE'));
+								this.appendValueInput('STATE'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_AMAZON_STATE')).setCheck(Boolean);
 								var telemetryInput = this.appendStatementInput('DEVICE_STACK'+this.itemCount_);
 								this.type_[this.itemCount_]=clauseBlock.type;
+								
+								if (this.disableAutomaticConnection===true)
+								{
+									var valueBlock = Blockly.mainWorkspace.newBlock('communications_wifi_iot_amazon_echo_state');
+									valueBlock.initSvg();
+									valueBlock.render();
+									this.getInput('STATE'+this.itemCount_).connection.connect(valueBlock.outputConnection);
+								}
+								
 								this.itemCount_++;
 								// Reconnect any child blocks.
 								if (clauseBlock.valueConnection_) {
@@ -867,9 +897,20 @@
 								if (clauseBlock.valueField_===undefined)
 									clauseBlock.valueField_='device_name';
 								this.appendDummyInput('DEVICE'+this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'DEVICE_NAME'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
-								this.appendDummyInput('STATE'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE'));
+								this.appendValueInput('STATE'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE')).setCheck(Number);
 								var telemetryInput = this.appendStatementInput('DEVICE_STACK'+this.itemCount_);
 								this.type_[this.itemCount_]=clauseBlock.type;
+								
+								console.log(this.getInputTargetBlock('STATE'+this.itemCount_));
+								//if (this.getInputTargetBlock('STATE'+this.itemCount_)===null)
+								//{
+								//	
+								//	var valueBlock = Blockly.mainWorkspace.newBlock('communications_wifi_iot_amazon_echo_value');
+								//	valueBlock.initSvg();
+								//	valueBlock.render();
+								//	this.getInput('STATE'+this.itemCount_).connection.connect(valueBlock.outputConnection);
+								//}
+								
 								this.itemCount_++;
 								// Reconnect any child blocks.
 								if (clauseBlock.valueConnection_) {
@@ -928,15 +969,15 @@
 					{
 						if (this.type_[x]==='communications_wifi_iot_amazon_echo_set_digital')
 						{
-							this.variables.push('state');
-							try{ this.getInput('STATE'+x).removeField('VARIABLES') } catch (e) {}
-							this.getInput('STATE'+x).appendField(new Blockly.FieldDropdown([['state']]),'VARIABLES');
+							//this.variables.push('state');
+							//try{ this.getInput('STATE'+x).removeField('VARIABLES') } catch (e) {}
+							//this.getInput('STATE'+x).appendField(new Blockly.FieldDropdown([['state']]),'VARIABLES');
 						}
 						else if (this.type_[x]==='communications_wifi_iot_amazon_echo_set_analog')
 						{
-							this.variables.push('value');
-							try{ this.getInput('STATE'+x).removeField('VARIABLES') } catch (e) {}
-							this.getInput('STATE'+x).appendField(new Blockly.FieldDropdown([['value']]),'VARIABLES');
+							//this.variables.push('value');
+							//try{ this.getInput('STATE'+x).removeField('VARIABLES') } catch (e) {}
+							//this.getInput('STATE'+x).appendField(new Blockly.FieldDropdown([['value']]),'VARIABLES');
 						}
 					}
 					var uniqueVariables = [];
@@ -944,10 +985,10 @@
 						if($.inArray(el, uniqueVariables) === -1) uniqueVariables.push(el);
 					});
 					this.variables = uniqueVariables;
-				}
+				}*/
 			};
 
-			Blockly.Blocks.communications_wifi_iot_amazon_echo_stack = {
+			/*Blockly.Blocks.communications_wifi_iot_amazon_echo_stack = {
 				colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
 				keys: ['LANG_WIFI_IOT_AMAZON_ECHO','LANG_WIFI_IOT_AMAZON_ECHO_TOOLTIP'],
 				// Task.
@@ -960,9 +1001,122 @@
 					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_TOOLTIP'));
 					this.contextMenu = false;
 				}
-			};
+			};*/
+			
+			
+			
+			
+			Blockly.Arduino.communications_wifi_iot_amazon_echo_digital = function()
+				{
+					var code='';
+					return code;
+				}
+				
+				
+				Blockly.Blocks.communications_wifi_iot_amazon_echo_digital = {
+					category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+					subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+					subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
+					tags: ['wifi','http','api','rest','communication'],
+					helpUrl: Facilino.getHelpUrl('communications_wifi_API_REST_bool'),
+					colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
+					keys: ['LANG_WIFI_API_REST_MESSAGE_BOOL_READ_NAME','LANG_WIFI_API_REST_MESSAGE_BOOL_READ','LANG_WIFI_API_REST_MESSAGE_TOOLTIP'],
+					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_BOOL_READ_NAME'),
+					init: function() {
+						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
+						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
+						this.appendValueInput('STATE').appendField(Facilino.locales.getKey('LANG_AMAZON_STATE')).setAlign(Blockly.ALIGN_RIGHT).setCheck(Boolean);
+						this.appendStatementInput('DEVICE_STACK').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');						
+						this.setPreviousStatement(true,'echo_item');
+						this.setNextStatement(true,'echo_item');
+						this.setInputsInline(false);
+						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_TOOLTIP'));
+					},
+					default_inputs: function()
+					{
+						return '<value name="STATE"><block type="communications_wifi_iot_amazon_echo_state"></block></value>';
+					},
+					onchange: function() {
+						if (this.getInputTargetBlock('STATE')===null)
+						{
+							var valueBlock = Blockly.mainWorkspace.newBlock('communications_wifi_iot_amazon_echo_state');
+							valueBlock.initSvg();
+							valueBlock.render();
+							this.getInput('STATE').connection.connect(valueBlock.outputConnection);
+						}
+					}
+				};
+				
+				Blockly.Arduino.communications_wifi_iot_amazon_echo_analog = function()
+				{					
+					var code='';
+					/*var branch_code='';
+					var branch_end_code='';
+					var argument_code='';
+					Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+					Blockly.Arduino.definitions_['declare_var_ints_map'] = 'std::map<int,int> _ints={};\n';
+			
+					argument_code='_http_header.indexOf("GET /Integer/")>=0';
+					branch_code+='	int index;\n';
+					branch_code+='	int value;\n';
+					branch_code+='  _resp["status"]="OK";\n';
+					branch_code+='int q=_http_header.indexOf("?");\n';
+					branch_code+='if (q>=0){\n';
+					branch_code+='	index=_http_header.substring(13,q).toInt();\n';
+					branch_code+='	value=_http_header.substring(q+7,idx_end).toInt();\n';
+					branch_code+='  _ints[index]=value;\n';
+					branch_code+='}\n';
+					branch_code+='else{\n';
+					//Get bool variable and build response
+					branch_code+='  index=_http_header.substring(13,idx_end).toInt();\n';
+					branch_code+='  value=_ints[index];\n';
+					branch_code+='  _resp["index"]=index;\n';
+					branch_code+='  _resp["value"]=value;\n';
+					branch_code+='}\n';
+					code += '	\n						if ('+argument_code+') {\n							'+branch_code+Blockly.Arduino.statementToCode(this,'DO')+'	}\n';*/
+					return code;
+				}
+				
+				
+				
+				Blockly.Blocks.communications_wifi_iot_amazon_echo_analog = {
+					category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+					subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+					subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
+					tags: ['wifi','http','api','rest','communication'],
+					helpUrl: Facilino.getHelpUrl('communications_wifi_API_REST_integer'),
+					colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
+					keys: ['LANG_WIFI_API_REST_MESSAGE_INTEGER_NAME','LANG_WIFI_API_REST_MESSAGE_INTEGER','LANG_WIFI_API_REST_MESSAGE_TOOLTIP'],
+					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_INTEGER_NAME'),
+					init: function() {
+						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
+						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
+						this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendStatementInput('DEVICE_STACK').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');							
+						this.setPreviousStatement(true,'echo_item');
+						this.setNextStatement(true,'echo_item');
+						this.setInputsInline(false);
+						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_TOOLTIP'));
+					},
+					default_inputs: function()
+					{
+						return '<value name="VALUE"><block type="communications_wifi_iot_amazon_echo_value"></block></value>';
+					},
+					onchange: function() {
+						if (this.getInputTargetBlock('VALUE')===null)
+						{
+							var valueBlock = Blockly.mainWorkspace.newBlock('communications_wifi_iot_amazon_echo_value');
+							valueBlock.initSvg();
+							valueBlock.render();
+							this.getInput('VALUE').connection.connect(valueBlock.outputConnection);
+						}
+					}
+				};
+			
+			
+			
 
-			Blockly.Blocks.communications_wifi_iot_amazon_echo_set_digital = {
+			/*Blockly.Blocks.communications_wifi_iot_amazon_echo_set_digital = {
 					colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
 					// Task item.
 					keys: ['LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE','LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE_TOOLTIP'],
@@ -992,7 +1146,57 @@
 						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE_TOOLTIP'));
 						this.contextMenu = false;
 					}
+			};*/
+			
+			Blockly.Arduino.communications_wifi_iot_amazon_echo_state = function() {
+					var code = 'state';
+					return [code, Blockly.Arduino.ORDER_ATOMIC];
+				}
+
+			Blockly.Blocks.communications_wifi_iot_amazon_echo_state = {
+					category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+					subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+					subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
+					tags: ['bluetooth','communication'],
+					helpUrl: '',
+					examples: [],
+					category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+					colour: Facilino.LANG_COLOUR_VARIABLES,
+					keys: [],
+					name: '',
+					toolbox_hidden: true,
+					init: function() {
+						this.setColour(Facilino.LANG_COLOUR_VARIABLES);
+						this.appendDummyInput('').appendField('state').setAlign(Blockly.ALIGN_RIGHT);
+						this.setOutput(true,Boolean);
+						this.contextMenu = false;
+					}
 			};
+			
+			Blockly.Arduino.communications_wifi_iot_amazon_echo_value = function() {
+					var code = 'value';
+					return [code, Blockly.Arduino.ORDER_ATOMIC];
+				}
+				
+				Blockly.Blocks.communications_wifi_iot_amazon_echo_value = {
+						category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+						subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+						subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
+						tags: ['bluetooth','communication'],
+						helpUrl: '',
+						examples: [],
+						category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+						colour: Facilino.LANG_COLOUR_VARIABLES,
+						keys: [],
+						name: '',
+						toolbox_hidden: true,
+						init: function() {
+							this.setColour(Facilino.LANG_COLOUR_VARIABLES);
+							this.appendDummyInput('').appendField('value').setAlign(Blockly.ALIGN_RIGHT);
+							this.setOutput(true,Number);
+							this.contextMenu = false;
+						}
+				};
 
 			Blockly.Arduino.communications_wifi_iot_amazon_echo_update = function() {
 					var code='';
@@ -1061,7 +1265,7 @@
 				}
 			};*/
 
-			Blockly.Arduino.communications_wifi_iot_setup_mail= function() {
+			/*Blockly.Arduino.communications_wifi_iot_setup_mail= function() {
 				var login = Blockly.Arduino.valueToCode(this, 'LOGIN', Blockly.Arduino.ORDER_NONE);
 				var password = Blockly.Arduino.valueToCode(this, 'PASSWORD', Blockly.Arduino.ORDER_NONE);
 				login=login.substr(1);
@@ -1141,7 +1345,7 @@
 					this.setOutput(false);
 					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_TOOLTIP'));
 				}
-			};
+			};*/
 
 			Blockly.Arduino.communications_wifi_iot_gsheets_setup = function() {
 				var code = '';

@@ -11,8 +11,13 @@ include("auth.php");
 		<?php
 		if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="duplicate")&&!isset($_POST["action"])){
 			//Duplicate project
-			$query = "SELECT * from `projects` as proj where proj.`id`= ".$_GET["id"];
-			$result = mysqli_query($con,$query);
+			//$query = "SELECT * from `projects` as proj where proj.`id`= ".$_GET["id"];
+			//$result = mysqli_query($con,$query);
+			$query = "SELECT * from `projects` as proj where proj.`id`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("i",$_GET["id"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
@@ -22,8 +27,13 @@ include("auth.php");
 				$row_project[8] = $curDate;
 				$row_project[9] = $curDate;
 				
-				$query_user = "SELECT email from `users` WHERE id=".$row_project[2]." and active=1";
-				$result_user = mysqli_query($con,$query_user);
+				//$query_user = "SELECT email from `users` WHERE id=".$row_project[2]." and active=1";
+				//$result_user = mysqli_query($con,$query_user);
+				$query_user = "SELECT email from `users` WHERE id=? and active=1";
+				$statement_user=mysqli_prepare($con,$query_user);
+				$statement_user->bind_param("i",$row_project[2]);
+				$statement_user->execute();
+				$result_user=$statement_user->get_result();
 				$rows_user = mysqli_num_rows($result_user);
 				if ($rows_user==1)
 				{
@@ -33,18 +43,31 @@ include("auth.php");
 					$key = md5($email);
 					$addKey = substr(md5(uniqid(rand(),1)),3,10);
 					$key = $key . $addKey;
-					$query ="SELECT * from `facilino_code` where `facilino_code`.id=".$row_project[5];
-					$result = 	mysqli_query($con,$query);
+					//$query ="SELECT * from `facilino_code` where `facilino_code`.id=".$row_project[5];
+					//$result = 	mysqli_query($con,$query);
+					$query ="SELECT * from `facilino_code` where `facilino_code`.id=?";
+					$statement=mysqli_prepare($con,$query);
+					$statement->bind_param("i",$row_project[5]);
+					$statement->execute();
+					$result=$statement->get_result();
 					$rows = mysqli_num_rows($result);
 					if ($rows==1)
 					{
 						
 						$row_code = mysqli_fetch_row($result);
-						$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (\"".$row_code[1]."\",\"".$row_code[2]."\")";
-						$result = mysqli_query($con,$query);  //insert
+						//$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (\"".$row_code[1]."\",\"".$row_code[2]."\")";
+						//$result = mysqli_query($con,$query);  //insert
+						$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (?,?)";
+						$statement=mysqli_prepare($con,$query);
+						$statement->bind_param("ss",$row_code[1],$row_code[2]);
+						$statement->execute();
 						$facilino_code_id=$con->insert_id;
-						$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$row_project[1]."\",".$row_project[2].",".$row_project[3].",".$row_project[4].",".$facilino_code_id.",".$row_project[6].",".$row_project[7].",\"".$row_project[8]."\",\"".$row_project[9]."\",\"".$key."\",\"".$row_project[11]."\",\"".$row_project[12]."\")";
-						$result = mysqli_query($con,$query);  //insert*/
+						//$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$row_project[1]."\",".$row_project[2].",".$row_project[3].",".$row_project[4].",".$facilino_code_id.",".$row_project[6].",".$row_project[7].",\"".$row_project[8]."\",\"".$row_project[9]."\",\"".$key."\",\"".$row_project[11]."\",\"".$row_project[12]."\")";
+						//$result = mysqli_query($con,$query);  //insert*/
+						$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+						$statement=mysqli_prepare($con,$query);
+						$statement->bind_param("siiiiiisssss",$row_project[1],$row_project[2],$row_project[3],$row_project[4],$facilino_code_id,$row_project[6],$row_project[7],$row_project[8],$row_project[9],$key,$row_project[11],$row_project[12]);
+						$statement->execute();
 					}
 				}
 			}
@@ -52,16 +75,29 @@ include("auth.php");
 		}
 		elseif (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="delete")&&!isset($_POST["action"])){
 			//Delete project
-			$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=".$_GET["id"];
-			$result = mysqli_query($con,$query);
+			//$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=".$_GET["id"];
+			//$result = mysqli_query($con,$query);
+			$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("i",$_GET["id"]);
+			$statement->execute();
+			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
 				$row = mysqli_fetch_row($result);
+				//$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
+				//$result = mysqli_query($con,$query);
 				$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
-				$result = mysqli_query($con,$query);
-				$query = "DELETE FROM `projects` WHERE `projects`.`id`= ".$_GET["id"];
-				$result = mysqli_query($con,$query);
+				$statement=mysqli_prepare($con,$query);
+				$statement->bind_param("i",$row[0]);
+				$statement->execute();
+				//$query = "DELETE FROM `projects` WHERE `projects`.`id`= ".$_GET["id"];
+				//$result = mysqli_query($con,$query);
+				$query = "DELETE FROM `projects` WHERE `projects`.`id`=?";
+				$statement=mysqli_prepare($con,$query);
+				$statement->bind_param("i",$_GET["id"]);
+				$statement->execute();
 				header("Location: dashboard.php");
 			}
 		}

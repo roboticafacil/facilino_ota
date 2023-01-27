@@ -96,6 +96,10 @@
 			this.setNextStatement(false);
 			this.setOutput(true,Number);
 			this.setTooltip(Facilino.locales.getKey('LANG_ALTITUDE_READ_ALTITUDE_BMP_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="VALUE"><shadow type="math_number"><field name="NUM">101325</field></shadow></value>';
 			}
 		};
 		}
@@ -135,6 +139,10 @@
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GUVA_S12SD_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_GUVA_S12SD_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
 		}

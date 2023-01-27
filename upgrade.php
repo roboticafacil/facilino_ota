@@ -21,8 +21,13 @@ include("auth.php");
 		}
 		else
 		{
-			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`id`) where username='".$_SESSION["username"]."' and active=1";
-			$result_user = mysqli_query($con,$query_user);
+			//$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`id`) where username='".$_SESSION["username"]."' and active=1";
+			//$result_user = mysqli_query($con,$query_user);
+			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`id`) where username=? and active=1";
+			$statement_user = mysqli_prepare($con,$query_user);
+			$statement_user->bind_param("s",$_SESSION["username"]);
+			$statement_user->execute();
+			$result_user=$statement_user->get_result();
 			$rows_user = mysqli_num_rows($result_user);
 			if ($rows_user==1)
 			{

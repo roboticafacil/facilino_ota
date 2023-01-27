@@ -84,6 +84,19 @@
 			this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_TOOLTIP'));
 			},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="LEFT"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					xml+='<value name="SPEED"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+					xml+='<value name="ADVANCE"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+					xml+='<value name="TURN"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+					return xml;
+				},
 			onchange: function()
 			{
 				if (this.getFieldValue('ATTACH')==='FALSE')
@@ -200,6 +213,17 @@
 			this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_MOVE_FBLR_TOOLTIP'));
 			},
+			default_inputs: function()
+				{
+					var xml='';
+					xml += '<value name="LEFT"><shadow type="pin_digital"></shadow></value>';
+					if (Facilino.profiles.default.digital.length>1)
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					else
+						xml+='<value name="RIGHT"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					xml+='<value name="SPEED"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+					return xml;
+				},
 			onchange: function()
 			{
 				if (window.FacilinoAdvanced===true)
@@ -264,6 +288,27 @@
 		this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_CC_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				var xml='';
+				xml += '<value name="LEFT1"><shadow type="pin_pwm"></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>1)
+					xml+='<value name="LEFT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="LEFT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>2)
+					xml+='<value name="RIGHT1"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="RIGHT1"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>3)
+					xml+='<value name="RIGHT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[3][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="RIGHT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				xml +='<value name="SPEED"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+				xml +='<value name="ADVANCE"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+				xml +='<value name="TURN"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+				return xml;
 			}
 		};
 		}
@@ -328,6 +373,25 @@
 		this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
 		this.setTooltip(Facilino.locales.getKey('LANG_MOVE_FBLR_CC_TOOLTIP'));
+			},
+			default_inputs: function ()
+			{
+				var xml='';
+				xml += '<value name="LEFT1"><shadow type="pin_pwm"></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>1)
+					xml+='<value name="LEFT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[1][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="LEFT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>2)
+					xml+='<value name="RIGHT1"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[2][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="RIGHT1"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				if (Facilino.profiles.default.pwm.length>3)
+					xml+='<value name="RIGHT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[3][1]+'</field></shadow></value>';
+				else
+					xml+='<value name="RIGHT2"><shadow type="pin_pwm"><field name="PIN">'+Facilino.profiles.default.pwm[0][1]+'</field></shadow></value>';
+				xml +='<value name="SPEED"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
+				return xml;
 			}
 		};
 
@@ -405,26 +469,39 @@
 					[Facilino.locales.getKey('LANG_MOVE_BACKWARD') || 'Backward', 'B'],
 			[Facilino.locales.getKey('LANG_MOVE_LEFT') || 'Left', 'L'],
 			[Facilino.locales.getKey('LANG_MOVE_RIGHT') || 'Right', 'R']]),'OPTION').setAlign(Blockly.ALIGN_RIGHT);
-		this.setInputsInline(false);
-		this.setPreviousStatement(true,'code');
+			this.setInputsInline(false);
+			this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
-			this.appendValueInput('DIST_ANGLE').appendField(Facilino.locales.getKey('LANG_STEPPER_DISTANCE')+' (cm)').appendField(new Blockly.FieldImage("img/blocks/distance.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-		this.setTooltip(Facilino.locales.getKey('LANG_MOVE_FBLR_STEPPER_TOOLTIP'));
+			this.appendValueInput('DIST_ANGLE').appendField(Facilino.locales.getKey('LANG_STEPPER_DISTANCE')+' (cm)','DIST_ANGLE').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_FBLR_STEPPER_TOOLTIP'));
+			if (Facilino.profiles.default.digital.length>1)
+				this.setFieldValue(Facilino.profiles.default.digital[1][1],'PIN2');
+			if (Facilino.profiles.default.digital.length>2)
+				this.setFieldValue(Facilino.profiles.default.digital[2][1],'PIN3');
+			if (Facilino.profiles.default.digital.length>3)
+				this.setFieldValue(Facilino.profiles.default.digital[3][1],'PIN4');
+			if (Facilino.profiles.default.digital.length>4)
+				this.setFieldValue(Facilino.profiles.default.digital[4][1],'PIN5');
+			if (Facilino.profiles.default.digital.length>5)
+				this.setFieldValue(Facilino.profiles.default.digital[5][1],'PIN6');
+			if (Facilino.profiles.default.digital.length>6)
+				this.setFieldValue(Facilino.profiles.default.digital[6][1],'PIN7');
+			if (Facilino.profiles.default.digital.length>7)
+				this.setFieldValue(Facilino.profiles.default.digital[7][1],'PIN8');
+			},
+			default_inputs: function()
+			{
+				return '<value name="SPEED"><shadow type="math_number"><field name="NUM">20</field></shadow></value><value name="DIST_ANGLE"><shadow type="math_number"><field name="NUM">10</field></shadow></value>';
 			},
 			onchange: function() {
 				var option = this.getFieldValue('OPTION');
-				var _block= this.getInputTargetBlock('DIST_ANGLE');
-				this.removeInput('DIST_ANGLE');
 				if ((option === 'F')||(option === 'B'))
 				{
-					this.appendValueInput('DIST_ANGLE').appendField(Facilino.locales.getKey('LANG_STEPPER_DISTANCE')+' (cm)').appendField(new Blockly.FieldImage("img/blocks/distance.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.setFieldValue(Facilino.locales.getKey('LANG_STEPPER_DISTANCE')+' (cm)','DIST_ANGLE');
 				}
 				else
 				{
-					this.appendValueInput('DIST_ANGLE').appendField(Facilino.locales.getKey('LANG_STEPPER_ANGLE')+' (º)').appendField(new Blockly.FieldImage("img/blocks/angle.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				}
-				if (_block) {
-					this.getInput('DIST_ANGLE').connection.connect(_block.outputConnection);
+					this.setFieldValue(Facilino.locales.getKey('LANG_STEPPER_ANGLE')+' (º)','DIST_ANGLE');
 				}
 			}
 		};
@@ -537,6 +614,8 @@
 			this.setNextStatement(true, null);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey("LANG_MOVE_BASE_SET_ENCODERS_TOOLTIP"));
+			if (Facilino.profiles.default.digital.length>1)
+				this.setFieldValue(Facilino.profiles.default.digital[1][1],'RIGHT');
 		  }
 		};
 

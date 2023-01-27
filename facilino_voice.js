@@ -11,7 +11,6 @@
 		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ATmega32U4'))
 		{
 	Blockly.Arduino.dyor_piezo_buzzer_voice = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version\n';
 		var voice = Blockly.Arduino.valueToCode(this, 'VOICE', Blockly.Arduino.ORDER_ATOMIC);
 
 		var code ='';
@@ -56,7 +55,6 @@
 		};
 
 	Blockly.Arduino.dyor_piezo_buzzer_predef_voice = function() {
-	if (window.license===undefined || /^\s*$/.test(window.license)) return '//demo version';
 		var code ='';
 		var word = this.getFieldValue('WORD');
 

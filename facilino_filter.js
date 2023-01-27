@@ -34,14 +34,17 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_LOWPASS_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_FILTER);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_LOWPASS'));
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_LOWPASS')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT')+' [0~100%]').appendField(new Blockly.FieldTextInput('50'),'W').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
 					this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_LOWPASS_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INPUT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 
@@ -68,14 +71,17 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_HIGHPASS_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_FILTER);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_HIGHPASS'));
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_HIGHPASS')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT')+' [0~100%]').appendField(new Blockly.FieldTextInput('50'),'W').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
 					this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_HIGHPASS_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INPUT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 
@@ -103,14 +109,17 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDPASS_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_FILTER);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDPASS'));
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDPASS')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT')+' [0~100%]').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT_LOW')).appendField(new Blockly.FieldTextInput('15'),'WLOW').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT_HIGH')).appendField(new Blockly.FieldTextInput('85'),'WHIGH').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
 					this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDPASS_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INPUT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 
@@ -138,14 +147,17 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDSTOP_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_FILTER);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDSTOP'));
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/funnel.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDSTOP')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT')+' [0~100%]').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT_LOW')).appendField(new Blockly.FieldTextInput('35'),'WLOW').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_WEIGHT_HIGH')).appendField(new Blockly.FieldTextInput('65'),'WHIGH').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
 					this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_FILTER_BANDSTOP_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="INPUT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				}
 			};
 		}

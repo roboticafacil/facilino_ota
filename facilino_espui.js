@@ -13,12 +13,13 @@
 		if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
 		{
 			Blockly.Blocks['espui'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_ESPUI_TITLE_NAME','LANG_ESPUI_ESPUI_TITLE','LANG_ESPUI_ESPUI_HOTSPOT','LANG_ESPUI_ESPUI_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_ESPUI_TITLE_NAME'),
@@ -59,12 +60,13 @@
 //Elements
 
 	Blockly.Blocks['espui_button'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_button'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_BUTTON_BUTTON_NAME','LANG_ESPUI_BUTTON_BUTTON','LANG_ESPUI_NAME','LANG_ESPUI_COLOR','LANG_ESPUI_TEXT','LANG_ESPUI_BUTTON_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_BUTTON_BUTTON_NAME'),
@@ -108,12 +110,13 @@
 	};
 
 	Blockly.Blocks['espui_label'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_label'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_LABEL_LABEL_NAME','LANG_ESPUI_LABEL_LABEL','LANG_ESPUI_NAME','LANG_ESPUI_COLOR','LANG_ESPUI_TEXT','LANG_ESPUI_LABEL_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_LABEL_LABEL_NAME'),
@@ -142,12 +145,13 @@
 	};
 
 	Blockly.Blocks['espui_label_print'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_label'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_PRINT_LABEL_NAME','LANG_ESPUI_LABEL_LABEL','LANG_ESPUI_NAME','LANG_ESPUI_TEXT','LANG_ESPUI_LABEL_PRINT_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_PRINT_LABEL_NAME'),
@@ -172,12 +176,13 @@
 	};
 
 	Blockly.Blocks['espui_switcher'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_switcher'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_SWITCH_SWITCH_NAME','LANG_ESPUI_SWITCH_SWITCH','LANG_ESPUI_NAME','LANG_ESPUI_COLOR','LANG_ESPUI_STATE','LANG_ESPUI_SWITCH_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_SWITCH_SWITCH_NAME'),
@@ -221,12 +226,13 @@
 	};
 
 	Blockly.Blocks['espui_pad'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_pad'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_PAD_PAD_NAME','LANG_ESPUI_PAD_PAD','LANG_ESPUI_NAME','LANG_ESPUI_COLOR','LANG_ESPUI_PAD_CENTER','LANG_ESPUI_PAD_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_PAD_PAD_NAME'),
@@ -336,12 +342,13 @@
 		};
 
 		Blockly.Blocks['espui_slider'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_slider'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_SLIDER_SLIDER_NAME','LANG_ESPUI_SLIDER_SLIDER','LANG_ESPUI_NAME','LANG_ESPUI_COLOR','LANG_ESPUI_STATE','LANG_ESPUI_SLIDER_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_SLIDER_SLIDER_NAME'),
@@ -376,12 +383,13 @@
 	};
 
 	Blockly.Blocks['espui_slider_value'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_WEB_INTERFACE'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
+			subsubcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_ESPUI'),
 			helpUrl: Facilino.getHelpUrl('espui_label'),
 			tags: ['webinterface'],
 			examples: ['lol.bly'],
-			category_colour: Facilino.LANG_COLOUR_HTML,
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
 			keys: ['LANG_ESPUI_SLIDER_LABEL_NAME','LANG_ESPUI_LABEL_LABEL','LANG_ESPUI_NAME','LANG_ESPUI_TEXT','LANG_ESPUI_LABEL_PRINT_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_SLIDER_LABEL_NAME'),
