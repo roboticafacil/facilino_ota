@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="tutorial/assets/images/facilino-cuadrado-fondo-transparente-128x128.png" type="image/x-icon">
   <meta name="description" content="Arduino & ESP Tutorial with Facilino">
-  <title>Arduino & ESP Tutorial</title>
+  <title>Introduction to Facilino</title>
   <link rel="stylesheet" href="tutorial/assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="tutorial/assets/tether/tether.min.css">
   <link rel="stylesheet" href="tutorial/assets/bootstrap/css/bootstrap.min.css">
@@ -30,61 +30,7 @@
     <script src="javascript/blockly-bq/arduino_compressed.js"></script>
 	<script src="javascript/blockly-bq/FieldButton.js"></script>
     <script src="facilino.js"></script>
-	<script src="facilino_common.js"></script>
-	<script src="facilino_functions.js"></script>
-	<script src="facilino_controls.js"></script>
-	<script src="facilino_programming.js"></script>
-	<script src="facilino_interrupts.js"></script>
-	<script src="facilino_statemachine.js"></script>
-	<script src="facilino_logic.js"></script>
-	<script src="facilino_bitwise.js"></script>
-	<script src="facilino_maths.js"></script>
-	<script src="facilino_arrays.js"></script>
-	<script src="facilino_curves.js"></script>
-	<script src="facilino_variables.js"></script>
-	<script src="facilino_variables_array.js"></script>
-	<script src="facilino_variables_object.js"></script>
-	<script src="facilino_eeprom.js"></script>
-	<script src="facilino_text.js"></script>
-	<script src="facilino_inout.js"></script>
-	<script src="facilino_buttons.js"></script>
-	<script src="facilino_bus.js"></script>
-	<script src="facilino_inout_others.js"></script>
-	<script src="facilino_lcd.js"></script>
-	<script src="facilino_led_matrix.js"></script>
-	<script src="facilino_led_strip.js"></script>
-	<script src="facilino_oled.js"></script>
-	<script src="facilino_serial.js"></script>
-	<script src="facilino_bluetooth.js"></script>
-	<script src="facilino_ble.js"></script>
-	<script src="facilino_wifi.js"></script>
-	<script src="facilino_http.js"></script>
-	<script src="facilino_iot.js"></script>
-	<script src="facilino_ir.js"></script>
-	<script src="facilino_sonar.js"></script>
-	<script src="facilino_infrared.js"></script>
-	<script src="facilino_buzzer.js"></script>
-	<script src="facilino_voice.js"></script>
-	<script src="facilino_mic.js"></script>
-	<script src="facilino_melody.js"></script>
-	<script src="facilino_mp3.js"></script>
-	<script src="facilino_color.js"></script>
-	<script src="facilino_ldr.js"></script>
-	<script src="facilino_lightdimmer.js"></script>
-	<script src="facilino_motor.js"></script>
-	<script src="facilino_robot_base.js"></script>
-	<script src="facilino_robot_acc.js"></script>
-	<script src="facilino_robot_walk.js"></script>
-	<script src="facilino_controller.js"></script>
-	<script src="facilino_filter.js"></script>
-	<script src="facilino_temperature.js"></script>
-	<script src="facilino_humidity.js"></script>
-	<script src="facilino_rain.js"></script>
-	<script src="facilino_gas.js"></script>
-	<script src="facilino_ambient_miscellaneous.js"></script>
-	<script src="facilino_html.js"></script>
-	<script src="facilino_espui.js"></script>
-	<script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
+    <!--<script src="roboblocks_compressed.js"></script>-->
 	<script src="javascript/qtwebchannel/qwebchannel.js"></script>
 </head>
 <body>
@@ -111,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			localStorage.setItem('processor', 'WEMOS_D1R32_SHIELD');
 		window.FacilinoLanguage = localStorage.getItem("language");
 		window.FacilinoProcessor = localStorage.getItem("processor");
-    if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
+    if (window.FacilinoProcessor==='WEMOS D1R32 SHIELD')
     {
       window.board='_wemosD1R32';
     }
@@ -265,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 
     function showHideBasic(el1,ex,el) {
-      var solutions_basic = document.getElementById('solutions_basic');
+	  var solutions_basic = document.getElementById('solutions_basic');
       solutions_basic.style.display="block";
       if (currentBasicSolutions>0)
       {
@@ -430,64 +376,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (window.webHelper.fileDownloaded !== undefined)
 				window.webHelper.fileDownloaded(file);
 		}
-		console.log(window.FacilinoLanguage);
+
+		window.FacilinoLanguage = window.FacilinoLanguage;
+		window.FacilinoProcessor = window.FacilinoProcessor;
 		$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
 		$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
-		var options = {zoom: 1};
-		Facilino.load(options);
-		FacilinoFunctions.load(options);
-		FacilinoControls.load(options);
-		FacilinoProgramming.load(options);
-		FacilinoInterrupts.load(options);
-		FacilinoStateMachine.load(options);
-		FacilinoLogic.load(options);
-		FacilinoBitwise.load(options);
-		FacilinoMaths.load(options);
-		FacilinoArrays.load(options);
-		FacilinoCurves.load(options);
-		FacilinoVariables.load(options);
-		FacilinoVariablesArray.load(options);
-		FacilinoVariablesObject.load(options);
-		FacilinoEEPROM.load(options);
-		FacilinoText.load(options);
-		FacilinoInOut.load(options);
-		FacilinoButtons.load(options);
-		FacilinoBus.load(options);
-		FacilinoInOutOthers.load(options);
-		FacilinoLCD.load(options);
-		FacilinoLEDMatrix.load(options);
-		FacilinoLEDStrip.load(options);
-		FacilinoOLED.load(options);
-		FacilinoSerial.load(options);
-		FacilinoBluetooth.load(options);
-		FacilinoBLE.load(options);
-		FacilinoWiFi.load(options);
-		FacilinoHTTP.load(options);
-		FacilinoIoT.load(options);
-		FacilinoIR.load(options);
-		FacilinoSonar.load(options);
-		FacilinoInfraRed.load(options);
-		FacilinoColor.load(options);
-		FacilinoLDR.load(options);
-		FacilinoLightDimmer.load(options);
-		FacilinoBuzzer.load(options);
-		FacilinoVoice.load(options);
-		FacilinoMic.load(options);
-		FacilinoMelody.load(options);
-		FacilinoMP3.load(options);
-		FacilinoMotor.load(options);
-		FacilinoRobotBase.load(options);
-		FacilinoRobotAcc.load(options);
-		FacilinoRobotWalk.load(options);
-		FacilinoController.load(options);
-		FacilinoFilter.load(options);
-		FacilinoTemperature.load(options);
-		FacilinoHumidity.load(options);
-		FacilinoRain.load(options);
-		FacilinoGas.load(options);
-		FacilinoAmbientMiscellaneous.load(options);
-		FacilinoHTML.load(options);
-		FacilinoESPUI.load(options);
+		//RoboBlocks.load({ zoom: 1 });
+		//Facilino.load({ zoom: 1});
 
 </script>
 	<div id="menu"></div>
@@ -508,7 +403,7 @@ document.addEventListener("DOMContentLoaded", function () {
   </div>
 </div>
 
-  
+  <script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
   <script src="tutorial/assets/popper/popper.min.js"></script>
   <script src="tutorial/assets/tether/tether.min.js"></script>
   <script src="tutorial/assets/bootstrap/js/bootstrap.min.js"></script>

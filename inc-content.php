@@ -30,8 +30,8 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		<div class="card-wrapper">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a onclick="onHomeFile('facilino_introduction.html');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-				<a onclick="onHomeFile('facilino_introduction.html');"><img src="assets/images/facilino_title.jpg" alt="Introduction Facilino" title=""></a>
+				<div class="mbr-section-btn text-center"><a onclick="onHomeFile('FacilinoTutorial.html');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+				<a onclick="onHomeFile('FacilinoTutorial.html');"><img src="assets/images/facilino_title.jpg" alt="Introduction Facilino" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7"><?php echo $website["INTRODUCTION_FACILINO"]; ?></h4>
@@ -56,3 +56,9 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 </div>
 </div>
 </section>
+<script>
+function onHomeFile(filename)
+{
+	window.location=filename;
+}
+</script>

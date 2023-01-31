@@ -1,21 +1,47 @@
 <script>
-	var currentBasicSolutions=0;
-	var currentIntermediateSolutions=0;
+window.FacilinoAdvanced=true;
 </script>
 
-<section class="mbr-section content8 cid-qYnID8HJTn" id="content8-93">
-	<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
-		<div class="container">
-			<div class="media-container-row">
-				<div class=" title col-12 col-md-8">
-					<h2 class="align-center pb-3 mbr-fonts-style display-2">
-						Lyquid Crystal Display (LCD)</h2>
-					<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
-						Learn how to print and scroll text to an LCD (I2C) screen with Facilino.</h3>
-				</div>
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_functions.js"></script>
+<script src="facilino_inout.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_variables.js"></script>
+<script src="facilino_buttons.js"></script>
+<script src="facilino_lcd.js"></script>
+
+<script>
+Facilino.load({ zoom: 1});
+FacilinoFunctions.load({ zoom: 1});
+FacilinoMaths.load({ zoom: 1});
+FacilinoText.load({ zoom: 1});
+FacilinoControls.load({ zoom: 1});
+FacilinoInOut.load({ zoom: 1});
+FacilinoButtons.load({ zoom: 1});
+FacilinoVariables.load({ zoom: 1});
+FacilinoLCD.load({ zoom: 1});
+var currentBasicSolutions=0;
+var currentIntermediateSolutions=0;
+</script>
+
+<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
+	<div class="container">
+		<div class="media-container-row">
+			<div class=" title col-12 col-md-8">
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<div class="mbr-section-btn text-center"><a onclick="onExercises();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2">
+					Lyquid Crystal Display (LCD)</h2>
+				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+					Learn how to print and scroll text to an LCD (I2C) screen with Facilino.</h3>
 			</div>
 		</div>
-	</section>
+	</div>
 </section>
 
 <section class="mbr-section article content1 cid-qYh0wSDsTN" id="content2-51">

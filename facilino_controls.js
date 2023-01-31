@@ -1096,7 +1096,7 @@
 		
 		if (window.FacilinoAdvanced===true)
 		{
-		/*Blockly.Arduino.dyor_controls_wait = function() {
+		Blockly.Arduino.dyor_controls_wait = function() {
 			var value1 = Blockly.Arduino.valueToCode(this, 'VALUE1', Blockly.Arduino.ORDER_ATOMIC);
 			var value2 = Blockly.Arduino.valueToCode(this, 'VALUE2', Blockly.Arduino.ORDER_ATOMIC);
 			var cond = this.getFieldValue('COND');
@@ -1133,8 +1133,12 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_WAIT_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return ['<value name="VALUE1"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="VALUE2"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<value name="VALUE1"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="VALUE2"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
 			}
-		};*/
+		};
 		
 		Blockly.Blocks.controls_every_item = {
 				colour: Facilino.LANG_COLOUR_CONTROL,

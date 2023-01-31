@@ -35,18 +35,18 @@
 			localStorage.setItem('language', 'en-GB');
 		if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
 			localStorage.setItem('processor', 'ArduinoNano');
-		window.roboblocksLanguage = localStorage.getItem("language");
-		window.roboblocksProcessor = localStorage.getItem("processor");
-		$("#language").val(window.roboblocksLanguage);
-		$("#processor").val(window.roboblocksProcessor);
+		window.FacilinoLanguage = localStorage.getItem("language");
+		window.FacilinoProcessor = localStorage.getItem("processor");
+		$("#language").val(window.FacilinoLanguage);
+		$("#processor").val(window.FacilinoProcessor);
 		function onAbout()
 		{
-			$(function(){var file= 'tutorial/'+window.roboblocksLanguage+'/about.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/about.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+			$(function(){var file= 'tutorial/'+window.FacilinoLanguage+'/about.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/about.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 		}
 		
 		/*function onFeedback()
 		{
-			$(function(){var file= 'tutorial/'+window.roboblocksLanguage+'/feedback.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/feedback.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+			$(function(){var file= 'tutorial/'+window.FacilinoLanguage+'/feedback.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/feedback.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 		}*/
 		
 		</script>

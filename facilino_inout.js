@@ -468,9 +468,7 @@
 			name: Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom))
-					.appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG'))
-					.appendField(new Blockly.FieldDropdown(Facilino.profiles.default.analog), 'PIN');
+				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.analog), 'PIN');
 				this.setInputsInline(true);
 				this.setOutput(true,'AnalogPin');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_TOOLTIP'));

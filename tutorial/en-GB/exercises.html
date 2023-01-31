@@ -1,6 +1,7 @@
   <section class="features18 popup-btn-cards cid-qYa5rQWOty" id="features">
 
     <div class="container">
+	<div class="mbr-section-btn text-center"><a onclick="onTutorial();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
             Exercises</h2>
         <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
@@ -436,15 +437,15 @@
 		localStorage.setItem('language', 'en-GB');
 	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
 		localStorage.setItem('processor', 'ArduinoNano');
-	window.roboblocksLanguage = localStorage.getItem("language");
-	window.roboblocksProcessor = localStorage.getItem("processor");
-	$("#language").val(window.roboblocksLanguage);
-	$("#processor").val(window.roboblocksProcessor);
-  if (window.roboblocksProcessor==='WEMOS D1R32 SHIELD')
+	window.FacilinoLanguage = localStorage.getItem("language");
+	window.FacilinoProcessor = localStorage.getItem("processor");
+	$("#language").val(window.FacilinoLanguage);
+	$("#processor").val(window.FacilinoProcessor);
+  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
   {
     window.board='_wemosD1R32';
   }
-  else if (window.roboblocksProcessor==='ArduinoUno')
+  else if (window.FacilinoProcessor==='ArduinoUno')
   {
     window.board='_uno';
   }
@@ -453,7 +454,7 @@
   }
 	function onExercise(num)
 	{
-    window.title='exercise'+num+'_'+window.roboblocksLanguage+window.board;
-		$(function(){var file= 'tutorial/'+window.roboblocksLanguage+'/exercise'+num+'.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file= 'tutorial/'+'en-GB/exercise'+num+'.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+    window.title='exercise'+num+'_'+window.FacilinoLanguage+window.board;
+		$(function(){var file= 'tutorial/'+window.FacilinoLanguage+'/exercise'+num+'.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file= 'tutorial/'+'en-GB/exercise'+num+'.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 	}
 </script>

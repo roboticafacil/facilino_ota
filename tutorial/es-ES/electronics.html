@@ -2,6 +2,7 @@
 
     <div class="container">
 		<h3></h3>
+		<div class="mbr-section-btn text-center"><a onclick="onTutorial();" class="btn btn-primary display-4">&#8592;&nbsp;Atrás</a></div>
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
             Electrónica</h2>
         <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
@@ -414,13 +415,13 @@
 		localStorage.setItem('language', 'en-GB');
 	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
 		localStorage.setItem('processor', 'ArduinoNano');
-	window.roboblocksLanguage = localStorage.getItem("language");
-	window.roboblocksProcessor = localStorage.getItem("processor");
-	$("#language").val(window.roboblocksLanguage);
-	$("#processor").val(window.roboblocksProcessor);
+	window.FacilinoLanguage = localStorage.getItem("language");
+	window.FacilinoProcessor = localStorage.getItem("processor");
+	$("#language").val(window.FacilinoLanguage);
+	$("#processor").val(window.FacilinoProcessor);
 	function onElectronic(html_file)
 	{
-    window.title=html_file+'_'+window.roboblocksLanguage;
-		$(function(){var file='tutorial/'+ window.roboblocksLanguage+'/'+html_file; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/'+'en-GB/'+html_file;},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+    window.title=html_file+'_'+window.FacilinoLanguage;
+		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/'+html_file; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/'+'en-GB/'+html_file;},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 	}
 </script></body></html>

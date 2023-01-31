@@ -1,16 +1,38 @@
 <script>
-  var currentBasicSolutions=0;
-  var currentIntermediateSolutions=0;
+window.FacilinoAdvanced=true;
 </script>
-<section class="mbr-section content8 cid-qYnID8HJTn" id=" title">
+
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_serial.js"></script>
+<script src="facilino_inout.js"></script>
+<script src="facilino_logic.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_variables.js"></script>
+
+<script>
+Facilino.load({ zoom: 1});
+FacilinoSerial.load({ zoom: 1});
+FacilinoMaths.load({ zoom: 1});
+FacilinoLogic.load({ zoom: 1});
+FacilinoText.load({ zoom: 1});
+FacilinoControls.load({ zoom: 1});
+FacilinoInOut.load({ zoom: 1});
+FacilinoVariables.load({ zoom: 1});
+var currentBasicSolutions=0;
+var currentIntermediateSolutions=0;
+</script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
-
-
-
     <div class="container">
         <div class="media-container-row">
             <div class=" title col-12 col-md-8">
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<div class="mbr-section-btn text-center"><a onclick="onExercises();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
                 <h2 class="align-center pb-3 mbr-fonts-style display-2">
                     Blinking LEDs</h2>
                 <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
@@ -19,7 +41,6 @@
             </div>
         </div>
     </div>
-</section>
 </section>
 
 <section class="mbr-section article content1 cid-qYh0wSDsTN" id="content2-51">
@@ -127,7 +148,10 @@
 					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip('logic_compare','blocklyInstruction9','tooltipInstruction9');</script></li>
 					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip('base_map','blocklyInstruction10','tooltipInstruction10');</script></li>
 					<li><div><span id='tooltipInstruction11'></span></div><div  id='blocklyInstruction11'></div><script>injectInstructionTooltip('math_minmax','blocklyInstruction11','tooltipInstruction11');</script></li>
-                </ol>
+					<li><div><span id='tooltipInstruction12'></span></div><div  id='blocklyInstruction12'></div><script>injectInstructionTooltip('variables_global','blocklyInstruction12','tooltipInstruction12');</script></li>
+					<li><div><span id='tooltipInstruction13'></span></div><div  id='blocklyInstruction13'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction13','tooltipInstruction13');</script></li>
+					<li><div><span id='tooltipInstruction14'></span></div><div  id='blocklyInstruction14'></div><script>injectInstructionTooltip1('variables_set','blocklyInstruction14','tooltipInstruction14');</script></li>
+				</ol>
             </div>
 		</div>
     </div>
@@ -324,7 +348,7 @@
 			<div class="media-container-row"><div id='exercise3i'></div><div id='exercise3ic'></div></div>
 		</div>
 	</section>
-
+	<div class="mbr-section-btn text-center"><a onclick="onExercises();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
 <script>
   var solutions_basic = document.getElementById('solutions_basic');
   var solutions_intermediate = document.getElementById('solutions_intermediate');

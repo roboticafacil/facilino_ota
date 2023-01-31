@@ -1,22 +1,46 @@
 <script>
-	var currentBasicSolutions=0;
-	var currentIntermediateSolutions=0;
+window.FacilinoAdvanced=true;
 </script>
-<section class="mbr-section content8 cid-qYnID8HJTn" id=" title">
-	<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
-		<div class="container">
-			<div class="media-container-row">
-				<div class=" title col-12 col-md-8">
-					<h2 class="align-center pb-3 mbr-fonts-style display-2">
-						Flow control instructions</h2>
-					<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
-						Learn how to make decisions with 'if' statements and repeat blocks of instructions with 'while' loops.</h3>
 
-				</div>
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_inout.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_variables.js"></script>
+<script src="facilino_buzzer.js"></script>
+
+<script>
+Facilino.load({ zoom: 1});
+FacilinoControls.load({ zoom: 1});
+FacilinoMaths.load({ zoom: 1});
+FacilinoText.load({ zoom: 1});
+FacilinoControls.load({ zoom: 1});
+FacilinoVariables.load({ zoom: 1});
+FacilinoBuzzer.load({ zoom: 1});
+var currentBasicSolutions=0;
+var currentIntermediateSolutions=0;
+</script>
+
+<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
+	<div class="container">
+		<div class="media-container-row">
+			<div class=" title col-12 col-md-8">
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<div class="mbr-section-btn text-center"><a onclick="onExercises();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2">
+					Flow control instructions</h2>
+				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+					Learn how to make decisions with 'if' statements and repeat blocks of instructions with 'while' loops.</h3>
+
 			</div>
 		</div>
-	</section>
+	</div>
 </section>
+
 
 <section class="mbr-section article content1 cid-qYh0wSDsTN" id="content2-51">
     <div class="container">
@@ -77,7 +101,6 @@
 					<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip('base_delay','blocklyInstruction4','tooltipInstruction4');</script></li>
 					<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip('controls_flow_statements','blocklyInstruction5','tooltipInstruction5');</script></li>
 					<li><div><span id='tooltipInstruction6'></span></div><div  id='blocklyInstruction6'></div><script>injectInstructionTooltip('controls_whileUntil','blocklyInstruction6','tooltipInstruction6');</script></li>
-					<li><div><span id='tooltipInstruction6a'></span></div><div  id='blocklyInstruction6a'></div><script>injectInstructionTooltip('dyor_controls_wait','blocklyInstruction6a','tooltipInstruction6a');</script></li>
                 </ol>
             </div>
 		</div>
@@ -130,9 +153,11 @@
 										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','repeat_sentence.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
 					<a onclick="onFileDownloaded('repeat_sentence.bly');">
 					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Repeating a numbered sentence</strong></p>Now, do the same as before, but the sentence must numbered at the beginning starting from 1.</p><strong>Hint: </strong><p><i>Use a variable and increase its value inside the loop. You can use the 'create text with' instruction to join the number and the sentence.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','repeat_numbered_sentence.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<li><strong>Repeating a numbered sentence</strong></p>Now, do the same as before, but the sentence must numbered at the beginning starting from 1.</p><strong>Hint: </strong><p><i>Use a variable and increase its value inside the loop. You can use the 'create text with' instruction to join the number and the sentence.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','repeat_numbered_sentence.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions2b','repeat_numbered_sentence.bly','exercise2b','exercise2bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('repeat_numbered_sentence.bly');">
+					<!-- <a onclick="onFileDownloaded('repeat_numbered_sentence.bly');">-->
+					<a onclick="onFileDownloaded('Repeating a numbered sentence.bly');">
 					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
                 </ol>
             </div>
