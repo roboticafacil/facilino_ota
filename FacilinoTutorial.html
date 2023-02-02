@@ -68,6 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
     else {
       window.board='_wemosD1R32';
     }
+	
+	function resizeIFrameToFitContent( iFrame ) {
+		iFrame.width  = iFrame.contentWindow.document.body.scrollWidth+30;
+		iFrame.height = iFrame.contentWindow.document.body.scrollHeight+30;
+	}
 
 		function openFunction(bly) {
 			$.ajax({
@@ -210,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		}
 
-    function showHideBasic(el1,ex,el) {
+    /*function showHideBasic(el1,ex,el) {
 	  var solutions_basic = document.getElementById('solutions_basic');
       solutions_basic.style.display="block";
       if (currentBasicSolutions>0)
@@ -230,10 +235,20 @@ document.addEventListener("DOMContentLoaded", function () {
 				var div = document.createElement("div");
 				div.setAttribute("id",el);
 				parent.appendChild(div);
-				injectExample(ex,el);
+				//injectExample(ex,el);
         location.hash = "#solutions_basic";
 			}
-		}
+		}*/
+		
+	function showHideBasic(el) {
+	  var el = document.getElementById(el);
+	  console.log(el.style.display);
+	  if (el.style.display==='none')
+		el.style.display="auto";
+	  else
+	    el.style.display="none";
+	  console.log(el.style.display);
+	}
 
     function showHideBasicCode(el1,ex,el,elc) {
       var solutions_basic = document.getElementById('solutions_basic');

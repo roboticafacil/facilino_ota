@@ -14,9 +14,10 @@ include("auth.php");
 		if (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
 			//$query = "UPDATE `users` SET `first_name`=\"".$_POST["first_name"]."\",`last_name`=\"".$_POST["last_name"]."\" WHERE `username`=\"".$_SESSION["username"]."\"";
 			//$result = mysqli_query($con,$query);
-			$query = "UPDATE `users` SET `first_name`=?,`last_name`=? WHERE `username`=?";
+			$query = "UPDATE `users` SET `first_name`=?,`last_name`=?,`default_lang_id`=? WHERE `username`=?";
 			$statement=mysqli_prepare($con,$query);
-			$statement->bind_params("sss",$_POST["first_name"],$_POST["last_name"],$_SESSION["username"]);
+			$language_id=intval($_POST["language"]);
+			$statement->bind_param("ssis",$_POST["first_name"],$_POST["last_name"],$language_id,$_SESSION["username"]);
 			$statement->execute();
 			header("Location: dashboard.php");
 		}
@@ -246,7 +247,7 @@ include("auth.php");
 		{
 			//$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username='".$_SESSION["username"]."' and active=1";
 			//$result_user = mysqli_query($con,$query_user);
-			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username=? and active=1";
+			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName`,`languages`.`id` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) inner join `languages` on (`users`.`default_lang_id`=`languages`.`id`) where username=? and active=1";
 			$statement_user=mysqli_prepare($con,$query_user);
 			$statement_user->bind_param("s",$_SESSION["username"]);
 			$statement_user->execute();
@@ -265,6 +266,29 @@ include("auth.php");
 				<tr><td><label><?php echo $website["USER_ACCOUNT_TYPE"]?>:</label></td><td><label><?php echo $row_user[5]?></label></td></tr>
 				<tr><td><label><?php echo $website["FIRST_NAME"]?>:</label></td><td><input type="text" name="first_name" value="<?php echo $row_user[2]?>" maxlength="50"></input></td></tr>
 				<tr><td><label><?php echo $website["LAST_NAME"]?>:</label></td><td><input type="text" name="last_name" value="<?php echo $row_user[3]?>" maxlength="50"></input></td></tr>
+				<tr><td><label><?php echo $website["LANGUAGE"];?>:</label></td><td>
+				<select id="language" name="language">
+					<?php
+						$query_languages="SELECT * FROM `languages`  WHERE 1";
+						$result=mysqli_query($con,$query_languages);
+						while($row_language=mysqli_fetch_row($result))
+						{
+							if ($row_language[0]==$row_user[6])
+							{
+							?>
+								<option value=<?php echo $row_language[0];?> selected><?php echo $row_language[1];?></option>
+							<?php
+							}
+							else
+							{
+								?>
+								<option value=<?php echo $row_language[0];?>><?php echo $row_language[1];?></option>
+								<?php
+							}
+						}
+					?>
+				</select>				
+				</td></tr>
 				</table>
 				<div style="margin-bottom:0.5em;padding:0.5em">
 				<input name="update_button" type="submit" value="<?php echo $website["UPDATE"]?>"/>&nbsp;&nbsp;

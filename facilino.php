@@ -1,7 +1,11 @@
 <?php
 require_once('db.php');
 require_once('website_translation.php');
-include("auth.php");
+if (isset($_GET["action"]))
+{
+	if (($_GET["action"]=="open")||($_GET["action"]=="save"))
+		include("auth.php");
+}
 
 		if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
 		{
@@ -31,16 +35,29 @@ include("auth.php");
 			<!DOCTYPE html>
 			<html><?php include "head.php"; ?>
 			<body>
-			<div id="header"><?php include "inc-header.php" ?></div>
-			<!-- <div id="content">-->
 			<?php
+			if (!isset($_GET["embbeded"]))
+			{
+			?>
+				<div id="header"><?php include "inc-header.php" ?></div> <?php
+			}
+			
 			//Open facilino project
 			$project_id=$_GET["id"];
 			//$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
 			//$result = mysqli_query($con,$query);
-			$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
-			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("is",$project_id,$_SESSION["username"]);
+			if (isset($_GET["action"])&&($_GET["action"]=="view"))
+			{
+				$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+				$statement=mysqli_prepare($con,$query);
+				$statement->bind_param("i",$project_id);
+			}
+			else
+			{
+				$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+				$statement=mysqli_prepare($con,$query);
+				$statement->bind_param("is",$project_id,$_SESSION["username"]);
+			}
 			$statement->execute();
 			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
@@ -83,6 +100,7 @@ include("auth.php");
 				}
 				echo '];</script>';
 				require('facilino_scripts.php');
+				
 				?>
 				
 				<xml id='startBlocksDefault' style='display: none'><block type='controls_setupLoop' deletable='true' x='20' y='5'></block></xml>
@@ -90,13 +108,31 @@ include("auth.php");
 				<xml id='startBlocksOTA' style='display:none'><block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value></statement></block></xml>
 				<div id="wrap" style="height: 89%;">
 					<div id="blockly" style="float: left; width: 100%;">
-						<span id="position"></span>
-						<div id="dragbar"></div>
+					<?php
+					if (!isset($_GET["embbeded"]))
+					{ 
+						?>
+							<span id="position"></span>
+							<div id="dragbar"></div>
+							<?php
+					}
+					?>
 					</div>
+					<?php
+					if (!isset($_GET["embbeded"]))
+					{ 
+						?>
 					<div id="code" style="float: left; width: 34%; height: 100%; display: none">
+					<?php
+					}
+					?>
 					  </div>
 				</div>
-				<div><input type="file" id="importFile" style="display:none" accept=".png," onchange="imageSelected(this.files)"></input><canvas id="canvas" width="578" height="400" style="display:none"></div>
+				<?php
+				if (!isset($_GET["embbeded"]))
+				{ 
+					?>
+						<div><input type="file" id="importFile" style="display:none" accept=".png," onchange="imageSelected(this.files)"></input><canvas id="canvas" width="578" height="400" style="display:none"></div> 
 				<!-- <div style="display:none">
 				<form id="save_form" action="" method="post" name="save">
 				<input type="hidden" name="blockly_code" value="" />
@@ -184,17 +220,25 @@ include("auth.php");
 					</section>
 				  </div>
 				</div>
+				<?php
+				}
+				?>
 				<script language="JavaScript">
-				<?php echo 'window.FacilinoLanguage ="'.$row[1].'";'?>
-				<?php echo 'window.FacilinoBlockFilter = "'.$row[2].'";'?>
-				<?php echo 'window.FacilinoVersion = "'.$row[3].'";'?>
-				<?php  echo 'window.FacilinoProcessor = "'.$row[4].'";'?>
-				<?php  echo 'window.project_id = "'.$project_id.'";'?>
-				<?php  echo 'window.share_key = "'.$row[8].'";'?>
-				<?php  echo 'window.username = "'.$_SESSION["username"].'";'?>
-				<?php echo 'var verify_msg="'.$website["VERIFY_MSG"].'";'?>
-				<?php echo 'var verify_upload_msg="'.$website["VERIFY_UPLOAD_MSG"].'";'?>
-					localStorage.setItem('saved',Blockly.Xml.domToText(document.getElementById('startBlocks')));
+				<?php 
+					echo 'window.FacilinoLanguage ="'.$row[1].'";';
+					echo 'window.FacilinoBlockFilter = "'.$row[2].'";';
+					echo 'window.FacilinoVersion = "'.$row[3].'";';
+					echo 'window.FacilinoProcessor = "'.$row[4].'";';
+					if (!isset($_GET["embbeded"]))
+					{
+						echo 'window.project_id = "'.$project_id.'";';
+						echo 'window.share_key = "'.$row[8].'";';
+						echo 'window.username = "'.$_SESSION["username"].'";';
+						echo 'var verify_msg="'.$website["VERIFY_MSG"].'";';
+						echo 'var verify_upload_msg="'.$website["VERIFY_UPLOAD_MSG"].'";';
+						?> localStorage.setItem('saved',Blockly.Xml.domToText(document.getElementById('startBlocks'))); <?php
+					}
+					?>
 					$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
 					$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
 					if (window.FacilinoVersion==='FacilinoJunior')
@@ -211,23 +255,30 @@ include("auth.php");
 							window.FacilinoOTA=false;
 					}
 					
-					var modal_progress = document.getElementById('modal_progress');
-					var span_progress = document.getElementsByClassName("close")[0];
-		
-					var progress_bar = document.getElementById('progress-bar');
-					var progress = document.getElementById('progress');
-					var progress_number = document.getElementById('progress_number');
-					progress_number.innerHTML='0%';
-					progress.setAttribute('value',0);
-		
-					span_progress.onclick = function() {
-					  modal_progress.style.display = "none";
-					  var console_output = document.getElementById('console_output');
-					  console_output.innerHTML='';
+					<?php
+					if (!isset($_GET["embbeded"]))
+					{
+						?>
+						var modal_progress = document.getElementById('modal_progress');
+						var span_progress = document.getElementsByClassName("close")[0];
+			
+						var progress_bar = document.getElementById('progress-bar');
+						var progress = document.getElementById('progress');
+						var progress_number = document.getElementById('progress_number');
+						progress_number.innerHTML='0%';
+						progress.setAttribute('value',0);
+			
+						span_progress.onclick = function() {
+						  modal_progress.style.display = "none";
+						  var console_output = document.getElementById('console_output');
+						  console_output.innerHTML='';
+						}
+						
+						var updateCode=true;
+						var justOnce=true;
+						<?php
 					}
-					
-					var updateCode=true;
-					var justOnce=true;
+					?>
 					var ev = document.createEvent('Event');
 					ev.initEvent('resize', true, true);
 					
@@ -235,39 +286,45 @@ include("auth.php");
 					//$.ajax({url:file,type:'HEAD',error: function(){file="doc/en-GB/index.html";},success: function(){}});
 					//$(function(){$("#doc").load(file);});
 					Blockly.Doc = [];
-					if (window.toolbox===undefined)
+					<?php
+					if (!isset($_GET["embbeded"]))
 					{
-						if (window.FacilinoBlockFilter==='DYOR')
+						?>
+						if (window.toolbox===undefined)
 						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							if (window.FacilinoBlockFilter==='DYOR')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							}
+							else if (window.FacilinoBlockFilter==='bPED')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							}
+							else if (window.FacilinoBlockFilter==='meArm')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_MEARM','LANG_SUBCATERGORY_ESPUI'];
+							}
+							else if (window.FacilinoBlockFilter==='Multisensor')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
+							}
+							else if (window.FacilinoBlockFilter==='HomeAutomation')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
+							}
+							else if (window.FacilinoBlockFilter==='T-Watch2020')
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS'];
+							}
+							else
+							{
+								window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_MEARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+							}
 						}
-						else if (window.FacilinoBlockFilter==='bPED')
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
-						}
-						else if (window.FacilinoBlockFilter==='meArm')
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_MEARM','LANG_SUBCATERGORY_ESPUI'];
-						}
-						else if (window.FacilinoBlockFilter==='Multisensor')
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
-						}
-						else if (window.FacilinoBlockFilter==='HomeAutomation')
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
-						}
-						else if (window.FacilinoBlockFilter==='T-Watch2020')
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS'];
-						}
-						else
-						{
-							window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_MEARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
-						}
+						window.toolboxNames = getToolboxNames(window.toolbox);
+						<?php
 					}
-					
-					window.toolboxNames = getToolboxNames(window.toolbox);
+					?>
 					var options = {zoom: 1};
 					Facilino.load(options);
 					FacilinoFunctions.load(options);
@@ -328,82 +385,99 @@ include("auth.php");
 							
 					var el = document.getElementById('blockly');
 		
-					Blockly.inject(el, {toolbox: Blockly.createToolbox(window.toolboxNames), zoom: {controls: true, wheel: true, startScale: 0.7, maxScale: 2, minScale: 0.3, scaleSpeed: 1.1}});
-					
-					$('.blocklySvg, #blockly').height('100%');
-					$('.blocklySvg').width('100%');
-					disableBtn("undo");
-					disableBtn("redo");	
-					
-					
-					Blockly.getMainWorkspace().clear();
-					Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
-					
-					var History = {};
-					History.stack = [];
-					History.position=0;
-					History.limit=200;
-					History.updating=false;
-					History.stack[0]=Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
-					History.initialState =History.stack[0];
-					//console.log(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace())));
-
-					//if (localStorage.getItem("saved")=='')
-					//  Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
-					$('.blocklySvg, #blockly').height('100%');
-					$('.blocklySvg').width('100%');
-					
-					Blockly.getMainWorkspace().addChangeListener(function (event) {
-						if (event.type===Blockly.Events.DELETE)
-						{
-							Facilino.removedBlocks(event.ids);
-						}
-						if (updateCode)
-						{
-						  $('#code').html('<code class="c++" style="display:inline-block; width:100%;height:100%"><pre id="pre" style="height:101%">'
-						  + escapeCode(Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace()))
-						  + '</pre></code>');
-						  //var codeSnipet='void sum(int a,int b){\nint c;\nreturn a+b;\n}\n';
-						}
-						else
-						{
-						}
-						  // Highlight
-						$("#pre").each(function (i, e) {
-						  hljs.highlightBlock(e);
-						});
-						//Save History
-						var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
-						if ((current !== History.stack[History.position])&&(current!==History.initialState))
-							History.updating=true;
-						//console.log(History.updating);
-						if (History.updating)
-						{
-							while (History.stack.length > History.limit) {
-								History.stack.shift();
-							}
-							History.position = Math.min(History.position,History.stack.length - 1);
-							History.stack = History.stack.slice(0, History.position + 1);
-							History.stack.push(current);
-							History.position++;
-							if (History.position > 0)
-								enableBtn("undo");
-							else
-								disableBtn("undo");
-							if (History.position<(History.stack.length-1))
-								enableBtn("redo");
-							else
-								disableBtn("redo");
-							//console.log('Saving position '+History.position);
+					<?php
+					if (!isset($_GET["embbeded"]))
+					{
+						?>
+							Blockly.inject(el, {toolbox: Blockly.createToolbox(window.toolboxNames), zoom: {controls: true, wheel: true, startScale: 0.7, maxScale: 2, minScale: 0.3, scaleSpeed: 1.1}});
+							$('.blocklySvg, #blockly').height('100%');
+							$('.blocklySvg').width('100%');
+							disableBtn("undo");
+							disableBtn("redo");
+							Blockly.getMainWorkspace().clear();
+							Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
+							
+							var History = {};
+							History.stack = [];
+							History.position=0;
+							History.limit=200;
 							History.updating=false;
-							//console.log(History.updating);
-						}
-						if (justOnce)
-						{
-							justOnce=false;
+							History.stack[0]=Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
+							History.initialState =History.stack[0];
+							//console.log(Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace())));
+
+							//if (localStorage.getItem("saved")=='')
+							//  Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
+							$('.blocklySvg, #blockly').height('100%');
+							$('.blocklySvg').width('100%');
+					
+						<?php
+					}
+					else
+					{
+						?>
+							var mainWorkspace =Blockly.inject(el,{zoom: 1});
+							Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
+							var bbox = mainWorkspace.svgBlockCanvas_.getBBox();
+							el.style.height = (bbox.height+25)+ 'px';
+							el.style.width = (bbox.width+25) + 'px';
 							window.dispatchEvent(new Event('resize'));
-						}
-					});
+						<?php
+					}
+					if (!isset($_GET["embbeded"]))
+					{
+						?>
+						Blockly.getMainWorkspace().addChangeListener(function (event) {
+							if (event.type===Blockly.Events.DELETE)
+							{
+								Facilino.removedBlocks(event.ids);
+							}
+							if (updateCode)
+							{
+							  $('#code').html('<code class="c++" style="display:inline-block; width:100%;height:100%"><pre id="pre" style="height:101%">'
+							  + escapeCode(Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace()))
+							  + '</pre></code>');
+							  //var codeSnipet='void sum(int a,int b){\nint c;\nreturn a+b;\n}\n';
+							}
+							else
+							{
+							}
+							  // Highlight
+							$("#pre").each(function (i, e) {
+							  hljs.highlightBlock(e);
+							});
+							//Save History
+							var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
+							if ((current !== History.stack[History.position])&&(current!==History.initialState))
+								History.updating=true;
+							//console.log(History.updating);
+							if (History.updating)
+							{
+								while (History.stack.length > History.limit) {
+									History.stack.shift();
+								}
+								History.position = Math.min(History.position,History.stack.length - 1);
+								History.stack = History.stack.slice(0, History.position + 1);
+								History.stack.push(current);
+								History.position++;
+								if (History.position > 0)
+									enableBtn("undo");
+								else
+									disableBtn("undo");
+								if (History.position<(History.stack.length-1))
+									enableBtn("redo");
+								else
+									disableBtn("redo");
+								//console.log('Saving position '+History.position);
+								History.updating=false;
+								//console.log(History.updating);
+							}
+							if (justOnce)
+							{
+								justOnce=false;
+								window.dispatchEvent(new Event('resize'));
+							}
+						});
 					
 		function doAutoIndent(value, indent) {
 			indent || (indent = "\t");
@@ -536,14 +610,11 @@ include("auth.php");
 		function saveBeforeExit()
 		{
 			saveAll();
-			/*var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
-			if (localStorage.getItem("saved")!==current)
-			{
-				if (confirm("There are unsaved changes. Are you sure you want to continue?"))
-					window.location.replace("dashboard.php");
-			}
-			else*/
-				//window.location.replace("dashboard.php");
+		}
+		
+		function Exit()
+		{
+			window.location="dashboard.php";
 		}
 		
 		function docHelp()
@@ -1124,99 +1195,99 @@ include("auth.php");
 				//player.stopVideo();
 				//var binDataFile = XHR.response.substring(XHR.response.indexOf("Hex file:")+9,XHR.response.indexOf(".bin")+4);
 				//var binData=XHR.response.substring(XHR.response.indexOf(".bin")+7);
-				/*var binData = XHR.response;
-				console.log(binData.length);
-				var data = [];
-				for (var i = 0; i < binData.length; i++){  
-					data.push(binData.charCodeAt(i));
-				}*/
+				//var binData = XHR.response;
+				//console.log(binData.length);
+				//var data = [];
+				//for (var i = 0; i < binData.length; i++){  
+				//	data.push(binData.charCodeAt(i));
+				//}
 				console.log(XHR.response.length);
 				//saveByteArray(XHR.response,'firmware.bin');
-				/*console.log('Trying to get the file!');
-				const XHR_upload = new XMLHttpRequest();
+				//console.log('Trying to get the file!');
+				//const XHR_upload = new XMLHttpRequest();
+				//
+				//XHR_upload.open("GET",binDataFile,true);
+				//XHR_upload.responseType = "blob";
+				//
+				//XHR_upload.onload = function(oEvent) {
+				//  var blob = XHR_upload.response;
+				//  console.log('File received!');
+				//  console.log(blob);
+				//};
+				//
+				//XHR_upload.send();
 				
-				XHR_upload.open("GET",binDataFile,true);
-				XHR_upload.responseType = "blob";
+				// var data = new FormData();
+				// data.append("firmware",binData);
 				
-				XHR_upload.onload = function(oEvent) {
-				  var blob = XHR_upload.response;
-				  console.log('File received!');
-				  console.log(blob);
-				};
+				// XHR_upload.addEventListener( 'load', function( event ) {
+					// if (XHR_upload.readyState === XHR_upload.DONE) {
+						// if (parseInt(localStorage.getItem('upload_progress') || 100 )<1)
+							// localStorage.setItem('upload_size',100);
+						// else
+							// localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100));
+						// //modal_progress.style.display = "none";
+						// progress_bar.style.display = "none";
+					// }
+				// });
 				
-				XHR_upload.send();*/
-				
-				/*var data = new FormData();
-				data.append("firmware",binData);
-				
-				XHR_upload.addEventListener( 'load', function( event ) {
-					if (XHR_upload.readyState === XHR_upload.DONE) {
-						if (parseInt(localStorage.getItem('upload_progress') || 100 )<1)
-							localStorage.setItem('upload_size',100);
-						else
-							localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100));
-						//modal_progress.style.display = "none";
-						progress_bar.style.display = "none";
-					}
-				});
-				
-				XHR_upload.addEventListener('loadstart',function(event){
-					if (event.lengthComputable)
-						localStorage.setItem('upload_size',event.total);
-					localStorage.setItem('upload_progress',0);
-					progress_number.innerHTML='0%';
-					progress.setAttribute('value',0);
-					console_output.innerHTML='';
-					//player.loadPlaylist({list:'PLjzuoBhdtaXNT8unZpegZM15qlQA69Cfu',listype: 'playlist'});
-					//player.setShuffle({shufflePlaylist:true});
-				  }
-				  );
+				// XHR_upload.addEventListener('loadstart',function(event){
+					// if (event.lengthComputable)
+						// localStorage.setItem('upload_size',event.total);
+					// localStorage.setItem('upload_progress',0);
+					// progress_number.innerHTML='0%';
+					// progress.setAttribute('value',0);
+					// console_output.innerHTML='';
+					// //player.loadPlaylist({list:'PLjzuoBhdtaXNT8unZpegZM15qlQA69Cfu',listype: 'playlist'});
+					// //player.setShuffle({shufflePlaylist:true});
+				  // }
+				  // );
 			  
-				  XHR_upload.addEventListener('loadend',function(event){
-					localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100 ));
-					}
-				  );
+				  // XHR_upload.addEventListener('loadend',function(event){
+					// localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100 ));
+					// }
+				  // );
 			  
-				  XHR_upload.addEventListener('progress',function (event){
-					console_output.innerHTML=XHR_upload.response;
-					if (event.lengthComputable)
-					{
-						var percentComplete = event.loaded / event.total * 100;
-						console.log(percentComplete);
-						progress_number.innerHTML=percentComplete+'%';
-						progress.setAttribute('value',percentComplete);
-					}
-					else
-					{
-						localStorage.setItem('upload_progress',parseInt(localStorage.getItem('upload_progress') || 100 )+1);
-						var percentComplete = parseInt(parseInt(localStorage.getItem('upload_progress') || 100 )/parseInt(localStorage.getItem('upload_size') || 100 )*100);
-						if (percentComplete>100)
-							percentComplete=100;
-						progress_number.innerHTML=percentComplete+'%';
-						progress.setAttribute('value',percentComplete);
-					}
-				  }
-				  );
-				  XHR_upload.addEventListener('timeout',function(event){
-					alert( 'I could not get a response!');
-					//player.stopVideo();
-				  }
-				  );
+				  // XHR_upload.addEventListener('progress',function (event){
+					// console_output.innerHTML=XHR_upload.response;
+					// if (event.lengthComputable)
+					// {
+						// var percentComplete = event.loaded / event.total * 100;
+						// console.log(percentComplete);
+						// progress_number.innerHTML=percentComplete+'%';
+						// progress.setAttribute('value',percentComplete);
+					// }
+					// else
+					// {
+						// localStorage.setItem('upload_progress',parseInt(localStorage.getItem('upload_progress') || 100 )+1);
+						// var percentComplete = parseInt(parseInt(localStorage.getItem('upload_progress') || 100 )/parseInt(localStorage.getItem('upload_size') || 100 )*100);
+						// if (percentComplete>100)
+							// percentComplete=100;
+						// progress_number.innerHTML=percentComplete+'%';
+						// progress.setAttribute('value',percentComplete);
+					// }
+				  // }
+				  // );
+				  // XHR_upload.addEventListener('timeout',function(event){
+					// alert( 'I could not get a response!');
+					// //player.stopVideo();
+				  // }
+				  // );
 
-				  // Define what happens in case of error
-				  XHR_upload.addEventListener(' error', function( event ) {
-					alert( 'Oops! Something went wrong.' );
-					//player.stopVideo();
-				  } );
+				  // // Define what happens in case of error
+				  // XHR_upload.addEventListener(' error', function( event ) {
+					// alert( 'Oops! Something went wrong.' );
+					// //player.stopVideo();
+				  // } );
 				  
-				  var deviceip=document.getElementById('device_ip_upload').value;;
-				  var url='http://';
-				  url=url.concat(deviceip,'/update');
-				  console.log(url);
-				  XHR_upload.open( 'POST', url,true);
+				  // var deviceip=document.getElementById('device_ip_upload').value;;
+				  // var url='http://';
+				  // url=url.concat(deviceip,'/update');
+				  // console.log(url);
+				  // XHR_upload.open( 'POST', url,true);
 
-				  // Send our FormData object; HTTP headers are set automatically
-				  XHR_upload.send(data);*/
+				  // // Send our FormData object; HTTP headers are set automatically
+				  // XHR_upload.send(data);
 				}
 			  );
 		  
@@ -1273,6 +1344,11 @@ include("auth.php");
 		  	XHR.send(FD);
 		  }
 		}
+		
+			<?php
+				}
+			?>
+		
 				</script>
 				<?php
 			}
@@ -1285,8 +1361,13 @@ include("auth.php");
 				<?php
 			}
 		}
+		
+		if (!isset($_GET["embbeded"]))
+		{
+			?>
+				<div id="ads"><?php include "ads.php" ?></div>
+			<?php
+		}
 		?>
-<!-- </div>-->
-	<div id="ads"><?php include "ads.php" ?></div>
 	</body>
 </html>

@@ -729,7 +729,7 @@ include("auth.php");
 			document.cookie = "cookieProjectName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 		</script>
 		<h3><?php echo $website["PROJECTS"]?></h3>
-		<h4>&nbsp;<a href="dashboard.php?action=new" title="<?php echo $website["NEW_PROJECT"]?>" style="text-decoration: none;"><?php echo $website["NEW_PROJECT"]?>&nbsp;<span class="mbri-plus mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;&nbsp;<a href="dashboard.php?action=import" title="<?php echo $website["IMPORT"]?>" style="text-decoration: none;"><?php echo $website["IMPORT"]?>&nbsp;<span class="mbri-link mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a></h4>
+		<h4>&nbsp;<a href="dashboard.php?action=new" title="<?php echo $website["NEW_PROJECT"]?>" style="text-decoration: none;"><?php echo $website["NEW_PROJECT"]?>&nbsp;<span class="mbri-plus mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;&nbsp;<a href="dashboard.php?action=import" title="<?php echo $website["IMPORT"]?>" style="text-decoration: none;"><?php echo $website["IMPORT"]?>&nbsp;<span class="mbri-upload mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a></h4>
 		<div class="datagrid">
 		<table width="100%">
 		<col style="width:20%">
@@ -765,7 +765,7 @@ include("auth.php");
 			 
 			 $dir = $_SERVER['HTTP_HOST'];
 			 if (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']))
-				$share='http://'.$dir.'/Facilino/src/facilino-ota/html2/share.php';
+				$share='http://'.$dir.'/facilino_ota/facilino.php';
 			 else
 			 {
 				$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -773,14 +773,14 @@ include("auth.php");
 				for ($i = 0; $i < count($parts)- 1; $i++) {
 					$dir .= $parts[$i] . "/";
 				}
-				$share='https://'.$dir.'share.php';
+				$share='https://'.$dir.'facilino.php';
 			 }
-			 ?><a onClick="shareLink('<?php echo $share?>?id=<?php echo $row[0]?>&share_key=<?php echo $row[7]?>');" title="<?php echo $website["SHARE"]?>" style="text-decoration: none;"><span class="mbri-paper-plane mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 ?><a onClick="shareLink('<?php echo $share?>?action=view&id=<?php echo $row[0]?>');" title="<?php echo $website["SHARE"]?>" style="text-decoration: none;"><span class="mbri-preview mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
 			 <a href="download.php?action=arduino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_ARDUINO_CODE"]?>" style="text-decoration: none;">
 			 <!-- <span class="mbri-download mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>-->
 			 <span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>
 			 </a>&nbsp;
-			 <a href="download.php?action=facilino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_FACILINO_CODE"]?>" style="text-decoration: none;"><span class="mbri-upload mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 <a href="download.php?action=facilino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_FACILINO_CODE"]?>" style="text-decoration: none;"><span class="mbri-to-local-drive mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
 			 </td>
 			 </tr>
 			 <?php
