@@ -433,25 +433,6 @@
 </section>
 
 <script>
-	if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
-		localStorage.setItem('language', 'en-GB');
-	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
-		localStorage.setItem('processor', 'ArduinoNano');
-	window.FacilinoLanguage = localStorage.getItem("language");
-	window.FacilinoProcessor = localStorage.getItem("processor");
-	$("#language").val(window.FacilinoLanguage);
-	$("#processor").val(window.FacilinoProcessor);
-  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
-  {
-    window.board='_wemosD1R32';
-  }
-  else if (window.FacilinoProcessor==='ArduinoUno')
-  {
-    window.board='_uno';
-  }
-  else {
-    window.board='_wemosD1R32';
-  }
 	function onExercise(num)
 	{
     window.title='exercise'+num+'_'+window.FacilinoLanguage+window.board;

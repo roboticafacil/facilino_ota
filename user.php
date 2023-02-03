@@ -269,22 +269,19 @@ include("auth.php");
 				<tr><td><label><?php echo $website["LANGUAGE"];?>:</label></td><td>
 				<select id="language" name="language">
 					<?php
-						$query_languages="SELECT * FROM `languages`  WHERE 1";
-						$result=mysqli_query($con,$query_languages);
-						while($row_language=mysqli_fetch_row($result))
+						if ($row_user[6]==5)
 						{
-							if ($row_language[0]==$row_user[6])
-							{
+						?>
+							<option value=4>Inglés</option>
+							<option value=5 selected>Español</option>
+						<?php
+						}
+						else
+						{
 							?>
-								<option value=<?php echo $row_language[0];?> selected><?php echo $row_language[1];?></option>
+							<option value=4 selected>English</option>
+							<option value=5>Spanish</option>
 							<?php
-							}
-							else
-							{
-								?>
-								<option value=<?php echo $row_language[0];?>><?php echo $row_language[1];?></option>
-								<?php
-							}
 						}
 					?>
 				</select>				

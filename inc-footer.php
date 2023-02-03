@@ -4,12 +4,6 @@
 		<div class="media-container-row align-center mbr-white" style="flex-direction: column; justify-content: center; align-items: center; list-style: none; display: flex; justify-content: center; flex-wrap: wrap; padding: 0; margin-bottom: 0;">
 			<div class="row row-links">
 				<ul class="foot-menu" style="list-style: none; display: flex; justify-content: center; flex-wrap: wrap; padding: 0; margin-bottom: 0;">
-				<?php 
-					if (isset($_SESSION["username"]))
-					{
-						echo '<li><a onclick="english()"><img src="img/flags/united-kingdom.png" title="English"></img></a>&nbsp;&nbsp;<a onclick="spanish()"><img src="img/flags/spain.png" title="Español"></img></a></li>';
-					}
-				?>
 					<li class="foot-menu-item mbr-fonts-style display-7" style="padding: 0 1rem 1rem 1rem;"><a class="text-white mbr-bold" onclick="about.php;"><?php echo $website["ABOUT_US"];?></a></li>
 					<li class="foot-menu-item mbr-fonts-style display-7"><a class="text-white mbr-bold" onclick="onPageClicked('https://roboticafacil.es');"><?php echo $website["SHOP"];?></a></li>
 				</ul>
@@ -42,13 +36,5 @@ function onPageClicked(page)
 	window.open(page, '_blank');
 	if (window.webHelper.pageClicked !== undefined)
 		window.webHelper.pageClicked(page);
-}
-function english()
-{
-	window.location.href="index.php?lang=en-GB";
-}
-function spanish()
-{
-	window.location.href="index.php?lang=es-ES";
 }
 </script>

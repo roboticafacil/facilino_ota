@@ -1,62 +1,87 @@
+<?php
+require_once('db.php');
+require_once('website_translation.php');
+?>
 <!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="tutorial/assets/images/facilino-cuadrado-fondo-transparente-128x128.png" type="image/x-icon">
-  <meta name="description" content="Arduino & ESP Tutorial with Facilino">
-  <title>Introduction to Facilino</title>
-  <link rel="stylesheet" href="tutorial/assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="tutorial/assets/tether/tether.min.css">
-  <link rel="stylesheet" href="tutorial/assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="tutorial/assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="tutorial/assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="tutorial/assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="tutorial/assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="tutorial/assets/theme/css/style.css">
-  <link rel="stylesheet" href="tutorial/assets/mobirise/css/mbr-additional.css" type="text/css">
-  <link rel="stylesheet" href="tutorial/modal.css" type="text/css">
-  <link rel="stylesheet" href="tutorial/overlay.css" type="text/css">
-  <link rel="stylesheet" href="tutorial/popup.css" type="text/css">
-  <link rel="stylesheet" href="tutorial/print.css" type="text/css">
-  <script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="facilino.css">
-  <link rel="stylesheet" type="text/css" href="javascript/highlight/styles/default.css">
-  <script src="javascript/underscore/underscore.js"></script>
-    <script src="javascript/highlight/highlight.pack.js"></script>
-    <script src="javascript/blockly-bq/blockly_compressed.js"></script>
-    <script src="javascript/blockly-bq/blocks_compressed.js"></script>
-    <script src="javascript/blockly-bq/arduino_compressed.js"></script>
-	<script src="javascript/blockly-bq/FieldButton.js"></script>
-    <script src="facilino.js"></script>
-    <!--<script src="roboblocks_compressed.js"></script>-->
-	<script src="javascript/qtwebchannel/qwebchannel.js"></script>
-</head>
+<script src="assets/web/assets/jquery/jquery.min.js"></script>
+<script src="javascript/underscore/underscore.js"></script>
+<script src="javascript/blockly-bq/blockly_compressed.js"></script>
+<script src="javascript/blockly-bq/blocks_compressed.js"></script>
+<script src="javascript/blockly-bq/arduino_compressed.js"></script>
+<script src="javascript/blockly-bq/FieldButton.js"></script>
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_functions.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_programming.js"></script>
+<script src="facilino_interrupts.js"></script>
+<script src="facilino_statemachine.js"></script>
+<script src="facilino_logic.js"></script>
+<script src="facilino_bitwise.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_arrays.js"></script>
+<script src="facilino_curves.js"></script>
+<script src="facilino_variables.js"></script>
+<script src="facilino_variables_array.js"></script>
+<script src="facilino_variables_object.js"></script>
+<script src="facilino_eeprom.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_inout.js"></script>
+<script src="facilino_buttons.js"></script>
+<script src="facilino_bus.js"></script>
+<script src="facilino_inout_others.js"></script>
+<script src="facilino_lcd.js"></script>
+<script src="facilino_led_matrix.js"></script>
+<script src="facilino_led_strip.js"></script>
+<script src="facilino_oled.js"></script>
+<script src="facilino_serial.js"></script>
+<script src="facilino_bluetooth.js"></script>
+<script src="facilino_ble.js"></script>
+<script src="facilino_wifi.js"></script>
+<script src="facilino_http.js"></script>
+<script src="facilino_iot.js"></script>
+<script src="facilino_ir.js"></script>
+<script src="facilino_sonar.js"></script>
+<script src="facilino_infrared.js"></script>
+<script src="facilino_buzzer.js"></script>
+<script src="facilino_voice.js"></script>
+<script src="facilino_mic.js"></script>
+<script src="facilino_melody.js"></script>
+<script src="facilino_mp3.js"></script>
+<script src="facilino_color.js"></script>
+<script src="facilino_ldr.js"></script>
+<script src="facilino_lightdimmer.js"></script>
+<script src="facilino_motor.js"></script>
+<script src="facilino_robot_base.js"></script>
+<script src="facilino_robot_acc.js"></script>
+<script src="facilino_robot_walk.js"></script>
+<script src="facilino_controller.js"></script>
+<script src="facilino_filter.js"></script>
+<script src="facilino_temperature.js"></script>
+<script src="facilino_humidity.js"></script>
+<script src="facilino_rain.js"></script>
+<script src="facilino_gas.js"></script>
+<script src="facilino_ambient_miscellaneous.js"></script>
+<script src="facilino_html.js"></script>
+<script src="facilino_espui.js"></script>
+<html>
+<?php include "head.php"; include "tutorial_head.php";
+?>
 <body>
-<script type="text/javascript">
-if (window.webHelper === undefined ||window.webHelper===null)
-{
-	window.webHelper = new Object();
-	window.webHelper.sourceChanged = function(){};
-}
-
-<!-- it's a good idea to initialize webchannel after DOM ready, if your code is going to manipulate the DOM -->
-document.addEventListener("DOMContentLoaded", function () {
-	try{
-		new QWebChannel(qt.webChannelTransport, function (channel) { window.webHelper = channel.objects.webHelper;});
-		}
-		catch(e) {}
-
-});
-</script>
+<div id="header"><?php include "inc-header.php" ?></div>
+<!-- <select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">
+<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>
+<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>
+</select>-->
+		<div id="content" style="margin-top:0em; margin-left: 0em; margin-right: 0em">
+<?php
+echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
+?>
 <script>
-		if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
-			localStorage.setItem('language', 'en-GB');
-		if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
+	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
 			localStorage.setItem('processor', 'WEMOS_D1R32_SHIELD');
-		window.FacilinoLanguage = localStorage.getItem("language");
 		window.FacilinoProcessor = localStorage.getItem("processor");
+	$("#processor").val(window.FacilinoProcessor);
     if (window.FacilinoProcessor==='WEMOS D1R32 SHIELD')
     {
       window.board='_wemosD1R32';
@@ -67,6 +92,81 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     else {
       window.board='_wemosD1R32';
+    }
+	
+    window.title='home_'+window.FacilinoLanguage;
+
+	function onHome()
+	{
+		//window.title='home_'+window.FacilinoLanguage;
+		//$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/home.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+		window.location='index.php';
+	}
+	
+	function onTutorial()
+	{
+		window.location='FacilinoTutorial.php';
+	}
+
+	function onElectronics()
+	{
+		window.title='electronics_'+window.FacilinoLanguage;
+		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/electronics.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/electronics.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+	}
+	
+	function onFacilino()
+	{
+  window.title='facilino_programming_'+window.FacilinoLanguage;
+		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/facilino_programming.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/facilino_programming.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+	}
+
+	function onExercises()
+	{
+		showHideProcessor(true);
+  window.title='exercises_'+window.FacilinoLanguage;
+		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/exercises.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/exercises.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";} );
+	}
+
+	function langChange(lang)
+	{
+		localStorage.setItem('language',lang);
+		window.location.reload();
+	}
+
+	function processorChange(processor)
+	{
+		console.log('processorChange');
+		console.log(processor);
+		localStorage.setItem('processor',processor);
+		//window.location.reload();
+	}
+	function showHideLanguage(show)
+	{
+		var lang=document.getElementById('language');
+		//console.log(lang.style.display);
+		if (show===true)
+			lang.style.display='initial';
+		else
+			lang.style.display='none';
+	}
+
+	function showHideProcessor(show)
+	{
+		var proc=document.getElementById('processor');
+		if (show==true)
+			proc.style.display='initial';
+		else
+			proc.style.display='none';
+	}
+
+    function printAll()
+    {
+      showAllCode('solutions_basic','exercises_basic','showHideBasic');
+      showAllCode('solutions_intermediate','exercises_intermediate','showHideIntermediate');
+      window.orig_title=document.title;
+      document.title=window.title;
+      print();
+      document.title=window.orig_title;
     }
 	
 	function resizeIFrameToFitContent( iFrame ) {
@@ -241,13 +341,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		}*/
 		
 	function showHideBasic(el) {
-	  var el = document.getElementById(el);
-	  console.log(el.style.display);
+	  /*var el = document.getElementById(el);
 	  if (el.style.display==='none')
 		el.style.display="auto";
 	  else
-	    el.style.display="none";
-	  console.log(el.style.display);
+	    el.style.display="none";*/
+	}
+	
+	function showHideElement(el){
 	}
 
     function showHideBasicCode(el1,ex,el,elc) {
@@ -391,16 +492,18 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (window.webHelper.fileDownloaded !== undefined)
 				window.webHelper.fileDownloaded(file);
 		}
-
-		window.FacilinoLanguage = window.FacilinoLanguage;
-		window.FacilinoProcessor = window.FacilinoProcessor;
+		
 		$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
 		$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
 		//RoboBlocks.load({ zoom: 1 });
 		//Facilino.load({ zoom: 1});
 
 </script>
-	<div id="menu"></div>
+<script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
+
+<div id="main"></div>
+<script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>
+	<!-- <div id="menu"></div>
 <script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/menu.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/menu.html';},success: function(){}}); $('#menu').load(file);});</script>
 
 <div id="main"></div>
@@ -427,7 +530,9 @@ document.addEventListener("DOMContentLoaded", function () {
   <script src="tutorial/assets/touchswipe/jquery.touch-swipe.min.js"></script>
   <script src="tutorial/assets/smoothscroll/smooth-scroll.js"></script>
   <script src="tutorial/assets/theme/js/script.js"></script>
-
-
+-->
+</div>
+<div id="ads"><?php include "ads.php" ?></div>
+<div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

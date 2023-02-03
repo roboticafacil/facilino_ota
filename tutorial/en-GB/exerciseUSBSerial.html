@@ -2,6 +2,10 @@
 window.FacilinoAdvanced=true;
 </script>
 
+<script src="javascript/blockly-bq/blockly_compressed.js"></script>;
+<script src="javascript/blockly-bq/blocks_compressed.js"></script>;
+<script src="javascript/blockly-bq/arduino_compressed.js"></script>;
+<script src="javascript/blockly-bq/FieldButton.js"></script>
 <script src="facilino.js"></script>
 <script src="facilino_common.js"></script>
 <script src="facilino_serial.js"></script>
@@ -11,15 +15,12 @@ window.FacilinoAdvanced=true;
 <script src="facilino_controls.js"></script>
 
 <script>
-Facilino.load({ zoom: 1});
-console.log(Facilino.locales);
-console.log(Facilino.profiles);
-FacilinoSerial.load({ zoom: 1});
-FacilinoMaths.load({ zoom: 1});
-FacilinoText.load({ zoom: 1});
-FacilinoControls.load({ zoom: 1});
-FacilinoInOut.load({ zoom: 1});
-
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoSerial.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoInOut.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -158,6 +159,7 @@ FacilinoInOut.load({ zoom: 1});
         </div>
 </section>
 
+
 <section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-5w">
     <div class="container">
 		<div class="media-container-row">
@@ -174,7 +176,7 @@ FacilinoInOut.load({ zoom: 1});
 		</div>
     </div>
 </section>
-
+<!-- 
 <section class="mbr-section article content9 cid-qYh5KdWW4b" style="page-break-before: always">
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -202,6 +204,8 @@ FacilinoInOut.load({ zoom: 1});
     </div>
 </section>
 
+-->
+
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -218,15 +222,16 @@ FacilinoInOut.load({ zoom: 1});
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol id="exercises_basic">
                     <li><strong>Hello world!</strong><p>At the start up, print the sentence "Hello world!" on the console.</p><strong>Hint: </strong><p><i> Use the 'Print Line' instruction and add the text with the sentence "Hello world!".</i></p>
-					<div><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=53" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div id="exercise1b"><iframe frameBorder="0"  src="facilino.php?action=view&embbeded&id=1" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
 					<li><strong>Hello world again!</strong><p>Now, print the sentence "Hello world!" on the console at the start up and then the sentence "Hello world again!" in the main loop.</p><strong>Hint: </strong><p><i> Use the 'wait' instruction to give some time after using the 'Print Line' instruction.</i></p>
-					<div class="container"><iframe id="iframe2" frameBorder="0" src="facilino.php?action=view&embbeded&id=54" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<div class="container"><iframe id="iframe2" frameBorder="0" src="facilino.php?action=view&embbeded&id=2" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
 					<li><strong>Read potentiometer values</strong><p>Create a program that sends over the serial port data measured with the potentiometer (connected to pin A0).</p><strong>Hint: </strong><p><i> Use the 'Print Line' instruction, but new instead of using text, you can use the values returned from the 'AnalogRead' instruction. You can use a 'Wait' instruction to control the frequency the values are printed (i.e.: 100ms).</i></p>
-					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=55" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=3" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
 					<li><strong>Serial loopback</strong><p>Create a program that sends over the serial port data received on it (loopback).</p><strong>Hint: </strong><p><i> If there's data available on the serial port, then use the 'Read String' instruction and send it back with the 'Print Line' instruction.</i></p>
-					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=56" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=4" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
 					<li><strong>Plot a signal</strong>.<p>Using Arduino's plotter, plot the analog value of the potentiometer (connected to pin A0).</p><strong>Hint: </strong><p><i>Use the 'plot data' instruction to plot the value return by the 'AnalogRead' instruction and select the pin A0 with the 'Analog PIN' instruction. Use a delay of 50ms with the 'Wait (ms)' instruction, so that the samples are spaced at that sampling period.</i></p>
-					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=57" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=5" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
                 </ol>
             </div>
 		</div>
@@ -249,10 +254,11 @@ FacilinoInOut.load({ zoom: 1});
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol id="exercises_intermediate">
 					<li><strong>Parsing integer numbers</strong><p>Create a program that read from the serial USB port an integer number. Once you read the number add one to it and print it back to the console.</p><strong>Hint: </strong><p><i>Use the 'read integer' instruction instead the 'Read String'. Use the 'math arithmetic' instruction to add one to the number.</i></p>
-					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=58" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<button  type="button" title="Facilino code" onclick="showHideBasic('solution1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div class="container"><iframe id="solution1i" frameBorder="0" src="facilino.php?action=view&embbeded&id=6" onload="resizeIFrameToFitContent(this);"></iframe></div>
 					</li>
 					<li><strong>Parsing float numbers</strong><p>Modify the previous program so that it expects a float number. The difference is that now, we can use it to perform floating point operations. For instance, you can use it to print on the console its negate value.</p><strong>Hint: </strong><p><i>Use the 'Read Float' instruction and the negation instruction (is one of the listed options in the 'floating point operations' (by default is shown 'square root' as first option).</i></p>
-					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=58" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
+					<div class="container"><iframe frameBorder="0" src="facilino.php?action=view&embbeded&id=7" onload="resizeIFrameToFitContent(this);"></iframe></div></li>
                 </ol>
             </div>
 		</div>
@@ -268,10 +274,4 @@ var sch_modules=document.getElementById('schematic_modules');
 sch_modules.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_modules_bb.png';
 var sch_proto=document.getElementById('schematic_proto');
 sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_bb.png';
-
-function resizeIFrameToFitContent( iFrame ) {
-
-    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth+30;
-    iFrame.height = iFrame.contentWindow.document.body.scrollHeight+30;
-}
 </script>

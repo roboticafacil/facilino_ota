@@ -27,7 +27,10 @@ if (isset($_GET["action"]))
 				$statement=mysqli_prepare($con,$query);
 				$statement->bind_param("ssi",htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1),$_POST["arduino_code"],$row[0]);
 				$statement->execute();
-				header("Location: dashboard.php");
+				if (isset($_GET["goto"]))
+					header ("Location: ".$_GET["goto"]);
+				else
+					header("Location: dashboard.php");
 			}
 		}
 		elseif (isset($_GET["id"])&&!isset($_POST["action"])){
@@ -416,7 +419,7 @@ if (isset($_GET["action"]))
 					else
 					{
 						?>
-							var mainWorkspace =Blockly.inject(el,{zoom: 1});
+							var mainWorkspace =Blockly.inject(el,{zoom: 1,readOnly:true, collapse: false});
 							Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
 							var bbox = mainWorkspace.svgBlockCanvas_.getBBox();
 							el.style.height = (bbox.height+25)+ 'px';
@@ -574,14 +577,14 @@ if (isset($_GET["action"]))
                 Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
             }
 			
-		function saveAll()
+		function saveAll(newLoc)
 		{
 			var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
 			var text = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
 			localStorage.setItem("saved",current);
 			const form = document.createElement('form');
 			form.method = "post";
-			form.action = "facilino.php?action=save&id="+window.project_id;
+			form.action = "facilino.php?action=save&id="+window.project_id+'&goto='+newLoc;
 			const hiddenBlockly = document.createElement('input');
 			  hiddenBlockly.type = 'hidden';
 			  hiddenBlockly.name = 'facilino_code';
@@ -609,12 +612,22 @@ if (isset($_GET["action"]))
 			
 		function saveBeforeExit()
 		{
-			saveAll();
+			saveAll('dashboard.php');
+		}
+		
+		function saveBeforeExitTutorial()
+		{
+			saveAll('FacilinoTutorial.php');
 		}
 		
 		function Exit()
 		{
 			window.location="dashboard.php";
+		}
+		
+		function ExitTutorial()
+		{
+			window.localtion="FacilinoTutorial.php";
 		}
 		
 		function docHelp()

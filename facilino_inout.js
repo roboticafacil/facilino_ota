@@ -174,7 +174,7 @@
 			{
 				var xml='';
 				xml+='<value name="PIN"><shadow type="pin_digital"></shadow></value>';
-				xml+='<value name="STAT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>';
+				xml+='<value name="STAT"><shadow type="inout_highlow"><field name="BOOL">HIGH</field></shadow></value>';
 				return xml;
 			}
 		};

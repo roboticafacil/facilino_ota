@@ -90,7 +90,7 @@ include("auth.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
 			//Cancel button
-			header("Location: translate.php");
+			header("Location: dashboard.php");
 		}
 		elseif (isset($_GET["action"])&&($_GET["action"]=="translate")&&!isset($_POST["action"])&&isset($_POST["translate_button"])){ 
 			//Upload a single translation
@@ -314,7 +314,7 @@ include("auth.php");
 			$statement_user=mysqli_prepare($con,$query_user);
 			$statement_user->bind_param("s",$_SESSION["username"]);
 			$statement_user->execute();
-			$result_user=$statement->get_result();
+			$result_user=$statement_user->get_result();
 			$rows_user = mysqli_num_rows($result_user);
 			if ($rows_user==1)
 			{
