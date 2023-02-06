@@ -339,13 +339,20 @@
 				else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 				{
 					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
-					Blockly.Arduino.definitions_['define_wifi_dns'] = JST['communications_wifi_esp32_dns_def_definitions']({});
+					
 					if (window.FacilinoOTA)
+					{
+						if (Facilino.profiles['processor']==='ESP32')
+							Blockly.Arduino.definitions_['define_wifi_dns'] = JST['communications_wifi_esp32_dns_def_definitions']({});
 						Blockly.Arduino.definitions_['define_wifi_web_updater'] = JST['communications_wifi_esp32_webupdater_def_definitions']({});
-					Blockly.Arduino.definitions_['define_sens_reg'] ='#include "soc/sens_reg.h"';
-					Blockly.Arduino.definitions_['declare_var_adc_register'] = 'uint32_t adc_register;\n';
-					Blockly.Arduino.definitions_['declare_var_wifi_register'] = 'uint32_t wifi_register;\n';
-					Blockly.Arduino.setups_['inout_analog_workaround_adc'] = 'adc_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
+					}
+					if (Facilino.profiles['processor']==='ESP32')
+					{
+						Blockly.Arduino.definitions_['define_sens_reg'] ='#include "soc/sens_reg.h"';
+						Blockly.Arduino.definitions_['declare_var_adc_register'] = 'uint32_t adc_register;\n';
+						Blockly.Arduino.definitions_['declare_var_wifi_register'] = 'uint32_t wifi_register;\n';
+						Blockly.Arduino.setups_['inout_analog_workaround_adc'] = 'adc_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
+					}
 				}
 				/*if (window.FacilinoOTA)
 					Blockly.Arduino.definitions_['define_wifi_OTA'] = JST['communications_wifi_ota_def_definitions']({});*/

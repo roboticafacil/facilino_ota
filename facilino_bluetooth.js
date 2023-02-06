@@ -23,15 +23,26 @@
 
 				Blockly.Arduino.setups_['setup_bluetoothserial'] = JST['communications_softwareserial_def_setups']({'device': '_bt_device','baud_rate': baud_rate,'rx': rx, 'tx': tx});
 			}
-			else if ((Facilino.profiles['processor']==='ATmega2560'))
+			else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 			{
 
 				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
 				var port=this.getFieldValue('PORT');
 				Blockly.Arduino.definitions_['declare_var_define_serial'+port] = '#define _bt_device Serial'+port+'\n';
+				if (Facilino.profiles['processor']==='RP2040')
+				{
+					if (port==='1')
+					{
+						Blockly.Arduino.definitions_['declare_var_Serial1'] = 'UART _bt_device(0,1,0,0);\n';
+					}
+					else if (port==='2')
+					{
+						Blockly.Arduino.definitions_['declare_var_Serial2'] = 'UART _bt_device(4,5,0,0);\n';
+					}
+				}
 				Blockly.Arduino.setups_['setup_serial_'+port] = '_bt_device.begin('+baud_rate+');\n';
 			}
-			else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+			else if ((Facilino.profiles['processor']==='ESP32'))
 			{
 				var device_name = Blockly.Arduino.valueToCode(this, 'NAME', Blockly.Arduino.ORDER_ATOMIC) || '"ESP32"';
 				Blockly.Arduino.definitions_['declare_var_BluetoothSerial']= 'BluetoothSerial _bt_device;\n';
@@ -66,13 +77,13 @@
 					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
 					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
 				}
-				else if ((Facilino.profiles['processor']==='ATmega2560'))
+				else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 				{
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
 
 				}
-				else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+				else if ((Facilino.profiles['processor']==='ESP32'))
 				{
 					this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
 				}
@@ -94,11 +105,11 @@
 						xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
 					return xml;
 				}
-				else if ((Facilino.profiles['processor']==='ATmega2560'))
+				else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 				{
 					return '<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value>';
 				}
-				else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+				else if ((Facilino.profiles['processor']==='ESP32'))
 				{
 					return '<value name="NAME"><shadow type="text"><field name="TEXT"></field></shadow></value>';
 				}
@@ -106,7 +117,7 @@
 			isNotDuplicable: true
 		};
 
-		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
+		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 		{
 			Blockly.Arduino.dyor_bluetooth_name = function() {
 			var name = Blockly.Arduino.valueToCode(this, 'NAME', Blockly.Arduino.ORDER_NONE);
@@ -122,7 +133,7 @@
 				Blockly.Arduino.setups_['setup_bluetoothserial'] = JST['communications_softwareserial_def_setups']({'device': '_bt_device','baud_rate': baud_rate,'rx': rx, 'tx': tx});
 				Blockly.Arduino.setups_['setup_bluetoothserial_name'] = JST['dyor_bluetooth_name_setups']({'name': name});
 			}
-			else if ((Facilino.profiles['processor']==='ATmega2560'))
+			else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 			{
 
 				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
@@ -153,7 +164,7 @@
 						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
-					else if ((Facilino.profiles['processor']==='ATmega2560'))
+					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
@@ -179,9 +190,13 @@
 						xml+='<value name="NAME"><shadow type="text"><field>My BT device</field name="TEXT"></shadow></value>';
 						return xml;
 					}
-					else if ((Facilino.profiles['processor']==='ATmega2560'))
+					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						return '<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value><value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
+					}
+					else if ((Facilino.profiles['processor']==='ESP32'))
+					{
+						return '<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
 					}
 				},
 				isNotDuplicable: true
@@ -442,7 +457,7 @@
 			}
 		};*/
 
-if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+if ((Facilino.profiles['processor']==='ESP32'))
 {
 
 	Blockly.Arduino.dyor_bluetooth_recv_telegram = function() {

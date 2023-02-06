@@ -10,7 +10,7 @@
 		{
 		if (window.FacilinoAdvanced===true)
 		{
-	if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+	if (Facilino.profiles['processor']==='ESP32')
 		{
 			Blockly.Arduino.ble_device_server = function() {
 				var code = '';
