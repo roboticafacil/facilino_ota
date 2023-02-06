@@ -9,7 +9,7 @@
 		
 		if (window.FacilinoAdvanced===true)
 		{
-		if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+		if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 		{
 			Blockly.Arduino.eeprom_length= '1';
 			
@@ -45,7 +45,7 @@
 		}
 		
 		
-		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 		{
 			Blockly.Arduino.eeprom_clear = function(block) {
 			  var code='';
@@ -81,7 +81,7 @@
 		
 		
 		
-		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 		{
 			Blockly.Arduino.eeprom_read_byte = function(block) {
 			  //var field_address = block.getFieldValue('ADDRESS');
@@ -182,7 +182,7 @@
 			  var data = Blockly.Arduino.valueToCode(this, 'DATA', Blockly.Arduino.ORDER_ATOMIC);
 			  var code='';
 			  Blockly.Arduino.definitions_['define_eeprom_h']='#include <EEPROM.h>';
-			  if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+			  if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 				  Blockly.Arduino.definitions_['define_EEPROM_write_bytes']='void EEPROM_write_bytes(byte address, byte* val, int length)\n{\n  for (int i=0;i<length;i++)\n	EEPROM.write(address+i,val[i]);\n  EEPROM.commit();\n}\n';
 			  else
 			  {

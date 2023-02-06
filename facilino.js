@@ -237,6 +237,11 @@
 					profiles['default'] = profiles.wemosD1R32_shield;
 					profiles['processor'] = 'ESP32';
 				}
+				else if (Facilino.locales.processor==='RP2040')
+				{
+					profiles['default'] = profiles.RP2040;
+					profiles['processor'] = 'RP2040';
+				}
 				else
 				{
 					profiles['default'] = profiles.arduinoNano;

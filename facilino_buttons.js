@@ -152,11 +152,6 @@
 			{
 				code+='if (digitalRead('+pin+')==LOW) {\n	if (_buttonActive_'+pin+'==false) {\n	  _buttonActive_'+pin+'=true;\n	  _buttonTimer_'+pin+'=millis();\n	}\n	if (((millis()-_buttonTimer_'+pin+'>'+this.getFieldValue('TIME')+'))&&(_longPressActive_'+pin+'==false)){\n	  _longPressActive_'+pin+'=true;\n'+code_long_pressed+'\n}\n  }\n else {\n	if (_buttonActive_'+pin+'== true){\n	  if (_longPressActive_'+pin+'==true){\n		_longPressActive_'+pin+'=false;\n	  }\n else  if ((millis()-_buttonTimer_'+pin+')>100){\n'+code_short_pressed+'\n}\n	  _buttonActive_'+pin+'=false;\n	}\n  }\n';
 			}
-
-
-
-
-
 			return code;
 		};
 		Blockly.Blocks.button_long_short = {

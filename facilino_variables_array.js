@@ -272,7 +272,7 @@
 					{
 						if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 							byte_count=count*2;
-						else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+						else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 							byte_count=count*4;
 					}
 					else if (varType==='short')
@@ -299,7 +299,7 @@
 						if (varType==='int')
 							if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 								byte_count=count*2;
-							else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+							else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 								byte_count=count*4;
 						else if (varType==='short')
 							byte_count=count*2;
@@ -438,7 +438,7 @@
 				{
 					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 							byte_count=array.itemCount_*2;
-					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 						byte_count=array.itemCount_*4;
 				}
 				else if (varType==='short')
@@ -526,7 +526,7 @@
 				{
 					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 						byte_count=array.itemCount_*2;
-					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+					else if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 						byte_count=array.itemCount_*4;
 				}
 				else if (varType==='short')

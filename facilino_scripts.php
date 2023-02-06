@@ -30,7 +30,7 @@
 	echo '<script src="facilino_curves.js"></script>';
 	echo '<script src="facilino_variables.js"></script>';
 	echo '<script src="facilino_variables_array.js"></script>';
-	echo '<script src="facilino_variables_object.js"></script>';
+	//echo '<script src="facilino_variables_object.js"></script>';
 	echo '<script src="facilino_eeprom.js"></script>';
 	echo '<script src="facilino_text.js"></script>';
 	echo '<script src="facilino_inout.js"></script>';
@@ -50,14 +50,15 @@
 	echo '<script src="facilino_ir.js"></script>';
 	echo '<script src="facilino_sonar.js"></script>';
 	echo '<script src="facilino_infrared.js"></script>';
+	echo '<script src="facilino_color.js"></script>';	
+	echo '<script src="facilino_ldr.js"></script>';
+	echo '<script src="facilino_lightdimmer.js"></script>';
 	echo '<script src="facilino_buzzer.js"></script>';
-	echo '<script src="facilino_voice.js"></script>';
+	//echo '<script src="facilino_voice.js"></script>';
 	echo '<script src="facilino_mic.js"></script>';
 	echo '<script src="facilino_melody.js"></script>';
 	echo '<script src="facilino_mp3.js"></script>';
-	echo '<script src="facilino_color.js"></script>';
-	echo '<script src="facilino_ldr.js"></script>';
-	echo '<script src="facilino_lightdimmer.js"></script>';
+	
 	echo '<script src="facilino_motor.js"></script>';
 	echo '<script src="facilino_robot_base.js"></script>';
 	echo '<script src="facilino_robot_acc.js"></script>';

@@ -6,7 +6,6 @@
 	}
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
-
 		if (window.FacilinoAdvanced===true)
 		{
 			var pwm_subcategory='PWM';
@@ -323,41 +322,6 @@
 		
 		if (window.FacilinoAdvanced===true)
 		{
-		
-		if (Facilino.profiles['processor']==='ESP32')
-		{
-			/*Blockly.Arduino.inout_analog_adc2_mode = function() {
-				var dropdown_mode = this.getFieldValue('MODE');
-				var code = '';
-				Blockly.Arduino.definitions_['define_sens_reg'] ='#include "soc/sens_reg.h"';
-				Blockly.Arduino.definitions_['declare_var_adc_register'] = 'uint32_t adc_register;\n';
-				Blockly.Arduino.definitions_['declare_var_wifi_register'] = 'uint32_t wifi_register;\n';
-				Blockly.Arduino.setups_['inout_analog_workaround_adc'] = 'adc_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
-				return code;
-			};
-
-			Blockly.Blocks.inout_analog_adc2_mode = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_ADVANCED'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG'),
-				helpUrl: Facilino.getHelpUrl('inout_digital_mode'),
-				examples: ['inout_digital_mode_example.bly'],
-				category_colour: Facilino.LANG_COLOUR_ADVANCED,
-				colour: Facilino.LANG_COLOUR_ADVANCED_ANALOG,
-				keys: ['LANG_ADVANCED_INOUT_ANALOG_MODE_NAME','LANG_ADVANCED_INOUT_ANALOG_MODE','LANG_ADVANCED_INOUT_ANALOG_MODE_MODE','LANG_ADVANCED_INOUT_ANALOG_MODE_ANALOG','LANG_ADVANCED_INOUT_ANALOG_MODE_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_MODE_NAME'),
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-					
-						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_MODE')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_MODE_ANALOG_WIFI')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_MODE_MODE'));
-					this.setPreviousStatement(true,'code');
-					this.setInputsInline(true);
-					this.setNextStatement(true,'code');
-					this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_MODE_TOOLTIP'));
-					this.setWarningText('This mode requires ESP32 1.0.4 firmware version');
-				}
-			};*/
-		}
-		
 			
 		Blockly.Arduino.inout_digital_mode = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);

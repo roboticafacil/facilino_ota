@@ -1596,49 +1596,49 @@
 		};
 			
 			if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='ESP8266'))
-		{
-			if ((window.FacilinoOTA===false)||(window.FacilinoOTA==null))
 			{
-			Blockly.Arduino.ESP_deep_sleep = function() {
-				var sleep_time = Blockly.Arduino.valueToCode(this, 'SLEEP_TIME', Blockly.Arduino.ORDER_ATOMIC);
-				var code = '';
-				if (Facilino.profiles['processor']==='ESP32')
-					code += 'delay(500);\nesp_sleep_enable_timer_wakeup(1000000*'+sleep_time+');\nesp_deep_sleep_start();\n';
-				else if (Facilino.profiles['processor']==='ESP8266')
-					code += 'ESP.deepSleep(1000000*'+sleep_time+');\n';
-				return code;
-			};
-
-			Blockly.Blocks.ESP_deep_sleep = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_CONTROL'),
-				helpUrl: Facilino.getHelpUrl('ESP_deep_sleep'),
-				examples: ['deep_sleep_example'],
-				category_colour: Facilino.LANG_COLOUR_CONTROL,
-				colour: Facilino.LANG_COLOUR_CONTROL,
-				keys: ['LANG_CONTROL_ESP_DEEP_SLEEP_NAME','LANG_CONTROL_ESP_DEEP_SLEEP_DESCRIPTION','LANG_CONTROL_ESP_DEEP_SLEEP','LANG_CONTROL_ESP_DEEP_SLEEP_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_NAME'),
-				description: Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_DESCRIPTION'),
-				inputs: [Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_INPUT_TIME')],
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_CONTROL);
-					this.appendValueInput('SLEEP_TIME',Number)
-						.appendField(Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP'))
-						.setCheck(Number);
-					this.setInputsInline(true);
-					this.setPreviousStatement(true,'code');
-					this.setNextStatement(false);
-					this.setTooltip(Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_TOOLTIP'));
-				},
-				default_inputs: function()
+				if ((window.FacilinoOTA===false)||(window.FacilinoOTA==null))
 				{
-					var xml='';
-					xml+='<value name="SLEEP_TIME"><shadow type="math_number"><field name="NUM">60</field></shadow></value>';
-					return xml;
+					Blockly.Arduino.ESP_deep_sleep = function() {
+						var sleep_time = Blockly.Arduino.valueToCode(this, 'SLEEP_TIME', Blockly.Arduino.ORDER_ATOMIC);
+						var code = '';
+						if (Facilino.profiles['processor']==='ESP32')
+							code += 'delay(500);\nesp_sleep_enable_timer_wakeup(1000000*'+sleep_time+');\nesp_deep_sleep_start();\n';
+						else if (Facilino.profiles['processor']==='ESP8266')
+							code += 'ESP.deepSleep(1000000*'+sleep_time+');\n';
+						return code;
+					};
+
+					Blockly.Blocks.ESP_deep_sleep = {
+						category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),
+						subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_CONTROL'),
+						helpUrl: Facilino.getHelpUrl('ESP_deep_sleep'),
+						examples: ['deep_sleep_example'],
+						category_colour: Facilino.LANG_COLOUR_CONTROL,
+						colour: Facilino.LANG_COLOUR_CONTROL,
+						keys: ['LANG_CONTROL_ESP_DEEP_SLEEP_NAME','LANG_CONTROL_ESP_DEEP_SLEEP_DESCRIPTION','LANG_CONTROL_ESP_DEEP_SLEEP','LANG_CONTROL_ESP_DEEP_SLEEP_TOOLTIP'],
+						name: Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_NAME'),
+						description: Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_DESCRIPTION'),
+						inputs: [Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_INPUT_TIME')],
+						init: function() {
+							this.setColour(Facilino.LANG_COLOUR_CONTROL);
+							this.appendValueInput('SLEEP_TIME',Number)
+								.appendField(Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP'))
+								.setCheck(Number);
+							this.setInputsInline(true);
+							this.setPreviousStatement(true,'code');
+							this.setNextStatement(false);
+							this.setTooltip(Facilino.locales.getKey('LANG_CONTROL_ESP_DEEP_SLEEP_TOOLTIP'));
+						},
+						default_inputs: function()
+						{
+							var xml='';
+							xml+='<value name="SLEEP_TIME"><shadow type="math_number"><field name="NUM">60</field></shadow></value>';
+							return xml;
+						}
+					};
 				}
-			};
 			}
-		}
 		}
 	}
 	

@@ -1136,7 +1136,7 @@ this["JST"]["dyor_us_definitions_us_init"] = function(obj) {
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
+		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 			__p += 'long US_init(int trigger_pin, int echo_pin)\n{\n  digitalWrite(trigger_pin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigger_pin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigger_pin, LOW);\n  long microseconds = _pulseIn(echo_pin ,HIGH,100000);\n  return microseconds;\n}\n';
 		else if ((Facilino.profiles['processor']==='ESP32') || (Facilino.profiles['processor']==='ESP8266'))
 			__p += 'long US_init(int trigger_pin, int echo_pin)\n{\n  digitalWrite(trigger_pin, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trigger_pin, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trigger_pin, LOW);\n  long microseconds = pulseIn(echo_pin ,HIGH);\n  return microseconds;\n}\n';

@@ -7,7 +7,7 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-	if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32'))
+	if ((Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 			{
 				if (window.FacilinoAdvanced===true)
 				{
@@ -21,7 +21,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -63,7 +63,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -103,7 +103,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -152,7 +152,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -433,7 +433,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -741,7 +741,7 @@
 				{
 					Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 				}
-				else if (Facilino.profiles['processor']==='ESP32')
+				else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 				{
 					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 				}
@@ -1003,9 +1003,6 @@
 				}
 			};*/
 			
-			
-			
-			
 			Blockly.Arduino.communications_wifi_iot_amazon_echo_digital = function()
 				{
 					var code='';
@@ -1204,7 +1201,7 @@
 					{
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
 					}
-					else if (Facilino.profiles['processor']==='ESP32')
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 					{
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					}
@@ -1353,7 +1350,7 @@
 				gscripts=gscripts.substr(1,gscripts.length-2);
 				if (Facilino.profiles['processor']==='ESP8266')
 						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
-					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='ESP8266'))
+					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 				Blockly.Arduino.definitions_['define_httpsredirect'] = '#include <HTTPSRedirect.h>\n';
 				Blockly.Arduino.definitions_['declare_var_wifi_httpsredirect'] = 'HTTPSRedirect _clientHTTPS;\n';
