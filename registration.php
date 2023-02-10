@@ -84,7 +84,7 @@ else if (isset($_REQUEST['username'])){
 			$key = $key . $addKey;
 			//$mail=create_email_activation($email,$key);
 			//var_dump($mail);
-			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."')";
+			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',4)";
 			$result = mysqli_query($con,$query);
 			if($result){
 				$mail=create_email_activation($email,$key);

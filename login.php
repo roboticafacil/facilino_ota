@@ -83,12 +83,13 @@ elseif (isset($_POST['username'])){
 	$username = mysqli_real_escape_string($con,$username);
 	$password = stripslashes($_REQUEST['password']);
 	$password = mysqli_real_escape_string($con,$password);
+	$password = md5($password);
 	//Checking is user existing in the database or not
 	//$query = "SELECT * FROM `users` WHERE (username='$username' or email='$username') and password='".md5($password)."'";
 	//$result = mysqli_query($con,$query) or die(mysql_error());
 	$query = "SELECT * FROM `users` WHERE (username=? or email=?) and password=?";
 	$statement=mysqli_prepare($con,$query);
-	$statement->bind_param("sss",$username,$username,md5($password));
+	$statement->bind_param("sss",$username,$username,$password);
 	$statement->execute() or die(mysql_error());
 	$result=$statement->get_result();
 	$rows = mysqli_num_rows($result);

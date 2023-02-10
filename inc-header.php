@@ -142,16 +142,26 @@ if(isset($_SESSION["username"]))
 			echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
 			if (isset($_GET["action"])&&($_GET["action"]=="view"))
 			{
-				echo '<script>function Exit(){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("dashboard.php"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};</script>';
+				echo '<script>';
+				echo 'function Exit(){}; function compile(){}; function upload(){}; function compile_upload(){};';
+				//echo 'function saveAll("dashboard.php"){};';
+				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};';
+				echo '</script>';
 				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["TUTORIAL"].'" onclick="ExitTutorial();"><span class="mbri-star mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';				
 			}
 			else
 			{
-				echo '<script>function saveBeforeExit(){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("dashboard.php"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};</script>';
+				echo '<script>';
+				echo 'function saveBeforeExit(){}; ';
+				echo 'function compile(){}; function upload(){}; function compile_upload(){}; ';
+				//echo 'function saveAll("dashboard.php"){};';
+				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};';
+				echo '</script>';
 				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit();"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["TUTORIAL"].'" onclick="saveBeforeExitTutorial();"><span class="mbri-star mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			}
+			
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Save" onclick="saveAll();"><span class="mbri-save mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Verify" onclick="compile();"><span class="mbri-success mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Upload" onclick="upload();"><span class="mbri-right mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
@@ -270,7 +280,7 @@ else
 			echo '<script>function Exit(){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("dashboard.php"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};</script>';
 			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-home mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		}
-		//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Save" onclick="saveAll();"><span class="mbri-save mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+		//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Save" onclick="saveAll(\'dashboard.php\');"><span class="mbri-save mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Verify" onclick="compile();"><span class="mbri-success mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Upload" onclick="upload();"><span class="mbri-right mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["COMPILE_UPLOAD"].'" onclick="compile_upload();"><span class="mbri-play mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';

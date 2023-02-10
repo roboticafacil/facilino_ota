@@ -14,8 +14,8 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		<div class="card-wrapper ">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('installation.html');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-				<a  onclick="onHomeFile('installation.html');"><img src="assets/images/mbr-676x450.jpg" alt="Installation" title=""></a>
+				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('installation.php');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+				<a  onclick="onHomeFile('installation.php');"><img src="assets/images/mbr-676x450.jpg" alt="Installation" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7">
@@ -44,8 +44,8 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		<div class="card-wrapper ">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a onclick="onHomeFile('IoT_overview.html');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-				<a onclick="onHomeFile('IoT_overview.html');"><img src="assets/images/mbr-676x406.jpg" alt="Overview" title=""></a>
+				<div class="mbr-section-btn text-center"><a class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
+				<a><img src="assets/images/mbr-676x406.jpg" alt="Overview" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7"><?php echo $website["OUR_PROJECTS"]; ?></h4>

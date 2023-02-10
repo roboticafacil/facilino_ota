@@ -187,7 +187,7 @@
 							xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
 						else
 							xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
-						xml+='<value name="NAME"><shadow type="text"><field>My BT device</field name="TEXT"></shadow></value>';
+						xml+='<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
 						return xml;
 					}
 					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))

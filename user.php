@@ -253,6 +253,7 @@ include("auth.php");
 			$statement_user->execute();
 			$result_user=$statement_user->get_result();
 			$rows_user = mysqli_num_rows($result_user);
+			var_dump($_SESSION["username"]);
 			if ($rows_user==1)
 			{
 				$row_user = mysqli_fetch_row($result_user);
