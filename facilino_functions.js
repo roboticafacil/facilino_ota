@@ -72,6 +72,7 @@
 	for (var i in this.arguments_) {
 		try{
 		params.push(this.type_arguments_[i] + ' ' + this.arguments_[i]);
+		Facilino.variables[this.arguments_[i]] = [this.type_arguments_[i], 'local','variable'];
 		}
 		catch(e)
 		{
@@ -172,6 +173,10 @@
   },
   compose: function(containerBlock) {
 	// Parameter list.
+	for (var i = 0; i < this.arguments_.length; i++)
+	{
+		delete(Facilino.variables[this.arguments_[i]]);
+	}
 	this.arguments_ = [];
 	this.type_arguments_ = [];
 	this.paramIds_ = [];
@@ -225,7 +230,14 @@
 	  }
 	}
 	if (change) {
+		console.log('before delete');
+		console.log(Facilino.variables);
+		delete(Facilino.variables[oldName]);
+		console.log('after delete');
+		console.log(Facilino.variables);
 	  this.updateParams_();
+	  console.log('after update');
+	  console.log(Facilino.variables);
 	  // Update the mutator's variables if the mutator is open.
 	  if (this.mutator.isVisible()) {
 		var blocks = this.mutator.workspace_.getAllBlocks();
@@ -904,7 +916,7 @@
 			var args = [];
 			var a;
 			var code = '';
-			console.log(this.getVariables(funcName));
+			//console.log(this.getVariables(funcName));
 			if (this.getVariables(funcName)!==undefined)
 			{
 				for (var x = 0; x < this.getVariables(funcName).length; x++) {

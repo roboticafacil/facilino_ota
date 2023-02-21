@@ -62,11 +62,14 @@ function sanitizeInput($inputP)
                                 
     return $returnData;
 }
-if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="duplicate")&&!isset($_POST["action"])){
+if (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="duplicate")||($_GET["action"]=="duplicate_example"))&&!isset($_POST["action"])){
 	//Duplicate project
 	//$query = "SELECT * from `projects` as proj where proj.`id`= ".$_GET["id"];
 	//$result = mysqli_query($con,$query);
-	$query = "SELECT * from `projects` as proj where proj.`id`=?";
+	if ($_GET["action"]=="duplicate")
+		$query = "SELECT * from `projects` as proj where proj.`id`=?";
+	else
+		$query = "SELECT * from `examples` as proj where proj.`id`=?";
 	$statement=mysqli_prepare($con,$query);
 	$statement->bind_param("i",$_GET["id"]);
 	$statement->execute();
@@ -98,7 +101,10 @@ if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="duplicate")&&
 			$key = $key . $addKey;
 			//$query ="SELECT * from `facilino_code` where `facilino_code`.id=".$row_project[5];
 			//$result = 	mysqli_query($con,$query);
-			$query ="SELECT * from `facilino_code` where `facilino_code`.id=?";
+			if ($_GET["action"]=="duplicate")
+				$query ="SELECT * from `facilino_code` where `facilino_code`.id=?";
+			else
+				$query ="SELECT * from `facilino_code_examples` where `facilino_code_examples`.id=?";
 			$statement=mysqli_prepare($con,$query);
 			$statement->bind_param("i",$row_project[5]);
 			$statement->execute();
@@ -110,14 +116,20 @@ if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="duplicate")&&
 				$row_code = mysqli_fetch_row($result);
 				//$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (\"".$row_code[1]."\",\"".$row_code[2]."\")";
 				//$result = mysqli_query($con,$query);  //insert
-				$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (?,?)";
+				if ($_GET["action"]=="duplicate")
+					$query="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (?,?)";
+				else
+					$query="INSERT INTO `facilino_code_examples`(`blockly_code`,`arduino_code`) VALUES (?,?)";
 				$statement=mysqli_prepare($con,$query);
 				$statement->bind_param("ss",$row_code[1],$row_code[2]);
 				$statement->execute();
 				$facilino_code_id=$con->insert_id;
 				//$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$row_project[1]."\",".$row_project[2].",".$row_project[3].",".$row_project[4].",".$facilino_code_id.",".$row_project[6].",".$row_project[7].",\"".$row_project[8]."\",\"".$row_project[9]."\",\"".$key."\",\"".$row_project[11]."\",\"".$row_project[12]."\")";
 				//$result = mysqli_query($con,$query);  //insert*/
-				$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				if ($_GET["action"]=="duplicate")
+					$query="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				else
+					$query="INSERT INTO `examples`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 				$statement=mysqli_prepare($con,$query);
 				$statement->bind_param("siiiiiisssss",$row_project[1],$row_project[2],$row_project[3],$row_project[4],$facilino_code_id,$row_project[6],$row_project[7],$row_project[8],$row_project[9],$key,$row_project[11],$row_project[12]);
 				$statement->execute();
@@ -126,11 +138,14 @@ if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="duplicate")&&
 	}
 	header("Location: dashboard.php");
 }
-elseif (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="delete")&&!isset($_POST["action"])){
+elseif (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="delete")||($_GET["action"]=="delete_example"))&&!isset($_POST["action"])){
 	//Delete project
 	//$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=".$_GET["id"];
 	//$result = mysqli_query($con,$query);
-	$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=?";
+	if ($_GET["action"]=="delete")
+		$query = "SELECT facilino_code_id FROM `projects` WHERE `projects`.`id`=?";
+	else
+		$query = "SELECT facilino_code_id FROM `examples` WHERE `examples`.`id`=?";
 	$statement=mysqli_prepare($con,$query);
 	$statement->bind_param("i",$_GET["id"]);
 	$statement->execute();
@@ -141,24 +156,30 @@ elseif (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="delete")&
 		$row = mysqli_fetch_row($result);
 		//$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
 		//$result = mysqli_query($con,$query);
-		$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
+		if ($_GET["action"]=="delete")
+			$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
+		else
+			$query = "DELETE FROM `facilino_code_examples` WHERE id=".$row[0];
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$row[0]);
 		$statement->execute();
 		//$query = "DELETE FROM `projects` WHERE `projects`.`id`= ".$_GET["id"];
 		//$result = mysqli_query($con,$query);
-		$query = "DELETE FROM `projects` WHERE `projects`.`id`=?";
+		if ($_GET["action"]=="delete")
+			$query = "DELETE FROM `projects` WHERE `projects`.`id`=?";
+		else
+			$query = "DELETE FROM `examples` WHERE `examples`.`id`=?";
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$_GET["id"]);
 		$statement->execute();	
 	}
 	header("Location: dashboard.php");
 }
-elseif  (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
+elseif  (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="new_example"))&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
 	//Exit from create new project
 	header("Location: dashboard.php");
 }
-elseif  (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"])&&isset($_POST["create_button"])){
+elseif  (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="new_example"))&&!isset($_POST["action"])&&isset($_POST["create_button"])){
 	//Create new project
 	$query_user ="SELECT email from `users` WHERE id=".$_POST["user_id"]." and active=1";
 	$result_user = mysqli_query($con,$query_user);
@@ -179,25 +200,37 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action
 		else
 			$default_facilino_code="<block type='controls_setupLoop' id='=:lA^uU=`^l!D9y!TLNi' deletable='false' x='10' y='10'></block>";
 		
-		$query_code="INSERT INTO `facilino_code` (`blockly_code`,`arduino_code`) VALUE (\"".$default_facilino_code."\",\"".$default_arduino_code."\")";
+		if ($_GET["action"]=="new")
+			$query_code="INSERT INTO `facilino_code` (`blockly_code`,`arduino_code`) VALUE (\"".$default_facilino_code."\",\"".$default_arduino_code."\")";
+		else
+			$query_code="INSERT INTO `facilino_code_examples` (`blockly_code`,`arduino_code`) VALUE (\"".$default_facilino_code."\",\"".$default_arduino_code."\")";
+		echo $query_code;
+		
 		$result_code = mysqli_query($con,$query_code);
 		
 		if ($_POST["inp_facil_id"]==3)
 		{
 			//Arduino OTA
-			$query_project="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\",\"".$_POST["inp_facil_server"]."\",\"".$_POST["inp_facil_device"]."\")";
+			if ($_GET["action"]=="new")
+				$query_project="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\",\"".$_POST["inp_facil_server"]."\",\"".$_POST["inp_facil_device"]."\")";
+			else
+				$query_project="INSERT INTO `examples`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`,`server_ip`,`device_ip`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\",\"".$_POST["inp_facil_server"]."\",\"".$_POST["inp_facil_device"]."\")";
 		}
 		else
 		{
-			$query_project="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\")";
+			if ($_GET["action"]=="new")
+				$query_project="INSERT INTO `projects`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\")";
+			else
+				$query_project="INSERT INTO `examples`(`name`,`user_id`,`processor_id`,`filter_id`,`facilino_code_id`,`version_id`,`language_id`,`create_date`,`modified_date`,`share_key`) VALUES (\"".$_POST["edited_project_name"]."\",".$_POST["user_id"].",".$_POST["inp_processor_id"].",".$_POST["inp_filter_id"].",".$con->insert_id.",".$_POST["inp_facil_id"].",".$_POST["edited_language_id"].",\"".date("Y-m-d H:i:s")."\",\"".date("Y-m-d H:i:s")."\",\"".$key."\")";
 		}
+		//echo $query_project;
 		$result_project = mysqli_query($con,$query_project);
 		header("Location: facilino.php?id=".$con->insert_id);
 	}
 	else
 		header("Location: dashboard.php");
 }
-elseif (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"])){
+elseif (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="new_example"))&&!isset($_POST["action"])){
 	//Form with a new project to be created
 	$query_user ="SELECT default_lang_id from `users` WHERE username=\"".$_SESSION["username"]."\"";
 	$result_user = mysqli_query($con,$query_user);
@@ -212,8 +245,27 @@ elseif (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"
 		<body>
 			<div id="header"><?php include "inc-header.php" ?></div>
 			<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
-	<h3><?php echo $website["PROJECT"]?></h3>
-	<form action="dashboard.php?action=new" method="POST" style="margin-bottom:0.5em">
+	<h3>
+	<?php
+		if ($_GET["action"]=="new")
+			echo $website["PROJECT"];
+		else
+			echo $website["EXAMPLE"];
+	?></h3>
+	<?php
+		if ($_GET["action"]=="new")
+		{
+			?>
+				<form action="dashboard.php?action=new" method="POST" style="margin-bottom:0.5em">
+			<?php
+		}
+		else
+		{
+			?>
+				<form action="dashboard.php?action=new_example" method="POST" style="margin-bottom:0.5em">
+			<?php
+		}
+	?>
 	<h4><?php echo $website["SETTINGS"]?></h4>
 	<div class="datagrid">
 	<table width="100%">
@@ -384,18 +436,39 @@ elseif (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"
 		</div>
 		</section>
 		</div>
-		<script>
-		function selectProcessor(el,id){
-		document.getElementById('lbl_processor_id').innerHTML=el;
-		document.getElementById('inp_processor_id').value=id;
-		document.getElementById('boards').style.display="none";
-		document.cookie = "cookieProcessorName="+el;
-		document.cookie = "cookieProcessorId="+id;
-		document.cookie = "cookieProjectName="+document.getElementById('edited_project_name').value;
-		window.location.href="dashboard.php?action=new";
-		}
-		</script>
 		<?php
+		if ($_GET["action"]=="new")
+		{
+			?>
+			<script>
+			function selectProcessor(el,id){
+			document.getElementById('lbl_processor_id').innerHTML=el;
+			document.getElementById('inp_processor_id').value=id;
+			document.getElementById('boards').style.display="none";
+			document.cookie = "cookieProcessorName="+el;
+			document.cookie = "cookieProcessorId="+id;
+			document.cookie = "cookieProjectName="+document.getElementById('edited_project_name').value;
+			window.location.href="dashboard.php?action=new";
+			}
+			</script>
+			<?php
+		}
+		else
+		{
+			?>
+			<script>
+			function selectProcessor(el,id){
+			document.getElementById('lbl_processor_id').innerHTML=el;
+			document.getElementById('inp_processor_id').value=id;
+			document.getElementById('boards').style.display="none";
+			document.cookie = "cookieProcessorName="+el;
+			document.cookie = "cookieProcessorId="+id;
+			document.cookie = "cookieProjectName="+document.getElementById('edited_project_name').value;
+			window.location.href="dashboard.php?action=new_example";
+			}
+			</script>
+			<?php
+		}
 	}
 	else
 	{
@@ -477,7 +550,6 @@ elseif (isset($_GET["action"])&&($_GET["action"]=="new")&&!isset($_POST["action"
 		<td><label id="lbl_facil_id">Facilino</label></td>
 		<?php
 	}
-	
 	if (isset($_COOKIE['cookieProcessorId']))
 		$query_filt="SELECT * from `filters` inner join `filters_meta` on (`filters_meta`.`processor_id`=".$_COOKIE['cookieProcessorId']." and `filters`.`id`=`filters_meta`.`filter_id`) where 1";
 	else
@@ -671,7 +743,7 @@ elseif (isset($_GET["action"])&&($_GET["action"]=="import")&&!isset($_POST["acti
 </html>
 	<?php
 }
-elseif  (isset($_GET["action"])&&($_GET["action"]=="edit")&&!isset($_POST["action"])){
+elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="edit_example"))&&!isset($_POST["action"])){
 	?>
 <!DOCTYPE html>
 <html><?php include "head.php"; ?>
@@ -680,16 +752,38 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="edit")&&!isset($_POST["actio
 		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
 		<?php
 	//Form with the projected to be modified
-	$query = "SELECT * from `projects` as proj where proj.`id`= ".$_GET["id"];
+	if ($_GET["action"]=="edit")
+		$query = "SELECT * from `projects` as proj where proj.`id`= ".$_GET["id"];
+	else
+		$query = "SELECT * from `examples` as proj where proj.`id`= ".$_GET["id"];
 	$result = mysqli_query($con,$query);
 	$rows = mysqli_num_rows($result);
 	if ($rows==1)
 	{
 		$row = mysqli_fetch_row($result);
 		?>
-		<h3><?php echo $website["PROJECT"]?></h3>
+		<h3>
+		<?php 
+			if ($_GET["action"]=="edit")
+				echo $website["PROJECT"];
+			else
+				echo $website["EXAMPLE"];
+		?></h3>
 		<h4><?php echo $website["SETTINGS"]?></h4>
-		<form action="dashboard.php?action=update&id=<?php echo $row[0]?>" method="POST" style="margin-bottom:0.5em">
+		<?php
+			if ($_GET["action"]=="edit")
+			{
+				?>
+				<form action="dashboard.php?action=update&id=<?php echo $row[0]?>" method="POST" style="margin-bottom:0.5em">
+				<?php
+			}
+			else
+			{
+				?>
+				<form action="dashboard.php?action=update_example&id=<?php echo $row[0]?>" method="POST" style="margin-bottom:0.5em">
+				<?php
+			}
+		?>
 		<div class="datagrid">
 		<table width="100%">
 		<tr><th style="width:35%"><?php echo $website["NAME"]?></th><th style="width:15%"><?php echo $website["BOARD"]?></th><th style="width:15%"><?php echo $website["FACILINO_VERSION"]?></th><th style="width:15%"><?php echo $website["BLOCK_INSTRUCTION_SET"]?></th><th style="width:15%"><?php echo $website["LANGUAGE"]?></th></tr>
@@ -809,13 +903,16 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="edit")&&!isset($_POST["actio
 </html>
 	<?php
 }
-elseif  (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
+elseif  (isset($_GET["action"])&&(($_GET["action"]=="update")||($_GET["action"]=="update_example"))&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
 	//Cancel project modifications
 	header("Location: dashboard.php");
 }
-elseif  (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
+elseif  (isset($_GET["action"])&&(($_GET["action"]=="update")||($_GET["action"]=="update_example"))&&!isset($_POST["action"])&&isset($_POST["update_button"])){
 	//Update project modifications
-	$query="UPDATE `projects` SET `name`=\"".$_POST["edited_project_name"]."\",`processor_id`=".$_POST["edited_processor_id"].",`filter_id`=".$_POST["edited_filter_id"].",`version_id`=".$_POST["edited_facilino_version_id"].",`language_id`=".$_POST["edited_language_id"].",`server_ip`=\"".$_POST["edited_facil_server"]."\",`device_ip`=\"".$_POST["edited_facil_device"]."\" WHERE `projects`.id=".$_POST["project_id"];
+	if ($_GET["action"]=="update")
+		$query="UPDATE `projects` SET `name`=\"".$_POST["edited_project_name"]."\",`processor_id`=".$_POST["edited_processor_id"].",`filter_id`=".$_POST["edited_filter_id"].",`version_id`=".$_POST["edited_facilino_version_id"].",`language_id`=".$_POST["edited_language_id"].",`server_ip`=\"".$_POST["edited_facil_server"]."\",`device_ip`=\"".$_POST["edited_facil_device"]."\" WHERE `projects`.id=".$_POST["project_id"];
+	else
+		$query="UPDATE `examples` SET `name`=\"".$_POST["edited_project_name"]."\",`processor_id`=".$_POST["edited_processor_id"].",`filter_id`=".$_POST["edited_filter_id"].",`version_id`=".$_POST["edited_facilino_version_id"].",`language_id`=".$_POST["edited_language_id"].",`server_ip`=\"".$_POST["edited_facil_server"]."\",`device_ip`=\"".$_POST["edited_facil_device"]."\" WHERE `examples`.id=".$_POST["project_id"];
 	$result = mysqli_query($con,$query);
 	header("Location: dashboard.php");
 }
@@ -828,7 +925,7 @@ else
 		<div id="header"><?php include "inc-header.php" ?></div>
 		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
 		<?php
-	//List all user projects
+	
 	//Delete cookies
 	/*if (isset($_COOKIE['cookieProjectName'])) {
 		unset($_COOKIE['cookieProjectName']);
@@ -858,67 +955,152 @@ else
 	//document.cookie = "cookieProcessorId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 	document.cookie = "cookieProjectName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 </script>
-<h3><?php echo $website["PROJECTS"]?></h3>
-<h4>&nbsp;<a href="dashboard.php?action=new" title="<?php echo $website["NEW_PROJECT"]?>" style="text-decoration: none;"><?php echo $website["NEW_PROJECT"]?>&nbsp;<span class="mbri-plus mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;&nbsp;<a href="dashboard.php?action=import" title="<?php echo $website["IMPORT"]?>" style="text-decoration: none;"><?php echo $website["IMPORT"]?>&nbsp;<span class="mbri-upload mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a></h4>
-<div class="datagrid">
-<table width="100%">
-<col style="width:20%">
-<col style="width:12%">
-<col style="width:12%">
-<col style="width:12%">
-<col style="width:12%">
-<col style="width:15%">
-<col style="width:20%">
-<tr><th><?php echo $website["NAME"]?></th><th><?php echo $website["BOARD"]?></th><th><?php echo $website["FACILINO_VERSION"]?></th><th><?php echo $website["BLOCKS"]?></th><th><?php echo $website["LANGUAGE"]?></th><th><?php echo $website["MODIFIED_DATE"]?></th><th><?php echo $website["ACTIONS"]?></th></tr>
 <?php
-$query = "SELECT * from `users` WHERE username=\"".$_SESSION["username"]."\" and active=1";
+$query = "SELECT `id`,`user_role_id` from `users` WHERE username=\"".$_SESSION["username"]."\" and active=1";
 $result = mysqli_query($con,$query);
 $rows = mysqli_num_rows($result);
 if ($rows==1)
 {
-$row = mysqli_fetch_row($result);
-$query = "SELECT proj.id,proj.name,proc.name,facil.name,filt.name,lang.name,proj.modified_date,proj.share_key from `projects` as proj inner join `processors` as proc on proc.id=proj.processor_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as facil on facil.id=proj.version_id inner join `languages` as lang on lang.id=proj.language_id where proj.`user_id` = ".$row[0]." order by proj.`modified_date` desc";
-$result = mysqli_query($con,$query);
-while ($row = mysqli_fetch_row($result)) {
-	 ?><tr><?php
-	 ?><td><a href="facilino.php?action=open&id=<?php echo $row[0]?>" title="<?php echo $website["OPEN"]?>" style="text-decoration: none;"><?php echo $row[1];?></a></td><?php
-	 for ($j = 2; $j < 7; $j++) {
-		  ?><td><?php echo $row[$j]?></td><?php
-	 }
-	 ?>
-	 <td>
-	 <a href="dashboard.php?action=edit&id=<?php echo $row[0]?>" title="<?php echo $website["EDIT"]?>" style="text-decoration: none;"><span class="mbri-edit mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
-	 <a href="dashboard.php?action=duplicate&id=<?php echo $row[0]?>" title="<?php echo $website["DUPLICATE"]?>" style="text-decoration: none;"><span class="mbri-pages mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
-	 <a title="<?php echo $website["DELETE"]?>" onclick="javascript: return confirm('<?php echo $website["DELETE_QUESTION"]?>');" href="dashboard.php?action=delete&id=<?php echo $row[0]?>" style="text-decoration: none;"><span class="mbri-trash mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
-	 <?php
-	 //
-	 
-	 $dir = $_SERVER['HTTP_HOST'];
-	 if (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']))
-		$share='http://'.$dir.'/facilino_ota/facilino.php';
-	 else
-	 {
-		$url = $_SERVER['REQUEST_URI']; //returns the current URL
-		$parts = explode('/',$url);
-		for ($i = 0; $i < count($parts)- 1; $i++) {
-			$dir .= $parts[$i] . "/";
+	//List all user projects
+	$row_user = mysqli_fetch_assoc($result);
+	$query = "SELECT proj.id,proj.name,proc.name,facil.name,filt.name,lang.name,proj.modified_date,proj.share_key from `projects` as proj inner join `processors` as proc on proc.id=proj.processor_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as facil on facil.id=proj.version_id inner join `languages` as lang on lang.id=proj.language_id where proj.`user_id` = ".$row_user["id"]." order by proj.`modified_date` desc";
+	$result = mysqli_query($con,$query);
+	?>
+	<h3><?php echo $website["PROJECTS"]?></h3>
+	<h4>&nbsp;<a href="dashboard.php?action=new" title="<?php echo $website["NEW_PROJECT"]?>" style="text-decoration: none;"><?php echo $website["NEW_PROJECT"]?>&nbsp;<span class="mbri-plus mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;&nbsp;<a href="dashboard.php?action=import" title="<?php echo $website["IMPORT"]?>" style="text-decoration: none;"><?php echo $website["IMPORT"]?>&nbsp;<span class="mbri-upload mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a></h4>
+	<div class="datagrid">
+	<table width="100%">
+	<col style="width:20%">
+	<col style="width:12%">
+	<col style="width:12%">
+	<col style="width:12%">
+	<col style="width:12%">
+	<col style="width:15%">
+	<col style="width:20%">
+	<tr><th><?php echo $website["NAME"]?></th><th><?php echo $website["BOARD"]?></th><th><?php echo $website["FACILINO_VERSION"]?></th><th><?php echo $website["BLOCKS"]?></th><th><?php echo $website["LANGUAGE"]?></th><th><?php echo $website["MODIFIED_DATE"]?></th><th><?php echo $website["ACTIONS"]?></th></tr>
+	<?php
+	$row_count=0;
+	while ($row = mysqli_fetch_row($result)) {
+		 if ($row_count%2==0)
+		 {
+		 ?><tr><?php
+		 }
+		 else
+		 {
+			 ?><tr style="background-color:#ECF0F1"><?php
+		 }
+		 ?><td><a href="facilino.php?action=open&id=<?php echo $row[0]?>" title="<?php echo $website["OPEN"]?>" style="text-decoration: none;"><?php echo $row[1];?></a></td><?php
+		 for ($j = 2; $j < 7; $j++) {
+			  ?><td><?php echo $row[$j]?></td><?php
+		 }
+		 ?>
+		 <td>
+		 <a href="dashboard.php?action=edit&id=<?php echo $row[0]?>" title="<?php echo $website["EDIT"]?>" style="text-decoration: none;"><span class="mbri-edit mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+		 <a href="dashboard.php?action=duplicate&id=<?php echo $row[0]?>" title="<?php echo $website["DUPLICATE"]?>" style="text-decoration: none;"><span class="mbri-pages mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+		 <a title="<?php echo $website["DELETE"]?>" onclick="javascript: return confirm('<?php echo $website["DELETE_QUESTION"]?>');" href="dashboard.php?action=delete&id=<?php echo $row[0]?>" style="text-decoration: none;"><span class="mbri-trash mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+		 <?php
+		 //
+		 
+		 $dir = $_SERVER['HTTP_HOST'];
+		 if (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']))
+			$share='http://'.$dir.'/facilino_ota/facilino.php';
+		 else
+		 {
+			$url = $_SERVER['REQUEST_URI']; //returns the current URL
+			$parts = explode('/',$url);
+			for ($i = 0; $i < count($parts)- 1; $i++) {
+				$dir .= $parts[$i] . "/";
+			}
+			$share='https://'.$dir.'facilino.php';
+		 }
+		 ?><a onClick="shareLink('<?php echo $share?>?action=view&id=<?php echo $row[0]?>');" title="<?php echo $website["SHARE"]?>" style="text-decoration: none;"><span class="mbri-preview mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+		 <a href="download.php?action=arduino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_ARDUINO_CODE"]?>" style="text-decoration: none;">
+		 <!-- <span class="mbri-download mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>-->
+		 <span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>
+		 </a>&nbsp;
+		 <a href="download.php?action=facilino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_FACILINO_CODE"]?>" style="text-decoration: none;"><span class="mbri-to-local-drive mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+		 </td>
+		 </tr>
+		 <?php
+		 $row_count=$row_count+1;
+	}
+	?>
+	</table>
+	</div>
+	<br/>
+	
+	<?php
+	//List all examples (only Administrators)
+	if ($row_user["user_role_id"]==1)
+	{
+		$query = "SELECT proj.id,proj.name,proc.name,facil.name,filt.name,lang.name,proj.modified_date,proj.share_key from `examples` as proj inner join `processors` as proc on proc.id=proj.processor_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as facil on facil.id=proj.version_id inner join `languages` as lang on lang.id=proj.language_id where proj.`user_id` = ".$row_user["id"]." order by proj.`modified_date` desc";
+		$result = mysqli_query($con,$query);
+		?>
+		<h3><?php echo $website["EXAMPLES"]?></h3>
+		<h4>&nbsp;<a href="dashboard.php?action=new_example" title="<?php echo $website["NEW_EXAMPLE"]?>" style="text-decoration: none;"><?php echo $website["NEW_EXAMPLE"]?>&nbsp;<span class="mbri-plus mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a></h4>
+		<div class="datagrid">
+		<table width="100%">
+		<col style="width:20%">
+		<col style="width:12%">
+		<col style="width:12%">
+		<col style="width:12%">
+		<col style="width:12%">
+		<col style="width:15%">
+		<col style="width:20%">
+		<tr><th><?php echo $website["NAME"]?></th><th><?php echo $website["BOARD"]?></th><th><?php echo $website["FACILINO_VERSION"]?></th><th><?php echo $website["BLOCKS"]?></th><th><?php echo $website["LANGUAGE"]?></th><th><?php echo $website["MODIFIED_DATE"]?></th><th><?php echo $website["ACTIONS"]?></th></tr>
+		<?php
+		$row_count=0;
+		while ($row = mysqli_fetch_row($result)) {
+			 if ($row_count%2==0)
+			 {
+			 ?><tr><?php
+			 }
+			 else
+			 {
+				 ?><tr style="background-color:#ECF0F1"><?php
+			 }
+			 ?><td><a href="facilino.php?action=open_example&id=<?php echo $row[0]?>" title="<?php echo $website["OPEN"]?>" style="text-decoration: none;"><?php echo $row[1];?></a></td><?php
+			 for ($j = 2; $j < 7; $j++) {
+				  ?><td><?php echo $row[$j]?></td><?php
+			 }
+			 ?>
+			 <td>
+			 <a href="dashboard.php?action=edit_example&id=<?php echo $row[0]?>" title="<?php echo $website["EDIT"]?>" style="text-decoration: none;"><span class="mbri-edit mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 <a href="dashboard.php?action=duplicate_example&id=<?php echo $row[0]?>" title="<?php echo $website["DUPLICATE"]?>" style="text-decoration: none;"><span class="mbri-pages mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 <a title="<?php echo $website["DELETE"]?>" onclick="javascript: return confirm('<?php echo $website["DELETE_QUESTION"]?>');" href="dashboard.php?action=delete_example&id=<?php echo $row[0]?>" style="text-decoration: none;"><span class="mbri-trash mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 <?php
+			 //
+			 
+			 $dir = $_SERVER['HTTP_HOST'];
+			 if (in_array($_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1']))
+				$share='http://'.$dir.'/facilino_ota/facilino.php';
+			 else
+			 {
+				$url = $_SERVER['REQUEST_URI']; //returns the current URL
+				$parts = explode('/',$url);
+				for ($i = 0; $i < count($parts)- 1; $i++) {
+					$dir .= $parts[$i] . "/";
+				}
+				$share='https://'.$dir.'facilino.php';
+			 }
+			 ?>
+			 <a href="download.php?action=arduino_example&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_ARDUINO_CODE"]?>" style="text-decoration: none;">
+			 <!-- <span class="mbri-download mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>-->
+			 <span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>
+			 </a>&nbsp;
+			 <a href="download.php?action=facilino_example&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_FACILINO_CODE"]?>" style="text-decoration: none;"><span class="mbri-to-local-drive mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
+			 </td>
+			 </tr>
+			 <?php
+			 $row_count=$row_count+1;
 		}
-		$share='https://'.$dir.'facilino.php';
-	 }
-	 ?><a onClick="shareLink('<?php echo $share?>?action=view&id=<?php echo $row[0]?>');" title="<?php echo $website["SHARE"]?>" style="text-decoration: none;"><span class="mbri-preview mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
-	 <a href="download.php?action=arduino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_ARDUINO_CODE"]?>" style="text-decoration: none;">
-	 <!-- <span class="mbri-download mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>-->
-	 <span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span>
-	 </a>&nbsp;
-	 <a href="download.php?action=facilino&id=<?php echo $row[0]?>" title="<?php echo $website["DOWNLOAD_FACILINO_CODE"]?>" style="text-decoration: none;"><span class="mbri-to-local-drive mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></a>&nbsp;
-	 </td>
-	 </tr>
-	 <?php
-}
+		?>
+		</table>
+		</div>
+		<?php
+	}
 }
 ?>
-</table>
-</div>
 <div id="modal1" class="modal">
 <div class="modal-content" style="width: 50%">
 <span class="close">&times;</span>

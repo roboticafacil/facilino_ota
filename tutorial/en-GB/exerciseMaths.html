@@ -1,6 +1,26 @@
 <script>
-  var currentBasicSolutions=0;
-	var currentIntermediateSolutions=0;
+window.FacilinoAdvanced=true;
+</script>
+
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_serial.js"></script>
+<script src="facilino_inout.js"></script>
+<script src="facilino_logic.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_variables.js"></script>
+
+<script>
+Facilino.load({ zoom: 1});
+FacilinoSerial.load({ zoom: 1});
+FacilinoControls.load({ zoom: 1});
+FacilinoMaths.load({ zoom: 1});
+FacilinoText.load({ zoom: 1});
+FacilinoLogic.load({ zoom: 1});
+FacilinoInOut.load({ zoom: 1});
+FacilinoVariables.load({ zoom: 1});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -127,7 +147,14 @@
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                  <li><strong>Multiply two numbers</strong><p>Create a simple program that takes two numbers (introduced by the user using the serial montior) and multiplies them (floating point operation). Resulting operation must be shown in the serial monitor.</p><strong>Hint: </strong><p><i>Use the parse decimal instructions to get the numbers within the arithmetic instruction to perform the multiplication.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','multiply.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+                  <li><strong>Multiply two numbers</strong><p>Create a simple program that takes two numbers (introduced by the user using the serial montior) and multiplies them (floating point operation). Resulting operation must be shown in the serial monitor.</p><strong>Hint: </strong><p><i>Use the parse decimal instructions to get the numbers within the arithmetic instruction to perform the multiplication.</i></p>
+				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/ezRMhBwAYu9" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				  
+				  
+				  
+				  <button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','multiply.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
             &nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','multiply.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
             <a onclick="onFileDownloaded('multiply.bly');">
   					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
@@ -147,60 +174,6 @@
             </div>
         </div>
     </div>
-</section>
-
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_basic">
-  <div class="container">
-      <div class="inner-container" style="width: 100%;">
-          <hr class="line" style="width: 25%;">
-          <div class="section-text align-center mbr-fonts-style display-5">Basic Solutions</div>
-          <hr class="line" style="width: 25%;">
-      </div>
-      </div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 1</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise1b'></div><div id='exercise1bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 2</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise2b'></div><div id='exercise2bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 3</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise3b'></div><div id='exercise3bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions4b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 4</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise4b'></div><div id='exercise4bc'></div></div>
-	</div>
 </section>
 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
@@ -236,58 +209,59 @@
     </div>
 </section>
 
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_intermediate">
-	<div class="container">
-			<div class="inner-container" style="width: 100%;">
-					<hr class="line" style="width: 25%;">
-					<div class="section-text align-center mbr-fonts-style display-5">Intermediate Solutions</div>
-					<hr class="line" style="width: 25%;">
-			</div>
-			</div>
-</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 1</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise1i'></div><div id='exercise1ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 2</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise2i'></div><div id='exercise2ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 3</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise3i'></div><div id='exercise3ic'></div></div>
-		</div>
-	</section>
-
 <script>
-  var solutions_basic = document.getElementById('solutions_basic');
-  var solutions_intermediate = document.getElementById('solutions_intermediate');
-  solutions_basic.style.display="none";
-  solutions_intermediate.style.display="none";
   var sch=document.getElementById('schematic');
   sch.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_bb.png';
   var sch_modules=document.getElementById('schematic_modules');
   sch_modules.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LED_pushbutton_modules_bb.png';
   var sch_proto=document.getElementById('schematic_proto');
   sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LED_pushbutton_bb.png';
+  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=24');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=26');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=28');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=30');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=32');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=34');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=36');
+  }
+  else if (window.FacilinoProcessor==='ArduinoUno')
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=25');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=27');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=29');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=31');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=33');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=35');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=37');
+  }
+  
+$('#exercise1b').on("load", function() {
+    showHideElement('exercise1b');
+});
+
+$('#exercise2b').on("load", function() {
+    showHideElement('exercise2b');
+});
+
+$('#exercise3b').on("load", function() {
+    showHideElement('exercise3b');
+});
+
+$('#exercise4b').on("load", function() {
+    showHideElement('exercise4b');
+});
+
+$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});
 </script>

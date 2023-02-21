@@ -19,8 +19,6 @@ FacilinoText.load({ zoom: 1});
 FacilinoControls.load({ zoom: 1});
 FacilinoVariables.load({ zoom: 1});
 FacilinoBuzzer.load({ zoom: 1});
-var currentBasicSolutions=0;
-var currentIntermediateSolutions=0;
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -149,52 +147,20 @@ var currentIntermediateSolutions=0;
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Repeating a sentence</strong><p>Old teaching school used to punish you by repeating the same sentence many times on a blackboard. Now, times are different and you can use your Arduino to print it as many times as you want. Print on the console 'I will not burp in class' 100 times.</p><p><strong>Hint: </strong></p><p><i> USe the repeat instruction for that.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','repeat_sentence.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','repeat_sentence.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('repeat_sentence.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                    <li><strong>Repeating a sentence</strong><p>Old teaching school used to punish you by repeating the same sentence many times on a blackboard. Now, times are different and you can use your Arduino to print it as many times as you want. Print on the console 'I will not burp in class' 100 times.</p><p><strong>Hint: </strong></p><p><i> USe the repeat instruction for that.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0" src="facilino.php?action=view_example&embbeded&id=38" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/d86zPFDiA2U" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
 					<li><strong>Repeating a numbered sentence</strong></p>Now, do the same as before, but the sentence must numbered at the beginning starting from 1.</p><strong>Hint: </strong><p><i>Use a variable and increase its value inside the loop. You can use the 'create text with' instruction to join the number and the sentence.</i></p>
-					<button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','repeat_numbered_sentence.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions2b','repeat_numbered_sentence.bly','exercise2b','exercise2bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<!-- <a onclick="onFileDownloaded('repeat_numbered_sentence.bly');">-->
-					<a onclick="onFileDownloaded('Repeating a numbered sentence.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0" src="facilino.php?action=view_example&embbeded&id=39" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fyc7eEQdP0i" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
                 </ol>
             </div>
         </div>
     </div>
-</section>
-
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_basic">
-  <div class="container">
-      <div class="inner-container" style="width: 100%;">
-          <hr class="line" style="width: 25%;">
-          <div class="section-text align-center mbr-fonts-style display-5">Basic Solutions</div>
-          <hr class="line" style="width: 25%;">
-      </div>
-      </div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 1</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise1b'></div><div id='exercise1bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 2</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise2b'></div><div id='exercise2bc'></div></div>
-	</div>
 </section>
 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
@@ -212,77 +178,65 @@ var currentIntermediateSolutions=0;
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Hysteresis</strong><p>Implement a hysteresis effect to 'binarize' analog readings of potentiometer A0 position. If the value is higher than 2000 (Wemos D1 R32) or 500 (Arduino Uno) then the LED D12 must be on, while if the value is below 800 (Wemos D1 R32) or 200 (Arduino Uno), LED D12 must be off. Otherwise, the LED state doesn't change.</p><strong>Hint: </strong><p><i> Define a global boolean variable to determine the state of the LED D12 (HIGH or LOW). Then if the value of the potentiometer and the state of LED D12 is LOW then turn LED on and set the state to HIGH. Implement the same logic for the other case, but with opposite logic. That is if the value is below 800 (Wemos D1 R32) or 200 (Arduino Uno) and LED state is HIGH then turn off LED and set state to LOW.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions1i','hysteresis'+window.board+'.bly','exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions1i','hysteresis'+window.board+'.bly','exercise1i','exercise1ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('hysteresis'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                    <li><strong>Hysteresis</strong><p>Implement a hysteresis effect to 'binarize' analog readings of potentiometer A0 position. If the value is higher than 2000 (Wemos D1 R32) or 500 (Arduino Uno) then the LED D12 must be on, while if the value is below 800 (Wemos D1 R32) or 200 (Arduino Uno), LED D12 must be off. Otherwise, the LED state doesn't change.</p><strong>Hint: </strong><p><i> Define a global boolean variable to determine the state of the LED D12 (HIGH or LOW). Then if the value of the potentiometer and the state of LED D12 is LOW then turn LED on and set the state to HIGH. Implement the same logic for the other case, but with opposite logic. That is if the value is below 800 (Wemos D1 R32) or 200 (Arduino Uno) and LED state is HIGH then turn off LED and set state to LOW.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1i" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/49Xz3uG8Zxf" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
 
-					<li><strong>Wait until and break loop</strong><p>At start up, wait for push-button D2 being pushed. Afterwards, start blinking LED D12 at a 1Hz frequency. In order to stop blinking use push-button D3 and repeat the sequence (wait-blink).</p><strong>Hint: </strong><p><i>Use the 'wait until' instruction with push-button begin LOW in the main loop. Then, use 'While' loop to implement the blinking routine. In order to stop blinking use the 'break out of loop' instruction if push-button D3 is LOW.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions2i','wait_break'+window.board+'.bly','exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-						&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions2i','wait_break'+window.board+'.bly','exercise2i','exercise2ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('wait_break'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Alarm effect</strong><p>Generate an alarm effect with the buzzer (pin D5). The alarm effect consists of two varying tones. The first one generates increasing frequencies that will exponentially increase 3% starting from 1318.51Hz to 1567.98Hz with a duration of 22ms. The second one generates increasing frequencies that will exponentially increase 4% starting from 1318.51Hz to 2349.32Hz with a duration of 12ms.</p><strong>Hint: </strong><p><i>Use 'While' instructions to generate the exponentially increasing frequencies. Initialize the frequency to 1318.51Hz and repeat the 'Advanced Buzzer' instruction until the maximum frequency is reached. Set the current frequency and tone duration as indicated.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions3i','alarm_effect'+window.board+'.bly','exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('alarm_effect'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+					<li><strong>Wait until and break loop</strong><p>At start up, wait for push-button D2 being pushed. Afterwards, start blinking LED D12 at a 1Hz frequency. In order to stop blinking use push-button D3 and repeat the sequence (wait-blink).</p><strong>Hint: </strong><p><i>Use the 'wait until' instruction with push-button begin LOW in the main loop. Then, use 'While' loop to implement the blinking routine. In order to stop blinking use the 'break out of loop' instruction if push-button D3 is LOW.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2i" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/1730TgmjMQg" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Alarm effect</strong><p>Generate an alarm effect with the buzzer (pin D5). The alarm effect consists of two varying tones. The first one generates increasing frequencies that will exponentially increase 3% starting from 1318.51Hz to 1567.98Hz with a duration of 22ms. The second one generates increasing frequencies that will exponentially increase 4% starting from 1318.51Hz to 2349.32Hz with a duration of 12ms.</p><strong>Hint: </strong><p><i>Use 'While' instructions to generate the exponentially increasing frequencies. Initialize the frequency to 1318.51Hz and repeat the 'Advanced Buzzer' instruction until the maximum frequency is reached. Set the current frequency and tone duration as indicated.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3i" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/abwxXWEnoXS" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
                 </ol>
             </div>
         </div>
     </div>
 </section>
 
-
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_intermediate">
-	<div class="container">
-			<div class="inner-container" style="width: 100%;">
-					<hr class="line" style="width: 25%;">
-					<div class="section-text align-center mbr-fonts-style display-5">Intermediate Solutions</div>
-					<hr class="line" style="width: 25%;">
-			</div>
-			</div>
-</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 1</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise1i'></div><div id='exercise1ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 2</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise2i'></div><div id='exercise2ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 3</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise3i'></div><div id='exercise3ic'></div></div>
-		</div>
-	</section>
-
 <script>
-	var solutions_basic = document.getElementById('solutions_basic');
-	var solutions_intermediate = document.getElementById('solutions_intermediate');
-	solutions_basic.style.display="none";
-	solutions_intermediate.style.display="none";
-	var sch=document.getElementById('schematic');
+  var sch=document.getElementById('schematic');
   sch.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_bb.png';
   var sch_modules=document.getElementById('schematic_modules');
   sch_modules.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_LEDs_pushbuttons_modules_bb.png';
   var sch_proto=document.getElementById('schematic_proto');
   sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_LEDs_pushbuttons_bb.png';
+  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
+  {
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=40');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=42');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=44');
+  }
+  else if (window.FacilinoProcessor==='ArduinoUno')
+  {
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=41');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=43');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=45');
+  }
+
+$('#exercise1b').on("load", function() {
+    showHideElement('exercise1b');
+});
+
+$('#exercise2b').on("load", function() {
+    showHideElement('exercise2b');
+});
+
+$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});
 </script>

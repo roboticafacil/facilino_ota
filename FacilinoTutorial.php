@@ -78,6 +78,9 @@ require_once('website_translation.php');
 echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 ?>
 <script>
+	Blockly.onMouseUp_=function(e){};
+	Blockly.onMouseDown_=function(e){};
+
 	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
 			localStorage.setItem('processor', 'WEMOS_D1R32_SHIELD');
 		window.FacilinoProcessor = localStorage.getItem("processor");
@@ -220,20 +223,31 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 		}
 
 		function injectInstructionTooltip(block,blockDiv,tooltipDiv) {
+			
 			var instructionPreview = document.getElementById(blockDiv);
-			var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
-			mainWorkspace.clear();
-			var block = mainWorkspace.newBlock(block);
-			document.getElementById(tooltipDiv).innerHTML=block.tooltip;
-			block.initSvg();
-			block.render();
-			block.setMovable(false);
-			block.setDeletable(false);
-			block.moveBy(15, 10);
-			var bbox = block.getHeightWidth();
-			instructionPreview.style.height = (bbox.height+25)+ 'px';
-			instructionPreview.style.width = (bbox.width+25) + 'px';
-			window.dispatchEvent(new Event('resize'));
+			try
+			{
+				var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
+				if (mainWorkspace!==null)
+				{
+					mainWorkspace.clear();
+					var block = mainWorkspace.newBlock(block);
+					document.getElementById(tooltipDiv).innerHTML=block.tooltip;
+					block.initSvg();
+					block.render();
+					block.setMovable(false);
+					block.setDeletable(false);
+					block.moveBy(15, 10);
+					var bbox = block.getHeightWidth();
+					instructionPreview.style.height = (bbox.height+25)+ 'px';
+					instructionPreview.style.width = (bbox.width+25) + 'px';
+					window.dispatchEvent(new Event('resize'));
+				}
+			}
+			catch(e)
+			{
+				console.log(e);
+			}
 		}
 
 		function injectInstructionTooltip1(block,blockDiv,tooltipDiv) {
@@ -270,7 +284,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
       instructionPreviewCode.style="width: 100%; margin-left: 3em; margin-right: 3em; line-height: 1.1em;";
       var mainWorkspace = Blockly.inject(exampleDiv, {readOnly:true, collapse: false});
 			openFunction('tutorial/exercises/'+exercise);
-      instructionPreviewCode.innerHTML="<br/>&nbsp;&nbsp;&nbsp;&nbsp;"+escapeCode(Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace()))+"<br/>";
+	  if (mainWorkspace!==null)
+		instructionPreviewCode.innerHTML="<br/>&nbsp;&nbsp;&nbsp;&nbsp;"+escapeCode(Blockly.Arduino.workspaceToCode(mainWorkspace))+"<br/>";
 		}
 
     function escapeCode(code) {
@@ -349,6 +364,11 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 	}
 	
 	function showHideElement(el){
+		var el = document.getElementById(el);
+		  if (el.style.display==='none')
+			el.style.display="block";
+		  else
+			el.style.display="none";
 	}
 
     function showHideBasicCode(el1,ex,el,elc) {

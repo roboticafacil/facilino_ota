@@ -3,16 +3,19 @@ require_once('db.php');
 require_once('website_translation.php');
 if (isset($_GET["action"]))
 {
-	if (($_GET["action"]=="open")||($_GET["action"]=="save"))
+	if (($_GET["action"]=="open")||($_GET["action"]=="save")||($_GET["action"]=="open_example")||($_GET["action"]=="save_example"))
 		include("auth.php");
 }
 
-if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
+if (isset($_GET["action"])&&(($_GET["action"]=="save")||($_GET["action"]=="save_example"))&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
 {
 	//Save project, then open
 	//$query = "SELECT facilino_code_id from `projects` where id= ".$_POST['project_id'];
 	//$result = mysqli_query($con,$query);
-	$query = "SELECT facilino_code_id from `projects` where id=?";
+	if ($_GET["action"]=="save")
+		$query = "SELECT facilino_code_id from `projects` where id=?";
+	else
+		$query = "SELECT facilino_code_id from `examples` where id=?";
 	$statement=mysqli_prepare($con,$query);
 	$statement->bind_param("i",$_POST['project_id']);
 	$statement->execute();
@@ -23,7 +26,10 @@ if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_co
 		$row=mysqli_fetch_row($result);
 		//$query="UPDATE `facilino_code` SET `blockly_code`='".htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1)."',`arduino_code`='".$_POST["arduino_code"]."' WHERE id=".$row[0];
 		//$result = mysqli_query($con,$query);
-		$query="UPDATE `facilino_code` SET `blockly_code`=?,`arduino_code`=? WHERE id=?";
+		if ($_GET["action"]=="save")
+			$query="UPDATE `facilino_code` SET `blockly_code`=?,`arduino_code`=? WHERE id=?";
+		else
+			$query="UPDATE `facilino_code_examples` SET `blockly_code`=?,`arduino_code`=? WHERE id=?";
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("ssi",htmlspecialchars_decode($_POST['facilino_code'],ENT_XML1),$_POST["arduino_code"],$row[0]);
 		$statement->execute();
@@ -33,7 +39,7 @@ if (isset($_GET["action"])&&($_GET["action"]=="save")&&isset($_POST['facilino_co
 			header("Location: dashboard.php");
 	}
 }
-elseif (isset($_GET["id"])&&!isset($_POST["action"]))
+elseif (isset($_GET["id"]))
 {
 	?>
 	<!DOCTYPE html>
@@ -42,8 +48,26 @@ elseif (isset($_GET["id"])&&!isset($_POST["action"]))
 	<?php
 	if (!isset($_GET["embbeded"]))
 	{
-	?>
-		<div id="header"><?php include "inc-header.php" ?></div> <?php
+		?><div id="header"><?php include "inc-header.php" ?></div> <?php
+	}
+	else
+	{
+		if (isset($_GET["action"])&&($_GET["action"]=="view_example"))
+		{
+			/*?>
+			<section class="menu cid-qAignIVLHL" once="menu" id="menu1-e" data-rv-view="7">
+			<nav class="navbar navbar-expand beta-menu align-items-center navbar-fixed-top navbar-toggleable-sm">
+			<div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">;
+			<div id="toggle_code" class="navbar-buttons mbr-section-btn"><span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>
+			</div>
+			</div>
+			
+			</div>
+			</nav>
+			</section>
+			<?php*/
+		}
 	}
 	//Open facilino project
 	$project_id=$_GET["id"];
@@ -54,6 +78,18 @@ elseif (isset($_GET["id"])&&!isset($_POST["action"]))
 		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$project_id);
+	}
+	elseif (isset($_GET["action"])&&($_GET["action"]=="view_example"))
+	{
+		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		$statement=mysqli_prepare($con,$query);
+		$statement->bind_param("i",$project_id);
+	}
+	elseif (isset($_GET["action"])&&($_GET["action"]=="open_example"))
+	{
+		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		$statement=mysqli_prepare($con,$query);
+		$statement->bind_param("is",$project_id,$_SESSION["username"]);
 	}
 	else
 	{
@@ -584,14 +620,14 @@ function resetWorkspace() {
 		Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),Blockly.getMainWorkspace());
 	}
 	
-function saveAll(newLoc)
+function saveAll(newLoc,action)
 {
 	var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
 	var text = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
 	localStorage.setItem("saved",current);
 	const form = document.createElement('form');
 	form.method = "post";
-	form.action = "facilino.php?action=save&id="+window.project_id+'&goto='+newLoc;
+	form.action = "facilino.php?action="+action+"&id="+window.project_id+'&goto='+newLoc;
 	const hiddenBlockly = document.createElement('input');
 	  hiddenBlockly.type = 'hidden';
 	  hiddenBlockly.name = 'facilino_code';
@@ -617,14 +653,14 @@ function saveAll(newLoc)
 	//console.log(escapeCode(current));
 }
 	
-function saveBeforeExit()
+function saveBeforeExit(action)
 {
-	saveAll('dashboard.php');
+	saveAll('dashboard.php',action);
 }
 
 function saveBeforeExitTutorial()
 {
-	saveAll('FacilinoTutorial.php');
+	saveAll('FacilinoTutorial.php','save');
 }
 
 function Exit()
