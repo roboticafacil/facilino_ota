@@ -64,16 +64,16 @@
 					{
 						Blockly.Arduino.definitions_['define_inout_analogReadWiFi'] = 'int analogReadWiFi(uint8_t pin)\n{\n  if (pin==0 || pin==2 || pin==4 || ((pin>=12)&&(pin<=15)) || ((pin>=25)&&(pin<=27))){\n    WRITE_PERI_REG(SENS_SAR_READ_CTRL2_REG, adc_register);\n    SET_PERI_REG_MASK(SENS_SAR_READ_CTRL2_REG, SENS_SAR2_DATA_INV);\n    int value=analogRead(pin);\n    WRITE_PERI_REG(SENS_SAR_READ_CTRL2_REG, wifi_register);\n    return value;\n}\n  else\n    return analogRead(pin);\n}\n';
 						if (Facilino.profiles['processor']==='ESP32')
-							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n    float Vout=3.3*((float)analogReadWiFi(pin)/4095.0);\n    T=(3891/log((R1*Vout)/(5.0-Vout)/0.0214906446))-273.15;\n    return T;\n}\n';
+							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n	float logR2;\n    float Vout=3.3*((float)analogReadWiFi(pin)/4095.0);\n	logR2=log(R1*(Vout/(5.0-Vout)));\n     T=(1.0/(0.001129148+0.000234125*logR2+0.0000000876741*logR2*logR2*logR2))-273.15;\n    return T;\n}\n';
 						else
-							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n    float Vout=5*((float)analogReadWiFi(pin)/1023.0);\n    T=(3891/log((R1*Vout)/(5.0-Vout)/0.0214906446))-273.15;\n    return T;\n}\n';
+							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n	float logR2;\n    float Vout=5*((float)analogReadWiFi(pin)/1023.0);\n	logR2=log(R1*(Vout/(5.0-Vout)));\n    T=(1.0/(0.001129148+0.000234125*logR2+0.0000000876741*logR2*logR2*logR2))-273.15;\n    return T;\n}\n';
 					}
 					else
 					{
 						if (Facilino.profiles['processor']==='ESP32')
-							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n    float Vout=3.3*((float)analogRead(pin)/4095.0);\n    T=(3891/log((R1*Vout)/(5.0-Vout)/0.0214906446))-273.15;\n    return T;\n}\n';
+							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n	float logR2;\n    float Vout=3.3*((float)analogRead(pin)/4095.0);\n	logR2=log(R1*(Vout/(5.0-Vout)));\n    T=(1.0/(0.001129148+0.000234125*logR2+0.0000000876741*logR2*logR2*logR2))-273.15;\n    return T;\n}\n';
 						else
-							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n    float Vout=5*((float)analogRead(pin)/1023.0);\n    T=(3891/log((R1*Vout)/(5.0-Vout)/0.0214906446))-273.15;\n    return T;\n}\n';
+							Blockly.Arduino.definitions_['define_inout_analogNTC'] = 'float analogNTC (uint8_t pin, float R1)\n{\n    float T;\n	float logR2;\n    float Vout=5*((float)analogRead(pin)/1023.0);\n	logR2=log(R1*(Vout/(5.0-Vout)));\n    T=(1.0/(0.001129148+0.000234125*logR2+0.0000000876741*logR2*logR2*logR2))-273.15;\n    return T;\n}\n';
 					}
 					code+='('+'analogNTC('+pin+','+R1+')'+')';
 				}
