@@ -147,7 +147,7 @@
 				"LANG_VARIABLES_SET": "Var",
 				"LANG_VARIABLES_SET_AS": "=",
 				"LANG_VARIABLES_SET_TOOLTIP": "Define o valor de uma variável.",
-				"LANG_VARIABLES_GLOBAL": "Variável GLOBAL",
+				"LANG_VARIABLES_GLOBAL": "Variável",
 				"LANG_VARIABLES_GLOBAL_EQUALS": "=",
 				"LANG_VARIABLES_GLOBAL_TOOLTIP": "Declara e define uma variável GLOBAL do tipo inteiro (int) ou texto (String).",
 				"LANG_VARIABLES_GLOBAL_TYPE": "do tipo ",

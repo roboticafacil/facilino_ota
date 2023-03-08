@@ -6,6 +6,7 @@
 				<ul class="foot-menu" style="list-style: none; display: flex; justify-content: center; flex-wrap: wrap; padding: 0; margin-bottom: 0;">
 					<li class="foot-menu-item mbr-fonts-style display-7" style="padding: 0 1rem 1rem 1rem;"><a class="text-white mbr-bold" onclick="about.php;"><?php echo $website["ABOUT_US"];?></a></li>
 					<li class="foot-menu-item mbr-fonts-style display-7"><a class="text-white mbr-bold" onclick="onPageClicked('https://roboticafacil.es');"><?php echo $website["SHOP"];?></a></li>
+					<li class="foot-menu-item mbr-fonts-style display-7"><a class="text-white mbr-bold" onclick="onPageClicked('https://roboticafacil.es/facilino-ota/privacy.php');"><?php echo $website["PRIVACY_POLICY"];?></a></li>
 				</ul>
 			</div>
 			<div class="row social-row" >

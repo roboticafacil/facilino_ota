@@ -26,8 +26,8 @@ require_once('website_translation.php');
     <div class="container">
         <div class="media-container-row">
             <div class=" title col-12 col-md-8">
-                <h2 class="align-center pb-3 mbr-fonts-style display-2">Facilino Installation & Setup</h2>
-                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">Install Facilino OTA Server before you start programming.</h3>
+                <h2 class="align-center pb-3 mbr-fonts-style display-2"><?php echo $website["INSTALLATION_SETUP"];?></h2>
+                <h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5"><?php echo $website["INSTALLATION_SETUP_DESC"];?></h3>
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@ require_once('website_translation.php');
         <div class="inner-container" style="width: 100%;">
             <hr class="line" style="width: 25%;">
             <div class="section-text align-center mbr-fonts-style display-5">
-                    Installing Facilino on Windows</div>
+                    <?php echo $website["INSTALL_FACILINO_WINDOWS"];?></div>
             <hr class="line" style="width: 25%;">
         </div>
         </div>
@@ -59,7 +59,8 @@ require_once('website_translation.php');
    <div class="container">
         <div class="media-container-row">
             <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-<p>You can download Facilino OTA Server from <a onclick="onPageClicked('https://roboticafacil.es');" style="color:#1ec6c6">Robotica Facil</a> website. Go to Download section and find the latest version of Facilino OTA Server</p>
+<!-- <p>You can download Facilino OTA Server from <a onclick="onPageClicked('https://roboticafacil.es');" style="color:#1ec6c6">Robotica Facil</a> website. Go to Download section and find the latest version of Facilino OTA Server</p> -->
+<p><?php echo $website["INSTALLATION_FACILINO_DOWNLOAD_DESC"];?></p>
 <p>&nbsp;</p>
 	</div>
 	</div>
@@ -69,30 +70,30 @@ require_once('website_translation.php');
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Download Files</strong>
-					<p>First, download <a onclick="onPageClicked('https://roboticafacil.es/en/download');" style="color:#1ec6c6">Facilino OTA Server</a> (either the installer or the ZIP file for non-admin users) from the <a onclick="onPageClicked('https://roboticafacil.es');" style="color:#1ec6c6">Robotica Facil</a> website.</p> 
-					<p>Select your computer specific version and press the link to start downloading. Be advised that these downloads are taken from <a onclick="onPageClicked('https://github.com/roboticafacil/facilino_ota');" style="color:#1ec6c6">Robotica Facil's GitHub</a>, where you can find the source code of the application and old releases.&nbsp;</p>
+                    <li><strong><?php echo $website["INSTALLATION_DOWNLOAD_FILES"]; ?></strong>
+					<p><?php echo $website["INSTALLATION_DOWNLOAD_FILES_DESC"];?></p> 
+					<p><?php echo $website["INSTALLATION_DOWNLOAD_FILES_DESC1"]; ?></p>
 					</li> 
-					<li><strong>Facilino OTA Server Installer</strong>
-					<p>Click on the installer to execute it. Your computer might give a warning as the Installation comes from an unknown source. Simply, give permision under the extended tab option. The Facilino OTA Server is complety safe and does not pose a threat to your computer. Indeed, Facilino OTA Server actually is a port to the <a onclick="onPageClicked('https://roboticafacil.es/facilino-ota');" style="color:#1ec6c6">Facilino</a> web page and Arduino-CLI. <a onclick="onPageClicked('https://roboticafacil.es/facilino-ota');" style="color:#1ec6c6">Facilino</a> web page generates code based on blocks, while Arduino CLI is the software that compiles your code so it is highly recommended to check that has been properly installed after the installation process finishes, including all boards and libraries required by Facilino, otherwise, compiling and uploading code might fail.</p>
-					<p>When executing Facilino OTA Server Installer, you should see the following window:</p>
+					<li><strong><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER"]; ?></strong>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER_DESC1"];?></p>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER_DESC2"];?></p>
 					<p><center>
 					<img src="assets/images/Install/FacilinoOTAServer_install1.png" width="60%" alt="Facilino1" title=""/>
 					</center></p>
-					<p>Select the installation location, this is automatically set to your folder <i>C:\FacilinoOTAServer</i>. We recommend you not to change this path to avoid possible future administrative permissions.&nbsp;</p>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER_DESC3"];?></p>
 					<p><center><img src="assets/images/Install/FacilinoOTAServer_install2.png" width="60%" alt="Facilino2" title=""/></center></p>
-					<p>Then installation should start immediately and a progress bar should be visible. This installation might take a few minutes, particularly when installing Arduino libraries, because they will be first downloaded and then installed.</p>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER_DESC4"];?></p>
 					<p><center><img src="assets/images/Install/FacilinoOTAServer_install3.png" width="60%" alt="Facilino3" title=""/></center></p>
 					</li>
-					<li><strong>Facilino OTA Server  ZIP (for non-admin users)</strong>
-					<p>Unzip Facilino OTA Server and <i>cd</i> to the unzipped folder and type <i>config.bat</i> in the command shell. You should see on the shell output all arduino-cli commands required by Facilino to be able to compile and upload code to the supported boards and libraries.
+					<li><strong><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_ZIP"];?></strong>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_ZIP_DESC1"];?></p>
 					</li>
 					<li><strong>Arduino CLI</strong>
-					<p>Open the command shell and move to Facilino OTA Server directory (i.e.: <i>C:\FacilinoOTAServer</i>). Then, <i>cd</i> to <i>arduino-cli</i> folder and type <i>arduino-cli.exe core list</i>. You should see a list of supported boards:</p>
+					<p><?php echo $website["INSTALLATION_ARDUINO_CLI_DESC1"];?></p>
 					<p><center><img src="assets/images/Install/FacilinoOTAServer_install5.png" width="80%" alt="Facilino5" title=""/></center></p>
-					<p>If you type: <i>arduino-cli.exe lib list</i> you should see a list of installed libraries:</p>
+					<p><?php echo $website["INSTALLATION_ARDUINO_CLI_DESC2"];?></p>
 					<p><center><img src="assets/images/Install/FacilinoOTAServer_install6.png" width="100%" alt="Facilino6" title=""/></center></p>
-					<p>If any of the previous steps fails or during compilation of a program there's a missing library, you can install them manually (see troubleshooting section).</p>
+					<p><?php echo $website["INSTALLATION_ARDUINO_CLI_DESC3"];?></p>
 					</li>
 					<li><strong>Running Facilino OTA Server</strong>
 					<p>You can run Facilino OTA Server from the command shell by typing <i>FacilinoOTAServer.exe -e</i> (you need to <i>cd</i> to Facilino installation folder).</p>

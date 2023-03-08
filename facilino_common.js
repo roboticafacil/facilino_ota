@@ -210,7 +210,7 @@ this["JST"]["math_random_bitOut"] = function (obj) {
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		__p += 'unsigned int bitOut(void)\n{\n  static unsigned long firstTime=1, prev=0;\n  unsigned long bit1=0, bit0=0, x=0, port=0, limit=99;\n  if (firstTime)\n  {\n	firstTime=0;\n	prev=analogRead(port);\n  }\n  while (limit--)\n  {\n	x=analogRead(port);\n	bit1=(prev!=x?1:0);\n	prev=x;\n	x=analogRead(port);\n	bit0=(prev!=x?1:0);\n	prev=x;\n	if (bit1!=bit0)\n	  break;\n  }\n  return bit1;\n}\n';
+		__p += 'unsigned int bitOut(void)\n{\n  static unsigned long firstTime=1, prev=0;\n  unsigned long bit1=0, bit0=0, x=0, port='+Facilino.profiles.default.analog[0][1]+', limit=99;\n  if (firstTime)\n  {\n	firstTime=0;\n	prev=analogRead(port);\n  }\n  while (limit--)\n  {\n	x=analogRead(port);\n	bit1=(prev!=x?1:0);\n	prev=x;\n	x=analogRead(port);\n	bit0=(prev!=x?1:0);\n	prev=x;\n	if (bit1!=bit0)\n	  break;\n  }\n  return bit1;\n}\n';
 	}
 	return __p;
 }

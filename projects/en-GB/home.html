@@ -1,0 +1,132 @@
+<section class="features18 popup-btn-cards cid-qYa5rQWOty" id="features">
+
+    <div class="container">
+		<h3/>
+        <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
+            Facilino Related Projects</h2>
+        <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
+            Project based learning with Facilino.</h3>
+		<h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
+            Read all associated information related with our project proposals.</h3>
+
+		<div class="row pt-5 ">
+		
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/DYOR_robot1.jpg" alt="DYOR" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            DYOR</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Learn how to program a complete DIY robot with wheels.</p>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/bPED.jpeg" alt="bPED" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            bPED</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Learn how to program a complete DIY walking robot.</p>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/meArm.jpg" alt="meArm" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            meArm</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Learn how to program a complete DIY robot arm.</p>
+                    </div>
+                </div>
+            </div>
+		
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/home_automation.jpg" alt="IoT Home Automation" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            IoT Starter Kit Home Automation</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Everything to get you started instantly to control lights and temperature!</p>
+                    </div>
+                </div>
+            </div>
+
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/greenhouse.jpg" alt="IoT Greenhouse" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            IoT Starter Kit Intelligent Green House</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Everything to get you started instantly to control temperature and humidity!</p>
+                    </div>
+                </div>
+            </div>
+
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4">Comming Soon</a></div>
+                        <a><img src="projects/assets/images/rain.jpg" alt="IoT Weather Station" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            IoT Starter Kit Weather Station</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Everything to get you started instantly to sense temperature, humidity, gas and rain!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+	if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
+		localStorage.setItem('language', 'en-GB');
+	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
+		localStorage.setItem('processor', 'ArduinoNano');
+	window.FacilinoLanguage = localStorage.getItem("language");
+	window.FacilinoProcessor = localStorage.getItem("processor");
+	$("#language").val(window.FacilinoLanguage);
+	$("#processor").val(window.FacilinoProcessor);
+	function onHomeFile(html_file)
+	{
+    window.title=html_file+'_'+window.FacilinoLanguage;
+		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/'+html_file; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/'+'en-GB/'+html_file;},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+	}
+</script>
+
+
+
+
+			

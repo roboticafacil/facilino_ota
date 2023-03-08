@@ -156,10 +156,15 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 	function showHideProcessor(show)
 	{
 		var proc=document.getElementById('processor');
-		if (show==true)
+		if (proc==null)
 			proc.style.display='initial';
 		else
-			proc.style.display='none';
+		{
+			if (show==true)
+				proc.style.display='initial';
+			else
+				proc.style.display='none';
+		}
 	}
 
     function printAll()
