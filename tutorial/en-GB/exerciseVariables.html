@@ -2,6 +2,10 @@
 window.FacilinoAdvanced=true;
 </script>
 
+<script src="javascript/blockly-bq/blockly_compressed.js"></script>;
+<script src="javascript/blockly-bq/blocks_compressed.js"></script>;
+<script src="javascript/blockly-bq/arduino_compressed.js"></script>;
+<script src="javascript/blockly-bq/FieldButton.js"></script>
 <script src="facilino.js"></script>
 <script src="facilino_common.js"></script>
 <script src="facilino_maths.js"></script>
@@ -13,16 +17,14 @@ window.FacilinoAdvanced=true;
 <script src="facilino_serial.js"></script>
 
 <script>
-Facilino.load({ zoom: 1});
-FacilinoMaths.load({ zoom: 1});
-FacilinoArrays.load({ zoom: 1});
-FacilinoText.load({ zoom: 1});
-FacilinoControls.load({ zoom: 1});
-FacilinoVariables.load({ zoom: 1});
-FacilinoVariablesArray.load({ zoom: 1});
-FacilinoSerial.load({ zoom: 1});
-var currentBasicSolutions=0;
-var currentIntermediateSolutions=0;
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoArrays.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariablesArray.load({ zoom: , readOnly:true, collapse: false});
+FacilinoSerial.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -332,80 +334,30 @@ var currentIntermediateSolutions=0;
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-									<li><strong>Local variable</strong><p>Implement a program that prints the value of a local variable at the 'setup' context and prints the value of another local variable (with the same name) in the 'loop' context.</p><strong>Hint: </strong><p><i>Create a local variable inside the 'setup' context and assign a value to it and print its value. Then, create another local variable with the same name and assign a different value. You will see that this does not produces a compilation error.</i>.</p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','local_variable.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','local_variable.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-				<a onclick="onFileDownloaded('local_variable.bly');">
-				<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-								<li><strong>Global variable</strong><p>Now, create a program that creates a global variable in the 'setup' and uses its value in the 'loop' section.</p><strong>Hint: </strong><p><i>Now, use the instructions with the GLOBAL keyword, to declare a global variable. The global variable only has to be declared once, normally in the 'setup'.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','global_variable.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions2b','global_variable.bly','exercise2b','exercise2bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('global_variable.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Variable context</strong><p>Create a global variable with name 'iteration' (in the 'setup' section) and initialize its value to 5. In the main loop, make the red LED connected to pin D12 blink 10 times using a 'for' loop. Inside that 'for' loop, declare a local variable with the name 'iteration' and assign the value of the current iteration (1, 2, ..., 10). After, LED D12 has blinked 10 times, now make the blue LED connected to pin D13 blink as many times as the value of the variable 'iteration' using another 'for' loop. How many times does the blue LED blink?</p><strong>Hint: </strong><p><i>The blue LED will only blink five times because the local variable only has a valid context within the 'for' loop, and thus, outside the 'for' loop, the global value with used. You can print the value of the variable just before, inside and after the 'for' loop.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions3b','variable_context'+window.board+'.bly','exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions3b','variable_context'+window.board+'.bly','exercise3b','exercise3bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('variable_context'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Moving average</strong><p>Following the ideas of Basic Exercise 4 in <a onclick="onHomeFile('exerciseFunctions.html');" style="color:#1ec6c6">Functions and procedures</a>, implement a moving average with values from the potentiometer connected to pin A0. The difference now, with respect to Basic Exercise 4 in <a onclick="onHomeFile('exerciseFunctions.html');" style="color:#1ec6c6">Functions and procedures</a>, is that only one measurement is read on each iteration. To simplify, we use the last 10 measurements stored in an array to compute the mean. On each iteration the oldest element of the array will leave out, while only one single measurement will be added at the beginning of the array. The moving mean implies that the previous mean can be reused and only the oldest and newest values in the array are needed in order to compute the mean, see <a href="https://en.wikipedia.org/wiki/Moving_average" target="_blank">Moving average</a>. </p><strong>Hint: </strong><p><i>Create an array with 10 initial values (type float). Create also a floating point variable with the previous mean, initialized with a zero. The oldest value will be the element on the position 9, while the newest element will be the one with the position 0. In the main loop, first you keep the value of the oldest element, that is, the element at position 9; second, you need to shift the values of the array so that the value of the element at position 8 is stored at position 9... until element in position 0 is stored in position 1; third, you can measure the value of the potentiometer and store its value at position 0; fourth, you can compute the moving average using the previous mean value.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions4b','moving_average'+window.board+'.bly','exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions4b','moving_average'+window.board+'.bly','exercise4b','exercise4bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('moving_average'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+					<li><strong>Local variable</strong><p>Implement a program that prints the value of a local variable at the 'setup' context and prints the value of another local variable (with the same name) in the 'loop' context.</p><strong>Hint: </strong><p><i>Create a local variable inside the 'setup' context and assign a value to it and print its value. Then, create another local variable with the same name and assign a different value. You will see that this does not produces a compilation error.</i>.</p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/i9in6ANCP1A" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Global variable</strong><p>Now, create a program that creates a global variable in the 'setup' and uses its value in the 'loop' section.</p><strong>Hint: </strong><p><i>Now, use the instructions with the GLOBAL keyword, to declare a global variable. The global variable only has to be declared once, normally in the 'setup'.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/l3gc8oj9RsI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Variable context</strong><p>Create a global variable with name 'iteration' (in the 'setup' section) and initialize its value to 5. In the main loop, make the red LED connected to pin D12 blink 10 times using a 'for' loop. Inside that 'for' loop, declare a local variable with the name 'iteration' and assign the value of the current iteration (1, 2, ..., 10). After, LED D12 has blinked 10 times, now make the blue LED connected to pin D13 blink as many times as the value of the variable 'iteration' using another 'for' loop. How many times does the blue LED blink?</p><strong>Hint: </strong><p><i>The blue LED will only blink five times because the local variable only has a valid context within the 'for' loop, and thus, outside the 'for' loop, the global value with used. You can print the value of the variable just before, inside and after the 'for' loop.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/5zvEkEU9Xo9" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Moving average</strong><p>Following the ideas of Basic Exercise 4 in <a onclick="onHomeFile('exerciseFunctions.html');" style="color:#1ec6c6">Functions and procedures</a>, implement a moving average with values from the potentiometer connected to pin A0. The difference now, with respect to Basic Exercise 4 in <a onclick="onHomeFile('exerciseFunctions.html');" style="color:#1ec6c6">Functions and procedures</a>, is that only one measurement is read on each iteration. To simplify, we use the last 10 measurements stored in an array to compute the mean. On each iteration the oldest element of the array will leave out, while only one single measurement will be added at the beginning of the array. The moving mean implies that the previous mean can be reused and only the oldest and newest values in the array are needed in order to compute the mean, see <a href="https://en.wikipedia.org/wiki/Moving_average" target="_blank">Moving average</a>. </p><strong>Hint: </strong><p><i>Create an array with 10 initial values (type float). Create also a floating point variable with the previous mean, initialized with a zero. The oldest value will be the element on the position 9, while the newest element will be the one with the position 0. In the main loop, first you keep the value of the oldest element, that is, the element at position 9; second, you need to shift the values of the array so that the value of the element at position 8 is stored at position 9... until element in position 0 is stored in position 1; third, you can measure the value of the potentiometer and store its value at position 0; fourth, you can compute the moving average using the previous mean value.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise4b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/8Ad9fyDrl2W" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
                 </ol>
             </div>
         </div>
     </div>
-</section>
-
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_basic">
-  <div class="container">
-      <div class="inner-container" style="width: 100%;">
-          <hr class="line" style="width: 25%;">
-          <div class="section-text align-center mbr-fonts-style display-5">Basic Solutions</div>
-          <hr class="line" style="width: 25%;">
-      </div>
-      </div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 1</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise1b'></div><div id='exercise1bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 2</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise2b'></div><div id='exercise2bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 3</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise3b'></div><div id='exercise3bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions4b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 4</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise4b'></div><div id='exercise4bc'></div></div>
-	</div>
 </section>
 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
@@ -423,77 +375,80 @@ var currentIntermediateSolutions=0;
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>How many rice grains in total?</strong><p>Compute the requested number of grains. Use different number representations to see which can represent the number. Show on the console the total amount computed when using integers, long integers and floats. All required Electronics are already integrated in the Multisensorshield.</p><strong>Hint: </strong><p><i>Implement a 'for' loop with 64 iterations and compute the powers of 2 (declare variables of appropriate type and initialize them to 1). At the end, print the results to see if they are correct.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions1i','rice_grains.bly','exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions1i','rice_grains.bly','exercise1i','exercise1ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('rice_grains.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Send Array Data</strong><p>Encode readings of analog inputs A0, A1 and A2 and send data over the USB serial.</p><strong>Hint: </strong><i><p>Build an array data of type 'short integer' with three elements and store each of the analog readings on scalar 'short integer' variables. Then, encode them on the array data and send them over the USB serial port</i>.</p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions2i','send_array_data'+window.board+'.bly','exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions2i','send_array_data'+window.board+'.bly','exercise2i','exercise2ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('send_array_data'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Store Array Data</strong><p>Decode data received from the USB serial port with byte values of three color channels. Use received data to regulate the color of RGB (pins D9-D11-D10, respectively).</p><strong>Hint: </strong><p><i>If there's data available on the serial port, declare an array data of type 'byte' with three elements with the read byte data from the USB serial. Access to each of the elements of the data to set the 'analog write' value for each LED channel.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions3i','store_array_data'+window.board+'.bly','exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions3i','store_array_data'+window.board+'.bly','exercise3i','exercise3ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('store_array_data'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                    <li><strong>How many rice grains in total?</strong><p>Compute the requested number of grains. Use different number representations to see which can represent the number. Show on the console the total amount computed when using integers, long integers and floats. All required Electronics are already integrated in the Multisensorshield.</p><strong>Hint: </strong><p><i>Implement a 'for' loop with 64 iterations and compute the powers of 2 (declare variables of appropriate type and initialize them to 1). At the end, print the results to see if they are correct.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/dRwLKbzY7hp" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Send Array Data</strong><p>Encode readings of analog inputs A0, A1 and A2 and send data over the USB serial.</p><strong>Hint: </strong><i><p>Build an array data of type 'short integer' with three elements and store each of the analog readings on scalar 'short integer' variables. Then, encode them on the array data and send them over the USB serial port</i>.</p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/70WqwWgsb51" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Store Array Data</strong><p>Decode data received from the USB serial port with byte values of three color channels. Use received data to regulate the color of RGB (pins D9-D11-D10, respectively).</p><strong>Hint: </strong><p><i>If there's data available on the serial port, declare an array data of type 'byte' with three elements with the read byte data from the USB serial. Access to each of the elements of the data to set the 'analog write' value for each LED channel.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/kvxf69OaB0t" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
                 </ol>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_intermediate">
-	<div class="container">
-			<div class="inner-container" style="width: 100%;">
-					<hr class="line" style="width: 25%;">
-					<div class="section-text align-center mbr-fonts-style display-5">Intermediate Solutions</div>
-					<hr class="line" style="width: 25%;">
-			</div>
-			</div>
-</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 1</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise1i'></div><div id='exercise1ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 2</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise2i'></div><div id='exercise2ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 3</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise3i'></div><div id='exercise3ic'></div></div>
-		</div>
-	</section>
-
-
 <script>
-	var solutions_basic = document.getElementById('solutions_basic');
-	var solutions_intermediate = document.getElementById('solutions_intermediate');
-	solutions_basic.style.display="none";
-	solutions_intermediate.style.display="none";
 	var sch=document.getElementById('schematic');
   sch.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_bb.png';
   var sch_modules=document.getElementById('schematic_modules');
   sch_modules.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_ldr_lm35_modules_bb.png';
   var sch_proto=document.getElementById('schematic_proto');
   sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_ldr_lm35_bb.png';
+  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=65');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=66');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=67');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=69');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=71');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=73');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=75');
+  }
+  else
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=65');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=66');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=68');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=70');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=72');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=74');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=76');
+  }
+
+$('#exercise1b').on("load", function() {
+    showHideElement('exercise1b');
+});
+
+$('#exercise2b').on("load", function() {
+    showHideElement('exercise2b');
+});
+
+$('#exercise3b').on("load", function() {
+    showHideElement('exercise3b');
+});
+
+$('#exercise4b').on("load", function() {
+    showHideElement('exercise4b');
+});
+
+$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});
 </script>

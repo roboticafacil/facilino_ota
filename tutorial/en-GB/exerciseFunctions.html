@@ -2,6 +2,10 @@
 window.FacilinoAdvanced=true;
 </script>
 
+<script src="javascript/blockly-bq/blockly_compressed.js"></script>;
+<script src="javascript/blockly-bq/blocks_compressed.js"></script>;
+<script src="javascript/blockly-bq/arduino_compressed.js"></script>;
+<script src="javascript/blockly-bq/FieldButton.js"></script>
 <script src="facilino.js"></script>
 <script src="facilino_common.js"></script>
 <script src="facilino_functions.js"></script>
@@ -15,17 +19,17 @@ window.FacilinoAdvanced=true;
 <script src="facilino_serial.js"></script>
 
 <script>
-Facilino.load({ zoom: 1});
-FacilinoFunctions.load({zoom: 1});
-FacilinoControls.load({ zoom: 1});
-FacilinoMaths.load({ zoom: 1});
-FacilinoText.load({ zoom: 1});
-FacilinoControls.load({ zoom: 1});
-FacilinoVariables.load({ zoom: 1});
-FacilinoBuzzer.load({ zoom: 1});
-FacilinoLogic.load({ zoom: 1});
-FacilinoInOut.load({ zoom: 1});
-FacilinoSerial.load({zoom:1});
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoFunctions.load({zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoBuzzer.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoLogic.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoInOut.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoSerial.load({zoom:1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -296,7 +300,7 @@ FacilinoSerial.load({zoom:1});
                 <ol>
 					<li><strong>Blink a LED as you wish I</strong><p>Implement a procedure that blinks the LED connected at pin D12 as many times as indicated by an input argument of type 'int' with a blinking frequency of 1Hz. Then, in the main loop, parse an integer received from the USB serial port and call the procedure to make the LED blink.</p><strong>Hint: </strong><p><i>Add an input argument of type 'int', let's say 'n' and use it inside the procedure to count from '1' to 'n' in a loop. Inside the loop make the LED blink, setting its state to HIGH and LOW with a delay of 500ms. To parse an integer number Intermediate Exercise 1 in <a onclick="onHomeFile('exerciseUSBSerial.html');" style="color:#1ec6c6">USB Serial Communication</a></i>.</p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					<div><iframe id="exercise1b" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
 					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/k9FNBl8b1cS" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 					</li>
 					<li><strong>Blink a LED as you wish II</strong><p>Now, extend the previous procedure so that the delay time is also an input argument. </p><strong>Hint: </strong><p><i>Now, you need to add a second input argument of type 'int' and replace the constant '500' from the previous exercise with the corresponding time value variable (second input argument). Now, in the serial monitor, <strong>you need to enter two consecutive numbers</strong> every time you what to make the LED blink</i></p>
@@ -375,7 +379,7 @@ FacilinoSerial.load({zoom:1});
 	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=55');
 	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=64');
   }
-  else if (window.FacilinoProcessor==='ArduinoUno')
+  else
   {
 	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=47');
 	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=49');
@@ -385,7 +389,7 @@ FacilinoSerial.load({zoom:1});
 	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=56');
 	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=64');
   }
-  
+
 $('#exercise1b').on("load", function() {
     showHideElement('exercise1b');
 });

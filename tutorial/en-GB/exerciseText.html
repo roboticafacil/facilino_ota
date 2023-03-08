@@ -1,6 +1,18 @@
 <script>
-	var currentBasicSolutions=0;
-	var currentIntermediateSolutions=0;
+window.FacilinoAdvanced=true;
+</script>
+
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_text.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_variables.js"></script>
+
+<script>
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -104,65 +116,25 @@
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                  <li><strong>Concatenate Text</strong><p>Use the 'Create text with' instruction to concatenate text with numbers to print the value of the potentiometer connected to pin A0 with a message before the value, i.e.: 'The value of the potentiometer is '.</p><strong>Hint: </strong><p><i>Remember to include a space at the end of the text so that the text and the number are separated.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','text_join'+window.board+'.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','text_join'+window.board+'.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-						<a onclick="onFileDownloaded('text_join'+window.board+'.bly');">
-  					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-              <li><strong>Spell it out</strong><p>Spell out any word read from the serial monitor. To spell out a word, you must use the tab.</p><strong>Hint: </strong><p><i>Use the instruction to get the character at the indicated position. With a 'While' loop, get read all characters from the string and print them (without a line break, it does not actually print, it just simply sends characters to the serial monitor, but nothing will be shown untile the line break character is received). Once the word has been spelled out, you can use the print line instruction to actually print it back on the serial monitor.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','spell_it_out.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-								&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions2b','spell_it_out.bly','exercise2b','exercise2bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-			<a onclick="onFileDownloaded('spell_it_out.bly');">
-      <button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-									<li><strong>Lower and upper case</strong><p>Read a string from the serial monitor. If pushbutton connected to pin D2 is LOW, then print the text in lower case, if the pushbutton connected to pin D3 is LOW, then print the text in upper case. Otherwise, print back the text as it is.</p><strong>Hint: </strong><p><i>Use 'lower' and 'upper' case instructions to modify the text.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions3b','lower_upper_case'+window.board+'.bly','exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-										&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions3b','lower_upper_case'+window.board+'.bly','exercise3b','exercise3bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-				<a onclick="onFileDownloaded('lower_upper_case'+window.board+'.bly');">
-				<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                  <li><strong>Concatenate Text</strong><p>Use the 'Create text with' instruction to concatenate text with numbers to print the value of the potentiometer connected to pin A0 with a message before the value, i.e.: 'The value of the potentiometer is '.</p><strong>Hint: </strong><p><i>Remember to include a space at the end of the text so that the text and the number are separated.</i></p>
+				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/e1nGcrirgPT" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				  </li>
+              <li><strong>Spell it out</strong><p>Spell out any word read from the serial monitor. To spell out a word, you must use the tab.</p><strong>Hint: </strong><p><i>Use the instruction to get the character at the indicated position. With a 'While' loop, get read all characters from the string and print them (without a line break, it does not actually print, it just simply sends characters to the serial monitor, but nothing will be shown untile the line break character is received). Once the word has been spelled out, you can use the print line instruction to actually print it back on the serial monitor.</i></p>
+			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/hbqK7yMMJ2A" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			  </li>
+				<li><strong>Lower and upper case</strong><p>Read a string from the serial monitor. Print the text as it is originally written, then print the text in lower case and then print the text in upper case.</p><strong>Hint: </strong><p><i>Use 'lower' and 'upper' case instructions to modify the text.</i></p>
+				<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/iTa7oRBQpgL" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				</li>
                 </ol>
             </div>
         </div>
     </div>
-</section>
-
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_basic">
-  <div class="container">
-      <div class="inner-container" style="width: 100%;">
-          <hr class="line" style="width: 25%;">
-          <div class="section-text align-center mbr-fonts-style display-5">Basic Solutions</div>
-          <hr class="line" style="width: 25%;">
-      </div>
-      </div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 1</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise1b'></div><div id='exercise1bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 2</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise2b'></div><div id='exercise2bc'></div></div>
-	</div>
-</section>
-
-<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3b" style="display:none">
-	<div class="container">
-		<div class="media-container-row">
-			<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-				<strong>Basic Exercise 3</strong>
-			</div>
-		</div>
-		<div class="media-container-row"><div id='exercise3b'></div><div id='exercise3bc'></div></div>
-	</div>
 </section>
 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
@@ -180,76 +152,74 @@
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Reverse string</strong><p>Create a program that reads a string message over the serial port and prints the reserved message.</p><strong>Hint: </strong><p><i>First read a string message over the serial port using the </i>'read string'<i> instruction (check data availability on serial port). Afterwards, in a </i>for <i>loop, iterate over each of the characters of the message in reverse order (from n-1 to 0, being n the length of the string message) and append each of the characters to a string variable, so that after the </i>for<i> loop, you have the string reversed.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions1i','reverse_string.bly','exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-											&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions1i','reverse_string.bly','exercise1i','exercise1ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('reverse_string.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Number of words</strong><p>Create a program that reads a string message over the serial port and counts the number of separated words (prints a message "Number of words: xxx", being xxx the number of words).</p><strong>Hint: </strong><p><i>Implement a while loop and check if the message length is greater than 0. In the while loop, count the number of times a space character is found and (store the result in a variable "new_pos" and check if the difference with respect to the previous position "pos" is greater than zero). On each iteration of the while loop, crop the string message from "new_pos+1" to "n-1", being "n" the message length. To print the message with the number of words, use the instruction 'create text with' so you can concatenate a string and the result of the word count.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions2i','num_words.bly','exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions2i','num_words.bly','exercise2i','exercise2ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('num_words.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Searching text</strong><p>Create a program that makes the red LED (connected to pin D12) blink every time the user sends a message with the word 'Facilino' and makes the blue LED (connected to pin D13) blink every time the message contains the word 'Arduino'.</p><strong>Hint: </strong><p><i>Use the 'contains...expression' instruction in the text category.</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions3i','searching_text.bly','exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions3i','searching_text.bly','exercise3i','exercise3ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('searching_text.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                    <li><strong>Reverse string</strong><p>Create a program that reads a string message over the serial port and prints the reserved message.</p><strong>Hint: </strong><p><i>First read a string message over the serial port using the </i>'read string'<i> instruction (check data availability on serial port). Afterwards, in a </i>for <i>loop, iterate over each of the characters of the message in reverse order (from n-1 to 0, being n the length of the string message) and append each of the characters to a string variable, so that after the </i>for<i> loop, you have the string reversed.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/eDm88kmdcCv" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Number of words</strong><p>Create a program that reads a string message over the serial port and counts the number of separated words (prints a message "Number of words: xxx", being xxx the number of words).</p><strong>Hint: </strong><p><i>Implement a while loop and check if the message length is greater than 0. In the while loop, count the number of times a space character is found and (store the result in a variable "new_pos" and check if the difference with respect to the previous position "pos" is greater than zero). On each iteration of the while loop, crop the string message from "new_pos+1" to "n-1", being "n" the message length. To print the message with the number of words, use the instruction 'create text with' so you can concatenate a string and the result of the word count.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2sHH0jMTf9g" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Searching text</strong><p>Create a program that makes the red LED (connected to pin D12) blink every time the user sends a message with the word 'Facilino' and makes the blue LED (connected to pin D13) blink every time the message contains the word 'Arduino'.</p><strong>Hint: </strong><p><i>Use the 'contains...expression' instruction in the text category.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/iIBpv1Y53eM" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
 				</ol>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mbr-section article content9 cid-qYh0wTdIZC" id="solutions_intermediate">
-	<div class="container">
-			<div class="inner-container" style="width: 100%;">
-					<hr class="line" style="width: 25%;">
-					<div class="section-text align-center mbr-fonts-style display-5">Intermediate Solutions</div>
-					<hr class="line" style="width: 25%;">
-			</div>
-			</div>
-</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions1i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 1</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise1i'></div><div id='exercise1ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions2i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 2</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise2i'></div><div id='exercise2ic'></div></div>
-		</div>
-	</section>
-
-	<section class="mbr-section article content1 cid-qYh5PFH3xX" id="solutions3i" style="display:none">
-		<div class="container">
-			<div class="media-container-row">
-				<div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
-					<strong>Intermediate Exercise 3</strong>
-				</div>
-			</div>
-			<div class="media-container-row"><div id='exercise3i'></div><div id='exercise3ic'></div></div>
-		</div>
-	</section>
-
 <script>
-	var solutions_basic = document.getElementById('solutions_basic');
-	var solutions_intermediate = document.getElementById('solutions_intermediate');
-	solutions_basic.style.display="none";
-	solutions_intermediate.style.display="none";
 	var sch=document.getElementById('schematic');
   sch.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_bb.png';
   var sch_modules=document.getElementById('schematic_modules');
   sch_modules.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_pushbuttons_modules_bb.png';
   var sch_proto=document.getElementById('schematic_proto');
   sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_pushbuttons_bb.png';
+  if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=87');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=89');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=90');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=91');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=92');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=93');
+  }
+  else if (window.FacilinoProcessor==='ArduinoUno')
+  {
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=88');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=89');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=90');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=91');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=92');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=94');
+  }
+  
+$('#exercise1b').on("load", function() {
+    showHideElement('exercise1b');
+});
+
+$('#exercise2b').on("load", function() {
+    showHideElement('exercise2b');
+});
+
+$('#exercise3b').on("load", function() {
+    showHideElement('exercise3b');
+});
+
+$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});
 </script>

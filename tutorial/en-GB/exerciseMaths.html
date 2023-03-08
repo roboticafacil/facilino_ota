@@ -4,23 +4,15 @@ window.FacilinoAdvanced=true;
 
 <script src="facilino.js"></script>
 <script src="facilino_common.js"></script>
-<script src="facilino_serial.js"></script>
-<script src="facilino_inout.js"></script>
-<script src="facilino_logic.js"></script>
 <script src="facilino_maths.js"></script>
 <script src="facilino_text.js"></script>
 <script src="facilino_controls.js"></script>
-<script src="facilino_variables.js"></script>
 
 <script>
-Facilino.load({ zoom: 1});
-FacilinoSerial.load({ zoom: 1});
-FacilinoControls.load({ zoom: 1});
-FacilinoMaths.load({ zoom: 1});
-FacilinoText.load({ zoom: 1});
-FacilinoLogic.load({ zoom: 1});
-FacilinoInOut.load({ zoom: 1});
-FacilinoVariables.load({ zoom: 1});
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -149,27 +141,24 @@ FacilinoVariables.load({ zoom: 1});
                 <ol>
                   <li><strong>Multiply two numbers</strong><p>Create a simple program that takes two numbers (introduced by the user using the serial montior) and multiplies them (floating point operation). Resulting operation must be shown in the serial monitor.</p><strong>Hint: </strong><p><i>Use the parse decimal instructions to get the numbers within the arithmetic instruction to perform the multiplication.</i></p>
 				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					<div><iframe id="exercise1b" style="display:block" frameBorder="0" src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/ezRMhBwAYu9" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-				  
-				  
-				  
-				  <button  type="button" title="Facilino code" onclick="showHideBasic('solutions1b','multiply.bly','exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-            &nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions1b','multiply.bly','exercise1b','exercise1bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-            <a onclick="onFileDownloaded('multiply.bly');">
-  					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-              <li><strong>Reminder of a division</strong><p>Now compute the reminder of a divition of two integer numbers (use the serial monitor to introduce the numbers, being the first number introduced the dividend and the second one the divisor).</p><strong>Hint: </strong><p><i>Use the 'modulo' operation to compute the reminder of the division between the numbers. It must always return a value between 0 and N-1, begin N the divisor.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions2b','modulo.bly','exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-      &nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions2b','modulo.bly','exercise2b','exercise2bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-      <a onclick="onFileDownloaded('modulo.bly');">
-      <button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-									<li><strong>Distance to the origin</strong><p>Compute the distance to the origin of a number given the coordinates X and Y (introduced by the user using the serial monitor).</p><strong>Hint: </strong><p><i>Use the parse decimal instructions to get the numbers and store them on floating point variables. Then, square the value of each coordinate and sum them up. Compute the squared root of the resulting operation and print the value to the serial monitor.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions3b','distance_origin.bly','exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-                  &nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions3b','distance_origin.bly','exercise3b','exercise3bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-        <a onclick="onFileDownloaded('distance_origin.bly');">
-				<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Linear scaling</strong><p>Scale the values from the potentiometer connected to pin A0 so that their range is from 0 to 100 and plot the resulting scaled value on the Serial Plotter.</p><strong>Hint: </strong><p><i>Use the 'map' instruction to perform the scaling.</i></p><button  type="button" title="Facilino code" onclick="showHideBasic('solutions4b','linear_scaling'+window.board+'.bly','exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-            &nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideBasicCode('solutions4b','linear_scaling'+window.board+'.bly','exercise4b','exercise4bc');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-					<a onclick="onFileDownloaded('linear_scaling'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/iSbpeHdZ3Dd" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				  </li>
+              <li><strong>Reminder of a division</strong><p>Now compute the reminder of a divition of two integer numbers (use the serial monitor to introduce the numbers, being the first number introduced the dividend and the second one the divisor).</p><strong>Hint: </strong><p><i>Use the 'modulo' operation to compute the reminder of the division between the numbers. It must always return a value between 0 and N-1, begin N the divisor.</i></p>
+			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/4MDHsE3T6M6" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			  </li>
+			<li><strong>Distance to the origin</strong><p>Compute the distance to the origin of a number given the coordinates X and Y (introduced by the user using the serial monitor).</p><strong>Hint: </strong><p><i>Use the parse decimal instructions to get the numbers and store them on floating point variables. Then, square the value of each coordinate and sum them up. Compute the squared root of the resulting operation and print the value to the serial monitor.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/6KkZNJMSvIg" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>Linear scaling</strong><p>Scale the values from the potentiometer connected to pin A0 so that their range is from 0 to 100 and plot the resulting scaled value on the Serial Plotter.</p><strong>Hint: </strong><p><i>Use the 'map' instruction to perform the scaling.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise4b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/llWoAk8YN2H" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>	
+			</li>
                 </ol>
             </div>
         </div>
@@ -191,18 +180,21 @@ FacilinoVariables.load({ zoom: 1});
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Binary digits</strong><p>Compute the number of digits required to represent an integer number in a binary representation. Implement a function that accepts as input argument an integer number and returns the number of digits. Use, for instance number '123'.</p><strong>Hint: </strong><p><i> In a </i>while<i> loop, check if the number is greater or equal than the base 2 powers (starting from 2). Each time that this is true, a digits counter must be increased (initialized at 1).</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions1i','binary_digits.bly','exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions1i','binary_digits.bly','exercise1i','exercise1ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-          <a onclick="onFileDownloaded('binary_digits.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Minimum and maximum</strong><p>Using the potentiometer (connected to pin A0) measurements, compute the minimum and maximum values in volts (the value must be comprised between 0 and 100). At initialisation, turn on red LED (connected to pin D12) and perform the maximum and minimun computations until the switch SW1 (connected to pin D2) is pushed. Once pushed, turn off the red LED and show on the console the minimum and maximum values of all registered measurements.</p><strong>Hint: </strong><p><i>In a </i>while <i>loop, read the analog measurement in A0 and convert it into a number between 0 and 5 (using the </i>map<i> instruction). Use the </i>min <i>and </i>max<i> instructions to compute the corresponding minimum and maximum and save the results in two different variables (the variable storing the minimum value must be initialised with 100, while the variable for the maximum must be initialised with 0).</i></p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions2i','min_max'+window.board+'.bly','exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions2i','min_max'+window.board+'.bly','exercise2i','exercise2ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-          <a onclick="onFileDownloaded('min_max'+window.board+'.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
-					<li><strong>Sinusoidal Wave</strong><p>Create a sinusoidal wave with 1Hz and amplitude of &#x221A;2, using the presented instructions. And plot it in the Console with Serial Plot Data.</p><button  type="button" title="Facilino code" onclick="showHideIntermediate('solutions3i','sinusoidal_wave.bly','exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					&nbsp;<button type="button"  class="btn-primary display-4" title="Arduino code" onclick="showHideIntermediateCode('solutions3i','sinusoidal_wave.bly','exercise3i','exercise3ic');"><span class="mbri-align-justify mbr-iconfont mbr-iconfont-btn"></span></button>
-          <a onclick="onFileDownloaded('sinusoidal_wave.bly');">
-					<button  type="button" class="btn-primary display-4" title="Download" ><span class="mbri-save mbr-iconfont mbr-iconfont-btn"></span></button></a></li>
+                    <li><strong>Binary digits</strong><p>Compute the number of digits required to represent an integer number in a binary representation. Implement a function that accepts as input argument an integer number and returns the number of digits. Use, for instance number '123'.</p><strong>Hint: </strong><p><i> In a </i>while<i> loop, check if the number is greater or equal than the base 2 powers (starting from 2). Each time that this is true, a digits counter must be increased (initialized at 1).</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/3SfBK11F5NZ" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Minimum and maximum</strong><p>Using the potentiometer (connected to pin A0) measurements, compute the minimum and maximum values in volts (the value must be comprised between 0 and 100). At initialisation, turn on red LED (connected to pin D12) and perform the maximum and minimun computations until the switch SW1 (connected to pin D2) is pushed. Once pushed, turn off the red LED and show on the console the minimum and maximum values of all registered measurements.</p><strong>Hint: </strong><p><i>In a </i>while <i>loop, read the analog measurement in A0 and convert it into a number between 0 and 5 (using the </i>map<i> instruction). Use the </i>min <i>and </i>max<i> instructions to compute the corresponding minimum and maximum and save the results in two different variables (the variable storing the minimum value must be initialised with 100, while the variable for the maximum must be initialised with 0).</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2Ge0wi1C9GI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+					<li><strong>Sinusoidal Wave</strong><p>Create a sinusoidal wave with 1Hz and amplitude of &#x221A;2, using the presented instructions. And plot it in the Console with Serial Plot Data.</p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fyegUHGQiUE" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
 				</ol>
             </div>
         </div>
@@ -218,23 +210,23 @@ FacilinoVariables.load({ zoom: 1});
   sch_proto.src='tutorial/assets/images/Electronics/multisensor'+window.board+'_pot_LED_pushbutton_bb.png';
   if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
   {
-	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=24');
-	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=26');
-	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=28');
-	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=30');
-	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=32');
-	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=34');
-	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=36');
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=77');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=78');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=79');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=80');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=82');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=84');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=86');
   }
   else if (window.FacilinoProcessor==='ArduinoUno')
   {
-	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=25');
-	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=27');
-	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=29');
-	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=31');
-	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=33');
-	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=35');
-	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=37');
+	$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=77');
+	$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=78');
+	$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=79');
+	$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=81');
+	$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=83');
+	$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=85');
+	$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=86');
   }
   
 $('#exercise1b').on("load", function() {
