@@ -26,9 +26,9 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
 				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
 				<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
 				<h2 class="align-center pb-3 mbr-fonts-style display-2">
-					LED Strip and a Push Button</h2>
+					Moving LEDs</h2>
 				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
-					Learn how change colors on a LED Strip interacting with a button.</h3>
+					Learn how move LEDs when pushing a button and generate random effects.</h3>
 			</div>
 		</div>
 	</div>
@@ -72,11 +72,9 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
 		<div class="media-container-row">
 			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol id="workedInstructions">
-								<li><div><span id='tooltipInstruction1'></span></div><div  id='blocklyInstruction1'></div><script>injectInstructionTooltip1('led_strip','blocklyInstruction1','tooltipInstruction1');</script></li>
-								<li><div><span id='tooltipInstruction2'></span></div><div  id='blocklyInstruction2'></div><script>injectInstructionTooltip1('led_strip_all_pixels','blocklyInstruction2','tooltipInstruction2');</script></li>
 								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
 								<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip1('led_strip_gradient','blocklyInstruction4','tooltipInstruction4');</script></li>
-								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('led_strip_brightness','blocklyInstruction5','tooltipInstruction5');</script></li>
+								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('variables_global_volatile_type','blocklyInstruction5','tooltipInstruction5');</script></li>
                 </ol>
             </div>
 		</div>
@@ -104,6 +102,8 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
 					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction9','tooltipInstruction9');</script></li>
 					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip1('controls_for','blocklyInstruction10','tooltipInstruction10');</script></li>
 					<li><div><span id='tooltipInstruction11'></span></div><div  id='blocklyInstruction11'></div><script>injectInstructionTooltip1('base_us','blocklyInstruction11','tooltipInstruction11');</script></li>
+					<li><div><span id='tooltipInstruction12'></span></div><div  id='blocklyInstruction12'></div><script>injectInstructionTooltip1('controls_alternate','blocklyInstruction12','tooltipInstruction12');</script></li>
+					<li><div><span id='tooltipInstruction13'></span></div><div  id='blocklyInstruction13'></div><script>injectInstructionTooltip1('math_random','blocklyInstruction13','tooltipInstruction13');</script></li>
 				  </ol>
             </div>
 		</div>
@@ -126,25 +126,25 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                  <li><strong>Set a LED ON</strong><p>Set the first LED of a LED strip ON. Choose whatever color you want.</i></p><strong>Hint: </strong><p><i>Use the instruction to set the color of an individual LED (first instruction). Also set the correct number of LEDs based on the amount of connected LEDs in your LED strip.</i></p>
+                  <li><strong>Set random LED</strong><p>Every time we push the pushbutton, we set a LED at at random position so that only one LED is ON everytime (if before that there is a LED ON, it must be set to OFF).</i></p><strong>Hint: </strong><p><i>Use the interrupt instruction to attach the pushbutton connected at D2 and on every falling edge set the previous LED off (set to black) and the new to the selected color. To know which LED was ON before, we can store on a GLOBAL SHARED variable the random value, so that we clear that LED, generate a random number from 0 to 29 (num of LEDs) and set the LED ON every time we push the button.</i></p>
 				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/lrsP0zYoTyx" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/c8MVX6BUdAy" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 				  </li>
-              <li><strong>Set All LEDs ON</strong><p>Set ALL LEDs of a LED strip ON. Choose whatever color you want.</p><strong>Hint: </strong><p><i>Use the instruction to set the color of all LEDs (first instruction), combined with the second instruction 'All'. Also set the correct number of LEDs based on the amount of connected LEDs in your LED strip.</i></p>
+              <li><strong>Set random color and LED</strong><p>Bla, bla...</i></p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
 			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/9QmOYQM3szh" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/e7o3As31143" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			  </li>
-			<li><strong>Set LEDs Brightness I</strong><p>Set the brightness of LEDs by increasing its value from 0 to 100 in a for loop.</p><strong>Hint: </strong><p><i>In the 'Setup' section, set all LEDs off (black). Inside the 'Loop' section, use the instruction to set the brightness (fifth instruction) and after setting it value, set the desired color inside a for loop that varies between 0 and 100. Create a LOCAL variable to count the progress within the for loop.</i></p>
+			<li><strong>Gradient of LEDs</strong><p>Bla, bla...</p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
 			<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/53B6yW3Nlon" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/jJv8pozdoG1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</li>
-			<li><strong>Set LEDs Brightness II</strong><p>Now, set the brightness of LEDs by increasing its value from 0 to 100 and then decreasing its value from 100 to 0.</p><strong>Hint: </strong><p><i>As in the previous exercise, use the same instructions, but now, implement a second for loop that counts from 100 to 0.</i></p>
+			<li><strong>Gradient of LEDs with <i>Tornado</i> effect</strong><p>Bla, bla...</p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
 			<button  type="button" title="Facilino code" onclick="showHideElement('exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise4b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/etHOuiGPlWW" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>	
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/4FznTyYFDUd" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>	
 			</li>
                 </ol>
             </div>
@@ -192,10 +192,10 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
 
 <script>
 
-$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=114');
-$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=113');
-$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=109');
-$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=110');
+$('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=102');
+$('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=104');
+$('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=106');
+$('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=107');
 	
   $('#exercise1b').on("load", function() {
     showHideElement('exercise1b');
