@@ -8,8 +8,6 @@ window.FacilinoAdvanced=true;
 <script src="facilino_controls.js"></script>
 <script src="facilino_variables.js"></script>
 <script src="facilino_led_strip.js"></script>
-<script src="facilino_buttons.js"></script>
-<script src="facilino_interrupts.js"></script>
 
 <script>
 Facilino.load({ zoom: 1, readOnly:true, collapse: false});
@@ -17,8 +15,6 @@ FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
-FacilinoButtons.load({ zoom: 1, readOnly:true, collapse: false});
-FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -30,9 +26,9 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
 				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
 				<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
 				<h2 class="align-center pb-3 mbr-fonts-style display-2">
-					Getting Started</h2>
+					LED Strip and a Push Button</h2>
 				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
-					Learn how set colors on a LED Strip.</h3>
+					Learn how change colors on a LED Strip interacting with a button.</h3>
 			</div>
 		</div>
 	</div>
@@ -54,7 +50,7 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
     <figure class="mbr-figure container">
             <div class="mbr-text align-center mbr-fonts-style display-5">Modules</div>
             <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
-                <img id="schematic_modules" src="projects/assets/images/Electronics/led_race_nano_no_button_bb.png" width="1400" alt="Modules" title=""></img>
+                <img id="schematic_modules" src="projects/assets/images/Electronics/led_race_nano_one_button_bb.png" width="1400" alt="Modules" title=""></img>
             </div>
     </figure>
 </section>
@@ -81,8 +77,6 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
 								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
 								<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip1('led_strip_gradient','blocklyInstruction4','tooltipInstruction4');</script></li>
 								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('led_strip_brightness','blocklyInstruction5','tooltipInstruction5');</script></li>
-								<li><div><span id='tooltipInstruction6'></span></div><div  id='blocklyInstruction6'></div><script>injectInstructionTooltip1('button_case','blocklyInstruction6','tooltipInstruction6');</script></li>
-								<li><div><span id='tooltipInstruction7'></span></div><div  id='blocklyInstruction7'></div><script>injectInstructionTooltip1('attachInterrupt','blocklyInstruction7','tooltipInstruction7');</script></li>
                 </ol>
             </div>
 		</div>
@@ -110,7 +104,6 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
 					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction9','tooltipInstruction9');</script></li>
 					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip1('controls_for','blocklyInstruction10','tooltipInstruction10');</script></li>
 					<li><div><span id='tooltipInstruction11'></span></div><div  id='blocklyInstruction11'></div><script>injectInstructionTooltip1('base_us','blocklyInstruction11','tooltipInstruction11');</script></li>
-					<li><div><span id='tooltipInstruction12'></span></div><div  id='blocklyInstruction12'></div><script>injectInstructionTooltip1('controls_alternate','blocklyInstruction12','tooltipInstruction12');</script></li>
 				  </ol>
             </div>
 		</div>
@@ -159,7 +152,7 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
     </div>
 </section>
 
-
+<!-- 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -175,30 +168,27 @@ FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>All LEDs ON</strong><p>Set all LEDs ON when the pushbutton connected to pin D2 is pushed.</p><strong>Hint: </strong><p><i>Use the instruction that reads the button (sixth instruction) and set the LEDs on when the button is pressed.</i></p>
+                    <li><strong>Binary digits</strong><p>Compute the number of digits required to represent an integer number in a binary representation. Implement a function that accepts as input argument an integer number and returns the number of digits. Use, for instance number '123'.</p><strong>Hint: </strong><p><i> In a </i>while<i> loop, check if the number is greater or equal than the base 2 powers (starting from 2). Each time that this is true, a digits counter must be increased (initialized at 1).</i></p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/8tIbsuDrUAw" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/3SfBK11F5NZ" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 					</li>
-					<li><strong>All LEDs ON and OFF</strong><p>Now, set all LEDs ON when the button is pushed and OFF when released.</p><strong>Hint: </strong><p><i>Based on the previous solution, clear all LEDs by setting its color to black when the button is released.</i></p>
+					<li><strong>Minimum and maximum</strong><p>Using the potentiometer (connected to pin A0) measurements, compute the minimum and maximum values in volts (the value must be comprised between 0 and 100). At initialisation, turn on red LED (connected to pin D12) and perform the maximum and minimun computations until the switch SW1 (connected to pin D2) is pushed. Once pushed, turn off the red LED and show on the console the minimum and maximum values of all registered measurements.</p><strong>Hint: </strong><p><i>In a </i>while <i>loop, read the analog measurement in A0 and convert it into a number between 0 and 5 (using the </i>map<i> instruction). Use the </i>min <i>and </i>max<i> instructions to compute the corresponding minimum and maximum and save the results in two different variables (the variable storing the minimum value must be initialised with 100, while the variable for the maximum must be initialised with 0).</i></p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/kQjHlT7AG4y" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2Ge0wi1C9GI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</li>
-					<li><strong>All LEDs ON with Interrupt</strong><p>In the previous exercise, the button was read by polling, which means that the button must be pressed when the instruction is executed. In many cases, it is more convinient to use interrupts to do an action independently of the moment the button is pushed (the microcontroller will stop doing anything to attend the interrupt). So now, implement a <i>similar</i> behaviour as in the first intermediate exercise and set all LEDs ON when the button is pushed via an interrupt</p><strong>Hint: </strong><p><i>Use the seventh instruction to attend a falling edge interrupt (when the button is pushed). The button must be connected to D2 and the interrupt must be configured to use such pin.</i></p>
+					<li><strong>Sinusoidal Wave</strong><p>Create a sinusoidal wave with 1Hz and amplitude of &#x221A;2, using the presented instructions. And plot it in the Console with Serial Plot Data.</p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fxyClAJRhr7" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fyegUHGQiUE" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 					</li>
-					<li><strong>All LEDs ON and OFF with Interrupt</strong><p>Now, reimplement the second intermediate exercise so that the button is attached to an interrupt.</p><strong>Hint: </strong><p><i>Use the alternate case instruction to set ON or OFF the LEDs depending on the case to execute (the alternate instrucion will execute alternatively all cases introduced).</i></p>
-					<button  type="button" title="Facilino code" onclick="showHideElement('exercise4i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-			<div><iframe id="exercise4i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/8Ed5FFrtQDN" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-					</li>				</ol>
+				</ol>
             </div>
         </div>
     </div>
 </section>
+-->
 
 <script>
 
@@ -206,10 +196,6 @@ $('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=114');
 $('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=113');
 $('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=109');
 $('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=110');
-$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=95');
-$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=96');
-$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=98');
-$('#exercise4i').attr('src','facilino.php?action=view_example&embbeded&id=99');
 	
   $('#exercise1b').on("load", function() {
     showHideElement('exercise1b');
@@ -227,7 +213,7 @@ $('#exercise4b').on("load", function() {
     showHideElement('exercise4b');
 });
 
-$('#exercise1i').on("load", function() {
+/*$('#exercise1i').on("load", function() {
     showHideElement('exercise1i');
 });
 
@@ -237,9 +223,5 @@ $('#exercise2i').on("load", function() {
 
 $('#exercise3i').on("load", function() {
     showHideElement('exercise3i');
-});
-
-$('#exercise4i').on("load", function() {
-    showHideElement('exercise4i');
-});
+});*/
 </script>
