@@ -1,5 +1,4 @@
 <section class="features18 popup-btn-cards cid-qYa5rQWOty" id="features">
-
     <div class="container">
 		<h3/>
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
@@ -10,6 +9,22 @@
             Read all associated information related with our project proposals.</h3>
 
 		<div class="row pt-5 ">
+		
+			<div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-wrapper ">
+                    <div class="card-img">
+                        <div class="mbr-overlay"></div>
+                        <div class="mbr-section-btn text-center"><a onclick="onHomeFile('LED_race.html');" class="btn btn-primary display-4">Learn more</a></div>
+                        <a onclick="onHomeFile('LED_race.html');"><img src="projects/assets/images/LED_race.jpg" alt="LED Race" title=""></a>
+                    </div>
+                    <div class="card-box">
+                        <h4 class="card-title mbr-fonts-style display-7">
+                            LED Race</h4>
+                        <p class="mbr-text mbr-fonts-style align-left display-7">
+                            Compete to win a LED race while having fun and learn programming.</p>
+                    </div>
+                </div>
+            </div>
 		
 			<div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
@@ -113,20 +128,11 @@
 <script>
 	if (localStorage.getItem("language")===undefined || localStorage.getItem("language")===null)
 		localStorage.setItem('language', 'en-GB');
-	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
-		localStorage.setItem('processor', 'ArduinoNano');
 	window.FacilinoLanguage = localStorage.getItem("language");
-	window.FacilinoProcessor = localStorage.getItem("processor");
 	$("#language").val(window.FacilinoLanguage);
-	$("#processor").val(window.FacilinoProcessor);
 	function onHomeFile(html_file)
 	{
     window.title=html_file+'_'+window.FacilinoLanguage;
-		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/'+html_file; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/'+'en-GB/'+html_file;},success: function(){}}); $('#main').load(file); location.href = "#menu";});
+		$(function(){var file='projects/'+ window.FacilinoLanguage+'/'+html_file; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/'+'en-GB/'+html_file;},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 	}
-</script>
-
-
-
-
-			
+</script>			

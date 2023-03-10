@@ -19,10 +19,13 @@ if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="arduino")&&!i
 		//echo $row[1];
 	}
 }
-elseif (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="facilino")&&!isset($_POST["action"])){
+elseif (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="facilino")||($_GET["action"]=="facilino_example"))&&!isset($_POST["action"])){
 	//$query = "SELECT proj.name,code.blockly_code from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id where proj.`id` = ".$_GET["id"];
 	//$result = mysqli_query($con,$query);
-	$query = "SELECT proj.name,code.blockly_code,proj.processor_id,proj.filter_id,proj.facilino_code_id,proj.version_id,proj.language_id,proj.share_key,proj.server_ip,proj.device_ip,proj.id,users.id,users.first_name,users.last_name from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id inner join `users` on `users`.`id`=proj.user_id where proj.`id` =?";
+	if ($_GET["action"]=="facilino")
+		$query = "SELECT proj.name,code.blockly_code,proj.processor_id,proj.filter_id,proj.facilino_code_id,proj.version_id,proj.language_id,proj.share_key,proj.server_ip,proj.device_ip,proj.id,users.id,users.first_name,users.last_name from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id inner join `users` on `users`.`id`=proj.user_id where proj.`id` =?";
+	else
+		$query = "SELECT proj.name,code.blockly_code,proj.processor_id,proj.filter_id,proj.facilino_code_id,proj.version_id,proj.language_id,proj.share_key,proj.server_ip,proj.device_ip,proj.id,users.id,users.first_name,users.last_name from `examples` as proj inner join `facilino_code_examples` as code on code.id=proj.facilino_code_id inner join `users` on `users`.`id`=proj.user_id where proj.`id` =?";
 	$statement=mysqli_prepare($con,$query);
 	$statement->bind_param("i",$_GET["id"]);
 	$statement->execute();

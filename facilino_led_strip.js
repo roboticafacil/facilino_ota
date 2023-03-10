@@ -48,7 +48,10 @@
 
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
-				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
+
+				  
 				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t  g, uint8_t  b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
@@ -60,9 +63,10 @@
 			  {
 				if (block.type==='led_strip_all_pixels')
 				{
-					code+='for (int i=0;i<'+pixels+';i++){\n';
+					/*code+='for (int i=0;i<'+pixels+';i++){\n';
 					code+='  writepixel(&_led_strip_'+input_pin+',i,'+color_rgb.r +','+color_rgb.g+','+color_rgb.b+');\n';
-					code+='}\n';
+					code+='}\n';*/
+					code+='_led_strip_'+input_pin+'.fill(_led_strip_'+input_pin+'.Color('+color_rgb.r +','+color_rgb.g+','+color_rgb.b+'),0,_led_strip_'+input_pin+'.numPixels());\n_led_strip_'+input_pin+'.show();\n';
 				}
 				else
 					code='writepixel(&_led_strip_'+input_pin+','+pixel+','+color_rgb.r +','+color_rgb.g+','+color_rgb.b+');\n' ;
@@ -122,7 +126,8 @@
 
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
-				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
 				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t  g, uint8_t  b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
@@ -134,9 +139,10 @@
 			  {
 				if (block.type==='led_strip_all_pixels')
 				{
-					code+='    for (int i=0;i<'+pixels+';i++){\n';
+					/*code+='    for (int i=0;i<'+pixels+';i++){\n';
 					code+='      writepixel(&_led_strip_'+input_pin+',i,(_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF);\n';
-					code+='    }\n';
+					code+='    }\n';*/
+					code+='_led_strip_'+input_pin+'.fill(_led_strip_'+input_pin+'.Color((_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF),0,_led_strip_'+input_pin+'.numPixels());\n_led_strip_'+input_pin+'.show();\n';
 				}
 				else
 					code+='    writepixel(&_led_strip_'+input_pin+','+pixel+',(_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF);\n';
@@ -190,8 +196,9 @@
 
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
-				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
-				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
+				  //Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
 
@@ -220,10 +227,15 @@
 				code +='      uint32_t  _color=Adafruit_NeoPixel::ColorHSV(_hue,255,255);\n';
 				console.log(tornado);
 				if (tornado==='TRUE')
-						code+='      delay(10);\n';
+						code+='      delay('+parseInt(1000/pixels)+');\n';
 				code +='      _hue' + (up ? '+=_hue_inc' : '-=_hue_inc')+';\n';
-				code +='      writepixel(&_led_strip_'+input_pin+',i,(_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF);\n';
+				code +='_led_strip_'+input_pin+'.setPixelColor(i,(_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF);\n';
+				//code +='      writepixel(&_led_strip_'+input_pin+',i,(_color>>16)&0x000000FF,(_color>>8)&0x000000FF,_color&0x000000FF);\n';
+				if (tornado==='TRUE')
+					code +='_led_strip_'+input_pin+'.show();\n';
 				code+='    }\n';
+				if (tornado==='FALSE')
+					code +='_led_strip_'+input_pin+'.show();\n';
 			  }
 			  code+='}\n';
 			  return code;
@@ -294,7 +306,8 @@
 
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
-				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
 				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
@@ -466,7 +479,8 @@
 			{
 				Blockly.Arduino.definitions_['define_neopixel_h'] = '#include <Adafruit_NeoPixel.h>';
 				Blockly.Arduino.definitions_['define_avr_power_h'] = '#ifdef __AVR__\n  #include <avr/power.h>\n#endif';
-				Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				//Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
 				 Blockly.Arduino.definitions_['define_writepixels']=' void writepixels(Adafruit_NeoPixel *led_strip, uint32_t data0,uint32_t data1,uint32_t data2,uint32_t data3,uint32_t data4,uint32_t data5,uint32_t data6){\n  led_strip->setPixelColor(0, led_strip->Color((data0>>16)&0x0000ff,(data0>>8)&0x0000ff,data0&0x0000ff));\n  led_strip->setPixelColor(1, led_strip->Color((data1>>16)&0x0000ff,(data1>>8)&0x0000ff,data1&0x0000ff));\n  led_strip->setPixelColor(2, led_strip->Color((data2>>16)&0x0000ff,(data2>>8)&0x0000ff,data2&0x0000ff));\n  led_strip->setPixelColor(3, led_strip->Color((data3>>16)&0x0000ff,(data3>>8)&0x0000ff,data3&0x0000ff));\n  led_strip->setPixelColor(4, led_strip->Color((data4>>16)&0x0000ff,(data4>>8)&0x0000ff,data4&0x0000ff));\n  led_strip->setPixelColor(5, led_strip->Color((data5>>16)&0x0000ff,(data5>>8)&0x0000ff,data5&0x0000ff));\n  led_strip->setPixelColor(6, led_strip->Color((data6>>16)&0x0000ff,(data6>>8)&0x0000ff,data6&0x0000ff));\n  led_strip->show();\n}\n';
 				  
 				if (this.getInputTargetBlock('PIN').type==='pin_digital')
@@ -529,7 +543,8 @@
 
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
-				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
+				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
 				  Blockly.Arduino.definitions_['define_writepixels']=' void writepixels(Adafruit_NeoPixel *led_strip, uint32_t data0,uint32_t data1,uint32_t data2,uint32_t data3,uint32_t data4,uint32_t data5,uint32_t data6){\n  led_strip->setPixelColor(0, led_strip->Color((data0>>16)&0x0000ff,(data0>>8)&0x0000ff,data0&0x0000ff));\n  led_strip->setPixelColor(1, led_strip->Color((data1>>16)&0x0000ff,(data1>>8)&0x0000ff,data1&0x0000ff));\n  led_strip->setPixelColor(2, led_strip->Color((data2>>16)&0x0000ff,(data2>>8)&0x0000ff,data2&0x0000ff));\n  led_strip->setPixelColor(3, led_strip->Color((data3>>16)&0x0000ff,(data3>>8)&0x0000ff,data3&0x0000ff));\n  led_strip->setPixelColor(4, led_strip->Color((data4>>16)&0x0000ff,(data4>>8)&0x0000ff,data4&0x0000ff));\n  led_strip->setPixelColor(5, led_strip->Color((data5>>16)&0x0000ff,(data5>>8)&0x0000ff,data5&0x0000ff));\n  led_strip->setPixelColor(6, led_strip->Color((data6>>16)&0x0000ff,(data6>>8)&0x0000ff,data6&0x0000ff));\n  led_strip->show();\n}\n';
 				}
 			}

@@ -1,0 +1,221 @@
+<script>
+window.FacilinoAdvanced=true;
+</script>
+
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_variables.js"></script>
+<script src="facilino_led_strip.js"></script>
+
+<script>
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
+</script>
+
+<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
+	<div class="container">
+		<div class="media-container-row">
+			<div class=" title col-12 col-md-8">
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2">
+					Getting Started</h2>
+				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+					Learn how set colors on a LED Strip.</h3>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="mbr-section article content1 cid-qYh0wSDsTN" id="content2-51">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
+                <blockquote><strong>Required material. </strong><ul>
+				<li>An Arduino or ESP board, i.e.: <a onclick="onPageClicked('https://roboticafacil.es/en/prod/arduino-uno-r3/');" style="color:#1ec6c6" target="_blank">Arduino Uno</a>, <a onclick="onPageClicked('https://roboticafacil.es/en/prod/arduino-nano-v3-0-compatible/');" style="color:#1ec6c6" target="_blank">Arduino Nano</a>, <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/prod/wemos-d1-r2/');">Wemos D1 R2</a> or <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/en/prod/wemos-esp32-d1-r32/');">Wemos D1 R32</a>, <a onclick="onPageClicked('https://roboticafacil.es/prod/nodemcu-v3-esp8266-wifi/');" style="color:#1ec6c6" target="_blank">NodeMCU</a>, etc...</li>
+				<li>A LED Strip connected to D4 and two <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/en/prod/push-button-ky-004/');">pushbuttons</a> connected to pins D2 and D3.</li></ul></blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cid-qYh0wSah5G" id="image3-50">
+    <figure class="mbr-figure container">
+            <div class="mbr-text align-center mbr-fonts-style display-5">Modules</div>
+            <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
+                <img id="schematic_modules" src="projects/assets/images/Electronics/led_race_nano_bb.png" width="1400" alt="Modules" title=""></img>
+            </div>
+    </figure>
+</section>
+
+<section class="mbr-section article content9 cid-qYh5KdWW4b" id="content9-5u">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">
+                    Worked instructions</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-5w">
+    <div class="container">
+		<div class="media-container-row">
+			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol id="workedInstructions">
+								<li><div><span id='tooltipInstruction1'></span></div><div  id='blocklyInstruction1'></div><script>injectInstructionTooltip1('led_strip','blocklyInstruction1','tooltipInstruction1');</script></li>
+								<li><div><span id='tooltipInstruction2'></span></div><div  id='blocklyInstruction2'></div><script>injectInstructionTooltip1('led_strip_all_pixels','blocklyInstruction2','tooltipInstruction2');</script></li>
+								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
+								<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip1('led_strip_gradient','blocklyInstruction4','tooltipInstruction4');</script></li>
+								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('led_strip_brightness','blocklyInstruction5','tooltipInstruction5');</script></li>
+                </ol>
+            </div>
+		</div>
+    </div>
+</section>
+
+
+<section class="mbr-section article content9 cid-qYh5KdWW4b" id="content9-5u">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">
+                    Additional instructions</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-5w">
+    <div class="container">
+		<div class="media-container-row">
+			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol id="workedInstructions">
+					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction9','tooltipInstruction9');</script></li>
+					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip1('controls_for','blocklyInstruction10','tooltipInstruction10');</script></li>
+					<li><div><span id='tooltipInstruction11'></span></div><div  id='blocklyInstruction11'></div><script>injectInstructionTooltip1('base_us','blocklyInstruction11','tooltipInstruction11');</script></li>
+				  </ol>
+            </div>
+		</div>
+    </div>
+</section>
+
+<section class="mbr-section article content9 cid-qYh0wTdIZC">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">Basic Exercises</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol>
+                  <li><strong>Set a LED ON</strong><p>Set the first LED of a LED strip ON. Choose whatever color you want.</i></p><strong>Hint: </strong><p><i>Use the instruction to set the color of an individual LED (first instruction). Also set the correct number of LEDs based on the amount of connected LEDs in your LED strip.</i></p>
+				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="facilino.php?action=view_example&embbeded&id=114" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/lrsP0zYoTyx" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				  </li>
+              <li><strong>Set All LEDs ON</strong><p>Set ALL LEDs of a LED strip ON. Choose whatever color you want.</p><strong>Hint: </strong><p><i>Use the instruction to set the color of all LEDs (first instruction), combined with the second instruction 'All'. Also set the correct number of LEDs based on the amount of connected LEDs in your LED strip.</i></p>
+			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="facilino.php?action=view_example&embbeded&id=113" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/9QmOYQM3szh" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			  </li>
+			<li><strong>Set LEDs Brightness I</strong><p>Set the brightness of LEDs by increasing its value from 0 to 100 in a for loop.</p><strong>Hint: </strong><p><i>In the 'Setup' section, set all LEDs off (black). Inside the 'Loop' section, use the instruction to set the brightness (fifth instruction) and after setting it value, set the desired color inside a for loop that varies between 0 and 100. Create a LOCAL variable to count the progress within the for loop.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="facilino.php?action=view_example&embbeded&id=109" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/53B6yW3Nlon" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>Set LEDs Brightness II</strong><p>Now, set the brightness of LEDs by increasing its value from 0 to 100 and then decreasing its value from 100 to 0.</p><strong>Hint: </strong><p><i>As in the previous exercise, use the same instructions, but now, implement a second for loop that counts from 100 to 0.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise4b" style="display:block" frameBorder="0"  src="facilino.php?action=view_example&embbeded&id=110" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/etHOuiGPlWW" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>	
+			</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 
+<section class="mbr-section article content9 cid-qYh0wTdIZC">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">Intermediate Exercises</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol>
+                    <li><strong>Binary digits</strong><p>Compute the number of digits required to represent an integer number in a binary representation. Implement a function that accepts as input argument an integer number and returns the number of digits. Use, for instance number '123'.</p><strong>Hint: </strong><p><i> In a </i>while<i> loop, check if the number is greater or equal than the base 2 powers (starting from 2). Each time that this is true, a digits counter must be increased (initialized at 1).</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/3SfBK11F5NZ" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Minimum and maximum</strong><p>Using the potentiometer (connected to pin A0) measurements, compute the minimum and maximum values in volts (the value must be comprised between 0 and 100). At initialisation, turn on red LED (connected to pin D12) and perform the maximum and minimun computations until the switch SW1 (connected to pin D2) is pushed. Once pushed, turn off the red LED and show on the console the minimum and maximum values of all registered measurements.</p><strong>Hint: </strong><p><i>In a </i>while <i>loop, read the analog measurement in A0 and convert it into a number between 0 and 5 (using the </i>map<i> instruction). Use the </i>min <i>and </i>max<i> instructions to compute the corresponding minimum and maximum and save the results in two different variables (the variable storing the minimum value must be initialised with 100, while the variable for the maximum must be initialised with 0).</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2Ge0wi1C9GI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+					<li><strong>Sinusoidal Wave</strong><p>Create a sinusoidal wave with 1Hz and amplitude of &#x221A;2, using the presented instructions. And plot it in the Console with Serial Plot Data.</p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fyegUHGQiUE" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+				</ol>
+            </div>
+        </div>
+    </div>
+</section>
+-->
+
+<script>  
+  $('#exercise1b').on("load", function() {
+    showHideElement('exercise1b');
+});
+
+$('#exercise2b').on("load", function() {
+    showHideElement('exercise2b');
+});
+
+$('#exercise3b').on("load", function() {
+    showHideElement('exercise3b');
+});
+
+$('#exercise4b').on("load", function() {
+    showHideElement('exercise4b');
+});
+
+/*$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});*/
+</script>

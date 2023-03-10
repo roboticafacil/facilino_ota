@@ -91,7 +91,7 @@
 
 		Facilino.locales.initialize = function() {
 			this.defaultLanguage = options.langKeys ||window.langKeys || {};
-			this.EngLanguage = window.langKeysEng;
+			//this.EngLanguage = window.langKeysEng;
 			//console.log(this.defaultLanguage);
 			this.processor = options.proc || window.FacilinoProcessor;
 			return this;

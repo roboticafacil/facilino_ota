@@ -96,6 +96,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
     else {
       window.board='_wemosD1R32';
     }
+	$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
+	$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
 	
     window.title='home_'+window.FacilinoLanguage;
 
@@ -119,14 +121,14 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 	
 	function onFacilino()
 	{
-  window.title='facilino_programming_'+window.FacilinoLanguage;
+		window.title='facilino_programming_'+window.FacilinoLanguage;
 		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/facilino_programming.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/facilino_programming.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
 	}
 
 	function onExercises()
 	{
 		showHideProcessor(true);
-  window.title='exercises_'+window.FacilinoLanguage;
+		window.title='exercises_'+window.FacilinoLanguage;
 		$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/exercises.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/exercises.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";} );
 	}
 

@@ -1288,6 +1288,7 @@
 				"LANG_TEMP_ALARM_DHT": "Temperature Alarm",
 				"LANG_TEMP_ALARM_NAME": "DHT Temperature alarm",
 				"LANG_TEMP_ALARM_DESCRIPTION": "Checks the temperature alarm levels of the DHT11/DHT21/DHT22 sensor and, if an alarm is triggered, executes the corresponding code. Alarm levels are automatically set so that they are considered within the comfort temperatures of a room and uses both temperature and humidity to determine the appropriate situation based on .",
+				"LANG_TEMP_ALARM_DHT_OUTPUT": "Temperature in Celsius degrees",
 				"LANG_TEMP_ALARM_DHT_DROPDOWN_MODEL": "Sensor: Model of the sensor used DHT11/DHT21/DHT22.",
 				"LANG_TEMP_ALARM_DHT_INPUT_PIN": "Bus Pin: Pin to which the sensor is connected to.",
 				"LANG_TEMP_ALARM_DHT_STATEMENT_HIGH": "High temperature: Set of instructions to be executed in case of reading a temperature higher than the established high-temperature alarm level.",
