@@ -43,7 +43,7 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_READ_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_ANALOG);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_READ')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['AnalogPin']);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_READ')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['AnalogPin']);
 				this.setOutput(true,[Number,'AnalogRead']);
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_READ_TOOLTIP'));
@@ -86,7 +86,7 @@
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
 				this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_ADVANCED_BUILTIN_LED'))
-					.appendField(new Blockly.FieldImage("img/blocks/diode.png",24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_ADVANCED_BUILTIN_LED_STATE'))
+					.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/diode.png",24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_ADVANCED_BUILTIN_LED_STATE'))
 					.appendField(new Blockly.FieldDropdown([
 						[Facilino.locales.getKey('LANG_ADVANCED_BUILTIN_LED_ON') || 'ON', 'HIGH'],
 						[Facilino.locales.getKey('LANG_ADVANCED_BUILTIN_LED_OFF') || 'OFF', 'LOW'],
@@ -128,7 +128,7 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_READ_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_READ')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_READ')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin');
 				this.setOutput(true,[Boolean,'DigitalRead']);
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_READ_TOOLTIP'));
@@ -162,7 +162,7 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['DigitalPin','Variable']);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['DigitalPin','Variable']);
 				this.appendValueInput('STAT').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_WRITE_STATE')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setInputsInline(true);
@@ -253,11 +253,11 @@
 					this.setColour(pwm_colour);
 					if (window.FacilinoAdvanced===true)
 					{
-						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_PWM_WRITE')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
+						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_PWM_WRITE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
 					}
 					else
 					{
-						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
+						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
 					}
 					this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE_VALUE')).setCheck([Number,'Variable']);
 					this.setInputsInline(true);
@@ -297,11 +297,11 @@
 					this.setColour(pwm_colour);
 					if (window.FacilinoAdvanced===true)
 					{
-						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_PWM_WRITE')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
+						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_PWM_WRITE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
 					}
 					else
 					{
-						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
+						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
 					}
 					this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE_VALUE')).setCheck([Number,'Variable']);
 					this.setInputsInline(true);
@@ -342,7 +342,7 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['DigitalPin','Variable']);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE')).appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck(['DigitalPin','Variable']);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_MODE')).appendField(new Blockly.FieldDropdown([
 						[Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_OUTPUT') || 'OUTPUT', 'OUTPUT'],
 						[Facilino.locales.getKey('LANG_ADVANCED_INOUT_DIGITAL_MODE_INPUT') || 'INPUT', 'INPUT'],
@@ -394,7 +394,7 @@
 				name: Facilino.locales.getKey('LANG_ADVANCED_INOUT_ANALOG_WRITE_NAME'),
 				init: function() {
 					this.setColour(pwm_colour);
-					this.appendValueInput('PIN').appendField('Setup '+Facilino.locales.getKey('LANG_VARIABLES_PIN_PWM')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
+					this.appendValueInput('PIN').appendField('Setup '+Facilino.locales.getKey('LANG_VARIABLES_PIN_PWM')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('PWMPin');
 					this.appendDummyInput('').appendField(new Blockly.FieldNumber(1000,0,40000000),'FREQ').appendField('Hz').appendField(new Blockly.FieldNumber(8,1,16),'RES').appendField('bits');
 					this.setInputsInline(true);
 					this.setPreviousStatement(true,'code');
@@ -432,7 +432,7 @@
 			name: Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.analog), 'PIN');
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.analog), 'PIN');
 				this.setInputsInline(true);
 				this.setOutput(true,'AnalogPin');
 				this.setTooltip(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_TOOLTIP'));
@@ -467,7 +467,7 @@
 			name: Facilino.locales.getKey('LANG_VARIABLES_PIN_DIGITAL_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom))
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom))
 					.appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_DIGITAL'))
 					.appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital), 'PIN');
 
@@ -508,11 +508,11 @@
 				this.setColour(pwm_colour);
 				if (window.FacilinoAdvanced===true)
 				{
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_PWM')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.pwm), 'PIN');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_PWM')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.pwm), 'PIN');
 				}
 				else
 				{
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_OUT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.pwm), 'PIN');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_VARIABLES_PIN_ANALOG_OUT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.pwm), 'PIN');
 				}
 
 				this.setInputsInline(true);

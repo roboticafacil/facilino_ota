@@ -1031,7 +1031,7 @@ if ($rows==1)
 	
 	<?php
 	//List all examples (only Administrators)
-	if ($row_user["user_role_id"]==1)
+	if ($row_user["user_role_id"]<=2)
 	{
 		$query = "SELECT proj.id,proj.name,proc.name,facil.name,filt.name,lang.name,proj.modified_date,proj.share_key from `examples` as proj inner join `processors` as proc on proc.id=proj.processor_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as facil on facil.id=proj.version_id inner join `languages` as lang on lang.id=proj.language_id where proj.`user_id` = ".$row_user["id"]." order by proj.`modified_date` desc";
 		$result = mysqli_query($con,$query);

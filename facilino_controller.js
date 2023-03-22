@@ -41,11 +41,11 @@
 				name: Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_SYSTEM_CONTROL);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/pid_control.png', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pid_control.png', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_CONTROLLER')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('SETPOINT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SETPOINT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_INPUT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_GAINS')).appendField('P').appendField(new Blockly.FieldTextInput('1'),'P').appendField('I').appendField(new Blockly.FieldTextInput('0'),'I').appendField('D').appendField(new Blockly.FieldTextInput('0'),'D').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/chronometer.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_SAMPLING_TIME')+' (ms)').appendField(new Blockly.FieldTextInput('100'),'SAMPLING_TIME').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/knob.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_GAINS')).appendField('P').appendField(new Blockly.FieldTextInput('1'),'P').appendField('I').appendField(new Blockly.FieldTextInput('0'),'I').appendField('D').appendField(new Blockly.FieldTextInput('0'),'D').setAlign(Blockly.ALIGN_RIGHT);
 					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_PID_OUTPUT')).appendField('min').appendField(new Blockly.FieldTextInput('0'),'MIN').appendField('max').appendField(new Blockly.FieldTextInput('255'),'MAX').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setOutput(true,Number);
@@ -75,7 +75,7 @@
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_SYSTEM_CONTROL);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF')).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_INPUT')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_INPUT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_HYSTHERESIS')).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_ON')).appendField(new Blockly.FieldNumber(80),'HYSTHERESIS_ON').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_OFF')).appendField(new Blockly.FieldNumber(20),'HYSTHERESIS_OFF').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('ON').appendField(new Blockly.FieldImage("img/blocks/switch_on.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.appendStatementInput('OFF').appendField(new Blockly.FieldImage("img/blocks/switch_off.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');

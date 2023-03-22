@@ -32,9 +32,9 @@
 			name: Facilino.locales.getKey('LANG_BQ_JOYSTICK_DIR_NAME'),
 			init: function() {
 				this.setColour(other_analog_colour);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_DIR')).appendField(new Blockly.FieldImage('img/blocks/joystick.png', 52*options.zoom, 24*options.zoom));
-				this.appendValueInput('PINX').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_X')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
-				this.appendValueInput('PINY').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_Y')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_DIR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/joystick.png', 52*options.zoom, 24*options.zoom));
+				this.appendValueInput('PINX').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_X')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
+				this.appendValueInput('PINY').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_Y')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
 				this.setOutput(true,Number);
 				// this.setPreviousStatement(true, null);
 				// this.setNextStatement(true, null);
@@ -72,9 +72,9 @@
 			name: Facilino.locales.getKey('LANG_BQ_JOYSTICK_MAG_NAME'),
 			init: function() {
 				this.setColour(other_analog_colour);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_MAG')).appendField(new Blockly.FieldImage('img/blocks/joystick.png', 52*options.zoom, 24*options.zoom));
-				this.appendValueInput('PINX').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_X')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
-				this.appendValueInput('PINY').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_Y')).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_MAG')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/joystick.png', 52*options.zoom, 24*options.zoom));
+				this.appendValueInput('PINX').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_X')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
+				this.appendValueInput('PINY').appendField(Facilino.locales.getKey('LANG_BQ_JOYSTICK_PIN_Y')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('AnalogPin');
 				this.setOutput(true,Number);
 				// this.setPreviousStatement(true, null);
 				// this.setNextStatement(true, null);
@@ -113,7 +113,7 @@
 			name: Facilino.locales.getKey('LANG_RELE_NAME'),
 			init: function() {
 				this.setColour(other_digital_colour);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RELE')).appendField(new Blockly.FieldImage('img/blocks/relays.png', 52*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RELE_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom,22*options.zoom)).setCheck('DigitalPin');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RELE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/relays.png', 52*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RELE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom,22*options.zoom)).setCheck('DigitalPin');
 		this.appendValueInput('VALUE').setCheck(Boolean).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_RELE_VALUE')).setCheck([Boolean,'Variable']);
 				this.setPreviousStatement('code');
 				this.setNextStatement('code');

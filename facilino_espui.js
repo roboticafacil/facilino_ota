@@ -81,8 +81,8 @@
 			this.setPreviousStatement(true, 'ui_element');
 			this.setNextStatement(true, 'ui_element');
 			this.setTooltip(Facilino.locales.getKey('LANG_ESPUI_BUTTON_TOOLTIP'));
-			this.appendStatementInput('on_down').appendField(new Blockly.FieldImage('img/blocks/button_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up').appendField(new Blockly.FieldImage('img/blocks/button_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/button_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/button_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
 		}
 	};
 
@@ -197,8 +197,8 @@
 			this.setPreviousStatement(true, 'ui_element');
 			this.setNextStatement(true, 'ui_element');
 			this.setTooltip(Facilino.locales.getKey('LANG_ESPUI_SWITCH_TOOLTIP')); //''
-			this.appendStatementInput('on_on').appendField(new Blockly.FieldImage('img/blocks/switch_on.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_off').appendField(new Blockly.FieldImage('img/blocks/switch_off.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_on').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/switch_on.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_off').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/switch_off.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
 		}
 	};
 
@@ -247,16 +247,16 @@
 			this.setPreviousStatement(true, 'ui_element');
 			this.setNextStatement(true, 'ui_element');
 			this.setTooltip(Facilino.locales.getKey('LANG_ESPUI_PAD_TOOLTIP'));
-			this.appendStatementInput('on_down_for').appendField(new Blockly.FieldImage('img/blocks/controller_up_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up_for').appendField(new Blockly.FieldImage('img/blocks/controller_up_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_down_back').appendField(new Blockly.FieldImage('img/blocks/controller_down_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up_back').appendField(new Blockly.FieldImage('img/blocks/controller_down_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_down_left').appendField(new Blockly.FieldImage('img/blocks/controller_right_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up_left').appendField(new Blockly.FieldImage('img/blocks/controller_right_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_down_right').appendField(new Blockly.FieldImage('img/blocks/controller_left_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up_right').appendField(new Blockly.FieldImage('img/blocks/controller_left_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_down_center').appendField(new Blockly.FieldImage('img/blocks/controller_center_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-			this.appendStatementInput('on_up_center').appendField(new Blockly.FieldImage('img/blocks/controller_center_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down_for').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_up_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up_for').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_up_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down_back').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_down_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up_back').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_down_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down_left').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_right_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up_left').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_right_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down_right').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_left_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up_right').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_left_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_down_center').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_center_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+			this.appendStatementInput('on_up_center').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_center_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
 			this.lastOption=this.getFieldValue('pad_center');
 		},
 		onchange: function()
@@ -269,8 +269,8 @@
 
 						this.removeInput('on_down_center');
 						this.removeInput('on_up_center');
-						this.appendStatementInput('on_down_center').appendField(new Blockly.FieldImage('img/blocks/controller_center_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
-						this.appendStatementInput('on_up_center').appendField(new Blockly.FieldImage('img/blocks/controller_center_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+						this.appendStatementInput('on_down_center').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_center_pressed.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
+						this.appendStatementInput('on_up_center').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/controller_center_released.svg', 22*options.zoom, 22*options.zoom)).setCheck('code');
 					}
 					catch(e)
 					{
@@ -396,7 +396,7 @@
 		init: function() {
 			var colour = new Blockly.FieldColour('#000000');
 			colour.setColours(['#000000','#40e0d0','#50c878','#3498dc','#687894','#e4d422','#eb8921','#e32636']).setColumns(2);
-			this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/slider.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_ESPUI_SLIDER_VALUE'));
+			this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/slider.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_ESPUI_SLIDER_VALUE'));
 			this.setColour(Facilino.LANG_COLOUR_ESPUI);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);

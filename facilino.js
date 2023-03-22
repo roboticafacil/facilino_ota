@@ -30,6 +30,16 @@
 		Facilino.RGBLEDStripIDs={};
 		Facilino.DHTTemperatureIDs={};
 		Facilino.DHTHumidityIDs={};
+		
+		var loc = window.location.pathname;
+		loc = loc.substring(0, loc.lastIndexOf('/'));
+		var dir = loc.substring(loc.lastIndexOf('/')+1);
+		if (dir==='projects')
+			Facilino.path = '../';
+		else if (dir==='tutorial')
+			Facilino.path = '../';
+		else
+			Facilino.path = '';
 
 		Facilino.removedBlocks = function(ids) {
 			ids.forEach(function(blockId){
@@ -91,8 +101,9 @@
 
 		Facilino.locales.initialize = function() {
 			this.defaultLanguage = options.langKeys ||window.langKeys || {};
-			//this.EngLanguage = window.langKeysEng;
+			this.EngLanguage = window.langKeysEng;
 			//console.log(this.defaultLanguage);
+			//console.log(window.langKeysEng);
 			this.processor = options.proc || window.FacilinoProcessor;
 			return this;
 		};
@@ -161,8 +172,12 @@
 		};
 
 		var profiles;
+		var loc = window.location.pathname;
+		loc = loc.substring(0, loc.lastIndexOf('/'));
+		var dir = loc.substring(loc.lastIndexOf('/')+1);
+		var url =Facilino.path+'profiles.json';
 		$.ajax({
-				url: 'profiles.json',
+				url: url,
 				dataType: "text",
 				async: false,
 				}).done(function(text) {

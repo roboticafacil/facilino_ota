@@ -186,8 +186,8 @@
 					}
 					if (Facilino.profiles['processor']==='ESP32')
 					{
-					this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
-					this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+					this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+					this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
 					}
 					this.setOutput(true,Number);
 					this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUS);
@@ -264,8 +264,8 @@
 					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_I2C_ADDRESS')).appendField(new Blockly.FieldTextInput("0",Blockly.Blocks.i2c_read_byte.validator), "ADDRESS").setAlign(Blockly.ALIGN_RIGHT);
 					if (Facilino.profiles['processor']==='ESP8266')
 					{
-						this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
-						this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+						this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+						this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
 					}
 					this.setOutput(false);
 					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
@@ -374,8 +374,8 @@
 						.setCheck([Number,'Variable','Array']);
 				  if (Facilino.profiles['processor']==='ESP8266')
 				  {
-				  this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
-				  this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+				  this.appendValueInput('SDA').setAlign(Blockly.ALIGN_RIGHT).appendField('SDA').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
+				  this.appendValueInput('SCL').setAlign(Blockly.ALIGN_RIGHT).appendField('SCL').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('DigitalPin');
 				  }
 					this.setOutput(false);
 					this.setPreviousStatement(true,'code');

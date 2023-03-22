@@ -289,9 +289,9 @@
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MUSIC);
 		this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('MELODY').appendField(new Blockly.FieldImage('img/blocks/clef.svg', 36*options.zoom, 36*options.zoom)).setCheck(['Melody','Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('MELODY').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/clef.svg', 36*options.zoom, 36*options.zoom)).setCheck(['Melody','Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				if (window.FacilinoAdvanced===true)
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_WAIT')).appendField(new Blockly.FieldCheckbox('FALSE'),'WAIT').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
@@ -416,7 +416,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MUSIC);
 		this.appendDummyInput('')
-					.appendField(new Blockly.FieldImage('img/blocks/clef.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/clef.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
 				this.appendDummyInput('')
 					.appendField(new Blockly.FieldDropdown([
 						['BEETHOVEN', '1'],
@@ -468,7 +468,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MUSIC);
 				this.appendDummyInput('')
-					.appendField(new Blockly.FieldImage('img/blocks/stop-button.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/stop-button.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -499,7 +499,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MUSIC);
 		this.appendDummyInput('')
-					.appendField(new Blockly.FieldImage('img/blocks/play-button.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/play-button.svg',36*options.zoom, 36*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/musical_notes.svg', 48*options.zoom, 48*options.zoom));
 		this.setInputsInline(false);
 		this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_BUZZER_ISPLAYING_MELODY_TOOLTIP'));
@@ -672,7 +672,7 @@
 				else if (item.octave==='va')
 					note_cat='LANG_SUBCATEGORY_C5';
 			}
-			var note_path = 'img/blocks/'+note_name+'.svg';
+			var note_path = Facilino.path+'img/blocks/'+note_name+'.svg';
 			Blockly.Blocks['dyor_piezo_music_'+note_name] = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_SOUND'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_MUSIC'),
@@ -757,7 +757,7 @@
 			//dyor_piezo_buzzer initialization
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MUSIC);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/end.svg',30*options.zoom, 86.6*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/end.svg',30*options.zoom, 86.6*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 		this.setOutput(true,'Melody');
 				this.setTooltip(Facilino.locales.getKey('LANG_MUSIC_NOTE_END_TOOLTIP'));

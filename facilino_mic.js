@@ -49,8 +49,8 @@
 			//infrared initialization
 			init: function() {
 				this.setColour(mic_analog_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage('img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_AO')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_AO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_TOOLTIP'));
 			},
@@ -84,8 +84,8 @@
 			//infrared initialization
 			init: function() {
 				this.setColour(mic_digital_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage('img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_DO')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_DO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_DIGITAL_TOOLTIP'));
 			},

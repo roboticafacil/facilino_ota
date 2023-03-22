@@ -36,7 +36,7 @@
 			  keys: ['LANG_OLED_SET_TEXT_NAME','LANG_OLED_SET_TEXT','LANG_OLED_SET_TEXT_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_TEXT_NAME'),
 			  init: function() {
-				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_TEXT')).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_TEXT')).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('X').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_OLED_SET_TEXT_SIZE')).appendField(new Blockly.FieldDropdown([['1','1'],['2','2'],['3','3']]),'SIZE').setAlign(Blockly.ALIGN_RIGHT);
@@ -134,7 +134,7 @@
 			  keys: ['LANG_OLED_SET_IMAGE_NAME','LANG_OLED_SET_IMAGE','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_SET_IMAGE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_IMAGE_NAME'),
 			  init: function() {
-				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_IMAGE')).setCheck(['oled_small_icon','oled_large_icon','oled_central_image','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_IMAGE')).setCheck(['oled_small_icon','oled_large_icon','oled_central_image','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('X').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
@@ -177,7 +177,7 @@
 			  keys: ['LANG_OLED_CLEAR_NAME','LANG_OLED_CLEAR','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_SET_COORDINATE_WIDTH','LANG_OLED_SET_COORDINATE_HEIGHT','LANG_OLED_CLEAR_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_CLEAR_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_CLEAR'))
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_CLEAR'))
 				this.appendValueInput('X').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('W').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_WIDTH')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
@@ -223,7 +223,7 @@
 			  keys: ['LANG_OLED_SET_HEADER_TEXT_NAME','LANG_OLED_SET_HEADER_TEXT','LANG_OLED_SET_HEADER_TEXT_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_HEADER_TEXT_NAME'),
 			  init: function() {
-				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_HEADER_TEXT')).setCheck([String,'Variable']).appendField(new Blockly.FieldImage("img/blocks/oled_header_text.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_HEADER_TEXT')).setCheck([String,'Variable']).appendField(new Blockly.FieldImage("img/blocks/oled_header_text.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
@@ -261,7 +261,7 @@
 			  keys: ['LANG_OLED_SET_MAIN_TEXT_NAME','LANG_OLED_SET_MAIN_TEXT','LANG_OLED_SET_MAIN_TEXT_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_MAIN_TEXT_NAME'),
 			  init: function() {
-				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_MAIN_TEXT')).appendField(new Blockly.FieldImage("img/blocks/oled_main_text.svg", 40*options.zoom, 22*options.zoom, "*")).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_MAIN_TEXT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_main_text.svg", 40*options.zoom, 22*options.zoom, "*")).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
@@ -393,10 +393,10 @@
 			  keys: ['LANG_OLED_SET_SMALL_ICON_NAME','LANG_OLED_SET_SMALL_ICON','LANG_OLED_SMALL_ICON_TOP_LEFT','LANG_OLED_SMALL_ICON_TOP_RIGHT','LANG_OLED_SMALL_ICON_BOTTOM_LEFT','LANG_OLED_SMALL_ICON_BOTTOM_RIGHT','LANG_OLED_SET_SMALL_ICON_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_SMALL_ICON_NAME'),
 			  init: function() {
-				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_SMALL_ICON')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_TOP_LEFT'),'TOP_LEFT'],
+				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_SMALL_ICON')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_TOP_LEFT'),'TOP_LEFT'],
 				[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_TOP_RIGHT'),'TOP_RIGHT'],
 				[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_BOTTOM_LEFT'),'BOTTOM_LEFT'],
-				[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_BOTTOM_RIGHT'),'BOTTOM_RIGHT']]),'ICON').setCheck(['oled_small_icon','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage("img/blocks/oled_small_icons.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				[Facilino.locales.getKey('LANG_OLED_SMALL_ICON_BOTTOM_RIGHT'),'BOTTOM_RIGHT']]),'ICON').setCheck(['oled_small_icon','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_small_icons.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
@@ -475,8 +475,8 @@
 			  keys: ['LANG_OLED_SET_LARGE_ICON_NAME','LANG_OLED_SET_LARGE_ICON','LANG_OLED_LARGE_ICON_LEFT','LANG_OLED_LARGE_ICON_RIGHT','LANG_OLED_SET_LARGE_ICON_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_LARGE_ICON_NAME'),
 			  init: function() {
-				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_LARGE_ICON')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_LEFT'),'LEFT'],
-				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_RIGHT'),'RIGHT']]),'ICON').setCheck(['oled_large_icon','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage("img/blocks/oled_large_icons.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_LARGE_ICON')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_LEFT'),'LEFT'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_RIGHT'),'RIGHT']]),'ICON').setCheck(['oled_large_icon','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_large_icons.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
@@ -545,7 +545,7 @@
 			  keys: ['LANG_OLED_SET_MAIN_IMAGE_NAME','LANG_OLED_SET_MAIN_IMAGE','LANG_OLED_SET_MAIN_IMAGE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_SET_MAIN_IMAGE_NAME'),
 			  init: function() {
-				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_MAIN_IMAGE')).setCheck(['oled_central_image','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage("img/blocks/oled_main_image.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('IMAGE').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SET_MAIN_IMAGE')).setCheck(['oled_central_image','oled_custom_image','oled_empty_image']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_main_image.svg", 40*options.zoom, 22*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setOutput(false);
@@ -585,7 +585,7 @@
 				keys: ['LANG_OLED_IMAGE_BROWSE_NAME','LANG_OLED_IMAGE_BROWSE_TOOLTIP'],
 				name: Facilino.locales.getKey('LANG_OLED_IMAGE_BROWSE_NAME'),
 				init: function() {
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(new Blockly.FieldTextInput('image_name'),'IMAGE_NAME').appendField(new Blockly.FieldButton('Browse...',null),'IMAGE').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(new Blockly.FieldTextInput('image_name'),'IMAGE_NAME').appendField(new Blockly.FieldButton('Browse...',null),'IMAGE').setAlign(Blockly.ALIGN_RIGHT);
 					this.setOutput(true,'oled_custom_image');
 					this.setColour(Facilino.LANG_COLOUR_SCREEN_OLED);
 					Facilino.NumImages=Facilino.NumImages+1;
@@ -629,7 +629,7 @@
 				keys: ['LANG_OLED_EMPTY_IMAGE_NAME','LANG_OLED_EMPTY','LANG_OLED_EMPTY_IMAGE_TOOLTIP'],
 				name: Facilino.locales.getKey('LANG_OLED_EMPTY_IMAGE_NAME'),
 				init: function() {
-					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_EMPTY')).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_EMPTY')).setAlign(Blockly.ALIGN_RIGHT);
 					this.setPreviousStatement(false,null);
 					this.setNextStatement(false,null);
 					this.setOutput(true,'oled_empty_image');
@@ -804,7 +804,7 @@
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_UP_DOWN'),'ARROW_UP_DOWN'],
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_ARROW_LEFT_RIGHT'),'ARROW_LEFT_RIGHT']],
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SMALL_ICON')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_SMALL_ICON')).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NO_CONNECTION'),'NO_CONN'],
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_POOR_CONNECTION'),'POOR_CONN'],
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_GOOD_CONNECTION'),'GOOD_CONN'],
@@ -1041,7 +1041,7 @@
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'3','SIGNAL3'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SIGNAL')+'4','SIGNAL4']],
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_LARGE_ICON')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_LARGE_ICON')).appendField(new Blockly.FieldDropdown([
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HOME'),'HOME'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_UP'),'ARROWUP'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_ARROW_DOWN'),'ARROWDOWN'],
@@ -1202,7 +1202,7 @@
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_TONGUE'),'TONGUE'],
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_WIDE_SMILE'),'WIDE_SMILE']],
 			  init: function(){
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_96x16_IMAGE')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled_image.svg", 22*options.zoom, 22*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_96x16_IMAGE')).appendField(new Blockly.FieldDropdown([
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_BORED'),'BORED'],
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_CALM'),'CALM'],
 				[Facilino.locales.getKey('LANG_OLED_CENTRAL_ICON_CONFUSED'),'CONFUSED'],
@@ -1265,7 +1265,7 @@
 			  keys: ['LANG_OLED_LINE_NAME','LANG_OLED_LINE','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_LINE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_LINE_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_LINE'))
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_LINE'))
 				this.appendValueInput('X0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('X1').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'1').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
@@ -1318,7 +1318,7 @@
 			  keys: ['LANG_OLED_RECT_NAME','LANG_OLED_RECT','LANG_OLED_FILL','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_SET_COORDINATE_WIDTH','LANG_OLED_SET_COORDINATE_HEIGHT','LANG_OLED_RECT_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_RECT_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_RECT')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_RECT')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
 				this.appendValueInput('X0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('W').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_WIDTH')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
@@ -1370,7 +1370,7 @@
 			  keys: ['LANG_OLED_CIRCLE_NAME','LANG_OLED_CIRCLE','LANG_OLED_FILL','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_SET_RADIUS','LANG_OLED_CIRCLE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_CIRCLE_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_CIRCLE')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_CIRCLE')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
 				this.appendValueInput('X0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('R').appendField(Facilino.locales.getKey('LANG_OLED_SET_RADIUS')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
@@ -1424,7 +1424,7 @@
 			  keys: ['LANG_OLED_TRIANGLE_NAME','LANG_OLED_TRIANGLE','LANG_OLED_FILL','LANG_OLED_SET_COORDINATE_X','LANG_OLED_SET_COORDINATE_Y','LANG_OLED_TRIANGLE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_OLED_TRIANGLE_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_TRIANGLE')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/oled.svg", 24*options.zoom, 24*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_OLED_TRIANGLE')).appendField(Facilino.locales.getKey('LANG_OLED_FILL')).appendField(new Blockly.FieldCheckbox('FALSE'),'FILL');
 				this.appendValueInput('X0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('Y0').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_Y')+'0').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('X1').appendField(Facilino.locales.getKey('LANG_OLED_SET_COORDINATE_X')+'1').setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);

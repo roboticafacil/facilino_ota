@@ -57,10 +57,10 @@
 			//servo_move initialization
 			init: function() {
 				this.setColour(robot_colour);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 52*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
-		this.appendValueInput('DEGREE', Number).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_DEGREES')).appendField(new Blockly.FieldImage('img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 52*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
+		this.appendValueInput('DEGREE', Number).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_DEGREES')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/angle.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_SERVO_MOVE_TOOLTIP'));
@@ -117,10 +117,10 @@
 			name: Facilino.locales.getKey('LANG_SERVO_CONT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 63*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
-				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage('img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				//this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_CONT')).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 63*options.zoom, 63*options.zoom)).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",24*options.zoom,24*options.zoom)).setCheck(Number);
+				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
@@ -176,8 +176,8 @@
 				//servo_move initialization
 				init: function() {
 					this.setColour(robot_colour);
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_ATTACH')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_ATTACH')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField('us').appendField(new Blockly.FieldNumber(500,400,1500),'MIN').appendField(new Blockly.FieldNumber(2500,1500,2600),'MAX')
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
@@ -223,8 +223,8 @@
 				//servo_move initialization
 				init: function() {
 					this.setColour(robot_colour);
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_DETACH')).appendField(new Blockly.FieldImage('img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_DETACH')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/servo.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/servo_cont.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
 					this.setTooltip(Facilino.locales.getKey('LANG_SERVO_DETACH_TOOLTIP'));
@@ -275,11 +275,11 @@
 			name: Facilino.locales.getKey('LANG_SERVO_DC_MOTOR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MOVEMENT_MOTORS);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DC_MOTOR')).appendField(new Blockly.FieldImage('img/blocks/engine.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DC_MOTOR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/engine.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				//this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/drv8833.png', 63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/add-icon.png',63*options.zoom, 63*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/micro_gear_motor.png', 63*options.zoom, 63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN1').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'1').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN2').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'2').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage('img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+				this.appendValueInput('PIN1').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'1').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN2').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SERVO_CONT_PIN')+'2').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('SPEED').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_SPEED')+' (-100~100)').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(false);
@@ -333,10 +333,10 @@
 		  keys: ['LANG_STEPPER_SET_SPEED_NAME','LANG_STEPPER','LANG_STEPPER_SET_SPEED','LANG_STEPPER_TOTAL_STEPS','LANG_STEPPER_PIN1','LANG_STEPPER_PIN2','LANG_STEPPER_PIN3','LANG_STEPPER_PIN4','LANG_STEPPER_RPM','LANG_STEPPER_SET_SPEED_TOOLTIP'],
 		  name: Facilino.locales.getKey('LANG_STEPPER_SET_SPEED_NAME'),
 		  init: function() {
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_STEPPER')).appendField(new Blockly.FieldImage('img/blocks/stepper.png', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_STEPPER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/stepper.png', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_STEPPER_TOTAL_STEPS')).appendField(new Blockly.FieldNumber(2048, 0, Infinity, 1),"TOTAL_STEPS").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_STEPPER_PIN1')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN1").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN2')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN2").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN3')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN3").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN4')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN4").setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput("SPEED").setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_STEPPER_SET_SPEED')+' ('+Facilino.locales.getKey('LANG_STEPPER_RPM')+')').appendField(new Blockly.FieldImage('img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+			this.appendValueInput("SPEED").setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_STEPPER_SET_SPEED')+' ('+Facilino.locales.getKey('LANG_STEPPER_RPM')+')').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speedometer.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 			this.setPreviousStatement(true, "code");
 			this.setNextStatement(true, "code");
 			this.setInputsInline(false);
@@ -381,10 +381,10 @@
 		  keys: ['LANG_STEPPER_STEPS_NAME','LANG_STEPPER','LANG_STEPPER_STEPS','LANG_STEPPER_TOTAL_STEPS','LANG_STEPPER_PIN1','LANG_STEPPER_PIN2','LANG_STEPPER_PIN3','LANG_STEPPER_PIN4','LANG_STEPPER_STEPS_TOOLTIP'],
 		  name: Facilino.locales.getKey('LANG_STEPPER_STEPS_NAME'),
 		  init: function() {
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_STEPPER')).appendField(new Blockly.FieldImage('img/blocks/stepper.png', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_STEPPER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/stepper.png', 36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_STEPPER_TOTAL_STEPS')).appendField(new Blockly.FieldNumber(2048, 0, Infinity, 1),"TOTAL_STEPS").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_STEPPER_PIN1')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN1").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN2')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN2").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN3')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN3").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN4')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN4").setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput("STEPS").setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_STEPPER_STEPS')).appendField(new Blockly.FieldImage('img/blocks/steps.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+			this.appendValueInput("STEPS").setCheck(Number).setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_STEPPER_STEPS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/steps.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 			this.setPreviousStatement(true, "code");
 			this.setNextStatement(true, "code");
 			this.setInputsInline(false);

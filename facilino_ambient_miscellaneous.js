@@ -52,7 +52,7 @@
 			output: Facilino.locales.getKey('LANG_PRESSURE_READ_PRESSURE_BMP_OUTPUT'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_MISC);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/barometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_PRESSURE_READ_PRESSURE_BMP')).appendField(new Blockly.FieldImage("img/blocks/bmp180.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/barometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_PRESSURE_READ_PRESSURE_BMP')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/bmp180.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -132,11 +132,11 @@
 			output: Facilino.locales.getKey('LANG_GUVA_S12SD_OUTPUT'),
 			init: function() {
 				this.setColour(misc_analog_colour);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/radiation.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_GUVA_S12SD')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/radiation.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_GUVA_S12SD')).appendField(new Blockly.FieldDropdown([
 		[Facilino.locales.getKey('LANG_GUVA_S12SD_mWcm2'), 'mWcm2'],
 		[Facilino.locales.getKey('LANG_GUVA_S12SD_INDEX'), 'index']
-		]),'OPTION').appendField(new Blockly.FieldImage('img/blocks/guva_s12sd.svg', 73*options.zoom, 73*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GUVA_S12SD_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+		]),'OPTION').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/guva_s12sd.svg', 73*options.zoom, 73*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GUVA_S12SD_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_GUVA_S12SD_TOOLTIP'));
 			},

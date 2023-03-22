@@ -114,11 +114,11 @@
 				name: Facilino.locales.getKey('LANG_BLE_SERVER_SETUP_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_SETUP')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyDevice'),'NAME').appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_SETUP')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyDevice'),'NAME').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_DEVICE_MANUFACTURER')).appendField(new Blockly.FieldTextInput('MyCompany'),'MANUFACTURER').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendStatementInput('CONNECT').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_ON_CONNECT'));
 					this.appendStatementInput('DISCONNECT').appendField(Facilino.locales.getKey('LANG_BLE_SERVER_ON_DISCONNECT'));
-					this.appendValueInput('SERVICE0').appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('SERVICE0').appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setOutput(false);
 					this.setMutator(new Blockly.Mutator(['ble_service_item']));
 					this.setPreviousStatement(false);
@@ -145,7 +145,7 @@
 				domToMutation: function(xmlElement) {
 					this.servCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 					for (var x = 1; x < this.servCount_; x++) {
-						this.appendValueInput('SERVICE'+x).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('SERVICE'+x).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).setCheck('ble_service').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 				},
 				decompose: function(workspace) {
@@ -171,7 +171,7 @@
 					while (clauseBlock) {
 						switch (clauseBlock.type) {
 							case 'ble_service_item':
-								var input = this.appendValueInput('SERVICE'+this.servCount_).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_service').setAlign(Blockly.ALIGN_RIGHT);
+								var input = this.appendValueInput('SERVICE'+this.servCount_).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_service').setAlign(Blockly.ALIGN_RIGHT);
 								this.servCount_++;
 								// Reconnect any child blocks.
 								if (clauseBlock.valueConnection_) {
@@ -253,9 +253,9 @@
 				name: Facilino.locales.getKey('LANG_BLE_SERVICE_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyService'),'SERVICE_NAME');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyService'),'SERVICE_NAME');
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput('9a205495-11b9-4015-be1b-3ea39e788298'),'SERVICE_UUID').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('CHARACTERISTIC0').appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('CHARACTERISTIC0').appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setMutator(new Blockly.Mutator(['ble_characteristic_item']));
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
@@ -281,7 +281,7 @@
 				domToMutation: function(xmlElement) {
 					this.charCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 					for (var x = 1; x < this.charCount_; x++) {
-						this.appendValueInput('CHARACTERISTIC'+x).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('CHARACTERISTIC'+x).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 				},
 				decompose: function(workspace) {
@@ -307,7 +307,7 @@
 					while (clauseBlock) {
 						switch (clauseBlock.type) {
 							case 'ble_characteristic_item':
-								var input = this.appendValueInput('CHARACTERISTIC'+this.charCount_).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_characteristic').setAlign(Blockly.ALIGN_RIGHT);
+								var input = this.appendValueInput('CHARACTERISTIC'+this.charCount_).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_characteristic').setAlign(Blockly.ALIGN_RIGHT);
 								this.charCount_++;
 								// Reconnect any child blocks.
 								if (clauseBlock.valueConnection_) {
@@ -373,7 +373,7 @@
 				//bq_button initialization
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_BLE_DEV_INFO_SERVICE'),'DEV_INFO'],[Facilino.locales.getKey('LANG_BLE_IO_SERVICE'),'IO'],[Facilino.locales.getKey('LANG_BLE_SSE_SERVICE'),'SSE'],[Facilino.locales.getKey('LANG_BLE_BATT_SERVICE'),'BATT']]),'NAME');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bubble-chat.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_SERVICE')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_BLE_DEV_INFO_SERVICE'),'DEV_INFO'],[Facilino.locales.getKey('LANG_BLE_IO_SERVICE'),'IO'],[Facilino.locales.getKey('LANG_BLE_SSE_SERVICE'),'SSE'],[Facilino.locales.getKey('LANG_BLE_BATT_SERVICE'),'BATT']]),'NAME');
 					this.setMutator(new Blockly.Mutator(['ble_characteristic_item']));
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
@@ -395,7 +395,7 @@
 				domToMutation: function(xmlElement) {
 					this.charCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 					for (var x = 0; x < this.charCount_; x++) {
-						this.appendValueInput('CHARACTERISTIC'+x).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('CHARACTERISTIC'+x).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).setCheck('ble_characteristic').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 				},
 				decompose: function(workspace) {
@@ -421,7 +421,7 @@
 					while (clauseBlock) {
 						switch (clauseBlock.type) {
 							case 'ble_characteristic_item':
-								var input = this.appendValueInput('CHARACTERISTIC'+this.charCount_).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_characteristic').setAlign(Blockly.ALIGN_RIGHT);
+								var input = this.appendValueInput('CHARACTERISTIC'+this.charCount_).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).setCheck('ble_characteristic').setAlign(Blockly.ALIGN_RIGHT);
 								this.charCount_++;
 								// Reconnect any child blocks.
 								if (clauseBlock.valueConnection_) {
@@ -502,7 +502,7 @@
 				name: Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyCharacteristic'),'CHARACTERISTIC_NAME');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(Facilino.locales.getKey('LANG_BLE_NAME')).appendField(new Blockly.FieldTextInput('MyCharacteristic'),'CHARACTERISTIC_NAME');
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_UUID')).appendField(new Blockly.FieldTextInput('a4c2745f-1adc-4eb0-b376-b52b8ebfff28'),'CHARACTERISTIC_UUID').setAlign(Blockly.ALIGN_RIGHT);
 					//this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLE_READ')).appendField(new Blockly.FieldCheckbox('TRUE'),'READ').appendField(Facilino.locales.getKey('LANG_BLE_WRITE')).appendField(new Blockly.FieldCheckbox('FALSE'),'WRITE').appendField(Facilino.locales.getKey('LANG_BLE_NOTIFIES')).appendField(new Blockly.FieldCheckbox('FALSE'),'NOTIFIES').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendStatementInput('CALLBACK').appendField(Facilino.locales.getKey('LANG_BLE_CALLBACK')).setCheck('code');
@@ -582,7 +582,7 @@
 				//bq_button initialization
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_BLE_SSE_TEMPERATURE'),'TEMPERATURE'],[Facilino.locales.getKey('LANG_BLE_SSE_HUMIDITY'),'HUMIDITY'],[Facilino.locales.getKey('LANG_BLE_SSE_PRESSURE'),'PRESSURE'],[Facilino.locales.getKey('LANG_BLE_SSE_ELEVATION'),'ELEVATION'],[Facilino.locales.getKey('LANG_BLE_SSE_UV_INDEX'),'UV_INDEX'],[Facilino.locales.getKey('LANG_BLE_SSE_IRRADIANCE'),'IRRADIANCE'],[Facilino.locales.getKey('LANG_BLE_SSE_RAINFALL'),'RAINFALL']]),'CHARACTERISTIC_NAME');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/conversation.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLE_CHARACTERISTIC')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_BLE_SSE_TEMPERATURE'),'TEMPERATURE'],[Facilino.locales.getKey('LANG_BLE_SSE_HUMIDITY'),'HUMIDITY'],[Facilino.locales.getKey('LANG_BLE_SSE_PRESSURE'),'PRESSURE'],[Facilino.locales.getKey('LANG_BLE_SSE_ELEVATION'),'ELEVATION'],[Facilino.locales.getKey('LANG_BLE_SSE_UV_INDEX'),'UV_INDEX'],[Facilino.locales.getKey('LANG_BLE_SSE_IRRADIANCE'),'IRRADIANCE'],[Facilino.locales.getKey('LANG_BLE_SSE_RAINFALL'),'RAINFALL']]),'CHARACTERISTIC_NAME');
 					this.setPreviousStatement(false);
 					this.setInputsInline(false);
 					this.setNextStatement(false);

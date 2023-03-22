@@ -45,7 +45,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SETUP_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SETUP')).appendField(new Blockly.FieldImage('img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SETUP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
 						//this.appendValueInput('DEVICE_NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEVICE_NAME')).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('TOKEN').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TOKEN')).setAlign(Blockly.ALIGN_RIGHT);
 						this.setInputsInline(false);
@@ -87,7 +87,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED')).appendField(new Blockly.FieldImage('img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
 						this.setInputsInline(false);
 						this.setPreviousStatement(false);
 						this.setNextStatement(false);
@@ -126,7 +126,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RECONNECT_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RECONNECT')).appendField(new Blockly.FieldImage('img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RECONNECT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom));
 						this.setInputsInline(false);
 						this.setPreviousStatement(true,'code');
 						this.setNextStatement(true,'code');
@@ -207,7 +207,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC')).appendField(new Blockly.FieldImage('img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/thingsboard.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 						this.setMutator(new Blockly.Mutator(['communications_wifi_iot_thingsboard_rpc_switch','communications_wifi_iot_thingsboard_rpc_knob']));
 						this.setInputsInline(false);
 						this.setPreviousStatement(true,'code');
@@ -245,12 +245,12 @@
 							this.type_.push(xmlElement.getAttribute('type'+x));
 							if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_thingsboard_rpc_switch')
 							{
-								this.appendDummyInput('RPC'+x).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_SWITCH')).appendField(new Blockly.FieldTextInput(''),'METHOD'+x).setAlign(Blockly.ALIGN_LEFT);
+								this.appendDummyInput('RPC'+x).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_SWITCH')).appendField(new Blockly.FieldTextInput(''),'METHOD'+x).setAlign(Blockly.ALIGN_LEFT);
 								this.appendStatementInput('RPC_STACK'+x);
 							}
 							else if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_thingsboard_rpc_knob')
 							{
-								this.appendDummyInput('RPC'+x).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_KNOB')).appendField(new Blockly.FieldTextInput(''),'METHOD'+x).setAlign(Blockly.ALIGN_LEFT);
+								this.appendDummyInput('RPC'+x).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_KNOB')).appendField(new Blockly.FieldTextInput(''),'METHOD'+x).setAlign(Blockly.ALIGN_LEFT);
 								this.appendStatementInput('RPC_STACK'+x);
 							}
 						}
@@ -281,7 +281,7 @@
 								case 'communications_wifi_iot_thingsboard_rpc_switch':
 									if (clauseBlock.valueField_===undefined)
 										clauseBlock.valueField_='setValue';
-									this.appendDummyInput('RPC'+this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_SWITCH')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'METHOD'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
+									this.appendDummyInput('RPC'+this.itemCount_).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_SWITCH')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'METHOD'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
 									//
 									var telemetryInput = this.appendStatementInput('RPC_STACK'+this.itemCount_);
 									this.type_[this.itemCount_]=clauseBlock.type;
@@ -294,7 +294,7 @@
 								case 'communications_wifi_iot_thingsboard_rpc_knob':
 									if (clauseBlock.valueField_===undefined)
 										clauseBlock.valueField_='setValue';
-									this.appendDummyInput('RPC'+this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_KNOB')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'METHOD'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
+									this.appendDummyInput('RPC'+this.itemCount_).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_KNOB')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'METHOD'+this.itemCount_).setAlign(Blockly.ALIGN_LEFT);
 									//
 									var telemetryInput = this.appendStatementInput('RPC_STACK'+this.itemCount_);
 									this.type_[this.itemCount_]=clauseBlock.type;
@@ -417,7 +417,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE')).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 						this.setInputsInline(false);
 						this.setPreviousStatement(false);
 						this.setNextStatement(false);
@@ -561,7 +561,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SEND_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SEND')).appendField(new Blockly.FieldImage('img/blocks/thingsboard.svg',20*options.zoom, 20*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/thingsboard.svg',20*options.zoom, 20*options.zoom));
 						this.setMutator(new Blockly.Mutator(['communications_wifi_iot_thingsboard_telemetry_item','communications_wifi_iot_thingsboard_attribute_item']));
 						this.setInputsInline(false);
 						this.setPreviousStatement(true,'code');
@@ -604,11 +604,11 @@
 							this.type_.push(xmlElement.getAttribute('type'+x));
 							if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_thingsboard_telemetry_item')
 							{
-								var telemetryKeyInput = this.appendValueInput('ITEM'+x).setCheck([Number,'Variable']).appendField(new Blockly.FieldImage('img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_TELEMETRY')).appendField(new Blockly.FieldTextInput(''),'KEY'+x).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
+								var telemetryKeyInput = this.appendValueInput('ITEM'+x).setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_TELEMETRY')).appendField(new Blockly.FieldTextInput(''),'KEY'+x).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
 							}
 							else if (xmlElement.getAttribute('type'+x)==='communications_wifi_iot_thingsboard_attribute_item')
 							{
-								this.appendValueInput('ITEM'+x).setCheck([Boolean,'Variable']).appendField(new Blockly.FieldImage('img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_ATTRIBUTE_ITEM')).appendField(new Blockly.FieldTextInput(''),'KEY'+x).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
+								this.appendValueInput('ITEM'+x).setCheck([Boolean,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_ATTRIBUTE_ITEM')).appendField(new Blockly.FieldTextInput(''),'KEY'+x).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
 							}
 						}
 					},
@@ -637,7 +637,7 @@
 								case 'communications_wifi_iot_thingsboard_telemetry_item':
 									if (clauseBlock.valueField_===undefined)
 										clauseBlock.valueField_='key_name';
-									var telemetryInput = this.appendValueInput('ITEM'+this.itemCount_).setCheck([Number,'Variable']).appendField(new Blockly.FieldImage('img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_TELEMETRY')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'KEY'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
+									var telemetryInput = this.appendValueInput('ITEM'+this.itemCount_).setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_TELEMETRY')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'KEY'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
 									this.type_[this.itemCount_]=clauseBlock.type;
 									this.itemCount_++;
 									// Reconnect any child blocks.
@@ -648,7 +648,7 @@
 								case 'communications_wifi_iot_thingsboard_attribute_item':
 									if (clauseBlock.valueField_===undefined)
 										clauseBlock.valueField_='attribute_name';
-									var telemetryInput = this.appendValueInput('ITEM'+this.itemCount_).setCheck([Boolean,'Variable']).appendField(new Blockly.FieldImage('img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_ATTRIBUTE_ITEM')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'KEY'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
+									var telemetryInput = this.appendValueInput('ITEM'+this.itemCount_).setCheck([Boolean,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/telemetry_out.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_ATTRIBUTE_ITEM')).appendField(new Blockly.FieldTextInput(clauseBlock.valueField_),'KEY'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_VALUE')).setAlign(Blockly.ALIGN_RIGHT);
 									this.type_[this.itemCount_]=clauseBlock.type;
 									this.itemCount_++;
 									// Reconnect any child blocks.
@@ -792,7 +792,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO')).appendField(new Blockly.FieldImage('img/blocks/amazon_echo.svg', 20*options.zoom, 30*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/amazon_echo.svg', 20*options.zoom, 30*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					//this.setMutator(new Blockly.Mutator(['communications_wifi_iot_amazon_echo_set_digital','communications_wifi_iot_amazon_echo_set_analog']));
 					this.appendStatementInput('STACK').setCheck('echo_item');
 					this.setInputsInline(false);
@@ -1021,7 +1021,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_BOOL_READ_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
+						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_DIGITAL_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
 						this.appendValueInput('STATE').appendField(Facilino.locales.getKey('LANG_AMAZON_STATE')).setAlign(Blockly.ALIGN_RIGHT).setCheck(Boolean);
 						this.appendStatementInput('DEVICE_STACK').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');						
 						this.setPreviousStatement(true,'echo_item');
@@ -1087,7 +1087,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_INTEGER_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage('img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
+						this.appendDummyInput('DEVICE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/home_automation.svg',20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_ANALOG_DEVICE')).appendField(new Blockly.FieldTextInput('name'),'DEVICE_NAME').setAlign(Blockly.ALIGN_LEFT);
 						this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_AMAZON_VALUE')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendStatementInput('DEVICE_STACK').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');							
 						this.setPreviousStatement(true,'echo_item');
@@ -1225,7 +1225,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_UPDATE_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_UPDATE')).appendField(new Blockly.FieldImage('img/blocks/amazon_echo.svg', 20*options.zoom, 30*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_UPDATE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/amazon_echo.svg', 20*options.zoom, 30*options.zoom));
 						this.setInputsInline(false);
 						this.setPreviousStatement(true,'code');
 						this.setNextStatement(true,'code');
@@ -1373,7 +1373,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_SETUP_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_SETUP')).appendField(new Blockly.FieldImage('img/blocks/google-sheets.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_SETUP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/google-sheets.svg', 20*options.zoom, 20*options.zoom));
 					this.appendValueInput('SCRIPTS_ID').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSCRIPTS_ID')).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_CERT')).appendField(new Blockly.FieldCheckbox('FALSE'),'CERT').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
@@ -1464,7 +1464,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_APPEND_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_APPEND')).appendField(new Blockly.FieldImage('img/blocks/google-sheets.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_APPEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/google-sheets.svg', 20*options.zoom, 20*options.zoom));
 					this.appendValueInput('SHEETNAME').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_SHEETNAME')).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('VALUES').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_GSHEETS_VALUES')).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);

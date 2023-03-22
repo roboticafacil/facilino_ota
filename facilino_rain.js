@@ -51,8 +51,8 @@
 			output: Facilino.locales.getKey('LANG_RAINDROP_ANALOG_OUTPUT'),
 			init: function() {
 				this.setColour(rain_analog_colour);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/rain.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RAINDROP')).appendField(new Blockly.FieldImage('img/blocks/yl_83.svg', 73*options.zoom, 49*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/rain.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RAINDROP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/yl_83.svg', 73*options.zoom, 49*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_RAINDROP_ANALOG_TOOLTIP'));
 			},
@@ -86,8 +86,8 @@
 			output: Facilino.locales.getKey('LANG_RAINDROP_DIGITAL_OUTPUT'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_AMBIENT_RAIN);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/rain.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RAINDROP')).appendField(new Blockly.FieldImage('img/blocks/yl_83.svg', 73*options.zoom, 49*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/rain.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_RAINDROP')).appendField(new Blockly.FieldImage('img/blocks/yl_83.svg', 73*options.zoom, 49*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_RAINDROP_DIGITAL_TOOPTIP'));
 			},
@@ -126,11 +126,11 @@
 			statements: [Facilino.locales.getKey('LANG_RAINDROP_LEVEL_STATEMENT_INTENSE_RAIN'),Facilino.locales.getKey('LANG_RAINDROP_LEVEL_STATEMENT_SOFT_RAIN'),Facilino.locales.getKey('LANG_RAINDROP_LEVEL_STATEMENT_NO_RAIN')],
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_RAIN);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_RAINDROP_LEVEL')).appendField(new Blockly.FieldImage("img/blocks/yl_83.svg",73*options.zoom,49*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('RAIN').appendField(new Blockly.FieldImage("img/blocks/rain_drop.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('WET').appendField(new Blockly.FieldImage("img/blocks/wet.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('DRY').appendField(new Blockly.FieldImage("img/blocks/sun.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_RAINDROP_LEVEL')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/yl_83.svg",73*options.zoom,49*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('RAIN').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/rain_drop.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('WET').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wet.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('DRY').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sun.png", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 		this.setPreviousStatement(true,'code');
@@ -170,7 +170,7 @@
 		[Facilino.locales.getKey('LANG_RAINDROP_LEVEL_RAIN'), 'rain'],
 		[Facilino.locales.getKey('LANG_RAINDROP_LEVEL_WET'), 'wet']
 		]),'OPTION').appendField(new Blockly.FieldImage('img/blocks/yl_83.svg', 73*options.zoom, 49*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_RAINDROP_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 		this.appendValueInput('VALUE').appendField(Facilino.locales.getKey('LANG_RAINDROP_VALUE')||'Value').setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
 		this.setPreviousStatement(true,'code');
 		this.setNextStatement(true,'code');

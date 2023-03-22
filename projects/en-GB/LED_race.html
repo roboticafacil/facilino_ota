@@ -1,8 +1,15 @@
+<?php
+require_once('db.php');
+require_once('projects_translation.php');
+?>
 <section class="features18 popup-btn-cards cid-qYa5rQWOty" id="features">
     <div class="container">
 		<div class="mbr-section-btn text-center"><a onclick="onProjects();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
-            LED Race</h2>
+            <?php 
+			//echo $projects["LED_RACE"];
+			echo "Hello";
+			?></h2>
         <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
             Compete to win a LED race while having fun and learn programming.</h3>
 			<div class="row pt-5 " style="justify-content: left">
@@ -40,8 +47,8 @@
 					<div class="card-wrapper ">
 						<div class="card-img">
 							<div class="mbr-overlay"></div>
-							<div class="mbr-section-btn text-center"><a onclick="onExercise('LEDStripTwoButtons');" class="btn btn-primary display-4">Learn More</a></div>
-							<a onclick="onExercise('LEDStripTwoButtons');"><img src="projects/assets/images/RGB_LEDs.jpg" alt="LED Race" title=""></img></a>
+							<div class="mbr-section-btn text-center"><a onclick="onExercise('BasicLEDRace');" class="btn btn-primary display-4">Learn More</a></div>
+							<a onclick="onExercise('BasicLEDRace');"><img src="projects/assets/images/RGB_LEDs.jpg" alt="LED Race" title=""></img></a>
 						</div>
 						<div class="card-box">
 							<h4 class="card-title mbr-fonts-style display-7">

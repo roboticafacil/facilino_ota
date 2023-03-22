@@ -71,29 +71,57 @@ elseif (isset($_GET["id"]))
 	}
 	//Open facilino project
 	$project_id=$_GET["id"];
-	//$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
+	//$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu as proc_mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`= ".$project_id." and `users`.`username`=\"".$_SESSION["username"]."\"";
 	//$result = mysqli_query($con,$query);
 	if (isset($_GET["action"])&&($_GET["action"]=="view"))
 	{
-		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		if (isset($_GET["lang"]))
+		{
+			$query = "SELECT proj.name as proj_name,filt.name filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		}
+		else
+		{
+			$query = "SELECT proj.name as proj_name,lang.lang_key,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,lang.name as lang_name,proc.name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		}
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$project_id);
 	}
 	elseif (isset($_GET["action"])&&($_GET["action"]=="view_example"))
 	{
-		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		if (isset($_GET["lang"]))
+		{
+			$query = "SELECT proj.name as proj_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		}
+		else
+		{
+			$query = "SELECT proj.name as proj_name,lang.lang_key,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,lang.name as lang_name,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
+		}
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$project_id);
 	}
 	elseif (isset($_GET["action"])&&($_GET["action"]=="open_example"))
 	{
-		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		if (isset($_GET["lang"]))
+		{
+			$query = "SELECT proj.name as proj_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		}
+		else
+		{
+			$query = "SELECT proj.name as proj_name,lang.lang_key,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,lang.name as lang_name,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		}
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("is",$project_id,$_SESSION["username"]);
 	}
 	else
 	{
-		$query = "SELECT proj.name,lang.lang_key,filt.name,version.version,proc.mcu,code.blockly_code,lang.name,proc.name,proj.share_key,proc.id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		if (isset($_GET["lang"]))
+		{
+			$query = "SELECT proj.name as proj_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		}
+		else
+		{
+			$query = "SELECT proj.name as proj_name,lang.lang_key,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,lang.name as lang_name,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `projects` as proj inner join `facilino_code` as code on  code.id=proj.facilino_code_id inner join `languages` as lang on lang.id=proj.language_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=? and `users`.`username`=?";
+		}
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("is",$project_id,$_SESSION["username"]);
 	}
@@ -102,7 +130,7 @@ elseif (isset($_GET["id"]))
 	$rows = mysqli_num_rows($result);
 	if ($rows==1)
 	{
-		$row = mysqli_fetch_row($result);
+		$row = mysqli_fetch_assoc($result);
 		//$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=".$project_id." and `meta_key`='TOOLBOX'";
 		//$result_meta = mysqli_query($con,$query_meta);
 		$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=? and `meta_key`='TOOLBOX'";
@@ -120,7 +148,7 @@ elseif (isset($_GET["id"]))
 		//$result_compilation_flags = mysqli_query($con,$query_compilation_flags);
 		$query_compilation_flags="SELECT variant,compilation_flags FROM `processors_meta` INNER JOIN `processors` ON `processors`.`id`=`processors_meta`.`processor_id` WHERE `processors_meta`.`processor_id`=?";
 		$statement_compilation=mysqli_prepare($con,$query_compilation_flags);
-		$statement_compilation->bind_param("i",$row[9]);
+		$statement_compilation->bind_param("i",$row["proc_id"]);
 		$statement_compilation->execute();
 		$result_compilation_flags=$statement_compilation->get_result();
 		$compilation_flags = array();
@@ -143,7 +171,7 @@ elseif (isset($_GET["id"]))
 		?>
 		
 		<xml id='startBlocksDefault' style='display: none'><block type='controls_setupLoop' deletable='true' x='20' y='5'></block></xml>
-		<xml id='startBlocks' style='display:none'><?php echo $row[5] ?></xml>
+		<xml id='startBlocks' style='display:none'><?php echo $row["blockly_code"] ?></xml>
 		<xml id='startBlocksOTA' style='display:none'><block type='controls_setupLoop' deletable='false' x='20' y='5'><statement name='SETUP'><block type='communications_wifi_def'><field name='CONSOLE'>FALSE</field><value name='SSID'><block type='text'><field name='TEXT'>MY_WIFI_SSID</field></block></value><value name='PASSWORD'><block type='text'><field name='TEXT'>MY_WIFI_PASSWORD</field></block></value></statement></block></xml>
 		<div id="wrap" style="height: 89%;">
 			<div id="blockly" style="float: left; width: 100%;">
@@ -185,10 +213,10 @@ elseif (isset($_GET["id"]))
 			<span class="close" style="width:0.8em">&times;</span>
 			<section>
 			<?php
-			if ($row[3]=="FacilinoOTA")
+			if ($row["version"]=="FacilinoOTA")
 			{
 				echo "<div class='navbar-buttons mbr-section-btn'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["VERIFY"]."' onclick='compileOTA();' style='padding:0.3em'><span class='mbri-success mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button>&nbsp;<button class='btn btn-sm btn-primary-outline display-4' title='".$website["UPLOAD"]."' onclick='uploadOTA();' style='padding:0.3em'><span class='mbri-right mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em'></span></button>&nbsp;";
-				echo "<p class='btn' style='padding:0;font-size:12px'>".$website["SERVER_IP"].":<input id='server_ip_upload' name='server_ip_upload' type='text' value='".$row[10]."'></input>&nbsp;".$website["DEVICE_IP"].":<input id='device_ip_upload' name='device_ip_upload' type='text' value='".$row[11]."'></input></p>";
+				echo "<p class='btn' style='padding:0;font-size:12px'>".$website["SERVER_IP"].":<input id='server_ip_upload' name='server_ip_upload' type='text' value='".$row["server_ip"]."'></input>&nbsp;".$website["DEVICE_IP"].":<input id='device_ip_upload' name='device_ip_upload' type='text' value='".$row["device_ip"]."'></input></p>";
 			}
 			else
 			{
@@ -265,14 +293,18 @@ elseif (isset($_GET["id"]))
 		?>
 		<script language="JavaScript">
 		<?php 
-			echo 'window.FacilinoLanguage ="'.$row[1].'";';
-			echo 'window.FacilinoBlockFilter = "'.$row[2].'";';
-			echo 'window.FacilinoVersion = "'.$row[3].'";';
-			echo 'window.FacilinoProcessor = "'.$row[4].'";';
+			if (isset($_GET["lang"]))
+				echo 'window.FacilinoLanguage ="'.$_GET["lang"].'";';
+			else
+				echo 'window.FacilinoLanguage ="'.$row["lang_key"].'";';
+			echo 'window.FacilinoBlockFilter = "'.$row["filt_name"].'";';
+			echo 'window.FacilinoVersion = "'.$row["version"].'";';
+			echo 'window.FacilinoProcessor = "'.$row["proc_mcu"].'";';
+			//echo 'console.log(window.FacilinoProcessor);';
 			if (!isset($_GET["embbeded"]))
 			{
 				echo 'window.project_id = "'.$project_id.'";';
-				echo 'window.share_key = "'.$row[8].'";';
+				echo 'window.share_key = "'.$row["share_key"].'";';
 				echo 'window.username = "'.$_SESSION["username"].'";';
 				echo 'var verify_msg="'.$website["VERIFY_MSG"].'";';
 				echo 'var verify_upload_msg="'.$website["VERIFY_UPLOAD_MSG"].'";';

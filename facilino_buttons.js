@@ -35,7 +35,7 @@
 			name: Facilino.locales.getKey('LANG_BQ_BUTTON_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUTTON);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage('img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_BQ_BUTTON_TOOLTIP'));
 			},
@@ -82,7 +82,7 @@
 			//bq_button initialization
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUTTON);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage('img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.setOutput(false);
 		this.appendStatementInput('PRESSED')
 					.setAlign(Blockly.ALIGN_RIGHT)
@@ -167,7 +167,7 @@
 			//bq_button initialization
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUTTON);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage('img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_TIME')).appendField(new Blockly.FieldNumber('1000','200','5000'),'TIME').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(false);
 		this.appendStatementInput('LONG_PRESSED')
@@ -219,7 +219,7 @@
 			name: Facilino.locales.getKey('LANG_ZUM_BUTTON_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUTTON);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ZUM_BUTTON')).appendField(Facilino.locales.getKey('LANG_ZUM_BUTTON_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setCheck(['DigitalPin',Number]);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ZUM_BUTTON')).appendField(Facilino.locales.getKey('LANG_ZUM_BUTTON_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setCheck(['DigitalPin',Number]);
 		this.appendDummyInput().appendField('pull-up?').appendField(new Blockly.FieldCheckbox('FALSE'), 'PULLUP').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_ZUM_BUTTON_TOOLTIP'));
@@ -305,12 +305,12 @@
 			//bq_button initialization
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendValueInput('PIN_SELECT').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI')).appendField(new Blockly.FieldImage('img/blocks/list.svg', 24*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECT')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendValueInput('PIN_CANCEL').setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_CANCEL')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('PIN_SELECT').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/list.svg', 24*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('PIN_CANCEL').setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_CANCEL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_TIME')).appendField(new Blockly.FieldNumber('5000','0'),'TIME').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('GENERAL').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_GENERAL'));
-				this.appendStatementInput('MENU_HIGHLIGHTED0').setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
-				this.appendValueInput('MENU0').setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage('img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('MENU_HIGHLIGHTED0').setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
+				this.appendValueInput('MENU0').setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(false);
 				this.setMutator(new Blockly.Mutator(['two_buttons_ui_item']));
 				this.setPreviousStatement(true,'code');
@@ -344,8 +344,8 @@
 			domToMutation: function(xmlElement) {
 				this.menuCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 				for (var x = 1; x < this.menuCount_; x++) {
-					this.appendStatementInput('MENU_HIGHLIGHTED'+x).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
-					this.appendValueInput('MENU' + x).setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage('img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('MENU_HIGHLIGHTED'+x).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
+					this.appendValueInput('MENU' + x).setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					//this.appendStatementInput('DO' + x).appendField(Facilino.locales.getKey('LANG_CONTROLS_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				}
 			},
@@ -374,8 +374,8 @@
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'two_buttons_ui_item':
-							var menuStack = this.appendStatementInput('MENU_HIGHLIGHTED'+this.menuCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+this.menuCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
-							var menuInput = this.appendValueInput('MENU'+this.menuCount_).setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage('img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+							var menuStack = this.appendStatementInput('MENU_HIGHLIGHTED'+this.menuCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_MENU')+this.menuCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/list_selected.svg', 24*options.zoom, 24*options.zoom));
+							var menuInput = this.appendValueInput('MENU'+this.menuCount_).setCheck('menu_options').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 							this.menuCount_++;
 							// Reconnect any child blocks.
 							if (clauseBlock.valueConnection_) {
@@ -455,10 +455,10 @@
 			name: Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_DIGITAL);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list.svg', 24*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTIONS')).setAlign(Blockly.ALIGN_RIGHT);
 				this.setMutator(new Blockly.Mutator(['two_buttons_ui_option_item']));
-				this.appendStatementInput('OPTION_HIGHLIGHTED0').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('OPTION_SELECTED0').setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('OPTION_HIGHLIGHTED0').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('OPTION_SELECTED0').setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+'0 '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(false,null);
 				this.setInputsInline(false);
 				this.setNextStatement(false,null);
@@ -479,8 +479,8 @@
 			domToMutation: function(xmlElement) {
 				this.optionCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 				for (var x = 1; x < this.optionCount_; x++) {
-					this.appendStatementInput('OPTION_HIGHLIGHTED' + x).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-					this.appendStatementInput('OPTION_SELECTED'+x).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('OPTION_HIGHLIGHTED' + x).appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendStatementInput('OPTION_SELECTED'+x).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+x+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				}
 			},
 			decompose: function(workspace) {
@@ -507,8 +507,8 @@
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'two_buttons_ui_option_item':
-							var option = this.appendStatementInput('OPTION_HIGHLIGHTED'+this.optionCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+this.optionCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-							var optionSelected = this.appendStatementInput('OPTION_SELECTED'+this.optionCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+this.optionCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage('img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+							var option = this.appendStatementInput('OPTION_HIGHLIGHTED'+this.optionCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+this.optionCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_HIGHLIGHTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_highlighted.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+							var optionSelected = this.appendStatementInput('OPTION_SELECTED'+this.optionCount_).setCheck('code').appendField(Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_OPTION')+this.optionCount_+' '+Facilino.locales.getKey('LANG_TWO_BUTTONS_UI_SELECTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/option_list_selected.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 							this.optionCount_++;
 							// Reconnect any child blocks.
 							if (clauseBlock.valueConnection_) {

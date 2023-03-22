@@ -31,7 +31,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_DEF')).appendField('RS').appendField(new Blockly.FieldDropdown(Facilino.profiles['default'].digital),'LCD_1')
-					.appendField('EN').appendField(new Blockly.FieldDropdown(Facilino.profiles['default'].digital),'LCD_2').appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+					.appendField('EN').appendField(new Blockly.FieldDropdown(Facilino.profiles['default'].digital),'LCD_2').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput()
 					.appendField(Facilino.locales.getKey('LANG_LCD_PINS'))
 					.appendField(new Blockly.FieldDropdown(Facilino.profiles['default'].digital),'LCD_3')
@@ -72,7 +72,7 @@
 			name: Facilino.locales.getKey('LANG_LCD_DEF1_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_DEF1')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_DEF1')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -99,7 +99,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
 				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_LCD_CLEAR')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+					.appendField(Facilino.locales.getKey('LANG_LCD_CLEAR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -138,7 +138,7 @@
 			name: Facilino.locales.getKey('LANG_LCD_CURSOR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_CURSOR')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_CURSOR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('YCOOR').appendField(Facilino.locales.getKey('LANG_LCD_COLUMN')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
@@ -177,7 +177,7 @@
 			name: Facilino.locales.getKey('LANG_LCD_PRINT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_PRINT')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_PRINT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -203,7 +203,7 @@
 			name: Facilino.locales.getKey('LANG_LCD_SCROLL_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_SCROLL')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_SCROLL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
 				this.appendValueInput('DELAY_TIME').appendField(Facilino.locales.getKey('LANG_LCD_DELAY_TIME')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
@@ -328,7 +328,7 @@
 						['LOW', 'LOW'],
 						['HIGH', 'HIGH']
 					]), 'STATE')
-					.appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_CLOSE')).appendField(new Blockly.FieldImage('img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+					.appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_CLOSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
 				// .appendField(new Blockly.FieldImage('img/blocks/bqmod03.png', 52*options.zoom, 20*options.zoom));
 				this.setInputsInline(false);
 

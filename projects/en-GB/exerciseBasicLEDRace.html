@@ -1,0 +1,201 @@
+<script>
+window.FacilinoAdvanced=true;
+</script>
+
+<script src="facilino.js"></script>
+<script src="facilino_common.js"></script>
+<script src="facilino_maths.js"></script>
+<script src="facilino_controls.js"></script>
+<script src="facilino_variables.js"></script>
+<script src="facilino_led_strip.js"></script>
+<script src="facilino_interrupts.js"></script>
+
+<script>
+Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
+</script>
+
+<section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
+	<div class="container">
+		<div class="media-container-row">
+			<div class=" title col-12 col-md-8">
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2"/>
+				<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
+				<h2 class="align-center pb-3 mbr-fonts-style display-2">
+					Basic LED Race</h2>
+				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
+					Learn how implement a LED Race, compete to be the fastest player.</h3>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="mbr-section article content1 cid-qYh0wSDsTN" id="content2-51">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">
+                <blockquote><strong>Required material. </strong><ul>
+				<li>An Arduino or ESP board, i.e.: <a onclick="onPageClicked('https://roboticafacil.es/en/prod/arduino-uno-r3/');" style="color:#1ec6c6" target="_blank">Arduino Uno</a>, <a onclick="onPageClicked('https://roboticafacil.es/en/prod/arduino-nano-v3-0-compatible/');" style="color:#1ec6c6" target="_blank">Arduino Nano</a>, <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/prod/wemos-d1-r2/');">Wemos D1 R2</a> or <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/en/prod/wemos-esp32-d1-r32/');">Wemos D1 R32</a>, <a onclick="onPageClicked('https://roboticafacil.es/prod/nodemcu-v3-esp8266-wifi/');" style="color:#1ec6c6" target="_blank">NodeMCU</a>, etc...</li>
+				<li>A LED Strip connected to D4 and two <a style="color:#1ec6c6" target="_blank" onclick="onPageClicked('https://roboticafacil.es/en/prod/push-button-ky-004/');">pushbuttons</a> connected to pins D2 and D4.</li></ul></blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cid-qYh0wSah5G" id="image3-50">
+    <figure class="mbr-figure container">
+            <div class="mbr-text align-center mbr-fonts-style display-5">Modules</div>
+            <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
+                <img id="schematic_modules" src="projects/assets/images/Electronics/led_race_nano_bb.png" width="1400" alt="Modules" title=""></img>
+            </div>
+    </figure>
+</section>
+
+<section class="mbr-section article content1 cid-qYh5PFH3xX" id="content1-5w">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7"><strong>Basic LED Race</strong>: consist of moving two LEDs on a LED strip. By pushing one a pushbutton, the user will move forward one of the LEDs, while pushing the other button, the user will move the other LED. Thus, two players compete to reach the end of the LED strip as fast as possible. Each of the LEDs has color (i.e.: blue and red), so the user can identify its position, but when both players are at the same position, then the color is neither blue or red, in this case, we set the LED color to yellow. At the begining of the race, LEDs blink for three seconds and then, the race starts. When a user reaches the end of the LED strip, we generate a random colored sequence to indicate that the race has concluded and show the winner by setting its color in the first LED of the LED strip for a given amount of time. Then the race an restart again (for simplicity, we use the reset button in the board to initialize the game).</div>
+        </div>
+    </div>
+</section>
+
+<section class="mbr-section article content9 cid-qYh5KdWW4b" id="content9-5u">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">
+                    Worked instructions</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-5w">
+    <div class="container">
+		<div class="media-container-row">
+			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol id="workedInstructions">
+								<li><div><span id='tooltipInstruction1'></span></div><div  id='blocklyInstruction1'></div><script>injectInstructionTooltip1('led_strip','blocklyInstruction1','tooltipInstruction1');</script></li>
+								<li><div><span id='tooltipInstruction2'></span></div><div  id='blocklyInstruction2'></div><script>injectInstructionTooltip1('led_strip_all_pixels','blocklyInstruction2','tooltipInstruction2');</script></li>
+								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('led_strip_brightness','blocklyInstruction5','tooltipInstruction5');</script></li>
+								<li><div><span id='tooltipInstruction7'></span></div><div  id='blocklyInstruction7'></div><script>injectInstructionTooltip1('attachInterrupt','blocklyInstruction7','tooltipInstruction7');</script></li>
+								<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip1('led_strip_gradient','blocklyInstruction4','tooltipInstruction4');</script></li>
+								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
+								<li><div><span id='tooltipInstruction8'></span></div><div  id='blocklyInstruction8'></div><script>injectInstructionTooltip1('variables_global_volatile_type','blocklyInstruction8','tooltipInstruction5');</script></li>
+                </ol>
+            </div>
+		</div>
+    </div>
+</section>
+
+
+<section class="mbr-section article content9 cid-qYh5KdWW4b" id="content9-5u">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">
+                    Additional instructions</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-5w">
+    <div class="container">
+		<div class="media-container-row">
+			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol id="workedInstructions">
+					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction9','tooltipInstruction9');</script></li>
+					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip1('controls_for','blocklyInstruction10','tooltipInstruction10');</script></li>
+					<li><div><span id='tooltipInstruction13'></span></div><div  id='blocklyInstruction13'></div><script>injectInstructionTooltip1('math_random','blocklyInstruction13','tooltipInstruction13');</script></li>
+				  </ol>
+            </div>
+		</div>
+    </div>
+</section>
+
+<section class="mbr-section article content9 cid-qYh0wTdIZC">
+    <div class="container">
+        <div class="inner-container" style="width: 100%;">
+            <hr class="line" style="width: 25%;">
+            <div class="section-text align-center mbr-fonts-style display-5">Intermediate Exercises</div>
+            <hr class="line" style="width: 25%;">
+        </div>
+        </div>
+</section>
+
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <ol>
+			<li><strong>Move two LEDs</strong><p>Let's start by creating the simple LED moving mechanism for two players. Based on the first exercise of the Moving LEDs tutorial, we extend that exercise so that two players can move its own LED position independently.</p><strong>Hint: </strong><p><i>Use two GLOBAL SHARED variables to store the position of each of the contrincants (initial value to zero). Then set the first LED to yellow and create two interrupt routines (falling edge), one for each of the pushbuttons connected to D2 and D3. Inside each interrupt routine, set the current LED to black (in interrupt routine for D2 we manage player 1 so that we use player 1 position variable to set the LED OFF). We can use a similar code to set the LED OFF corresponding to player position 2. Then increment the corresponding position variable and check that is not bigger or equal than the number of LEDs (if that's the case, then set the variable to zero). Finally, check (inside the interrupt routine) if the position of both players is the same. In that case, the new LED to switch ON will show a yellow color, while if positions are different, then set the color for each player at their corresponding positions.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/84laolPdAar" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>Move two LEDs blinking sequence</strong><p>Now, improve previous exercise by including an initial blinking sequence before the race starts.</p><strong>Hint: </strong><p><i>Take a look of what we did in the </i>Move one LED blinking sequence<i> exercise so that players can not start unless GLOBAL SHARED variable is set to True once the blinking sequence has finished. The variable is the same for both players (i.e. player positions are duplicated variables because each player has its own position, while the variable that controls LED movements is the same for both players).</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/eyXGGVV05TE" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>Move two LEDs finishing race</strong><p>Now, modify previous exercise by showing the winner once the race has finished (i.e. the color of first player reaching the end of the LED strip is shown in all LEDs). Also, you can use the gradient instruction with Tornado effect to generate the initial sequence before the race starts.</p><strong>Hint: </strong><p><i>Inside each of interrupt routines, check if the user has reached the final position, and set the GLOBAL SHARED variable that control LEDs movement to true and set the color of the winner on all LEDs of the LED strip.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/1y5H008X41v" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>Move two LEDs with loops</strong><p>Now, modify previous exercise by showing the winner once the race has finished (i.e. the color of first player reaching the end of the LED strip is shown in the first LED). Also, you can use the gradient instruction with Tornado effect to generate the initial sequence before the race starts.</p><strong>Hint: </strong><p><i>.</i></p>
+			<button  type="button" title="Facilino code" onclick="showHideElement('exercise4i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise4i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fnDRdZWg2M4" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			</li>
+			<li><strong>LED Race</strong><p>Now, to complete the LED race exercises, include a sequence that generates random colors at the end of the race (as you did in the last exercise of the Moving LEDs tutorial.</i></p>
+			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise5i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise5i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2b5qEg2oZe6" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			  </li>
+			
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
+
+<script>
+$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=108');
+$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=116');
+$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=118');
+$('#exercise4i').attr('src','facilino.php?action=view_example&embbeded&id=117');
+$('#exercise5i').attr('src','facilino.php?action=view_example&embbeded&id=102');
+
+$('#exercise1i').on("load", function() {
+    showHideElement('exercise1i');
+});
+
+$('#exercise2i').on("load", function() {
+    showHideElement('exercise2i');
+});
+
+$('#exercise3i').on("load", function() {
+    showHideElement('exercise3i');
+});
+
+$('#exercise4i').on("load", function() {
+    showHideElement('exercise4i');
+});
+
+$('#exercise5i').on("load", function() {
+    showHideElement('exercise5i');
+});
+</script>

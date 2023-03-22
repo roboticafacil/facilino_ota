@@ -58,9 +58,9 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_BUZZER_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_BUZZER);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER')).appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
 				this.appendValueInput('PIN')
-					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom))
+					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom))
 					.setCheck('DigitalPin')
 					.setAlign(Blockly.ALIGN_RIGHT);
 
@@ -92,7 +92,7 @@
 						[Facilino.locales.getKey('LANG_PIEZO_BUZZER_LAps') || 'LA\'#', '932'],
 			[Facilino.locales.getKey('LANG_PIEZO_BUZZER_SIp') || 'SI\'', '987'],
 					]), 'FREQ') //523
-					.appendField(new Blockly.FieldImage('img/blocks/note.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/note.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 
 		this.appendDummyInput('')
 					.appendField(new Blockly.FieldDropdown([
@@ -104,12 +104,12 @@
 			[Facilino.locales.getKey('LANG_PIEZO_BUZZER_FUSA') || 'FUSA', '47'],
 						[Facilino.locales.getKey('LANG_PIEZO_BUZZER_SEMIFUSA') || 'SEMIFUSA', '23'],
 					]), 'DURA')
-					.appendField(new Blockly.FieldImage('img/blocks/tempo.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/tempo.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 
 		this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_TIE'))
 					.appendField(new Blockly.FieldCheckbox('FALSE'), 'TIE')
-					.appendField(new Blockly.FieldImage('img/blocks/tie.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/tie.png',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 		this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -161,7 +161,7 @@
 				this.setColour(Facilino.LANG_COLOUR_SOUND_BUZZER);
 				this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom)).appendField('No tone');
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom)).appendField('No tone');
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
@@ -262,9 +262,9 @@
 				this.setColour(Facilino.LANG_COLOUR_SOUND_BUZZER);
 				this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/speaker.svg', 20*options.zoom, 20*options.zoom))
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speaker.svg', 20*options.zoom, 20*options.zoom))
 					.appendField(new Blockly.FieldDropdown([
 						[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_CONNECTION'), '0'],
 						[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DISCONNECTION'), '1'],
@@ -443,8 +443,8 @@
 			name: Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_BUZZER);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV')).appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom)).appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_PIN')).setCheck(['DigitalPin','PWMPin']);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/speaker.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_TONE'), '0'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SPACEGUN'), '1'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_RANDOM'), '2'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '3'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '4'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '5'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '6'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"1", '7'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"2", '8'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '9'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '10'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DISTANCE'), '11']]), 'OPTION').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom)).appendField(Facilino.locales.getKey('LANG_ZUM_PIEZO_BUZZERAV_PIN')).setCheck(['DigitalPin','PWMPin']);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speaker.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_TONE'), '0'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SPACEGUN'), '1'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_RANDOM'), '2'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '3'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_LINEAR'), '4'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '5'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_EXP'), '6'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"1", '7'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_SIREN')+"2", '8'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_INCREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '9'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DECREASING')+" "+Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_FIBONACCI'), '10'],[Facilino.locales.getKey('LANG_PIEZZO_BUZZER_PREDEF_DISTANCE'), '11']]), 'OPTION').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('TONE')
 					.setCheck([Number,'Variable'])
 					.setAlign(Blockly.ALIGN_RIGHT)
@@ -572,8 +572,8 @@
 				this.setColour(Facilino.LANG_COLOUR_SOUND_VOICE);
 		this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('VOICE').appendField(new Blockly.FieldImage('img/blocks/voice.svg', 36*options.zoom, 36*options.zoom)).setCheck('Voice').setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('VOICE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/voice.svg', 36*options.zoom, 36*options.zoom)).setCheck('Voice').setAlign(Blockly.ALIGN_RIGHT);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -606,7 +606,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_VOICE);
 		this.appendDummyInput('')
-					.appendField(new Blockly.FieldImage('img/blocks/voice.svg',36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);;
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/voice.svg',36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('')
 					.appendField(new Blockly.FieldDropdown([
 			['AFTERNOON','AFTERNOON'],

@@ -1,8 +1,11 @@
 <?php
 require_once('db.php');
 require_once('website_translation.php');
+require_once('projects_translation.php');
+
 ?>
 <!DOCTYPE html>
+<!-- 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
 <script src="javascript/underscore/underscore.js"></script>
 <script src="javascript/blockly-bq/blockly_compressed.js"></script>
@@ -63,7 +66,7 @@ require_once('website_translation.php');
 <script src="facilino_gas.js"></script>
 <script src="facilino_ambient_miscellaneous.js"></script>
 <script src="facilino_html.js"></script>
-<script src="facilino_espui.js"></script>
+<script src="facilino_espui.js"></script> -->
 <html>
 <?php include "head.php"; include "projects_head.php";
 ?>
@@ -73,6 +76,7 @@ require_once('website_translation.php');
 <?php
 echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 ?>
+<!-- 
 <script>
 	Blockly.onMouseUp_=function(e){};
 	Blockly.onMouseDown_=function(e){};
@@ -196,10 +200,14 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 		  else
 			el.style.display="none";
 	}
-</script>
+</script>-->
 <script src="projects/assets/web/assets/jquery/jquery.min.js"></script>
-<div id="main"></div>
-<script>$(function(){var file='projects/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>
+
+<div id="main">
+<?php include('projects/home.php'); 
+?>
+</div>
+</div>
 </div>
 <div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>

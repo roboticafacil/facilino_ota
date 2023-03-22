@@ -47,8 +47,8 @@
 			name: Facilino.locales.getKey('LANG_GAS_ANALOG_READ_NAME'),
 			init: function() {
 			this.setColour(gas_analog_colour);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_ANALOG_READ')).appendField(new Blockly.FieldImage("img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_ANALOG_READ')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -81,8 +81,8 @@
 			name: Facilino.locales.getKey('LANG_GAS_DIGITAL_READ_NAME'),
 			init: function() {
 			this.setColour(gas_digital_colour);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_DIGITAL_READ')).appendField(new Blockly.FieldImage("img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_DIGITAL_READ')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -137,8 +137,8 @@
 			name: Facilino.locales.getKey('LANG_GAS_CALIBRATE_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_GAS);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/resistor.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_GAS_CALIBRATE')).appendField(new Blockly.FieldImage("img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/resistor.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_GAS_CALIBRATE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_SENSOR')).appendField(new Blockly.FieldDropdown([['MQ2','MQ2'],['MQ3','MQ3'],['MQ4','MQ4'],['MQ5','MQ5'],['MQ6','MQ6'],['MQ8','MQ8'],['MQ9','MQ9'],['MQ135','MQ135']]),'SENSOR').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
@@ -296,8 +296,8 @@
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_GAS);
 			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/ppm.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_GAS_READ_CALIBRATED')).appendField(new Blockly.FieldImage("img/blocks/co2.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('R0').appendField(Facilino.locales.getKey('LANG_GAS_R0')).appendField(new Blockly.FieldImage("img/blocks/resistor.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_GAS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('R0').appendField(Facilino.locales.getKey('LANG_GAS_R0')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/resistor.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_GAS_SENSOR')).appendField(new Blockly.FieldDropdown([['MQ2','MQ2'],['MQ3','MQ3'],['MQ4','MQ4'],['MQ5','MQ5'],['MQ6','MQ6'],['MQ8','MQ8'],['MQ9','MQ9'],['MQ135','MQ135']]),'SENSOR').setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('GAS_TYPE').appendField(Facilino.locales.getKey('LANG_GAS_TYPE')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_GAS_H2'),'H2'],[Facilino.locales.getKey('LANG_GAS_LPG'),'LPG'],[Facilino.locales.getKey('LANG_GAS_CH4'),'CH4'],[Facilino.locales.getKey('LANG_GAS_CO'),'CO'],[Facilino.locales.getKey('LANG_GAS_ALCOHOL'),'ALCOHOL'],[Facilino.locales.getKey('LANG_GAS_SMOKE'),'SMOKE'],[Facilino.locales.getKey('LANG_GAS_PROPANE'),'PROPANE']]),'GAS_TYPE').setAlign(Blockly.ALIGN_RIGHT);
 			this._sensor=this.getFieldValue('SENSOR');

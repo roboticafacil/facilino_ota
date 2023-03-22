@@ -75,8 +75,8 @@
 			name: Facilino.locales.getKey('LANG_HUMID_READ_HUMID_DHT_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_HUMID_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_HUMID_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -115,7 +115,7 @@
 			output: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_OUTPUT')],
 			init: function() {
 			this.setColour(humidity_digital_colour);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField('HTU21D').appendField(new Blockly.FieldImage("img/blocks/htu21.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).appendField('HTU21D').appendField(new Blockly.FieldImage("img/blocks/htu21.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -156,12 +156,12 @@
 			name: Facilino.locales.getKey('LANG_HUMID_ALARM_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
-				this.appendValueInput('HUMIDITY').appendField(Facilino.locales.getKey('LANG_HUMID_ALARM')).appendField(new Blockly.FieldImage("img/blocks/humidity.png",32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('HUMIDITY').appendField(Facilino.locales.getKey('LANG_HUMID_ALARM')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity.png",32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_HUMID_ONCE')).appendField(new Blockly.FieldCheckbox('FALSE'),'ONCE').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/humidity_high.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(70,0,100),'HIGH').appendField(new Blockly.FieldImage("img/blocks/humidity_low.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(30,0,100),'LOW');
-				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/humidity_high.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('OK').appendField(new Blockly.FieldImage("img/blocks/humidity_ok.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/humidity_low.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity_high.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(70,0,100),'HIGH').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity_low.png", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(30,0,100),'LOW');
+				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity_high.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('OK').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity_ok.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/humidity_low.png", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 				this.setPreviousStatement(true,'code');
@@ -206,8 +206,8 @@
 			name: Facilino.locales.getKey('LANG_MOIST_READ_MOIST_NAME'),
 			init: function() {
 			this.setColour(humidity_analog_colour);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOIST_READ_MOIST')).appendField(new Blockly.FieldImage("img/blocks/moist.svg",64*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_HUMID_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOIST_READ_MOIST')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/moist.svg",64*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_HUMID_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -254,10 +254,10 @@
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_HUMIDITY);
 				this.appendValueInput('MOIST').appendField(Facilino.locales.getKey('LANG_MOIST_ALARM')).appendField(new Blockly.FieldImage("img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_HUMID_ONCE')).appendField(new Blockly.FieldCheckbox('FALSE'),'ONCE').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/sprout_humid.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(1000,0,4096),'HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(2000,0,4096),'LOW');
-				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/sprout_humid.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('OK').appendField(new Blockly.FieldImage("img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sprout_humid.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(1000,0,4096),'HIGH').appendField(new Blockly.FieldImage("img/blocks/sprout_dried.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(2000,0,4096),'LOW');
+				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sprout_humid.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('OK').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sprout.svg",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sprout_dried.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 		this.setPreviousStatement(true,'code');

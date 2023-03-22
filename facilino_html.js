@@ -31,7 +31,7 @@
 			name: Facilino.locales.getKey('LANG_HTML_DOC_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_HTML);
-				this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_DOC'));
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_DOC'));
 				this.appendStatementInput('DOC').setAlign(Blockly.ALIGN_RIGHT).setCheck('html_tag');
 				this.setInputsInline(false);
 				this.setPreviousStatement(false, null);
@@ -68,7 +68,7 @@
 			name: Facilino.locales.getKey('LANG_HTML_TAG_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_HTML);
-				this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_TAG')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_TAG')).appendField(new Blockly.FieldDropdown([
 		['head', 'head'],
 		['body', 'body'],
 		['h1', 'h1'],
@@ -124,7 +124,7 @@
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 				for (var x = 0; x < this.itemCount_; x++) {
-					this.appendValueInput('ATTRIBUTE' + x).setCheck('ATTRIBUTE').appendField(new Blockly.FieldImage('img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('html_attribute');
+					this.appendValueInput('ATTRIBUTE' + x).setCheck('ATTRIBUTE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('html_attribute');
 					this.setInputsInline(false);
 				}
 			},
@@ -153,7 +153,7 @@
 					switch (clauseBlock.type) {
 						case 'html_attribute_item':
 							this.setInputsInline(false);
-							var attrInput = this.appendValueInput('ATTRIBUTE' + this.itemCount_).setCheck('ATTRIBUTE').appendField(new Blockly.FieldImage('img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('html_attribute');
+							var attrInput = this.appendValueInput('ATTRIBUTE' + this.itemCount_).setCheck('ATTRIBUTE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('html_attribute');
 							// Reconnect any child blocks.
 							if (clauseBlock.valueConnection_) {
 								attrInput.connection.connect(clauseBlock.valueConnection_);
@@ -262,7 +262,7 @@
 			name: Facilino.locales.getKey('LANG_HTML_TAG_ATTR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_HTML);
-				this.appendValueInput('ATTRIBUTE_TEXT').appendField(new Blockly.FieldImage('img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldDropdown([
+				this.appendValueInput('ATTRIBUTE_TEXT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/attribute.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldDropdown([
 		['id','id'],
 		['href', 'href'],
 		['style','style'],
@@ -322,7 +322,7 @@
 			name: Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_TEXT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_HTML);
-				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage('img/blocks/text-font.png', 20*options.zoom, 20*options.zoom)).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/text-font.png', 20*options.zoom, 20*options.zoom)).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'html_tag');
 				this.setNextStatement(true,'html_tag');
@@ -368,7 +368,7 @@
 			name: Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML_TEXT_FORMAT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_HTML);
-				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage('img/blocks/text-font.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldDropdown([
+				this.appendValueInput('TEXT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/text-font.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldDropdown([
 		['b', 'b'],
 		['strong','strong'],
 		['i','i'],

@@ -161,7 +161,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_API_REST_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_RECEIVE')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_RECEIVE')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DIGITAL_READ')).appendField(new Blockly.FieldCheckbox(false),'DigitalRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DIGITAL_WRITE')).appendField(new Blockly.FieldCheckbox(false),'DigitalWrite');
 						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_ANALOG_READ')).appendField(new Blockly.FieldCheckbox(false),'AnalogRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_ANALOG_WRITE')).appendField(new Blockly.FieldCheckbox(false),'AnalogWrite');
 				
@@ -923,7 +923,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_MATRIX_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_MATRIX')).appendField(new Blockly.FieldImage('img/blocks/LED_matrix.svg', 34*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_MATRIX')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/LED_matrix.svg', 34*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_DATA')).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin'); //.setCheck([Number,'Variable']);
 						this.appendValueInput('PINx').setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin'); //.setCheck([Number,'Variable']);
 						this.appendValueInput('PINxx').setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin'); //.setCheck([Number,'Variable']);
@@ -1021,7 +1021,7 @@
 					name: Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_STRIP_NAME'),
 					init: function() {
 						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_STRIP')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_LED_STRIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_DATA')).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin'); //.setCheck([Number,'Variable']);
 						this.appendValueInput('VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');

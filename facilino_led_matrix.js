@@ -89,17 +89,17 @@
 			name: Facilino.locales.getKey('LANG_LED_MATRIX_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX')).appendField(new Blockly.FieldImage('img/blocks/LED_matrix.svg', 57*options.zoom, 33*options.zoom));
-				this.appendValueInput('DIN_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DIN_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('CS_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CS_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('CLK_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CLK_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/LED_matrix.svg', 57*options.zoom, 33*options.zoom));
+				this.appendValueInput('DIN_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DIN_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('CS_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('CLK_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CLK_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LED_MATRIX_VERTICAL'), 'V'],
 			[Facilino.locales.getKey('LANG_LED_MATRIX_HORIZONTAL'), 'H'] ,
 			[Facilino.locales.getKey('LANG_LED_MATRIX_VERTICAL_180'), 'V1'],
 			[Facilino.locales.getKey('LANG_LED_MATRIX_HORIZONTAL_180'), 'H1']
 				]), "CONFIGURATION").setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('EXPRESSION').appendField(new Blockly.FieldImage("img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).setCheck('Expression').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('EXPRESSION').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).setCheck('Expression').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 		this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
@@ -416,17 +416,17 @@
 			name: Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_STREAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX')).appendField(new Blockly.FieldImage('img/blocks/LED_matrix.svg', 57*options.zoom, 33*options.zoom));
-				this.appendValueInput('DIN_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DIN_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('CS_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CS_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('CLK_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CLK_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/LED_matrix.svg', 57*options.zoom, 33*options.zoom));
+				this.appendValueInput('DIN_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DIN_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('CS_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('CLK_PIN').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_CLK_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LED_MATRIX_VERTICAL'), 'V'],
 			[Facilino.locales.getKey('LANG_LED_MATRIX_HORIZONTAL'), 'H'] ,
 			[Facilino.locales.getKey('LANG_LED_MATRIX_VERTICAL_180'), 'V1'],
 			[Facilino.locales.getKey('LANG_LED_MATRIX_HORIZONTAL_180'), 'H1']
 				]), "CONFIGURATION").setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('STREAM').appendField(new Blockly.FieldImage("img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*")).setCheck('StreamExpression').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('STREAM').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*")).setCheck('StreamExpression').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DELAY').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DELAY_WAIT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_DELAY_SHIFT')).appendField(new Blockly.FieldCheckbox('TRUE'),'SHIFT').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LED_MATRIX_WAIT')).appendField(new Blockly.FieldCheckbox('FALSE'),'BACKGROUND').setAlign(Blockly.ALIGN_RIGHT);
@@ -608,7 +608,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
 				this.appendDummyInput()
-					.appendField(new Blockly.FieldImage("img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*"))
+					.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*"))
 					.appendField(new Blockly.FieldTextInput(''), 'TEXT');
 				this.setOutput(true,'StreamExpression');
 				this.setTooltip(Facilino.locales.getKey('LANG_LED_MATRIX_STREAM_TOOLTIP'));
@@ -649,7 +649,7 @@
 			name: Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_SEQUENTIALLY_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix_stream.png", 48*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA1').setCheck('Data').setCheck('Expression').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA2').setCheck('Data').setCheck('Expression').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
@@ -746,7 +746,7 @@
 			keys: ['LANG_LED_MATRIX_DRAWING_SEQUENTIALLY_MUTATOR_TOOLTIP'],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/dot-matrix_stream.png", 48*options.zoom, 48*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix_stream.png", 48*options.zoom, 48*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('STACK').setCheck('drawing_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_SEQUENTIALLY_MUTATOR_TOOLTIP'));
 				this.contextMenu = false;
@@ -827,7 +827,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
 				this.expr = new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_LED_MATRIX_ANGRY') || 'ANGRY', '1'],[Facilino.locales.getKey('LANG_LED_MATRIX_HAPPY') || 'HAPPY', '2'],[Facilino.locales.getKey('LANG_LED_MATRIX_SAD') || 'SAD', '3'],[Facilino.locales.getKey('LANG_LED_MATRIX_HEART') || 'HEART', '4'],[Facilino.locales.getKey('LANG_LED_MATRIX_STUNNED') || 'STUNNED', '5'],[Facilino.locales.getKey('LANG_LED_MATRIX_DRAGONBALL') || 'Dragonball', '6'],[Facilino.locales.getKey('LANG_LED_MATRIX_TURTLE_SCHOOL') || 'Turtle School', '7'],[Facilino.locales.getKey('LANG_LED_MATRIX_BAT') || 'Bat', '8'],[Facilino.locales.getKey('LANG_LED_MATRIX_MASK') || 'BatMask', '9'],[Facilino.locales.getKey('LANG_LED_MATRIX_DEATH_STAR') || 'Death Star', '10'],[Facilino.locales.getKey('LANG_LED_MATRIX_LIGHT_SABER') || 'Light saber', '11'],[Facilino.locales.getKey('LANG_LED_MATRIX_WONDER_WOMAN') || 'Wonder Woman', '12'],[Facilino.locales.getKey('LANG_LED_MATRIX_STAR') || 'Star', '13'],[Facilino.locales.getKey('LANG_LED_MATRIX_CREEPER') || 'Creeper', '14'],[Facilino.locales.getKey('LANG_LED_MATRIX_SWORD') || 'Sword', '15'],[Facilino.locales.getKey('LANG_LED_MATRIX_MINION_EYE') || 'Minion Eye', '16'],[Facilino.locales.getKey('LANG_LED_MATRIX_SPIDER') || 'Spider', '17'],[Facilino.locales.getKey('LANG_LED_MATRIX_POKEBALL') || 'Pokeball', '18']]);
-				this.appendDummyInput('EXPR_INPUT').appendField(new Blockly.FieldImage("img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).appendField(this.expr, 'EXPRESSION').appendField(new Blockly.FieldImage('img/blocks/angry.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).appendField(this.expr, 'EXPRESSION').appendField(new Blockly.FieldImage('img/blocks/angry.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				this.checkExpr();
 				this.last_expr = this.getFieldValue('EXPRESSION');
 		//this.appendDummyInput('EXPR').appendField(new Blockly.FieldImage('img/blocks/angry.png', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/happy.png', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/dissapointment.png', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/love.png', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/shocked.png', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
@@ -847,73 +847,73 @@
 		var _expr = this.getFieldValue('EXPRESSION');
 				if ( _expr === '1') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/angry.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/angry.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				} else if ( _expr === '2') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/happy.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/happy.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				} else if ( _expr === '3') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/dissapointment.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dissapointment.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '4') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/love.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/love.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '5') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/shocked.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/shocked.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '6') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/Dragonball.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/Dragonball.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '7') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/Turtle_School_Symbol.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/Turtle_School_Symbol.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '8') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/batman-logo.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/batman-logo.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '9') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/batman-mask.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/batman-mask.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '10') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/death-star.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/death-star.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '11') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/light-saber.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/light-saber.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '12') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/wonder-woman.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wonder-woman.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '13') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/star.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/star.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '14') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/minecraft.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/minecraft.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '15') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/sword.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/sword.png', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '16') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/minion.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/minion.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '17') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/spiderman.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/spiderman.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if ( _expr === '18') {
 					this.getInput('EXPR_INPUT').removeField('EXPR');
-					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage('img/blocks/pokeball.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
+					this.getInput('EXPR_INPUT').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pokeball.svg', 20*options.zoom, 20*options.zoom),'EXPR').setAlign(Blockly.ALIGN_RIGHT);
 				}
 			},
 			onchange: function() {
@@ -1013,7 +1013,7 @@
 				],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDMATRIX);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-matrix.png", 24*options.zoom, 24*options.zoom, "*")).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_NO_CONNECTION'),'0100000000000000'],
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_POOR_CONNECTION'),'0504040000000000'],
 					[Facilino.locales.getKey('LANG_LED_MATRIX_DRAWING_GOOD_CONNECTION'),'1514141010000000'],

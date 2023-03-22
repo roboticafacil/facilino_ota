@@ -35,10 +35,10 @@
 		  keys: ['LANG_DIMMER_SET_BRIGHTNESS_NAME','LANG_DIMMER_SET_BRIGHTNESS','LANG_DIMMER_ZC_PIN','LANG_DIMMER_THYRISTOR_PIN','LANG_DIMMER_BRIGHTNESS','LANG_DIMMER_SET_BRIGHTNESS_TOOLTIP'],
 		  name: Facilino.locales.getKey('LANG_DIMMER_SET_BRIGHTNESS_NAME'),
 		  init: function() {
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DIMMER_SET_BRIGHTNESS')).appendField(new Blockly.FieldImage('img/blocks/dimmer.svg', 80*options.zoom, 24*options.zoom));
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DIMMER_SET_BRIGHTNESS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dimmer.svg', 80*options.zoom, 24*options.zoom));
 			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_DIMMER_ZC_PIN')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.interrupt),'ZC_PIN').setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_DIMMER_THYRISTOR_PIN')).appendField(new Blockly.FieldImage('img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['PWMPin']);
-			this.appendValueInput('BRIGHTNESS').appendField(Facilino.locales.getKey('LANG_DIMMER_BRIGHTNESS')+' [%]').appendField(new Blockly.FieldImage('img/blocks/sun.png', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_DIMMER_THYRISTOR_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pwm_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['PWMPin']);
+			this.appendValueInput('BRIGHTNESS').appendField(Facilino.locales.getKey('LANG_DIMMER_BRIGHTNESS')+' [%]').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/sun.png', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 			this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
 			this.setInputsInline(false);

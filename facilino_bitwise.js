@@ -155,7 +155,7 @@
 				this.setColour(Facilino.LANG_COLOUR_LOGIC_BITWISE);
 				this.setOutput(true,Number);
 				this.appendValueInput('A').setCheck([Number,'Variable']);
-				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage("img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
+				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE8_TOOLTIP'));
@@ -194,9 +194,9 @@
 				this.setColour(Facilino.LANG_COLOUR_LOGIC_BITWISE);
 				this.setOutput(true,Number);
 				this.appendValueInput('A').setCheck([Number,'Variable']);
-				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage("img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
-				this.appendValueInput('C').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage("img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
-				this.appendValueInput('D').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage("img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
+				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
+				this.appendValueInput('C').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
+				this.appendValueInput('D').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/join8.svg", 48*options.zoom, 20*options.zoom, "*"));
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE8x4_TOOLTIP'));
@@ -233,7 +233,7 @@
 				this.setColour(Facilino.LANG_COLOUR_LOGIC_BITWISE);
 				this.setOutput(true,Number);
 				this.appendValueInput('A').setCheck([Number,'Variable']);
-				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage("img/blocks/join16.svg", 48*options.zoom, 20*options.zoom, "*"));
+				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/join16.svg", 48*options.zoom, 20*options.zoom, "*"));
 				this.setInputsInline(true);
 				var thisBlock = this;
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BITWISE_COMBINE16_TOOLTIP'));

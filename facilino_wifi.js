@@ -52,14 +52,14 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage("img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage("img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
 					{
 						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 					else if ((Facilino.profiles['processor']==='ATmega2560'))
 					{
@@ -114,7 +114,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_OPEN_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_OPEN')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_OPEN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.appendValueInput('IP').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_IP')).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('PORT').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_PORT')).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
@@ -147,7 +147,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_CLOSE_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_CLOSE')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TCP_CLOSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
@@ -174,7 +174,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_RECV_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_RECV')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_RECV')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
@@ -212,7 +212,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_SEND_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_SEND')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_SEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.appendValueInput('TEXT').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_TEXT')).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
@@ -277,22 +277,22 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					//this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage("img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					//this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage("img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					//this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					//this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('PORT').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_PORT')).setAlign(Blockly.ALIGN_RIGHT);
 					/*if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
 					{
 					this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 					else if (Facilino.profiles['processor']==='ATmega2560')
 					{
 						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
 						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
 					}*/
-					this.appendValueInput('HTML').setCheck([String,'Html']).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML')).appendField(new Blockly.FieldImage('img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('HTML').setCheck([String,'Html']).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
@@ -397,9 +397,9 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage("img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage("img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_CONSOLE')).appendField(new Blockly.FieldCheckbox('FALSE'),'CONSOLE').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
@@ -434,7 +434,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_OTA_SET_DEVICENAME_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendValueInput('DEVICENAME').appendField(Facilino.locales.getKey('LANG_WIFI_OTA_SET_DEVICENAME_DEF')).appendField(new Blockly.FieldImage('img/blocks/cpu-wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendValueInput('DEVICENAME').appendField(Facilino.locales.getKey('LANG_WIFI_OTA_SET_DEVICENAME_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/cpu-wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');
@@ -496,7 +496,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_LOCALIP_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_LOCALIP')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_LOCALIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
@@ -530,7 +530,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_MAC_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_MAC')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_MAC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
@@ -563,7 +563,7 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_ISCONNECTED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.setInputsInline(false);
 					this.setPreviousStatement(false);
 					this.setNextStatement(false);
@@ -748,9 +748,9 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')+' Server').appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage("img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage("img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')+' Server').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					//var defaultArgument = Blockly.Block.obtain(Blockly.mainWorkspace, 'math_number');
 					//defaultArgument.setShadow(true);
 					//this.appendValueInput('PORT').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_PORT')).setAlign(Blockly.ALIGN_RIGHT).connection.connect(defaultArgument.outputConnection);;
@@ -816,11 +816,11 @@
 				name: Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER')).appendField(new Blockly.FieldImage('img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage("img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage("img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_SERVER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
+					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('PORT').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_PORT')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('HTML').setCheck([String,'Html']).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML')).appendField(new Blockly.FieldImage('img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('HTML').setCheck([String,'Html']).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTML')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/html.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
 					this.setNextStatement(true,'code');

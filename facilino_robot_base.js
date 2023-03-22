@@ -70,12 +70,12 @@
 			name: Facilino.locales.getKey('LANG_MOVE_BASE_NAME'),
 			init: function() {
 		this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+' (servos)').appendField(new Blockly.FieldImage("img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('LEFT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage("img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('ADVANCE').appendField(Facilino.locales.getKey('LANG_ADVANCE')).appendField(new Blockly.FieldImage("img/blocks/vertical-resize.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('TURN').appendField(Facilino.locales.getKey('LANG_TURN')).appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable','Turn']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+' (servos)').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('LEFT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('ADVANCE').appendField(Facilino.locales.getKey('LANG_ADVANCE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('TURN').appendField(Facilino.locales.getKey('LANG_TURN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/turn.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable','Turn']).setAlign(Blockly.ALIGN_RIGHT);
 		this.appendDummyInput('ATTACH').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_ATTACH')).appendField(new Blockly.FieldCheckbox('FALSE'),'ATTACH').setAlign(Blockly.ALIGN_RIGHT);
 		this.appendDummyInput('TIME').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_TIME'),'TIME_TEXT').appendField(new Blockly.FieldNumber(1000),'TIME').setAlign(Blockly.ALIGN_RIGHT);
 		this.default_time = this.getFieldValue('TIME') ||1000;
@@ -193,10 +193,10 @@
 			name: Facilino.locales.getKey('LANG_MOVE_FBLR_NAME'),
 			init: function() {
 		this.setColour(robot_colour);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (servos)').appendField(new Blockly.FieldImage("img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom));
-		this.appendValueInput('LEFT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')).appendField(new Blockly.FieldImage("img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage("img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (servos)').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom));
+		this.appendValueInput('LEFT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/servo_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 		this.appendDummyInput('').appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_MOVE_FORWARD') || 'Forward', 'F'],
 					[Facilino.locales.getKey('LANG_MOVE_BACKWARD') || 'Backward', 'B'],
 			[Facilino.locales.getKey('LANG_MOVE_LEFT') || 'Left', 'L'],
@@ -276,13 +276,13 @@
 			name: Facilino.locales.getKey('LANG_MOVE_BASE_CC_NAME'),
 			init: function() {
 		this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (CC)').appendField(new Blockly.FieldImage("img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('LEFT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN1').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('LEFT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN2').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN3').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN4').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage("img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('ADVANCE').appendField(Facilino.locales.getKey('LANG_ADVANCE')).appendField(new Blockly.FieldImage("img/blocks/vertical-resize.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (CC)').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('LEFT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN1').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('LEFT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN2').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN3').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN4').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('ADVANCE').appendField(Facilino.locales.getKey('LANG_ADVANCE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 		this.appendValueInput('TURN').appendField(Facilino.locales.getKey('LANG_TURN')).appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable','Turn']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 		this.setPreviousStatement(true,'code');
@@ -358,12 +358,12 @@
 			name: Facilino.locales.getKey('LANG_MOVE_FBLR_CC_NAME'),
 			init: function() {
 			this.setColour(robot_colour);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (CC)').appendField(new Blockly.FieldImage("img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom));
-		this.appendValueInput('LEFT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN1').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('LEFT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN2').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN3').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('RIGHT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN4').appendField(new Blockly.FieldImage("img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage("img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (CC)').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom));
+		this.appendValueInput('LEFT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN1').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('LEFT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')+' IN2').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT1').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN3').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('RIGHT2').appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')+' IN4').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/pwm_signal.svg",20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','PWMPin']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_SPEED')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('').appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_MOVE_FORWARD') || 'Forward', 'F'],
 					[Facilino.locales.getKey('LANG_MOVE_BACKWARD') || 'Backward', 'B'],
 			[Facilino.locales.getKey('LANG_MOVE_LEFT') || 'Left', 'L'],
@@ -460,11 +460,11 @@
 			name: Facilino.locales.getKey('LANG_MOVE_FBLR_STEPPER_NAME'),
 			init: function() {
 			this.setColour(robot_colour);
-			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (stepper)').appendField(new Blockly.FieldImage("img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVE_BASE')+ ' (stepper)').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/wheeled_robot.svg", 32*options.zoom, 32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_STEPPER_TOTAL_STEPS')).appendField(new Blockly.FieldNumber(2048, 0, Infinity, 1),"TOTAL_STEPS").appendField(Facilino.locales.getKey('LANG_STEPPER_WHEEL_DIA')+' (cm)').appendField(new Blockly.FieldNumber(6, 0, Infinity,0.01),"WHEEL_DIA").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOVE_BASE_LEFT')).appendField(Facilino.locales.getKey('LANG_STEPPER_PIN1')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN1").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN2')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN2").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN3')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN3").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN4')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN4").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOVE_BASE_RIGHT')).appendField(Facilino.locales.getKey('LANG_STEPPER_PIN5')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN5").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN6')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN6").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN7')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN7").appendField(Facilino.locales.getKey('LANG_STEPPER_PIN8')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.digital),"PIN8").setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_STEPPER_SET_SPEED')+' ('+Facilino.locales.getKey('LANG_STEPPER_RPM')+')').appendField(new Blockly.FieldImage("img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('SPEED').appendField(Facilino.locales.getKey('LANG_STEPPER_SET_SPEED')+' ('+Facilino.locales.getKey('LANG_STEPPER_RPM')+')').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/speedometer.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('').appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_MOVE_FORWARD') || 'Forward', 'F'],
 					[Facilino.locales.getKey('LANG_MOVE_BACKWARD') || 'Backward', 'B'],
 			[Facilino.locales.getKey('LANG_MOVE_LEFT') || 'Left', 'L'],
@@ -598,7 +598,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey('LANG_MOVE_BASE_SET_ENCODERS'))
-				.appendField(new Blockly.FieldImage("img/blocks/encoder.png", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/encoder.png", 24, 24, null));
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOVE_BASE_WHEEL_COUNTS')).appendField(new Blockly.FieldNumber(20, 0, Infinity, 1),"COUNTS").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOVE_BASE_WHEEL_DIA')+' (cm)').appendField(new Blockly.FieldNumber(6.5, 0.01, Infinity,0.01),"WHEEL_DIA").setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_MOVE_BASE_WHEEL_SEP')+' (cm)').appendField(new Blockly.FieldNumber(13.3, 0.01, Infinity,0.01),"WHEEL_SEP").setAlign(Blockly.ALIGN_RIGHT);
@@ -648,7 +648,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_VELOCITY")+" (RPM)").appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_MOVE_BASE_VELOCITY_LEFT'),'LEFT'],[Facilino.locales.getKey('LANG_MOVE_BASE_VELOCITY_RIGHT'),'RIGHT']]),'WHEEL')
-				.appendField(new Blockly.FieldImage("img/blocks/encoder.png", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/encoder.png", 24, 24, null));
 			this.setOutput(true,Number);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_VELOCITY_TOOLTIP'));
@@ -692,7 +692,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey('LANG_MOVE_BASE_SET_POSITION'))
-				.appendField(new Blockly.FieldImage("img/blocks/map-placeholder.svg", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/map-placeholder.svg", 24, 24, null));
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_POSITION_X")+' (cm)')
@@ -743,7 +743,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_POSITION_X")+" (cm)")
-				.appendField(new Blockly.FieldImage("img/blocks/map-placeholder.svg", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/map-placeholder.svg", 24, 24, null));
 			this.setOutput(true,Number);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_POSITION_X_TOOLTIP'));
@@ -781,7 +781,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_POSITION_Y")+" (cm)")
-				.appendField(new Blockly.FieldImage("img/blocks/map-placeholder.svg", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/map-placeholder.svg", 24, 24, null));
 			this.setOutput(true,Number);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_POSITION_Y_TOOLTIP'));
@@ -819,7 +819,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_ORIENTATION")+" (º)")
-				.appendField(new Blockly.FieldImage("img/blocks/map-placeholder.svg", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/map-placeholder.svg", 24, 24, null));
 			this.setOutput(true,Number);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_POSITION_ORIENTATION_TOOLTIP'));
@@ -857,7 +857,7 @@
 			this.appendDummyInput()
 				.setAlign(Blockly.ALIGN_RIGHT)
 				.appendField(Facilino.locales.getKey("LANG_MOVE_BASE_PATH_LENGTH")+" (cm)")
-				.appendField(new Blockly.FieldImage("img/blocks/map-placeholder.svg", 24, 24, null));
+				.appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/map-placeholder.svg", 24, 24, null));
 			this.setOutput(true,Number);
 			this.setColour(Facilino.LANG_COLOUR_MOVEMENT_ROBOTBASE);
 			this.setTooltip(Facilino.locales.getKey('LANG_MOVE_BASE_PATH_LENGTH_TOOLTIP'));

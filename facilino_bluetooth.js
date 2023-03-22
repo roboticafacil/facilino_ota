@@ -70,12 +70,12 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') )
 				{
 					this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
-					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
 				}
 				else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 				{
@@ -157,12 +157,12 @@
 				name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME_NAME'),
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
 					{
 						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					}
 					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 					{
@@ -239,7 +239,7 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_APP_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 		this.setMutator(new Blockly.Mutator(['dyor_bluetooth_app_item']));
 		this.itemCount_ = 0;
 		this.setInputsInline(false);
@@ -261,7 +261,7 @@
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 				for (var x = 1; x <= this.itemCount_; x++) {
-			this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+x).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+x).setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				}
@@ -292,7 +292,7 @@
 						case 'dyor_bluetooth_app_item':
 							this.itemCount_++;
 							this.setInputsInline(false);
-							var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
+							var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
 							var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 							// Reconnect any child blocks.
 							if (clauseBlock.valueConnection_) {
@@ -349,7 +349,7 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_PREDEFINED_COMMAND_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldDropdown([
 		[Facilino.locales.getKey('LANG_BLUETOOTH_BREAKLOOP')||'BREAK LOOP','0'],
 		[Facilino.locales.getKey('LANG_LED_MATRIX_ANGRY')||'ANGRY','1'],
 		[Facilino.locales.getKey('LANG_LED_MATRIX_HAPPY')||'HAPPY','2'],
@@ -437,7 +437,7 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_NUM_COMMAND_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendValueInput('DATA').appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).setAlign(Blockly.ALIGN_RIGHT).setCheck(Number);
+				this.appendValueInput('DATA').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).setAlign(Blockly.ALIGN_RIGHT).setCheck(Number);
 		this.setInputsInline(true);
 		this.setOutput(true,'Data');
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND_NUM_TOOLTIP'));
@@ -689,7 +689,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				//this.setMutator(new Blockly.Mutator(['dyor_bluetooth_telegram_item','dyor_bluetooth_telegram_digital_read_item']));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_READ')).appendField(new Blockly.FieldCheckbox(false),'DigitalRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_WRITE')).appendField(new Blockly.FieldCheckbox(false),'DigitalWrite');
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_READ')).appendField(new Blockly.FieldCheckbox(false),'AnalogRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_WRITE')).appendField(new Blockly.FieldCheckbox(false),'AnalogWrite');
@@ -867,7 +867,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				//[Facilino.locales.getKey('LANG_BLUETOOTH_GAS_READ')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')||'Gas','17'],
 				[Facilino.locales.getKey('LANG_BLUETOOTH_DHT')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')+')'||'DHT','23']
 				]);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_TYPE')).appendField(telegram,'TELEGRAM').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP1').setCheck(['DigitalPin','AnalogPin','PWMPin']).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_PIN'),'INP1_FIELD').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP2').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).appendField('(1 '+Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE')+')','BYTES').setAlign(Blockly.ALIGN_RIGHT);
@@ -923,7 +923,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_READ'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -974,7 +974,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_WRITE'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('VALUE').setCheck(Boolean).setAlign(Blockly.ALIGN_RIGHT);
@@ -1037,7 +1037,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_READ'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -1088,7 +1088,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_WRITE'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -1168,7 +1168,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Boolean #').appendField(new Blockly.FieldNumber(0,1),'BOOLEAN_NUM');
 				this.appendValueInput('BOOLEAN_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('BOOLEAN_VALUE').setCheck(Boolean).setAlign(Blockly.ALIGN_RIGHT);
@@ -1247,7 +1247,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Int #').appendField(new Blockly.FieldNumber(0,1),'INT_NUM');
 				this.appendValueInput('INT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INT_VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -1333,7 +1333,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Float #').appendField(new Blockly.FieldNumber(0,1),'FLOAT_NUM');
 				this.appendValueInput('FLOAT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('FLOAT_VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -1412,7 +1412,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('String #').appendField(new Blockly.FieldNumber(0,1),'STRING_NUM');
 				this.appendValueInput('STRING_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('STRING_VALUE').setCheck(String).setAlign(Blockly.ALIGN_RIGHT);
@@ -1482,7 +1482,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_BLUETOOTH_SERVO')||'Servo','10'],
 				[Facilino.locales.getKey('LANG_BLUETOOTH_SERVO360')||'Servo 360º','11']]),'TYPE');
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
@@ -1551,7 +1551,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SERVO360'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -1617,7 +1617,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SONAR_READ'));
 				this.appendValueInput('ECHO_PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('TRIGGER_PIN').setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
@@ -1676,7 +1676,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_BUZZER_TONE'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('FREQ').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -1742,7 +1742,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_BUZZER_MELODY'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('PWMPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('MELODY').setCheck('Melody').setAlign(Blockly.ALIGN_RIGHT);
@@ -1828,7 +1828,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DHT')).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -1883,7 +1883,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DHT')).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
@@ -1934,7 +1934,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_LED_MATRIX'));
 				this.appendValueInput('CLK_PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DIN_PIN').setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
@@ -2020,7 +2020,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RGB_LED_STRIP'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
@@ -2071,7 +2071,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/smartphoneT.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(new Blockly.FieldDropdown([
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneT.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(new Blockly.FieldDropdown([
 				[Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_READ')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_REQUEST')+')'||'Digital Read Request','0'],
 				[Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_WRITE')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND')+')'||'Digital Write','2'],
 				[Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_READ')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_REQUEST')+')'||'Analog Read Request','3'],
@@ -2630,7 +2630,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				//[Facilino.locales.getKey('LANG_BLUETOOTH_GAS_READ')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')||'Gas','17'],
 				[Facilino.locales.getKey('LANG_BLUETOOTH_DHT')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')+')'||'DHT','23']
 				]);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TELEGRAM')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_TYPE')).appendField(telegram,'TELEGRAM').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP1').setCheck(['DigitalPin','AnalogPin','PWMPin']).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_PIN'),'INP1_FIELD').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP2').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).appendField('(1 '+Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE')+')','BYTES').setAlign(Blockly.ALIGN_RIGHT);
@@ -2677,7 +2677,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECEIVE')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECEIVE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 
 				this.setInputsInline(false);
 
@@ -2709,7 +2709,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendValueInput('SNT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_SEND')).setCheck([Number,'Variable']);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
@@ -2752,7 +2752,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SERIAL_AVAILABLE')).appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SERIAL_AVAILABLE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT_INPUT_DO')).setCheck('code');
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');

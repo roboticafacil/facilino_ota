@@ -45,8 +45,8 @@
 				this.setColour(Facilino.LANG_COLOUR_SOUND_VOICE);
 		this.appendDummyInput('')
 					.appendField(Facilino.locales.getKey('LANG_PIEZO_BUZZER_VOICE'))
-					.appendField(new Blockly.FieldImage('img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('VOICE').appendField(new Blockly.FieldImage('img/blocks/voice.svg', 36*options.zoom, 36*options.zoom)).setCheck('Voice').setAlign(Blockly.ALIGN_RIGHT);
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/buzzer.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('VOICE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/voice.svg', 36*options.zoom, 36*options.zoom)).setCheck('Voice').setAlign(Blockly.ALIGN_RIGHT);
 		this.setInputsInline(true);
 		this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -83,7 +83,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_VOICE);
 		this.appendDummyInput('')
-					.appendField(new Blockly.FieldImage('img/blocks/voice.svg',36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);;
+					.appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/voice.svg',36*options.zoom, 36*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);;
 				this.appendDummyInput('')
 					.appendField(new Blockly.FieldDropdown([
 			['AFTERNOON','AFTERNOON'],

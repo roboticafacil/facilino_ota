@@ -8,6 +8,7 @@ window.FacilinoAdvanced=true;
 <script src="facilino_controls.js"></script>
 <script src="facilino_variables.js"></script>
 <script src="facilino_led_strip.js"></script>
+<script src="facilino_interrupts.js"></script>
 
 <script>
 Facilino.load({ zoom: 1, readOnly:true, collapse: false});
@@ -15,6 +16,7 @@ FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
 FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
+FacilinoInterrupts.load({ zoom: 1, readOnly:true, collapse: false});
 </script>
 
 <section class="mbr-section content4 cid-qYh0wRA9Kt" id="content4-4z">
@@ -72,9 +74,13 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
 		<div class="media-container-row">
 			<div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol id="workedInstructions">
-								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
+								<li><div><span id='tooltipInstruction1'></span></div><div  id='blocklyInstruction1'></div><script>injectInstructionTooltip1('led_strip','blocklyInstruction1','tooltipInstruction1');</script></li>
+								<li><div><span id='tooltipInstruction2'></span></div><div  id='blocklyInstruction2'></div><script>injectInstructionTooltip1('led_strip_all_pixels','blocklyInstruction2','tooltipInstruction2');</script></li>
+								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('led_strip_brightness','blocklyInstruction5','tooltipInstruction5');</script></li>
+								<li><div><span id='tooltipInstruction7'></span></div><div  id='blocklyInstruction7'></div><script>injectInstructionTooltip1('attachInterrupt','blocklyInstruction7','tooltipInstruction7');</script></li>
 								<li><div><span id='tooltipInstruction4'></span></div><div  id='blocklyInstruction4'></div><script>injectInstructionTooltip1('led_strip_gradient','blocklyInstruction4','tooltipInstruction4');</script></li>
-								<li><div><span id='tooltipInstruction5'></span></div><div  id='blocklyInstruction5'></div><script>injectInstructionTooltip1('variables_global_volatile_type','blocklyInstruction5','tooltipInstruction5');</script></li>
+								<li><div><span id='tooltipInstruction3'></span></div><div  id='blocklyInstruction3'></div><script>injectInstructionTooltip1('led_strip_hue','blocklyInstruction3','tooltipInstruction3');</script></li>
+								<li><div><span id='tooltipInstruction8'></span></div><div  id='blocklyInstruction8'></div><script>injectInstructionTooltip1('variables_global_volatile_type','blocklyInstruction8','tooltipInstruction5');</script></li>
                 </ol>
             </div>
 		</div>
@@ -101,8 +107,6 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
                 <ol id="workedInstructions">
 					<li><div><span id='tooltipInstruction9'></span></div><div  id='blocklyInstruction9'></div><script>injectInstructionTooltip1('variables_get','blocklyInstruction9','tooltipInstruction9');</script></li>
 					<li><div><span id='tooltipInstruction10'></span></div><div  id='blocklyInstruction10'></div><script>injectInstructionTooltip1('controls_for','blocklyInstruction10','tooltipInstruction10');</script></li>
-					<li><div><span id='tooltipInstruction11'></span></div><div  id='blocklyInstruction11'></div><script>injectInstructionTooltip1('base_us','blocklyInstruction11','tooltipInstruction11');</script></li>
-					<li><div><span id='tooltipInstruction12'></span></div><div  id='blocklyInstruction12'></div><script>injectInstructionTooltip1('controls_alternate','blocklyInstruction12','tooltipInstruction12');</script></li>
 					<li><div><span id='tooltipInstruction13'></span></div><div  id='blocklyInstruction13'></div><script>injectInstructionTooltip1('math_random','blocklyInstruction13','tooltipInstruction13');</script></li>
 				  </ol>
             </div>
@@ -126,33 +130,38 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                  <li><strong>Set random LED</strong><p>Every time we push the pushbutton, we set a LED at at random position so that only one LED is ON everytime (if before that there is a LED ON, it must be set to OFF).</i></p><strong>Hint: </strong><p><i>Use the interrupt instruction to attach the pushbutton connected at D2 and on every falling edge set the previous LED off (set to black) and the new to the selected color. To know which LED was ON before, we can store on a GLOBAL SHARED variable the random value, so that we clear that LED, generate a random number from 0 to 29 (num of LEDs) and set the LED ON every time we push the button.</i></p>
-				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/c8MVX6BUdAy" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-				  </li>
-              <li><strong>Set random color and LED</strong><p>Bla, bla...</i></p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
-			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
-					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/e7o3As31143" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-			  </li>
-			<li><strong>Gradient of LEDs</strong><p>Bla, bla...</p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
+			<li><strong>Gradient of LEDs</strong><p>Set a gradient of colors covering from hue values from 0 to 65535</p><strong>Hint: </strong><p><i>Use the fifth worked instruction to set the gradient of colors varying from an initial hue 0 to a final hue value of 65535.</i></p>
 			<button  type="button" title="Facilino code" onclick="showHideElement('exercise3b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 					<div><iframe id="exercise3b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
 					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/jJv8pozdoG1" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</li>
-			<li><strong>Gradient of LEDs with <i>Tornado</i> effect</strong><p>Bla, bla...</p><strong>Hint: </strong><p><i>Bla, bla...</i></p>
+			<li><strong>Gradient of LEDs with <i>Tornado</i> effect</strong><p>Now, repeat previous exercise, but include a <i>Tornado</i> effect, which means that LEDs will be shown gradually.</p><strong>Hint: </strong><p><i>Just activate the </i>Tornado<i> option in the fifth worked instruction.</i></p>
 			<button  type="button" title="Facilino code" onclick="showHideElement('exercise4b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise4b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
 			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/4FznTyYFDUd" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>	
 			</li>
+			<li><strong>Set random LED</strong><p>Every time we push the pushbutton, we set a LED at at random position so that only one LED is ON everytime (if before that there is a LED ON, it must be set to OFF).</i></p><strong>Hint: </strong><p><i>Use the interrupt instruction to attach the pushbutton connected at D2 and on every falling edge set the previous LED off (set to black) and the new to the selected color. To know which LED was ON before, we can store on a GLOBAL SHARED variable the random value, so that we clear that LED, generate a random number from 0 to 29 (num of LEDs) and set the LED ON every time we push the button.</i></p>
+				  <button  type="button" title="Facilino code" onclick="showHideElement('exercise1b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise1b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/c8MVX6BUdAy" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				  </li>
+			<li><strong>Set random color and LED</strong><p>Now, generate a random color at a random position.</i></p><strong>Hint: </strong><p><i>Now, based on the first exercise, you can also generate a random color by using the </i>Hue<i> instruction (sixth worked instruction), which allows to set the color hue (a number from 0 to 65535).</i></p>
+			  <button  type="button" title="Facilino code" onclick="showHideElement('exercise2b');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+					<div><iframe id="exercise2b" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+					<iframe width="725" height="453" src="https://www.tinkercad.com/embed/e7o3As31143" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			  </li>
+				<!-- <li><strong>Living LEDs Triangular</strong><p>Set the hue of LEDs based on the value returned value of the expression  by the sinusoidal instruction (a value that )
+				the Now, reimplement the second intermediate exercise so that the button is attached to an interrupt.</p><strong>Hint: </strong><p><i>Use the alternate case instruction to set ON or OFF the LEDs depending on the case to execute (the alternate instrucion will execute alternatively all cases introduced).</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise4i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise4i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/8Ed5FFrtQDN" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>-->
                 </ol>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 
 <section class="mbr-section article content9 cid-qYh0wTdIZC">
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -168,27 +177,33 @@ FacilinoLEDStrip.load({ zoom: 1, readOnly:true, collapse: false});
         <div class="media-container-row">
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
-                    <li><strong>Binary digits</strong><p>Compute the number of digits required to represent an integer number in a binary representation. Implement a function that accepts as input argument an integer number and returns the number of digits. Use, for instance number '123'.</p><strong>Hint: </strong><p><i> In a </i>while<i> loop, check if the number is greater or equal than the base 2 powers (starting from 2). Each time that this is true, a digits counter must be increased (initialized at 1).</i></p>
+                    <li><strong>Move one LED</strong><p>Increment the position of the active LED when the pushbutton is pushed.</p><strong>Hint: </strong><p><i>First, create a GLOBAL SHARED variable to keep record of the current LED position. Initialize its value to zero and activate the first LED at the setup (i.e.: in red color). Then, in an </i>interrupt<i> routine attached to D2 pushbutton (at falling edge), set the current LED position to black every time we push the button and then increment the LED position variable and set the new LED position to a color (i.e.: red color). Before setting the LED, we need to check that the new position does not overload the maximum number of LEDs, i.e.: if the value is equal or bigger than the number of LEDs, then set the value to zero.</i></p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise1i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise1i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/3SfBK11F5NZ" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/ccUjad7O8nr" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 					</li>
-					<li><strong>Minimum and maximum</strong><p>Using the potentiometer (connected to pin A0) measurements, compute the minimum and maximum values in volts (the value must be comprised between 0 and 100). At initialisation, turn on red LED (connected to pin D12) and perform the maximum and minimun computations until the switch SW1 (connected to pin D2) is pushed. Once pushed, turn off the red LED and show on the console the minimum and maximum values of all registered measurements.</p><strong>Hint: </strong><p><i>In a </i>while <i>loop, read the analog measurement in A0 and convert it into a number between 0 and 5 (using the </i>map<i> instruction). Use the </i>min <i>and </i>max<i> instructions to compute the corresponding minimum and maximum and save the results in two different variables (the variable storing the minimum value must be initialised with 100, while the variable for the maximum must be initialised with 0).</i></p>
+					<li><strong>Move one LED blinking sequence</strong><p>Now, based on the previous exercise, generate a blinking sequence at the beginning (emulating racing lights that blink just before the race starts). Thus, blink all LEDs three times and after that set the first LED to red. After that, the user can move the LED by pushing the pushbutton connected to D2 as before.</p><strong>Hint: </strong><p><i>Generate a blinking sequence switching ON and OFF all LEDs at the beginning of the race. Create a new GLOBAL SHARED variable to control if the user can move the LED. The variable is set to False at initialization and set to true after the blinking sequence finishes. Inside the interrupt routine, the</i></p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise2i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise2i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/2Ge0wi1C9GI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/gQsFKBB95VD" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 			</li>
-					<li><strong>Sinusoidal Wave</strong><p>Create a sinusoidal wave with 1Hz and amplitude of &#x221A;2, using the presented instructions. And plot it in the Console with Serial Plot Data.</p>
+					<li><strong>Move one LED random sequence</strong><p>Based on the previous exercise, now, generate a random sequence for switching ON one LED at a every iteration when the moving LED reaches the end of the LED strip (i.e.: as if the race has finished).</p><strong>Hint: </strong><p><i>Inside the interrupt routine, check when the LED position reaches the maximum number of LEDs as before, but now, set the GLOBAL SHARED variable that controls if the user can move to FALSE, so it can not move again. At this point, generate a sequence so that on every iteration a LED at a random position is switched ON (i.e. as you did in basic exercise 3, but inside a for loop instruction).</i></p>
 					<button  type="button" title="Facilino code" onclick="showHideElement('exercise3i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
 			<div><iframe id="exercise3i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
-			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fyegUHGQiUE" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/fOZb175X2VI" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+					</li>
+					<li><strong>Move one LED random colored sequence</strong><p>Now, modify previous exercise so that the color of the LED changes when the moving LED reaches the end of the LED strip.</p>><strong>Hint: </strong><p><i>Based on the solution you did for basic exercise 4, now you can also modify the color of the generated color by using the Hue instruction.</i></p>
+					<button  type="button" title="Facilino code" onclick="showHideElement('exercise4i');" class="btn-primary display-4"><span class="mbri-extension mbr-iconfont mbr-iconfont-btn"></span></button>
+			<div><iframe id="exercise4i" style="display:block" frameBorder="0"  src="" onload="resizeIFrameToFitContent(this);"></iframe></div>
+			<iframe width="725" height="453" src="https://www.tinkercad.com/embed/hiSrjwHcOht" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
 					</li>
 				</ol>
             </div>
         </div>
     </div>
 </section>
--->
+
+<div class="mbr-section-btn text-center"><a onclick="onLEDRace();" class="btn btn-primary display-4">&#8592;&nbsp;Back</a></div>
 
 <script>
 
@@ -196,8 +211,12 @@ $('#exercise1b').attr('src','facilino.php?action=view_example&embbeded&id=102');
 $('#exercise2b').attr('src','facilino.php?action=view_example&embbeded&id=104');
 $('#exercise3b').attr('src','facilino.php?action=view_example&embbeded&id=106');
 $('#exercise4b').attr('src','facilino.php?action=view_example&embbeded&id=107');
-	
-  $('#exercise1b').on("load", function() {
+$('#exercise1i').attr('src','facilino.php?action=view_example&embbeded&id=100');
+$('#exercise2i').attr('src','facilino.php?action=view_example&embbeded&id=101');
+$('#exercise3i').attr('src','facilino.php?action=view_example&embbeded&id=103');
+$('#exercise4i').attr('src','facilino.php?action=view_example&embbeded&id=105');
+
+$('#exercise1b').on("load", function() {
     showHideElement('exercise1b');
 });
 
@@ -213,7 +232,7 @@ $('#exercise4b').on("load", function() {
     showHideElement('exercise4b');
 });
 
-/*$('#exercise1i').on("load", function() {
+$('#exercise1i').on("load", function() {
     showHideElement('exercise1i');
 });
 
@@ -223,5 +242,9 @@ $('#exercise2i').on("load", function() {
 
 $('#exercise3i').on("load", function() {
     showHideElement('exercise3i');
-});*/
+});
+
+$('#exercise4i').on("load", function() {
+    showHideElement('exercise4i');
+});
 </script>

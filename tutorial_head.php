@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="Index,Allow">
 <meta name="description" content="Block programming environment for Arduino"/>
-<link rel="shortcut icon" href="assets/images/facilino-ota-cuadrado-fondo-transparente-128x128.png" type="image/x-icon">
+<link rel="shortcut icon" href="../assets/images/facilino-ota-cuadrado-fondo-transparente-128x128.png" type="image/x-icon">
 <meta name="keywords" content="facilino,robot,arduino,dyor" />
 <meta name="author" content="Robotica Facil"/>
 <title>Facilino</title>

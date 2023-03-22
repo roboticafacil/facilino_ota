@@ -95,7 +95,7 @@
 			output: Facilino.locales.getKey('LANG_TEMP_LM35_OUTPUT'),
 			init: function() {
 			this.setColour(temperature_analog_colour);
-			this.appendValueInput('PIN').appendField(new Blockly.FieldImage("img/blocks/thermometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_TEMP')).appendField(new Blockly.FieldDropdown([['LM35','LM35'],['NTC 10K','NTC_10K'],['NTC 4K7','NTC_4K7'],['NTC 2K2','NTC_2K2'],['NTC 1K','NTC_1K']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/lm35.svg",48*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_TEMP')).appendField(new Blockly.FieldDropdown([['LM35','LM35'],['NTC 10K','NTC_10K'],['NTC 4K7','NTC_4K7'],['NTC 2K2','NTC_2K2'],['NTC 1K','NTC_1K']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/lm35.svg",48*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -163,8 +163,8 @@
 			output: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_OUTPUT')],
 			init: function() {
 			this.setColour(temperature_digital_colour);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID')).appendField(new Blockly.FieldDropdown([['DHT11','DHT11'],['DHT21','DHT21'],['DHT22','DHT22']]),'TYPE').appendField(new Blockly.FieldImage("img/blocks/dht11.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -215,8 +215,8 @@
 			output: Facilino.locales.getKey('LANG_TEMP_REQUEST_AND_READ_TEMP_OUTPUT'),
 			init: function() {
 			this.setColour(temperature_digital_colour);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/thermometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_REQUEST_AND_READ_TEMP')).appendField(new Blockly.FieldImage("img/blocks/DS18B20.svg",48*options.zoom,48*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_BUS_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_REQUEST_AND_READ_TEMP')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/DS18B20.svg",48*options.zoom,48*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_BUS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_TEMP_READ_TEMP_UNIT')).appendField(new Blockly.FieldDropdown([['ºC','C'],['ºF','F']]),'TYPE').appendField(Facilino.locales.getKey('LANG_TEMP_RESOLUTION')).appendField(new Blockly.FieldDropdown([['9 Bits','9'],['10 Bits','10'],['11 Bits','11'],['12 Bits','12']]),'RESOLUTION').setAlign(Blockly.ALIGN_RIGHT);			
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
@@ -256,7 +256,7 @@
 			output: [Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_OUTPUT')],
 			init: function() {
 			this.setColour(temperature_digital_colour);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID')).appendField('HTU21D').appendField(new Blockly.FieldImage("img/blocks/htu21.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID')).appendField('HTU21D').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/htu21.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -288,7 +288,7 @@
 			name: Facilino.locales.getKey('LANG_TEMP_READ_TEMP_BMP_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_TEMPERATURE);
-			this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_PRESSURE_READ_PRESSURE_BMP')).appendField(new Blockly.FieldImage("img/blocks/bmp180.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_PRESSURE_READ_PRESSURE_BMP')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/bmp180.svg",63*options.zoom,63*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -337,12 +337,12 @@
 			output: [Facilino.locales.getKey('LANG_TEMP_ALARM_DHT_OUTPUT')],
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_TEMPERATURE);
-				this.appendValueInput('TEMPERATURE').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_TEMP_ALARM_DHT')).appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('TEMPERATURE').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_TEMP_ALARM_DHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_TEMP_ONCE')).appendField(new Blockly.FieldCheckbox('FALSE'),'ONCE').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/thermometer_high.png",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldNumber(30,0,50),'HIGH').appendField(new Blockly.FieldImage("img/blocks/thermometer_low.png",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldNumber(15,0,50),'LOW');
-				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage("img/blocks/thermometer_high.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('OK').appendField(new Blockly.FieldImage("img/blocks/thermometer_ok.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage("img/blocks/thermometer_low.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_high.png",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldNumber(30,0,50),'HIGH').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_low.png",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldNumber(15,0,50),'LOW');
+				this.appendStatementInput('HIGH').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_high.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('OK').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_ok.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('LOW').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_low.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -397,8 +397,8 @@
 		['9 Bits','9'],
 		['10 Bits','10'],
 		['11 Bits','11'],
-		['12 Bits','12']]),'RESOLUTION').appendField(new Blockly.FieldImage("img/blocks/DS18B20.svg",48*options.zoom,48*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_BUS_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+		['12 Bits','12']]),'RESOLUTION').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/DS18B20.svg",48*options.zoom,48*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+			this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_TEMP_BUS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			this.setInputsInline(false);
 			this.setPreviousStatement(true,'code');
 			this.setNextStatement(true,'code');
@@ -430,7 +430,7 @@
 			name: Facilino.locales.getKey('LANG_TEMP_TO_CELSIUS_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_TEMPERATURE);
-			this.appendValueInput('TEMP').appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_F2C')).appendField(new Blockly.FieldImage("img/blocks/thermometer_fahrenheit.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Temperature','Variable']);
+			this.appendValueInput('TEMP').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_F2C')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_fahrenheit.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Temperature','Variable']);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);
@@ -463,7 +463,7 @@
 			name: Facilino.locales.getKey('LANG_TEMP_TO_FAHRENHEIT_NAME'),
 			init: function() {
 			this.setColour(Facilino.LANG_COLOUR_AMBIENT_TEMPERATURE);
-			this.appendValueInput('TEMP').appendField(new Blockly.FieldImage("img/blocks/thermometer_fahrenheit.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_C2F')).appendField(new Blockly.FieldImage("img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Temperature','Variable']);
+			this.appendValueInput('TEMP').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_fahrenheit.png",32*options.zoom,32*options.zoom)).appendField(Facilino.locales.getKey('LANG_TEMP_C2F')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/thermometer_celsius.png",32*options.zoom,32*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Temperature','Variable']);
 			this.setInputsInline(false);
 			this.setPreviousStatement(false);
 			this.setNextStatement(false);

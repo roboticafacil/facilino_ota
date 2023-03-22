@@ -42,7 +42,7 @@
 			name: Facilino.locales.getKey('LANG_LDR_READ_NAME'),
 			init: function() {
 				this.setColour(ldr_colour);
-		this.appendValueInput('PIN').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ')).appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ')).appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_TOOLTIP'));
 			},
@@ -89,8 +89,8 @@
 			name: Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED')).appendField(new Blockly.FieldImage("img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(4000,0,4096),'MAX').appendField(new Blockly.FieldImage("img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(100,0,4096),'MIN');
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(4000,0,4096),'MAX').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldNumber(100,0,4096),'MIN');
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_CALIBRATED_TOOLTIP'));
@@ -126,8 +126,8 @@
 			name: Facilino.locales.getKey('LANG_LDR_READ_LUX_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_LUX'));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/ldr.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LDR_READ_LUX'));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_LDR_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",22*options.zoom, 22*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Number);
 				this.setInputsInline(true);
 				this.setTooltip(Facilino.locales.getKey('LANG_LDR_READ_LUX_TOOLTIP'));
@@ -157,7 +157,7 @@
 			name: Facilino.locales.getKey('LANG_LDR_MAX_LUX_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LDR_MAX_LUX')).appendField(new Blockly.FieldImage("img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LDR_MAX_LUX')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/bright-light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -184,7 +184,7 @@
 			name: Facilino.locales.getKey('LANG_LDR_MIN_LUX_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_LDR);
-				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LDR_MIN_LUX')).appendField(new Blockly.FieldImage("img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LDR_MIN_LUX')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light-bulb.svg",24*options.zoom,24*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');

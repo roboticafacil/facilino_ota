@@ -60,9 +60,9 @@
 			name: Facilino.locales.getKey('LANG_RG_LED_NAME'),
 			init: function() {
 				this.setColour(color_colour);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RG_LED')).appendField(new Blockly.FieldImage('img/blocks/red_green_led.svg', 48*options.zoom, 48*options.zoom));
-				this.appendValueInput('PIN_R').appendField(Facilino.locales.getKey('LANG_RG_LED_PIN_R')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_G').appendField(Facilino.locales.getKey('LANG_RG_LED_PIN_G')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RG_LED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/red_green_led.svg', 48*options.zoom, 48*options.zoom));
+				this.appendValueInput('PIN_R').appendField(Facilino.locales.getKey('LANG_RG_LED_PIN_R')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_G').appendField(Facilino.locales.getKey('LANG_RG_LED_PIN_G')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RG_LED_VALUE')).appendField(new Blockly.FieldDropdown(([[Facilino.locales.getKey('LANG_RG_LED_OFF'),'OFF'],[Facilino.locales.getKey('LANG_RG_LED_RED'),'RED'],[Facilino.locales.getKey('LANG_RG_LED_GREEN'),'GREEN']])),'STATE').setAlign(Blockly.ALIGN_RIGHT);
 		this.setInputsInline(false);
 		this.setPreviousStatement(true,'code');
@@ -152,14 +152,14 @@
 			name: Facilino.locales.getKey('LANG_RGB_LED_NAME'),
 			init: function() {
 				this.setColour(color_colour);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RGB_LED')).appendField(new Blockly.FieldImage('img/blocks/rgb_led.svg', 48*options.zoom, 48*options.zoom));
-		this.appendValueInput('PIN_R').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_R')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RGB_LED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/rgb_led.svg', 48*options.zoom, 48*options.zoom));
+		this.appendValueInput('PIN_R').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_R')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 			//this.appendValueInput('VALUE_R', Boolean).setCheck(Number).appendField(Facilino.locales.getKey('LANG_RGB_LED_VALUE_R')).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('PIN_G').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_G')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('PIN_G').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_G')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 		//this.appendValueInput('VALUE_G', Boolean).setCheck(Number).appendField(Facilino.locales.getKey('LANG_RGB_LED_VALUE_G')).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('PIN_B').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_B')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('PIN_B').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_B')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 		//this.appendValueInput('VALUE_B', Boolean).setCheck(Number).appendField(Facilino.locales.getKey('LANG_RGB_LED_VALUE_B')).setAlign(Blockly.ALIGN_RIGHT);
-		//this.appendValueInput('VALUE', Boolean).setCheck('COLOR').appendField(Facilino.locales.getKey('LANG_RGB_LED_VALUE')).appendField(new Blockly.FieldImage("img/blocks/color.png",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+		//this.appendValueInput('VALUE', Boolean).setCheck('COLOR').appendField(Facilino.locales.getKey('LANG_RGB_LED_VALUE')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/color.png",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 		var colour = new Blockly.FieldColour('#000000');
 		colour.setColours(['#000000','#FFFFFF','#FF0000','#FFFF00','#00FF00','#00FFFF','#0000FF','#FF00FF']).setColumns(2);
 		//colour.COLOURS=['#000000','#FFFFFF','#FF0000','#FFFF00','#00FF00','#00FFFF','#0000FF','#FF00FF'];
@@ -244,12 +244,12 @@
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_COLOR);
 				var colour = new Blockly.FieldColour('#FFFFFF');
 				colour.setColours(['#FFFFFF','#FF0000','#00FF00','#0000FF']).setColumns(1);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RGB_RAW_SENSOR')).appendField(new Blockly.FieldImage('img/blocks/tcs3200.svg', 91*options.zoom, 63*options.zoom)).appendField(colour,'COLOR');
-				this.appendValueInput('PIN_S0').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S0')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S1').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S2').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S3').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S3')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_OUT').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_OUT')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_RGB_RAW_SENSOR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/tcs3200.svg', 91*options.zoom, 63*options.zoom)).appendField(colour,'COLOR');
+				this.appendValueInput('PIN_S0').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S0')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S1').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S2').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S3').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S3')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_OUT').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_OUT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
@@ -319,12 +319,12 @@
 			//rgb led initialization
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_COLOR);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/color.png', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_RGB_SENSOR')).appendField(new Blockly.FieldImage('img/blocks/tcs3200.svg', 91*options.zoom, 63*options.zoom));
-				this.appendValueInput('PIN_S0').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S0')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S1').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S1')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S2').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S2')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_S3').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S3')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN_OUT').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_OUT')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/color.png', 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_RGB_SENSOR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/tcs3200.svg', 91*options.zoom, 63*options.zoom));
+				this.appendValueInput('PIN_S0').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S0')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S1').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S2').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_S3').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_S3')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN_OUT').appendField(Facilino.locales.getKey('LANG_RGB_LED_PIN_OUT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
@@ -387,7 +387,7 @@
 			name: Facilino.locales.getKey('LANG_RGB_CLASSIFY_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_COLOR);
-				this.appendValueInput('COLOR_INPUT').setCheck('ColorDetect').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY')).appendField(new Blockly.FieldImage('img/blocks/color.png', 20*options.zoom, 20*options.zoom));
+				this.appendValueInput('COLOR_INPUT').setCheck('ColorDetect').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/color.png', 20*options.zoom, 20*options.zoom));
 				this.appendValueInput('DATA1').setCheck('Color').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_COLOR')).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_RGB_CLASSIFY_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setMutator(new Blockly.Mutator(['rgb_classify_color_item']));

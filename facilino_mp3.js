@@ -44,11 +44,11 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_DEF')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom));
 				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') || (Facilino.profiles['processor']==='ESP32'))
 				{
-					this.appendValueInput('RX').appendField('RX').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('TX').appendField('TX').appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('RX').appendField('RX').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('TX').appendField('TX').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom,20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				else if (Facilino.profiles['processor']==='ATmega2560')
 				{
@@ -92,7 +92,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendValueInput('SONG_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/play.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('SONG_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/play.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -127,8 +127,8 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_FOLDER_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendValueInput('FOLDER_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_FOLDER')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/folder.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('SONG_NUMBER').appendField(new Blockly.FieldImage('img/blocks/play.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('FOLDER_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PLAY_FOLDER')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/folder.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('SONG_NUMBER').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/play.svg',32*options.zoom,32*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -158,7 +158,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_ISPLAYING_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_ISPLAYING')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/play-button.svg',32*options.zoom, 32*options.zoom));
+		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_ISPLAYING')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/play-button.svg',32*options.zoom, 32*options.zoom));
 		this.setInputsInline(false);
 		this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_ISPLAYING_TOOLTIP'));
@@ -217,7 +217,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_NEXT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_NEXT')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/next.svg',32*options.zoom,32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_NEXT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/next.svg',32*options.zoom,32*options.zoom));
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -244,7 +244,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PREVIOUS_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_NEXT')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/back.svg',32*options.zoom,32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_NEXT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/back.svg',32*options.zoom,32*options.zoom));
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -271,7 +271,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PAUSE_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PAUSE')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/pause.svg',32*options.zoom,32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_PAUSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pause.svg',32*options.zoom,32*options.zoom));
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -298,7 +298,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_STOP_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_STOP')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/stop.svg',32*options.zoom,32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_STOP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/stop.svg',32*options.zoom,32*options.zoom));
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -329,7 +329,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_LOOP_FOLDER_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendValueInput('FOLDER_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_LOOP_FOLDER')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/folder_loop.svg',32*options.zoom,32*options.zoom));
+				this.appendValueInput('FOLDER_NUMBER').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_LOOP_FOLDER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/folder_loop.svg',32*options.zoom,32*options.zoom));
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -359,7 +359,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_RANDOM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_RANDOM')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/shuffle.svg',32*options.zoom,32*options.zoom));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_RANDOM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/shuffle.svg',32*options.zoom,32*options.zoom));
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_RANDOM_TOOLTIP'));
@@ -386,7 +386,7 @@
 			name: Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_EQ_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SOUND_MP3);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_EQ')).appendField(new Blockly.FieldImage('img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/control-settings.svg',32*options.zoom,32*options.zoom)).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('MP3_EQ_NORMAL'),'0'],[Facilino.locales.getKey('MP3_EQ_POP'),'1'],[Facilino.locales.getKey('MP3_EQ_ROCK'),'2'],[Facilino.locales.getKey('MP3_EQ_JAZZ'),'3'],[Facilino.locales.getKey('MP3_EQ_CLASSIC'),'4'],[Facilino.locales.getKey('MP3_EQ_BASS'),'5']]),'EQ');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_PIEZO_MP3_PLAYER_EQ')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/DFplayer.svg',32*options.zoom, 32*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/control-settings.svg',32*options.zoom,32*options.zoom)).appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('MP3_EQ_NORMAL'),'0'],[Facilino.locales.getKey('MP3_EQ_POP'),'1'],[Facilino.locales.getKey('MP3_EQ_ROCK'),'2'],[Facilino.locales.getKey('MP3_EQ_JAZZ'),'3'],[Facilino.locales.getKey('MP3_EQ_CLASSIC'),'4'],[Facilino.locales.getKey('MP3_EQ_BASS'),'5']]),'EQ');
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');

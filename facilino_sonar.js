@@ -46,9 +46,9 @@
 			name: Facilino.locales.getKey('LANG_US_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US')).appendField(new Blockly.FieldImage('img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('RED PIN').appendField(Facilino.locales.getKey('LANG_US_ECHO_PIN')).appendField(new Blockly.FieldImage('img/blocks/hearing.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinEcho']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('BLUE PIN').appendField(Facilino.locales.getKey('LANG_US_TRIGGER_PIN')).appendField(new Blockly.FieldImage('img/blocks/speaking.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinTrigger']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('RED PIN').appendField(Facilino.locales.getKey('LANG_US_ECHO_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hearing.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinEcho']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('BLUE PIN').appendField(Facilino.locales.getKey('LANG_US_TRIGGER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speaking.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinTrigger']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_US_TOOLTIP'));
@@ -89,7 +89,7 @@
 			name: Facilino.locales.getKey('LANG_LIDAR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LIDAR')).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LIDAR')).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_US_TOOLTIP'));
@@ -118,10 +118,10 @@
 			name: Facilino.locales.getKey('LANG_US_COLLISION_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendValueInput('DISTANCE_SENSOR').appendField(Facilino.locales.getKey('LANG_US_DETECT_COLLISION')).appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('DISTANCE_SENSOR').appendField(Facilino.locales.getKey('LANG_US_DETECT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DISTANCE').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('COLLISION').appendField(Facilino.locales.getKey('LANG_US_COLLISION')).appendField(new Blockly.FieldImage('img/blocks/rear-end-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('NOT_COLLISION').appendField(Facilino.locales.getKey('LANG_US_NOT_COLLISION')).appendField(new Blockly.FieldImage('img/blocks/no-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('COLLISION').appendField(Facilino.locales.getKey('LANG_US_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/rear-end-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendStatementInput('NOT_COLLISION').appendField(Facilino.locales.getKey('LANG_US_NOT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/no-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 				this.setPreviousStatement(true,'code');
@@ -166,10 +166,10 @@
 			name: Facilino.locales.getKey('LANG_US_KEEPDISTANCE_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_KEEP')).appendField(new Blockly.FieldImage('img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('RefDistance').appendField(Facilino.locales.getKey('LANG_US_REF_DISTANCE')).appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_KEEP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('RefDistance').appendField(Facilino.locales.getKey('LANG_US_REF_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+		this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_US_KEEPDISTANCE_TOOLTIP'));
@@ -197,9 +197,9 @@
 			name: Facilino.locales.getKey('LANG_US_SPEED_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_REGULATE')).appendField(new Blockly.FieldImage('img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage('img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage('img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_REGULATE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_US_SPEED_TOOLTIP'));

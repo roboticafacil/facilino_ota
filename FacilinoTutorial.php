@@ -3,6 +3,7 @@ require_once('db.php');
 require_once('website_translation.php');
 ?>
 <!DOCTYPE html>
+<!-- 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
 <script src="javascript/underscore/underscore.js"></script>
 <script src="javascript/blockly-bq/blockly_compressed.js"></script>
@@ -64,6 +65,7 @@ require_once('website_translation.php');
 <script src="facilino_ambient_miscellaneous.js"></script>
 <script src="facilino_html.js"></script>
 <script src="facilino_espui.js"></script>
+-->
 <html>
 <?php include "head.php"; include "tutorial_head.php";
 ?>
@@ -77,6 +79,7 @@ require_once('website_translation.php');
 <?php
 echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 ?>
+<!-- 
 <script>
 	Blockly.onMouseUp_=function(e){};
 	Blockly.onMouseDown_=function(e){};
@@ -525,39 +528,13 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 		//RoboBlocks.load({ zoom: 1 });
 		//Facilino.load({ zoom: 1});
 
-</script>
+</script> -->
 <script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
 
-<div id="main"></div>
-<script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>
-	<!-- <div id="menu"></div>
-<script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/menu.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/menu.html';},success: function(){}}); $('#menu').load(file);});</script>
-
-<div id="main"></div>
-<script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>
-
-
-
-<div id="footer"></div>
-<script>$(function(){var file='tutorial/'+ window.FacilinoLanguage+'/footer.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='tutorial/en-GB/footer.html';},success: function(){}}); $('#footer').load(file);});</script>
-
-<div id="modal" class="modal">
-  <div class="modal-content">
-	<span class="close" id="close">&times;</span>
-	<p id="doc">Please, wait until data is loaded...</p>
-  </div>
+<div id="main">
+<?php include('tutorial/home.php');  
+?>
 </div>
-
-  <script src="tutorial/assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="tutorial/assets/popper/popper.min.js"></script>
-  <script src="tutorial/assets/tether/tether.min.js"></script>
-  <script src="tutorial/assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="tutorial/assets/mbr-popup-btns/mbr-popup-btns.js"></script>
-  <script src="tutorial/assets/dropdown/js/script.min.js"></script>
-  <script src="tutorial/assets/touchswipe/jquery.touch-swipe.min.js"></script>
-  <script src="tutorial/assets/smoothscroll/smooth-scroll.js"></script>
-  <script src="tutorial/assets/theme/js/script.js"></script>
--->
 </div>
 <div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>

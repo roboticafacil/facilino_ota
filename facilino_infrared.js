@@ -47,8 +47,8 @@
 			name: Facilino.locales.getKey('LANG_INFRARED_ANALOG_NAME'),
 			init: function() {
 				this.setColour(infrared_analog_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_INFRARED')).appendField(new Blockly.FieldImage('img/blocks/TCRT5000.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage("img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_INFRARED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/TCRT5000.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,[Number,'LineFollowing']);
 				this.setTooltip(Facilino.locales.getKey('LANG_INFRARED_ANALOG_TOOLTIP'));
 			},
@@ -79,8 +79,8 @@
 			name: Facilino.locales.getKey('LANG_INFRARED_DIGITAL_NAME'),
 			init: function() {
 				this.setColour(infrared_digital_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_INFRARED')).appendField(new Blockly.FieldImage('img/blocks/TCRT5000.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_INFRARED')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/TCRT5000.svg', 52*options.zoom, 35*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_INFRARED_PIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_INFRARED_DIGITAL_TOOLTIP'));
 			},
@@ -121,9 +121,9 @@
 			name: Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
-				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('GAIN').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage("img/blocks/knob.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
+				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('GAIN').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/knob.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(800,0,4096),'WHITE').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(30,0,4096),'BLACK');
 				this.setInputsInline(false);
 				this.setOutput(true,[Number,'Turn']);
@@ -158,8 +158,8 @@
 			name: Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT_BINARY_NAME'),
 			init: function() {
 		this.setColour(Facilino.LANG_COLOUR_LIGHT_INFRARED);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
-		this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage("img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
+		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
+		this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
 		this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(800,0,4096),'WHITE').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(30,0,4096),'BLACK');
 				this.appendStatementInput('BLACK').appendField(Facilino.locales.getKey('LANG_BLACK')).setCheck('code');
 		this.appendStatementInput('GREY').appendField(Facilino.locales.getKey('LANG_GRAY')).setCheck('code');

@@ -30,11 +30,11 @@
 				keys: ['LANG_HIPPIE_INIT_NAME','LANG_MOVEMENT_HIPPIE_ROBOT','LANG_MOVEMENT_HIPPIE_YR','LANG_MOVEMENT_HIPPIE_YL','LANG_MOVEMENT_HIPPIE_RR','LANG_MOVEMENT_HIPPIE_RL','LANG_MOVEMENT_HIPPIE_OFFSET','LANG_HIPPIE_INIT_TOOLTIP'],
 				name: Facilino.locales.getKey('LANG_HIPPIE_INIT_NAME'),
 				init: function () {
-					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_ROBOT'));
-					this.appendValueInput('YR').appendField(new Blockly.FieldImage('img/blocks/hippie_YR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YR')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-					this.appendValueInput('YL').appendField(new Blockly.FieldImage('img/blocks/hippie_YL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YL')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-					this.appendValueInput('RR').appendField(new Blockly.FieldImage('img/blocks/hippie_RR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RR')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-					this.appendValueInput('RL').appendField(new Blockly.FieldImage('img/blocks/hippie_RL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RL')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_ROBOT'));
+					this.appendValueInput('YR').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie_YR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('YL').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie_YL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_YL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('RR').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie_RR.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+					this.appendValueInput('RL').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie_RL.svg', 22*options.zoom, 22*options.zoom)).appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_RL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 					if (window.FacilinoAdvanced===true)
 					{
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MOVEMENT_HIPPIE_OFFSET'));
@@ -356,7 +356,7 @@
 					[Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_SHAKE_LEG')+' '+Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_LEFT'),'8'],
 					[Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_SHAKE_LEG')+' '+Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_RIGHT'),'9']
 					]);
-				this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT'));
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT'));
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_MOVEMENT')).appendField(movement,'MOVEMENT').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP1').setCheck(Number).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_STEPS'),'TEXT1').setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
 				this.appendValueInput('INP2').setCheck(Number).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_SPEED')+ ' [0~100%]','TEXT2').setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
@@ -462,7 +462,7 @@
 					[Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_FLAPPING')+' '+Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_FORWARD'),'19'],
 					[Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_FLAPPING')+' '+Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_BACKWARD'),'20']
 					]);
-				this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT'));
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hippie.svg', 32*options.zoom, 32*options.zoom)).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT'));
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_MOVEMENT')).appendField(movement,'MOVEMENT').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP1').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_STEPS'),'TEXT1').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INP2').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_HIPPIE_MOVEMENT_SPEED')+ ' [0~100%]','TEXT2').setAlign(Blockly.ALIGN_RIGHT);

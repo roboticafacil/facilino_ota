@@ -23,7 +23,7 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_ALL_PIXELS_NAME','LANG_SIMPLEEXPRESSIONS_ALL_PIXELS','LANG_SIMPLEEXPRESSIONS_LED_STRIP_ALL_PIXELS_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_ALL_PIXELS_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_ALL_PIXELS')).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_ALL_PIXELS')).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setOutput(true,'ALL_PIXELS');
@@ -52,7 +52,7 @@
 				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
 
 				  
-				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t  g, uint8_t  b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
 
@@ -86,10 +86,10 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_NAME','LANG_SIMPLEEXPRESSIONS_LED_STRIP','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_PIXELS','LANG_SIMPLEEXPRESSIONS_PIXEL','LANG_SIMPLEEXPRESSIONS_COLOR','LANG_SIMPLEEXPRESSIONS_LED_STRIP_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage('img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
-				this.appendValueInput('PIXEL').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXEL')).appendField(new Blockly.FieldImage('img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable','ALL_PIXELS']);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
+				this.appendValueInput('PIXEL').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXEL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable','ALL_PIXELS']);
 				var colour = new Blockly.FieldColour('#000000');
 				colour.setColours(['#000000','#808080','#C0C0C0','#FFFFFF','#800000','#FF0000','#808000','#FFFF00','#008000','#00FF00','#008080','#00FFFF','#000080','#0000FF','#800080','#FF00FF']).setColumns(4);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_COLOR')).appendField(colour,'COLOR').setAlign(Blockly.ALIGN_RIGHT);
@@ -128,7 +128,7 @@
 
 				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
 				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
-				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t  g, uint8_t  b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
 
@@ -162,11 +162,11 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_HUE_NAME','LANG_SIMPLEEXPRESSIONS_LED_STRIP','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_PIXEL','LANG_SIMPLEEXPRESSIONS_PIXELS','LANG_SIMPLEEXPRESSIONS_HUE','LANG_SIMPLEEXPRESSIONS_LED_STRIP_HUE_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_HUE_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage('img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
-				this.appendValueInput('PIXEL').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXEL')).appendField(new Blockly.FieldImage('img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable','ALL_PIXELS']);
-				this.appendValueInput('HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_HUE')).appendField(new Blockly.FieldImage('img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
+				this.appendValueInput('PIXEL').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXEL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixel.svg', 18*options.zoom, 18*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable','ALL_PIXELS']);
+				this.appendValueInput('HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_HUE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
@@ -198,7 +198,7 @@
 
 				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
 				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
-				  //Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  //Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
 
@@ -253,12 +253,12 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_GRADIENT_NAME','LANG_SIMPLEEXPRESSIONS_LED_STRIP','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_PIXEL','LANG_SIMPLEEXPRESSIONS_PIXELS','LANG_SIMPLEEXPRESSIONS_INITIAL_HUE','LANG_SIMPLEEXPRESSIONS_FINAL_HUE','LANG_SIMPLEEXPRESSIONS_LED_STRIP_GRADIENT_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_GRADIENT_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage('img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
-				this.appendValueInput('INITIAL_HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_INITIAL_HUE')).appendField(new Blockly.FieldImage('img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendValueInput('FINAL_HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_FINAL_HUE')).appendField(new Blockly.FieldImage('img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/tornado.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldCheckbox('FALSE'),'TORNADO').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
+				this.appendValueInput('INITIAL_HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_INITIAL_HUE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				this.appendValueInput('FINAL_HUE').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_FINAL_HUE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/color-circle.svg',22*options.zoom,22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/tornado.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldCheckbox('FALSE'),'TORNADO').setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
@@ -308,7 +308,7 @@
 
 				  //Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
 				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  led_strip->fill(0,0,led_strip->numPixels());\n  led_strip->show();\n}\n';
-				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}
 			
@@ -338,9 +338,9 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_PIXELS','LANG_SIMPLEEXPRESSIONS_LED_STRIP2_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP2_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendDummyInput('COLORS').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).appendField(new Blockly.FieldImage('img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(1,1),'PIXELS').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg',22*options.zoom,22*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendDummyInput('COLORS').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(1,1),'PIXELS').setAlign(Blockly.ALIGN_RIGHT);
 				var colour = new Blockly.FieldColour('#000000');
 				colour.setColours(['#000000','#808080','#C0C0C0','#FFFFFF','#800000','#FF0000','#808000','#FFFF00','#008000','#00FF00','#008080','#00FFFF','#000080','#0000FF','#800080','#FF00FF']).setColumns(4);
 				this.getInput('COLORS').appendField(colour,'COLOR0').setAlign(Blockly.ALIGN_RIGHT);
@@ -436,10 +436,10 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS_NAME','LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_BRIGHTNESS','LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS')).appendField(new Blockly.FieldImage('img/blocks/led_strip.svg', 22*options.zoom, 22*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage('img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
-				this.appendValueInput('BRIGHTNESS').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_BRIGHTNESS')+' [%]').appendField(new Blockly.FieldImage('img/blocks/sun.png', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_strip.svg', 22*options.zoom, 22*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIXELS')).setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/led_pixels.svg',22*options.zoom,22*options.zoom)).appendField(new Blockly.FieldNumber(150,0),'PIXELS');
+				this.appendValueInput('BRIGHTNESS').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_BRIGHTNESS')+' [%]').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/sun.png', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
@@ -465,7 +465,7 @@
 				  Blockly.Arduino.setups_['setup_simpleexpressions_led_strip'+input_pin] = '_led_strip_'+input_pin+'.begin();\n  clearpixels(&_led_strip_'+input_pin+');\n  _led_strip_'+input_pin+'.setBrightness(map(10,0,100,0,255));\n';
 
 				  Blockly.Arduino.definitions_['define_clearpixels']='void clearpixels(Adafruit_NeoPixel *led_strip)\n{\n  uint16_t n=led_strip->numPixels();\n  for(uint16_t i = 0; i < n; i++) {\n	led_strip->setPixelColor(i, 0);\n  }\n  delay(1);\n}\n';
-				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t  r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
+				  Blockly.Arduino.definitions_['define_writepixel']='void writepixel(Adafruit_NeoPixel *led_strip, uint16_t pixel, uint8_t r, uint8_t g, uint8_t b)\n{\n led_strip->setPixelColor(pixel, r, g, b);\n  led_strip->show();\n}\n';
 				}
 			}*/
 			
@@ -510,9 +510,9 @@
 			  keys: ['LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_EXPRESSION','LANG_SIMPLEEXPRESSIONS_LED_STRIP_GENERIC_TOOLTIP'],
 			  name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_GENERIC_NAME'),
 			  init: function() {
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH')).appendField(new Blockly.FieldImage('img/blocks/round_led_strip.svg', 24*options.zoom, 24*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendValueInput('EXPRESSION').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_EXPRESSION')).appendField(new Blockly.FieldImage('img/blocks/dot-strip.png', 24*options.zoom, 24*options.zoom)).setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/round_led_strip.svg', 24*options.zoom, 24*options.zoom));
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('EXPRESSION').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_EXPRESSION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dot-strip.png', 24*options.zoom, 24*options.zoom)).setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
@@ -664,9 +664,9 @@
 			name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_STREAM_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH')).appendField(new Blockly.FieldImage('img/blocks/round_led_strip.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage('img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
-				this.appendValueInput('STREAM').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_EXPRESSION')).appendField(new Blockly.FieldImage('img/blocks/dot-strip_stream.png', 48*options.zoom, 24*options.zoom)).setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/round_led_strip.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
+				this.appendValueInput('STREAM').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_EXPRESSION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dot-strip_stream.png', 48*options.zoom, 24*options.zoom)).setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DELAY').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_DELAY_WAIT')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_WAIT')).appendField(new Blockly.FieldCheckbox('FALSE'),'BACKGROUND').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
@@ -761,7 +761,7 @@
 			  init: function() {
 				var colour = new Blockly.FieldColour('#000000');
 				colour.setColours(['#000000','#808080','#C0C0C0','#FFFFFF','#800000','#FF0000','#808000','#FFFF00','#008000','#00FF00','#008080','#00FFFF','#000080','#0000FF','#800080','#FF00FF']).setColumns(4);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/dot-strip.png', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldDropdown([['Zeros','0'],['Happy Small','12'],['Happy Full','30'],['Sad Small','96'],['Sad Full','114'],['Neutral','19'],['Circle','126'],['Center','1'],['Hook','89'],['Upsidedown Hook','53'],['Kooh','39'],['Upsidedown Kooh','75'],['Cross','109'],['Rect','108'],['Left Arrow','59'],['Right Arrow','87'],['Left Half','56'],['Right Half','70']]),'EXPRESSION').appendField(colour,'COLOR').setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dot-strip.png', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldDropdown([['Zeros','0'],['Happy Small','12'],['Happy Full','30'],['Sad Small','96'],['Sad Full','114'],['Neutral','19'],['Circle','126'],['Center','1'],['Hook','89'],['Upsidedown Hook','53'],['Kooh','39'],['Upsidedown Kooh','75'],['Cross','109'],['Rect','108'],['Left Arrow','59'],['Right Arrow','87'],['Left Half','56'],['Right Half','70']]),'EXPRESSION').appendField(colour,'COLOR').setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setOutput(true,'RGB_LEDs_EXPRESSION');
@@ -801,7 +801,7 @@
 			name: Facilino.locales.getKey('LANG_LED_STRIP_SEQUENTIALLY_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/dot-strip_stream.png", 48*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip_stream.png", 48*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA1').setCheck('Data').setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA2').setCheck('Data').setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
 				this.setMutator(new Blockly.Mutator(['led_strip_sequentially_item']));
@@ -897,7 +897,7 @@
 			keys: ['LANG_LED_STRIP_SEQUENTIALLY_MUTATOR_TOOLTIP'],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/dot-strip_stream.png", 48*options.zoom, 48*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip_stream.png", 48*options.zoom, 48*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('STACK').setCheck('led_strip_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_LED_STRIP_SEQUENTIALLY_MUTATOR_TOOLTIP'));
 				this.contextMenu = false;
@@ -909,7 +909,7 @@
 			keys: ['LANG_LED_STRIP_SEQUENTIALLY_ITEM_TOOLTIP'],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
-				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/dot-strip.png", 24*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip.png", 24*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'led_strip_item');
 				this.setNextStatement(true,'led_strip_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_LED_STRIP_SEQUENTIALLY_ITEM_TOOLTIP'));

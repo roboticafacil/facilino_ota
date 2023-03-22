@@ -29,7 +29,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_LINEAR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_LINEAR')).appendField(new Blockly.FieldImage("img/blocks/linear.svg", 96*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_LINEAR')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/linear.svg", 96*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -64,7 +64,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_QUADRATIC_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_QUADRATIC')).appendField(new Blockly.FieldImage("img/blocks/quadratic.svg", 144*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_QUADRATIC')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/quadratic.svg", 144*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -99,7 +99,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_CUBIC_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_CUBIC')).appendField(new Blockly.FieldImage("img/blocks/cubic.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_CUBIC')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/cubic.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').appendField('d').appendField(new Blockly.FieldTextInput('0'),'d').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -169,7 +169,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_RECIPROCAL_QUADRATIC_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_RECIPROCAL_QUADRATIC')).appendField(new Blockly.FieldImage("img/blocks/reciprocal_quadratic.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_RECIPROCAL_QUADRATIC')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/reciprocal_quadratic.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -204,7 +204,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_GAUSSIAN_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_GAUSSIAN')).appendField(new Blockly.FieldImage("img/blocks/gaussian.svg", 120*options.zoom, 36*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_GAUSSIAN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/gaussian.svg", 120*options.zoom, 36*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -239,7 +239,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_RATIONAL_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_RATIONAL')).appendField(new Blockly.FieldImage("img/blocks/rational.svg", 144*options.zoom, 48*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_RATIONAL')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/rational.svg", 144*options.zoom, 48*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').appendField('d').appendField(new Blockly.FieldTextInput('0'),'d').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -274,7 +274,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_GEOMETRIC_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_GEOMETRIC')).appendField(new Blockly.FieldImage("img/blocks/geometric.svg", 120*options.zoom, 22*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_GEOMETRIC')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/geometric.svg", 120*options.zoom, 22*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -309,7 +309,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_POWER_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_POWER')).appendField(new Blockly.FieldImage("img/blocks/power.svg", 86*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_POWER')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/power.svg", 86*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -344,7 +344,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_ROOT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_ROOT')).appendField(new Blockly.FieldImage("img/blocks/root.svg", 120*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_ROOT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/root.svg", 120*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -379,7 +379,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_SINUSOIDAL_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_SINUSOIDAL')).appendField(new Blockly.FieldImage("img/blocks/sinusoidal.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_SINUSOIDAL')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/sinusoidal.svg", 180*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').appendField('d').appendField(new Blockly.FieldTextInput('0'),'d').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
@@ -414,7 +414,7 @@
 			name: Facilino.locales.getKey('LANG_MATH_FUNCTION_TRUNC_FOURIER_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_TRUNC_FOURIER')).appendField(new Blockly.FieldImage("img/blocks/trunc_fourier.svg", 320*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
+				this.appendValueInput('x').appendField(Facilino.locales.getKey('LANG_MATH_FUNCTION_TRUNC_FOURIER')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/trunc_fourier.svg", 320*options.zoom, 24*options.zoom, "*")).setCheck([Number,'Variable']);
 				this.appendDummyInput('').appendField('a').appendField(new Blockly.FieldTextInput('0'),'a').appendField('b').appendField(new Blockly.FieldTextInput('0'),'b').appendField('c').appendField(new Blockly.FieldTextInput('0'),'c').appendField('d').appendField(new Blockly.FieldTextInput('0'),'d').setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(false);
