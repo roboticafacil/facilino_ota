@@ -1,6 +1,4 @@
 <?php
-require_once('db.php');
-require_once('website_translation.php');
 ?>
 <section class="features18 popup-btn-cards cid-qYa5rQWOty" id="features">
     <div class="container">
@@ -59,4 +57,6 @@ require_once('website_translation.php');
 	{
 		window.location='tutorial/'+html_file;
 	}
-</script>			
+</script>
+<?php			
+?>

@@ -206,7 +206,7 @@
 				else
 					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['servo_definitions_variables']({pin: pin});
 
-				code += '_servo'+pin+'.detach('+pin+');\n';
+				code += '_servo'+pin+'.detach();\n';
 				return code;
 			};
 

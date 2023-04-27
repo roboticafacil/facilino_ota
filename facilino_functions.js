@@ -332,7 +332,12 @@
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BOOL'), 'bool'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_FLOAT'), 'float'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_STRING'), 'String'],
-					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_CHAR'), 'char']
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_CHAR'), 'char'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_ARRAY'), 'int *'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_SHORT_ARRAY'), 'short *'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_LONG_ARRAY'), 'long *'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE_ARRAY'), 'byte *'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_FLOAT_ARRAY'), 'float *']
 				]), 'TYPE').appendField(field, 'NAME');
 	this.setPreviousStatement(true);
 	this.setNextStatement(true);

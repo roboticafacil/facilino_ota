@@ -65,12 +65,26 @@ else
 		}
 		else
 		{
-			$lang='en-GB';
+			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			{
+				$lang='es-ES';
+			}
+			else
+			{
+				$lang='en-GB';
+			}
 		}
 	}
 	else
 	{
-		$lang='en-GB';
+		if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+		{
+			$lang='es-ES';
+		}
+		else
+		{
+			$lang='en-GB';
+		}
 	}
 }
 

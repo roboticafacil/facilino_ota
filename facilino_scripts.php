@@ -63,6 +63,9 @@
 	echo '<script src="facilino_robot_base.js"></script>';
 	echo '<script src="facilino_robot_acc.js"></script>';
 	echo '<script src="facilino_robot_walk.js"></script>';
+	
+	echo '<script src="facilino_robot_mearm.js"></script>';
+	
 	echo '<script src="facilino_controller.js"></script>';
 	echo '<script src="facilino_filter.js"></script>';
 	echo '<script src="facilino_temperature.js"></script>';

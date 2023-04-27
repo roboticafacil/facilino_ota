@@ -37,12 +37,26 @@ if(strpos($_SERVER['PHP_SELF'],'index.php') !== false)
 			}
 			else
 			{
-				$lang='en-GB';
+				if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+				{
+					$lang='es-ES';
+				}
+				else
+				{
+					$lang='en-GB';
+				}
 			}
 		}
 		else
 		{
-			$lang='en-GB';
+			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			{
+				$lang='es-ES';
+			}
+			else
+			{
+				$lang='en-GB';
+			}
 		}
 	}
 }
@@ -65,12 +79,26 @@ else
 		}
 		else
 		{
-			$lang='en-GB';
+			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			{
+				$lang='es-ES';
+			}
+			else
+			{
+				$lang='en-GB';
+			}
 		}
 	}
 	else
 	{
-		$lang='en-GB';
+		if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+		{
+			$lang='es-ES';
+		}
+		else
+		{
+			$lang='en-GB';
+		}
 	}
 }
 $query_website = "SELECT `key`,`".$lang."` FROM `translate` WHERE 1";

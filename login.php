@@ -109,16 +109,17 @@ elseif (isset($_POST['username'])){
 	}
 }
 else{
+	require_once('website_translation.php');
 ?>
 <div class="form">
-<h1>Log In</h1>
+<h1><?php echo $website["LOGIN"];?></h1>
 <form action="" method="post" name="login">
-<input type="text" name="username" placeholder="Username or email" required />
-<input type="password" name="password" placeholder="Password" required /></br>
-<input name="submit" type="submit" value="Login" />
+<input type="text" name="username" placeholder="<?php echo $website["USERNAME_EMAIL"];?>" required />
+<input type="password" name="password" placeholder="<?php echo $website["PASSWORD"];?>" required /></br>
+<input name="submit" type="submit" value="<?php echo $website["DO_LOGIN"];?>" />
 </form>
-<p>Not registered yet? <a href='registration.php'>Register Here</a></p>
-<p>Lost password? <a href='lost-password.php'>Reset Password Here</a></p>
+<p><?php echo $website["NOT_REGISTERED_YET"];?> <a href='registration.php'><?php echo $website["REGISTER_HERE"];?></a></p>
+<p><?php echo $website["LOST_PASSWORD"];?>? <a href='lost-password.php'><?php echo $website["RESET_PASSWORD_HERE"];?></a></p>
 </div>
 <?php } ?>
 	</div>

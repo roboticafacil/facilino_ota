@@ -106,8 +106,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 				<div class="card-wrapper ">
 					<div class="card-img">
 						<div class="mbr-overlay"></div>
-						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesFlowControl.php';" class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-						<a onclick="window.location='ExercisesFlowControl.php';"><img src="assets/images/decision.png" alt="Flow Control" title=""></img></a>
+						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesFlowControl.php?example_id=4';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+						<a onclick="window.location='ExercisesFlowControl.php?example_id=4';"><img src="assets/images/decision.png" alt="Flow Control" title=""></img></a>
 					</div>
 					<div class="card-box">
 						<h4 class="card-title mbr-fonts-style display-7">
@@ -122,8 +122,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 				<div class="card-wrapper ">
 					<div class="card-img">
 						<div class="mbr-overlay"></div>
-						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesFunctions.php';" class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-						<a onclick="window.location='ExercisesFunctions.php';"><img src="assets/images/function.png" alt="Functions" title=""></img></a>
+						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesFunctions.php?example_id=5';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+						<a onclick="window.location='ExercisesFunctions.php?example_id=5';"><img src="assets/images/function.png" alt="Functions" title=""></img></a>
 					</div>
 					<div class="card-box">
 						<h4 class="card-title mbr-fonts-style display-7">
@@ -138,8 +138,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 				<div class="card-wrapper ">
 					<div class="card-img">
 						<div class="mbr-overlay"></div>
-						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesVariables.php';" class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-						<a onclick="window.location='ExercisesVariables.php';"><img src="assets/images/variables.png" alt="Variables" title=""></img></a>
+						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesVariables.php?example_id=6';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+						<a onclick="window.location='ExercisesVariables.php?example_id=6';"><img src="assets/images/variables.png" alt="Variables" title=""></img></a>
 					</div>
 					<div class="card-box">
 						<h4 class="card-title mbr-fonts-style display-7">
@@ -444,8 +444,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 </div>
 <!-- <script>$(function(){var file='projects/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>-->
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
-<div id="footer"><?php include "inc-footer.php" ?></div>
+<div id="ads"><?php include "../ads.php" ?></div>
+<div id="footer"><?php include "../inc-footer.php" ?></div>
 </body>
 </html>
 

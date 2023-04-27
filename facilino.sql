@@ -28514,7 +28514,7 @@ INSERT INTO `translate` (`key`, `en-GB`, `es-ES`) VALUES
 ('MEDIUM_CONFIDENT', 'Medium Confident', 'Moderada'),
 ('MODIFIED_DATE', 'Modified Date', 'Fecha de modificaci&oacute;n'),
 ('NAME', 'Name', 'Nombre'),
-('NAVITE_LANGUAGE', 'Native language (to translate)', 'Idioma nativo (a traducir)'),
+('NATIVE_LANGUAGE', 'Native language (to translate)', 'Idioma nativo (a traducir)'),
 ('NEW_PROJECT', 'New Project', 'Nuevo Proyecto'),
 ('NEXT', 'Next', 'Siguiente'),
 ('NO_PENDING_TRANSLATIONS', 'There are no pending translations to review. You will receive email an notification when there are pending reviews. Thanks for your time', 'No hay revisiones pendientes. Te informaremos por correo cuando haya revisiones pendientes. Gracias por tu tiempo.'),

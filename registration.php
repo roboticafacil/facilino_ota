@@ -83,8 +83,7 @@ else if (isset($_REQUEST['username'])){
 			$addKey = substr(md5(uniqid(rand(),1)),3,10);
 			$key = $key . $addKey;
 			//$mail=create_email_activation($email,$key);
-			//var_dump($mail);
-			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',4)";
+			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',".$_REQUEST['lang'].")";
 			$result = mysqli_query($con,$query);
 			if($result){
 				$mail=create_email_activation($email,$key);
@@ -104,18 +103,24 @@ else if (isset($_REQUEST['username'])){
 			echo "<div class='form'><h3>Username '".$_REQUEST['username']."' is in use. Please, introduce another username.</h3><br/>Click here to <a href='login.php'>Login</a><br/>Click here to <a href='registration.php'>Registration</a></div>";
 		}
     }else{
+		require_once('website_translation.php');
 ?>
 <div class="form">
-<h1>Registration</h1>
+<h1><?php echo $website["REGISTRATION"];?></h1>
 <form name="registration" action="" method="post">
-<input type="text" name="username" placeholder="Username" required />
-<input type="email" name="email" placeholder="Email" required />
-<input type="password" name="password" placeholder="Password" required />
-<input type="text" name="first_name" placeholder="Fist name" required />
-<input type="text" name="last_name" placeholder="Last name" required />
+<input type="text" name="username" placeholder="<?php echo $website["USERNAME"];?>" required />
+<input type="email" name="email" placeholder="<?php echo $website["EMAIL"];?>" required />
+<input type="password" name="password" placeholder="<?php echo $website["PASSWORD"];?>" required />
+<input type="text" name="first_name" placeholder="<?php echo $website["FIRST_NAME"];?>" required />
+<input type="text" name="last_name" placeholder="<?php echo $website["LAST_NAME"];?>" required />
+<p> <label for="lang"><?php echo $website["LANGUAGE"];?>:</label>
+<select id="lang" name="lang">
+  <option value="4"><?php echo $website["ENGLISH"];?></option>
+  <option value="5"><?php echo $website["SPANISH"];?></option>
+</select> </p>
 <input type="submit" name="submit" value="Register" />
 </form>
-<p>Already registered? <a href='login.php'>Login Here</a></p>
+<p><?php echo $website["ALREADY_REGISTERED"];?> <a href='login.php'><?php echo $website["LOGIN_HERE"];?></a></p>
 </div>
 <?php } ?>
 </div>

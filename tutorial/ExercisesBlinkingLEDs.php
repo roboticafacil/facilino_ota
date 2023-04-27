@@ -206,35 +206,6 @@ FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
     </div>
 </section>
 
-<section class="cid-qYh0wSah5G" id="image3-50">
-    <figure class="mbr-figure container">
-            <div class="mbr-text align-center mbr-fonts-style display-5"><?php echo $website["MULTISENSOR"]; ?></div>
-            <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
-			<!-- Change image URL XXX.png with appropriate name -->
-                <img id="schematic" src="assets/images/Electronics/multisensor_wemosD1R32_bb.png" width="1400" alt="Multisensor" title=""></img>
-            </div>
-    </figure>
-</section>
-
-<section class="cid-qYh0wSah5G" id="image3-50">
-    <figure class="mbr-figure container">
-            <div class="mbr-text align-center mbr-fonts-style display-5"><?php echo $website["MODULES"]; ?></div>
-            <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
-			<!-- Change image URL XXX.png with appropriate name -->
-                <img id="schematic_modules" src="assets/images/Electronics/multisensor_wemosD1R32_pot_LEDs_pushbutton_modules_bb.png" width="1400" alt="Modules" title=""></img>
-            </div>
-    </figure>
-</section>
-
-<section class="cid-qYh0wSah5G" id="image3-50">
-    <figure class="mbr-figure container">
-            <div class="mbr-text align-center mbr-fonts-style display-5"><?php echo $website["PROTOBOARD"]; ?></div>
-            <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
-                <img id="schematic_proto" src="assets/images/Electronics/multisensor_wemosD1R32_pot_LEDs_pushbutton_bb.png" width="1400" alt="Protoboard" title=""></img>
-            </div>
-    </figure>
-</section>
-
 <section class="mbr-section article content9 cid-qYh5KdWW4b" id="content9-5u">
     <div class="container">
         <div class="inner-container" style="width: 100%;">
@@ -394,13 +365,6 @@ FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
 <div class="mbr-section-btn text-center"><a onclick="onReturn();" class="btn btn-primary display-4">&#8592;&nbsp;<?php echo $website["BACK"]; ?></a></div>
 
 <script>
-var sch=document.getElementById('schematic');
-  sch.src='assets/images/Electronics/multisensor'+window.board+'_bb.png';
-  var sch_modules=document.getElementById('schematic_modules');
-  sch_modules.src='assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_pushbutton_modules_bb.png';
-  var sch_proto=document.getElementById('schematic_proto');
-  sch_proto.src='assets/images/Electronics/multisensor'+window.board+'_pot_LEDs_pushbutton_bb.png';
-  console.log(window.FacilinoProcessor);
   if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
   {
 	$('#exercise1b').attr('src','../facilino.php?action=view_example&embbeded&id=8&lang='+window.FacilinoLanguage);
@@ -458,7 +422,7 @@ $('#exercise3i').on("load", function() {
 </script>
 </div>
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
-<div id="footer"><?php include "inc-footer.php" ?></div>
+<div id="ads"><?php include "../ads.php" ?></div>
+<div id="footer"><?php include "../inc-footer.php" ?></div>
 </body>
 </html>

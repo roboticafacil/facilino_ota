@@ -86,6 +86,7 @@ else
 	echo '<ins class="adsbygoogle" style="display:inline-block;width:550px;height:50px; text-align: center" data-ad-client="ca-pub-5054503364495454" data-ad-slot="6161628565"></ins>';
 	echo '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 }
+
 echo '</div></div>';
 echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
 if(isset($_SESSION["username"]))
@@ -145,6 +146,8 @@ if(isset($_SESSION["username"]))
 		if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 		{
 			//
+			echo '<script src="javascript/jquery/dist/jquery.min.js"></script>';
+			echo '<script>jQuery(document).ready(function($) {  if (window.history && window.history.pushState) {    window.history.pushState("forward", null,"./#forward");$(window).on("popstate", function() {saveBeforeExit("save");});  }});</script>';
 			echo '<div>';
 			echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
 			if (isset($_GET["action"])&&($_GET["action"]=="view"))
@@ -161,9 +164,9 @@ if(isset($_SESSION["username"]))
 			{
 				echo '<script>';
 				if (isset($_GET["action"])&&($_GET["action"]=="open_example"))
-					echo 'function saveBeforeExit("save_example"){}; ';
+					echo 'function saveBeforeExit(action){}; ';
 				else
-					echo 'function saveBeforeExit("save"){}; ';
+					echo 'function saveBeforeExit(action){}; ';
 				echo 'function compile(){}; function upload(){}; function compile_upload(){}; ';
 				//echo 'function saveAll("dashboard.php"){};';
 				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};';
@@ -235,6 +238,7 @@ if(isset($_SESSION["username"]))
 		}
 		else
 		{
+			//echo '<script>console.log("hellossss");jQuery(document).ready(function($) {  if (window.history && window.history.pushState) {    window.history.pushState("forward", null,"./#forward");$(window).on("popstate", function() {     alert("Back button was pressed.");    });  }});</script>';
 			echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."index.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["HOME"]."'><span class='mbri-home mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
 			echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'dashboard.php"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></a></div>';
 			$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=?";
@@ -262,12 +266,12 @@ if(isset($_SESSION["username"]))
 				echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
 				echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
 				echo '</select>';
-				/*
-				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HARDWARE_SELECTION"].'" onclick="showHideProcessor()" style=" padding-left: 6px;padding-right: 0px;margin-right: 0px;margin-left: 6px;"><span class="mbri-setting3 mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>';
-				echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">';
-				echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
-				echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
-				echo '</select></div>';*/
+				
+				//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HARDWARE_SELECTION"].'" onclick="showHideProcessor()" style=" padding-left: 6px;padding-right: 0px;margin-right: 0px;margin-left: 6px;"><span class="mbri-setting3 mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>';
+				//echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">';
+				//echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
+				//echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
+				//echo '</select></div>';
 			}
 			if(strpos($_SERVER['PHP_SELF'],'logout.php') === false)
 			{
@@ -291,7 +295,7 @@ else
 		elseif ($_GET["action"]=="open_example")
 		{
 			echo '<script>function saveBeforeExit("save_example"){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("'.$path.'dashboard.php","save"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};</script>';
-			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit("save");"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit("save_example");"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		}
 		elseif ($_GET["action"]=="view")
 		{
@@ -368,10 +372,10 @@ else
 			echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."index.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["HOME"]."'><span class='mbri-home mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
 		}
 		if(strpos($_SERVER['PHP_SELF'],'login.php') === false){
-			/*if(strpos($_SERVER['PHP_SELF'],'dashboard.php') === false)
-			{
-				echo '<div class="navbar-buttons mbr-section-btn"><a href="dashboard.php"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></a></div>';
-			}*/
+			//if(strpos($_SERVER['PHP_SELF'],'dashboard.php') === false)
+			//{
+			//	echo '<div class="navbar-buttons mbr-section-btn"><a href="dashboard.php"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></a></div>';
+			//}
 			echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'login.php"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["LOGIN"].'"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></a></div>';
 		}
 		if (strpos($_SERVER['PHP_SELF'],'FacilinoTutorial.php') !== false)
@@ -380,12 +384,12 @@ else
 			echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
 			echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
 			echo '</select>';
-			/*
-			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HARDWARE_SELECTION"].'" onclick="showHideProcessor()" style=" padding-left: 6px;padding-right: 0px;margin-right: 0px;margin-left: 6px;"><span class="mbri-setting3 mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>';
-			echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">';
-			echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
-			echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
-			echo '</select></div>';*/
+			
+			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HARDWARE_SELECTION"].'" onclick="showHideProcessor()" style=" padding-left: 6px;padding-right: 0px;margin-right: 0px;margin-left: 6px;"><span class="mbri-setting3 mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>';
+			//echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">';
+			//echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
+			//echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
+			//echo '</select></div>';
 		}
 	}
 }
@@ -394,12 +398,5 @@ echo '</div>';
 echo '</nav>';
 echo '</section>';
 echo '</div>';
-/* <div class="form">
-<p>Facilino <?php echo $_SESSION['username']; ?>!</p>
-<p>This is secure area.</p>
-<p><a href="dashboard.php">Dashboard</a></p>
-<a href="logout.php">Logout</a>
-</div>
-</body>
-</html> */
+
 ?>
