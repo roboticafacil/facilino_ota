@@ -788,14 +788,14 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		<table width="100%">
 		<tr><th style="width:35%"><?php echo $website["NAME"]?></th><th style="width:15%"><?php echo $website["BOARD"]?></th><th style="width:15%"><?php echo $website["FACILINO_VERSION"]?></th><th style="width:15%"><?php echo $website["BLOCK_INSTRUCTION_SET"]?></th><th style="width:15%"><?php echo $website["LANGUAGE"]?></th></tr>
 		<tr>
-		<td><input type="text" maxlength="50" size="50" name="edited_project_name" value="<?php echo $row[1]?>" style="margin-top: 0px; padding: 0px; padding-left: 10px; font-size: 12px; width: 100%"/></td>
+		<td valign=top><input type="text" maxlength="50" size="50" name="edited_project_name" value="<?php echo $row[1]?>" style="margin-top: 0px; padding: 0px; padding-left: 10px; font-size: 12px; width: 100%"/></td>
 		<?php
 		$query_proc = "SELECT id,name from `processors` where 1";
 		$result_proc = mysqli_query($con,$query_proc);
 		$rows_proc = mysqli_num_rows($result_proc);
 		if ($rows_proc>0)
 		{
-			?>
+			/*?>
 			<td><select id="edited_processor_id" name="edited_processor_id" type="text" value="<?php echo $row[3]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_proc; $j++)
@@ -804,7 +804,25 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				?><option value="<?php echo $row_proc[0]?>"><?php echo $row_proc[1]?></option>
 				<?php
 			}
-			?></select></td><?php
+			?></select></td><?php*/
+			?>
+			<td valign=top>
+			<?php
+			for ($j=0;$j<$rows_proc;$j++)
+			{
+				$row_proc = mysqli_fetch_row($result_proc);
+				if ($row[3]==$row_proc[0])
+				{
+					?><div><input type="radio" id="proc_<?php echo $row_proc[0]?>" name="edited_processor_id" value="<?php echo $row_proc[0]?>" checked="checked"><label for="proc_<?php echo $row_proc[0]?>" ><?php echo $row_proc[1]?></label></input></div><?php
+				}
+				else
+				{
+					?><div><input type="radio" id="proc_<?php echo $row_proc[0]?>" name="edited_processor_id" value="<?php echo $row_proc[0]?>"><label for="proc_<?php echo $row_proc[0]?>" ><?php echo $row_proc[1]?></label></input></div><?php
+				}
+			}
+			?>
+			</td>
+			<?php
 		}
 		else
 		{
@@ -815,7 +833,7 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_facil = mysqli_num_rows($result_facil);
 		if ($rows_facil>0)
 		{
-			?>
+			/*?>
 			<td><select id="edited_facilino_version_id" name="edited_facilino_version_id" type="text" value="<?php echo $row[6]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_facil; $j++)
@@ -825,7 +843,25 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				<option value="<?php echo $row_facil[0]?>"><?php echo $row_facil[1]?></option>
 				<?php
 			}
-			?></select></td><?php
+			?></select></td><?php*/
+			?>
+			<td valign=top>
+			<?php
+			for ($j=0;$j<$rows_facil;$j++)
+			{
+				$row_facil = mysqli_fetch_row($result_facil);
+				if ($row[6]==$row_facil[0])
+				{
+					?><div><input type="radio" id="version_<?php echo $row_facil[0]?>" name="edited_facilino_version_id" value="<?php echo $row_facil[0]?>" checked="checked"><label for="version_<?php echo $row_facil[0]?>" ><?php echo $row_facil[1]?></label></input></div><?php
+				}
+				else
+				{
+					?><div><input type="radio" id="version_<?php echo $row_facil[0]?>" name="edited_facilino_version_id" value="<?php echo $row_facil[0]?>"><label for="version_<?php echo $row_facil[0]?>" ><?php echo $row_facil[1]?></label></input></div><?php
+				}
+			}
+			?>
+			</td>
+			<?php
 		}
 		else
 		{
@@ -836,7 +872,7 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_filt = mysqli_num_rows($result_filt);
 		if ($rows_filt>0)
 		{
-			?><td><select id="edited_filter_id" name="edited_filter_id" type="text" value="<?php echo $row[4]?>"/>
+			/*?><td valign=top><select id="edited_filter_id" name="edited_filter_id" type="text" value="<?php echo $row[4]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_filt; $j++)
 			{
@@ -844,7 +880,25 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				?><option value="<?php echo $row_filt[0]?>"><?php echo $row_filt[1]?></option>
 				<?php
 			}
-			?></select></td><?php
+			?></select></td><?php*/
+			?>
+			<td valign=top>
+			<?php
+			for ($j=0;$j<$rows_filt;$j++)
+			{
+				$row_filt = mysqli_fetch_row($result_filt);
+				if ($row[4]==$row_filt[0])
+				{
+					?><div><input type="radio" id="filt_<?php echo $row_filt[0]?>" name="edited_filter_id" value="<?php echo $row_filt[0]?>" checked="checked"><label for="filt_<?php echo $row_filt[0]?>" ><?php echo $row_filt[1]?></label></input></div><?php
+				}
+				else
+				{
+					?><div><input type="radio" id="filt_<?php echo $row_filt[0]?>" name="edited_filter_id" value="<?php echo $row_filt[0]?>"><label for="filt_<?php echo $row_filt[0]?>" ><?php echo $row_filt[1]?></label></input></div><?php
+				}
+			}
+			?>
+			</td>
+			<?php
 		}
 		else
 		{
@@ -855,14 +909,32 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_lang = mysqli_num_rows($result_lang);
 		if ($rows_lang>0)
 		{
-			?><td><select id="edited_language_id" name="edited_language_id" type="text" value="<?php echo $row[7]?>"/>
+			/*?><td valign=top><select id="edited_language_id" name="edited_language_id" type="text" value="<?php echo $row[7]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_lang; $j++)
 			{
 				$row_lang = mysqli_fetch_row($result_lang);
 				?><option value="<?php echo $row_lang[0]?>"><?php echo $row_lang[1]?></option><?php
 			}
-			?></select></td><?php
+			?></select></td><?php*/
+			?>
+			<td valign=top>
+			<?php
+			for ($j=0;$j<$rows_lang;$j++)
+			{
+				$row_lang = mysqli_fetch_row($result_lang);
+				if ($row[7]==$row_lang[0])
+				{
+					?><div><input type="radio" id="lang_<?php echo $row_lang[0]?>" name="edited_language_id" value="<?php echo $row_lang[0]?>" checked="checked"><label for="lang_<?php echo $row_lang[0]?>" ><?php echo $row_lang[1]?></label></input></div><?php
+				}
+				else
+				{
+					?><div><input type="radio" id="lang_<?php echo $row_lang[0]?>" name="edited_language_id" value="<?php echo $row_lang[0]?>"><label for="lang_<?php echo $row_lang[0]?>" ><?php echo $row_lang[1]?></label></input></div><?php
+				}
+			}
+			?>
+			</td>
+			<?php
 		}
 		else
 		{

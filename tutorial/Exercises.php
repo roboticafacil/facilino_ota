@@ -154,8 +154,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 				<div class="card-wrapper ">
 					<div class="card-img">
 						<div class="mbr-overlay"></div>
-						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesMaths.php';" class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-						<a onclick="window.location='ExercisesMaths.php';"><img src="assets/images/math.jpg" alt="Maths" title=""></img></a>
+						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesMaths.php?example_id=7';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+						<a onclick="window.location='ExercisesMaths.php?example_id=7';"><img src="assets/images/math.jpg" alt="Maths" title=""></img></a>
 					</div>
 					<div class="card-box">
 						<h4 class="card-title mbr-fonts-style display-7">
@@ -170,8 +170,8 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 				<div class="card-wrapper ">
 					<div class="card-img">
 						<div class="mbr-overlay"></div>
-						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesText.php';" class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-						<a onclick="window.location='ExercisesText.php';"><img src="assets/images/text.jpg" alt="Text" title=""></img></a>
+						<div class="mbr-section-btn text-center"><a onclick="window.location='ExercisesText.php?example_id=8';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+						<a onclick="window.location='ExercisesText.php?example_id=8';"><img src="assets/images/text.jpg" alt="Text" title=""></img></a>
 					</div>
 					<div class="card-box">
 						<h4 class="card-title mbr-fonts-style display-7">

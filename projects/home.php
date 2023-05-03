@@ -17,8 +17,8 @@ require_once('projects_translation.php');
                 <div class="card-wrapper ">
                     <div class="card-img">
                         <div class="mbr-overlay"></div>
-                        <div class="mbr-section-btn text-center"><a onclick="onHomeFile('LEDRace.php');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-                        <a onclick="onHomeFile('LEDRace.php');"><img src="projects/assets/images/LED_race.jpg" alt="LED Race" title=""></a>
+                        <div class="mbr-section-btn text-center"><a onclick="window.location='LEDRace.php?project_id=1';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+                        <a onclick="window.location='LEDRace.php?project_id=1';"><img src="projects/assets/images/LED_race.jpg" alt="LED Race" title=""></a>
                     </div>
                     <div class="card-box">
                         <h4 class="card-title mbr-fonts-style display-7">
@@ -29,6 +29,7 @@ require_once('projects_translation.php');
                 </div>
             </div>
 		
+			<!-- project_id 2 -->
 			<div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
                     <div class="card-img">
@@ -45,6 +46,7 @@ require_once('projects_translation.php');
                 </div>
             </div>
 			
+			<!-- project_id 3 -->
 			<div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
                     <div class="card-img">
@@ -61,6 +63,7 @@ require_once('projects_translation.php');
                 </div>
             </div>
 			
+			<!-- project_id 4 -->
 			<div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
                     <div class="card-img">
@@ -77,18 +80,19 @@ require_once('projects_translation.php');
                 </div>
             </div>
 		
+			<!-- project_id 5 -->
 			<div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
                     <div class="card-img">
                         <div class="mbr-overlay"></div>
-                        <div class="mbr-section-btn text-center"><a class="btn btn-primary display-4"><?php echo $website["COMMING_SOON"]; ?></a></div>
-                        <a><img src="projects/assets/images/home_automation.jpg" alt="IoT Home Automation" title=""></a>
+                        <div class="mbr-section-btn text-center"><a onclick="onHomeFile('EcoThings.php?project_id=5');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+                        <a onclick="onHomeFile('EcoThings.php?project_id=5');"><img src="projects/assets/images/home_automation.jpg" alt="IoT Home Automation" title=""></a>
                     </div>
                     <div class="card-box">
                         <h4 class="card-title mbr-fonts-style display-7">
-                            IoT Starter Kit Home Automation</h4>
+                            <?php echo $projects["ECOTHINGS"]; ?></h4>
                         <p class="mbr-text mbr-fonts-style align-left display-7">
-                            Everything to get you started instantly to control lights and temperature!</p>
+                            <?php echo $projects["ECOTHINGS_DESC"]; ?></p>
                     </div>
                 </div>
             </div>

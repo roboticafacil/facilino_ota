@@ -16,7 +16,10 @@ include("auth.php");
 			//$result = mysqli_query($con,$query);
 			$query = "UPDATE `users` SET `first_name`=?,`last_name`=?,`default_lang_id`=? WHERE `username`=?";
 			$statement=mysqli_prepare($con,$query);
-			$language_id=intval($_POST["language"]);
+			if (isset($_POST["language"]))
+				$language_id=intval($_POST["language"]);
+			else
+				$language_id=5;
 			$statement->bind_param("ssis",$_POST["first_name"],$_POST["last_name"],$language_id,$_SESSION["username"]);
 			$statement->execute();
 			header("Location: dashboard.php");
@@ -253,7 +256,6 @@ include("auth.php");
 			$statement_user->execute();
 			$result_user=$statement_user->get_result();
 			$rows_user = mysqli_num_rows($result_user);
-			var_dump($_SESSION["username"]);
 			if ($rows_user==1)
 			{
 				$row_user = mysqli_fetch_row($result_user);
@@ -268,24 +270,22 @@ include("auth.php");
 				<tr><td><label><?php echo $website["FIRST_NAME"]?>:</label></td><td><input type="text" name="first_name" value="<?php echo $row_user[2]?>" maxlength="50"></input></td></tr>
 				<tr><td><label><?php echo $website["LAST_NAME"]?>:</label></td><td><input type="text" name="last_name" value="<?php echo $row_user[3]?>" maxlength="50"></input></td></tr>
 				<tr><td><label><?php echo $website["LANGUAGE"];?>:</label></td><td>
-				<select id="language" name="language">
-					<?php
-						if ($row_user[6]==5)
-						{
-						?>
-							<option value=4>Inglés</option>
-							<option value=5 selected>Español</option>
-						<?php
-						}
-						else
-						{
-							?>
-							<option value=4 selected>English</option>
-							<option value=5>Spanish</option>
-							<?php
-						}
+				<?php
+					if ($row_user[6]==5)
+					{
 					?>
-				</select>				
+						<div><input type="radio" id="en_GB" name="language" value=4><label for="en_GB" >Inglés</label></input></div>
+						<div><input type="radio" id="es_ES" name="language" value=5 checked="checked"><label for="es_ES" >Español</label></input></div>
+					<?php
+					}
+					else
+					{
+						?>
+						<div><input type="radio" id="en_GB" name="language" value=4 checked="checked"><label for="en_GB" >English</label></input></div>
+						<div><input type="radio" id="es_ES" name="language" value=5><label for="es_ES" >Spanish</label></input></div>
+						<?php
+					}
+				?>
 				</td></tr>
 				</table>
 				<div style="margin-bottom:0.5em;padding:0.5em">

@@ -419,7 +419,7 @@
 			category_colour: Facilino.LANG_COLOUR_MOVEMENT,
 			colour: Facilino.LANG_COLOUR_MOVEMENT_ROBOTARM,
 			keys: ['LANG_MOVE_MEARM_GRIPPER_NAME','LANG_SERVO_MOVE_MEARM_GRIPPER','LANG_SERVO_MOVE','LANG_SERVO_MOVE_FROM','LANG_SERVO_MOVE_TO','LANG_MOVE_GRIP','LANG_MOVE_RELEASE','LANG_MOVE_BASE_ATTACH','LANG_MOVE_BASE_TIME','LANG_MOVE_MEARM_GRIPPER_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_MOVE_ONE_MOTOR_GRIP_NAME'),
+			name: Facilino.locales.getKey('LANG_SERVO_MOVE_MEARM_GRIPPER'),
 			init: function() {
 				this.setColour(robot_colour);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SERVO_MOVE_MEARM_GRIPPER')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/gripper.svg', 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);

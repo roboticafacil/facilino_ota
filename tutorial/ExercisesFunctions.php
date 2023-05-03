@@ -502,8 +502,6 @@ FacilinoBuzzer.load({ zoom: 1});
 <div class="mbr-section-btn text-center"><a onclick="onReturn();" class="btn btn-primary display-4">&#8592;&nbsp;<?php echo $website["BACK"]; ?></a></div>
 
 <script>
-  $('#exercise1b').attr('src','../facilino.php?action=view_example&embbeded&id=38&lang='+window.FacilinoLanguage);
-  $('#exercise2b').attr('src','../facilino.php?action=view_example&embbeded&id=39&lang='+window.FacilinoLanguage);
   if (window.FacilinoProcessor==='WEMOS_D1R32_SHIELD')
   {
 	$('#exercise1b').attr('src','../facilino.php?action=view_example&embbeded&id=46&lang='+window.FacilinoLanguage);

@@ -65,15 +65,37 @@ else
 		}
 		else
 		{
-			$lang='en-GB';
+			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			{
+				$lang='es-ES';
+			}
+			else
+			{
+				$lang='en-GB';
+			}
 		}
 	}
 	else
 	{
-		$lang='en-GB';
+		if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+		{
+			$lang='es-ES';
+		}
+		else
+		{
+			$lang='en-GB';
+		}
 	}
 }
-$query_projects = "SELECT `key`,`".$lang."` FROM `projects_translate` WHERE 1";
+
+if (isset($_GET["project_id"]))
+{
+	$query_projects = "SELECT `key`,`".$lang."` FROM `projects_translate` WHERE `project_id`=".$_GET["project_id"]." or `project_id`=0";
+}
+else
+{
+	$query_projects = "SELECT `key`,`".$lang."` FROM `projects_translate` WHERE 1";
+}
 $result_projects = mysqli_query($con,$query_projects);		
 $translation=mysqli_fetch_all($result_projects,MYSQLI_ASSOC);
 $projects=array();

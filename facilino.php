@@ -224,10 +224,16 @@ elseif (isset($_GET["id"]))
 			else
 			{
 				echo "<div class='navbar-buttons mbr-section-btn'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["VERIFY"]."' onclick='compileUSB();' style='padding:0.3em'><span class='mbri-success mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button>&nbsp;<button class='btn btn-sm btn-primary-outline display-4' title='".$website["UPLOAD"]."' onclick='uploadUSB();' style='padding:0.3em'><span class='mbri-right mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em'></span></button>&nbsp;";
-				echo "<p class='btn' style='padding:0;font-size:12px'>".$website["PORT"].":</p><select  class='btn btn-select resizeselect' id='ports' class='text-black dropdown-toggle display-4 icon-menu' onchange='portChange(this.value)' style='font-size:12px;padding:0.3em'></select>&nbsp;<button class='btn btn-sm btn-primary-outline display-4' title='".$website["REFRESH"]."' onclick='listPorts();' style='padding:0.3em'><span class='mbri-update mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button>";
+				echo "<p class='btn' style='padding:0;font-size:12px'>".$website["PORT"].":</p>";
+				echo "<a id='ports' valign=bottom style='font-size:12px;padding:0.3em'></a>";
+				//echo "<select  class='btn btn-select resizeselect' id='ports' class='text-black dropdown-toggle display-4 icon-menu' onchange='portChange(this.value)' style='font-size:12px;padding:0.3em'></select>";
+				echo "&nbsp;<button class='btn btn-sm btn-primary-outline display-4' title='".$website["REFRESH"]."' onclick='listPorts();' style='padding:0.3em'><span class='mbri-update mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button>";
 			}
 			?>
-			&nbsp;<p class="btn" style="padding:0;font-size:12px"><?php echo $website["BOARD"];?>:</p><select  class="btn btn-select resizeselect" id="flags" class="text-black dropdown-toggle display-4 icon-menu" onchange="flagsChange(this.value)" style="font-size:12px;padding:0.3em"></select></div>
+			&nbsp;<br/><p class="btn" style="padding:0;font-size:12px"><?php echo $website["BOARD"];?>:</p>
+			<!-- <select  class="btn btn-select resizeselect" id="flags" class="text-black dropdown-toggle display-4 icon-menu" onchange="flagsChange(this.value)" style="font-size:12px;padding:0.3em"></select> -->
+			<a id='flags' valign=bottom style='font-size:12px;padding:0.3em'></a>
+			</div>
 			<div>
 				<textarea name="code_textarea" id="code_textarea" rows="15" style="margin-top:0.5em; margin-bottom:0.5em; width:100%; height: 70%; font-family:monospace; font-size: 1em; padding: 0.2rem 0.4rem; background-color: #f8f9fa; line-height: 1em"></textarea>
 			</div>
@@ -401,7 +407,14 @@ elseif (isset($_GET["id"]))
 				<?php
 			}
 			?>
-			var options = {zoom: 1};
+			
+			var profiles;
+			var loc = window.location.pathname;
+			loc = loc.substring(0, loc.lastIndexOf('/'));
+			var dir = loc.substring(loc.lastIndexOf('/')+1);
+			var url = 'https://roboticafacil.es/facilino-ota/profiles.php';
+			$.ajax({ url: url, dataType: "text",async: false, }).done(function(text) { profiles=$.parseJSON(text) });
+			var options = {zoom: 1, profiles: profiles};
 			Facilino.load(options);
 			FacilinoFunctions.load(options);
 			FacilinoControls.load(options);
@@ -459,11 +472,10 @@ elseif (isset($_GET["id"]))
 
 
 			window.dispatchEvent(new Event('resize'));
-					
+				
 			var el = document.getElementById('blockly');
 
 			<?php
-			
 			
 			if (!isset($_GET["embbeded"]))
 			{
@@ -560,8 +572,8 @@ elseif (isset($_GET["id"]))
 						window.dispatchEvent(new Event('resize'));
 					}
 				});
-			
-function doAutoIndent(value, indent) {
+						
+	function doAutoIndent(value, indent) {
 	indent || (indent = "\t");
 	
 	var lastValue='';
@@ -958,9 +970,13 @@ function clearSelection() {
 }
 
 function removeOptions(selectElement) {
-   var i, L = selectElement.options.length - 1;
+	
+   /*var i, L = selectElement.options.length - 1;
    for(i = L; i >= 0; i--) {
 	  selectElement.remove(i);
+   }*/
+   while (selectElement.firstChild) {
+     selectElement.removeChild(selectElement.lastChild);
    }
 }
 
@@ -979,10 +995,10 @@ function listPorts()
 			var option;
 			removeOptions(select);
 			result = eval(XHR.responseText);
-			//console.log(result);
 			var prev_selected_port=window.selected_port;
 			window.selected_port=result[0];
 			result.forEach(function (value,idx){
+				/*
 				option = document.createElement('option');
 				option.value = option.textContent = value;
 				select.appendChild(option);
@@ -990,7 +1006,23 @@ function listPorts()
 				{
 					option.selected=true;
 					window.selected_port=prev_selected_port;
+				}*/
+				var lblEl=document.createElement('label');
+				lblEl.innerHTML=value;
+				lblEl.htmlFor='port'+idx;
+				var inpEl=document.createElement('input');
+				inpEl.type='radio';
+				inpEl.id='port'+idx;
+				inpEl.name='ports';
+				inpEl.value=value;
+				inpEl.setAttribute("onclick", "portChange(this.value)");
+				if (prev_selected_port===value)
+				{
+					inpEl.checked=true;
+					window.selected_port=prev_selected_port;
 				}
+				select.appendChild(inpEl);
+				select.appendChild(lblEl);
 			});
 			
 		}
@@ -1005,25 +1037,40 @@ function listIPPorts()
 function listCompilationFlags()
 {
 	select = document.getElementById('flags');
-	console.log(compilation_flags);
 	removeOptions(select);
+	var prev_selected_flag=window.selected_compilation_flags;
+	window.selected_compilation_flags=compilation_flags[0].compilation_flags;
 	compilation_flags.forEach(function (value,idx){
-		option = document.createElement('option');
+		/*option = document.createElement('option');
 		option.value = value.compilation_flags;
 		option.textContent = value.variant;
-		select.appendChild(option);
+		select.appendChild(option);*/
+		var lblEl=document.createElement('label');
+		lblEl.innerHTML=value.variant+'&nbsp;&nbsp;';
+		lblEl.htmlFor='flag'+idx;
+		var inpEl=document.createElement('input');
+		inpEl.type='radio';
+		inpEl.id='flag'+idx;
+		inpEl.name='flags';
+		inpEl.value=value.compilation_flags;
+		inpEl.setAttribute("onclick", "flagsChange(this.value)");
+		if (prev_selected_flag===value.compilation_flags)
+		{
+			inpEl.checked=true;
+			window.selected_compilation_flags=prev_selected_flag;
+		}
+		select.appendChild(inpEl);
+		select.appendChild(lblEl);
 	});
 }
 
 function portChange(a)
 {
-	console.log(a);
 	window.selected_port=a;
 }
 
 function flagsChange(a)
 {
-	console.log(a);
 	window.selected_compilation_flags=a;
 }
 
@@ -1450,12 +1497,12 @@ function uploadOTAData(data,upload_code)
 		</script>
 		<?php
 	}
-	if (!isset($_GET["embbeded"]))
+	/*if (!isset($_GET["embbeded"]))
 	{
 		?>
 			<div id="ads"><?php include "ads.php" ?></div>
 		<?php
-	}
+	}*/
 	?>
 	</body>
 </html>

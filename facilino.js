@@ -170,101 +170,106 @@
 			}
 			return final_sentences;
 		};
-
-		var profiles;
-		var loc = window.location.pathname;
-		loc = loc.substring(0, loc.lastIndexOf('/'));
-		var dir = loc.substring(loc.lastIndexOf('/')+1);
-		var url =Facilino.path+'profiles.json';
-		$.ajax({
+		
+		if (options.profiles===undefined)
+		{
+			var profiles;
+			var loc = window.location.pathname;
+			loc = loc.substring(0, loc.lastIndexOf('/'));
+			var dir = loc.substring(loc.lastIndexOf('/')+1);
+			var url = 'https://roboticafacil.es/facilino-ota/profiles.php';
+			$.ajax({
 				url: url,
 				dataType: "text",
 				async: false,
 				}).done(function(text) {
-				profiles = $.parseJSON(text);
-				if (Facilino.locales.processor==='ArduinoNano')
-				{
-					profiles['default'] = profiles.arduinoNano;
-					profiles['processor'] = 'ATmega328';
-				}
-				else if (Facilino.locales.processor==='ArduinoUno')
-				{
-					profiles['default'] = profiles.arduinoUno;
-					profiles['processor'] = 'ATmega328';
-				}
-				else if (Facilino.locales.processor==='ArduinoMega2560')
-				{
-					profiles['default'] = profiles.arduinoMega2560;
-					profiles['processor'] = 'ATmega2560';
-				}
-				else if (Facilino.locales.processor==='ArduinoMicro')
-				{
-					profiles['default'] = profiles.arduinoMicro;
-					profiles['processor'] = 'ATmega32U4';
-				}
-				else if (Facilino.locales.processor==='ArduinoLilyPad')
-				{
-					profiles['default'] = profiles.arduinoLilyPad;
-					profiles['processor'] = 'ATmega328';
-				}
-				else if (Facilino.locales.processor==='ArduinoMini')
-				{
-					profiles['default'] = profiles.arduinoMini;
-					profiles['processor'] = 'ATmega328';
-				}
-				else if (Facilino.locales.processor==='ArduinoPro')
-				{
-					profiles['default'] = profiles.arduinoPro;
-					profiles['processor'] = 'ATmega328';
-				}
-				else if (Facilino.locales.processor==='ArduinoLeonardo')
-				{
-					profiles['default'] = profiles.arduinoLeonardo;
-					profiles['processor'] = 'ATmega32U4';
-				}
-				else if (Facilino.locales.processor==='ESP8266')
-				{
-					profiles['default'] = profiles.nodeMCU;
-					profiles['processor'] = 'ESP8266';
-				}
-				else if (Facilino.locales.processor==='NodeMCU')
-				{
-					profiles['default'] = profiles.nodeMCU;
-					profiles['processor'] = 'ESP8266';
-				}
-				else if (Facilino.locales.processor==='WEMOS_D1R2')
-				{
-					profiles['default'] = profiles.wemosD1R2;
-					profiles['processor'] = 'ESP8266';
-				}
-				else if (Facilino.locales.processor==='ESP32')
-				{
-					profiles['default'] = profiles.esp32;
-					profiles['processor'] = 'ESP32';
-				}
-				else if (Facilino.locales.processor==='WEMOS_D1R32')
-				{
-					profiles['default'] = profiles.wemosD1R32;
-					profiles['processor'] = 'ESP32';
-				}
-				else if (Facilino.locales.processor==='WEMOS_D1R32_SHIELD')
-				{
-					profiles['default'] = profiles.wemosD1R32_shield;
-					profiles['processor'] = 'ESP32';
-				}
-				else if (Facilino.locales.processor==='RP2040')
-				{
-					profiles['default'] = profiles.RP2040;
-					profiles['processor'] = 'RP2040';
-				}
-				else
-				{
-					profiles['default'] = profiles.arduinoNano;
-					profiles['processor'] = 'ATmega328';
-				}
-		//console.log(profiles);
+					options.profiles=$.parseJSON(text);
 				});
-
+		}
+		
+		if (Facilino.locales.processor==='ArduinoNano')
+		{
+			options.profiles['default'] = options.profiles.arduinoNano;
+			options.profiles['processor'] = 'ATmega328';
+		}
+		else if (Facilino.locales.processor==='ArduinoUno')
+		{
+			options.profiles['default'] = options.profiles.arduinoUno;
+			options.profiles['processor'] = 'ATmega328';
+		}
+		else if (Facilino.locales.processor==='ArduinoMega2560')
+		{
+			options.profiles['default'] = options.profiles.arduinoMega2560;
+			options.profiles['processor'] = 'ATmega2560';
+		}
+		else if (Facilino.locales.processor==='ArduinoMicro')
+		{
+			options.profiles['default'] = options.profiles.arduinoMicro;
+			options.profiles['processor'] = 'ATmega32U4';
+		}
+		else if (Facilino.locales.processor==='ArduinoLilyPad')
+		{
+			Facilino.profiles['default'] = options.profiles.arduinoLilyPad;
+			Facilino.profiles['processor'] = 'ATmega328';
+		}
+		else if (Facilino.locales.processor==='ArduinoMini')
+		{
+			options.profiles['default'] = options.profiles.arduinoMini;
+			options.profiles['processor'] = 'ATmega328';
+		}
+		else if (Facilino.locales.processor==='ArduinoPro')
+		{
+			options.profiles['default'] = options.profiles.arduinoPro;
+			options.profiles['processor'] = 'ATmega328';
+		}
+		else if (Facilino.locales.processor==='ArduinoLeonardo')
+		{
+			options.profiles['default'] = options.profiles.arduinoLeonardo;
+			options.profiles['processor'] = 'ATmega32U4';
+		}
+		else if (Facilino.locales.processor==='ESP8266')
+		{
+			options.profiles['default'] = options.profiles.nodeMCU;
+			options.profiles['processor'] = 'ESP8266';
+		}
+		else if (Facilino.locales.processor==='NodeMCU')
+		{
+			options.profiles['default'] = options.profiles.nodeMCU;
+			options.profiles['processor'] = 'ESP8266';
+		}
+		else if (Facilino.locales.processor==='WEMOS_D1R2')
+		{
+			options.profiles['default'] = options.profiles.wemosD1R2;
+			options.profiles['processor'] = 'ESP8266';
+		}
+		else if (Facilino.locales.processor==='ESP32')
+		{
+			options.profiles['default'] = options.profiles.esp32;
+			options.profiles['processor'] = 'ESP32';
+		}
+		else if (Facilino.locales.processor==='WEMOS_D1R32')
+		{
+			options.profiles['default'] = options.profiles.wemosD1R32;
+			options.profiles['processor'] = 'ESP32';
+		}
+		else if (Facilino.locales.processor==='WEMOS_D1R32_SHIELD')
+		{
+			options.profiles['default'] = options.profiles.wemosD1R32_shield;
+			options.profiles['processor'] = 'ESP32';
+		}
+		else if (Facilino.locales.processor==='RP2040')
+		{
+			options.profiles['default'] = options.profiles.RP2040;
+			options.profiles['processor'] = 'RP2040';
+		}
+		else
+		{
+			options.profiles['default'] = options.profiles.arduinoNano;
+			options.profiles['processor'] = 'ATmega328';
+		}
+		
+		Facilino.profiles=options.profiles;
+		
 		// RGB block colors
 		Facilino.LANG_COLOUR_DISTANCE = '#D04141';
 		Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND = '#D04141'; //BD3939, AB3131, 992929, 872121
@@ -327,7 +332,7 @@
 		Facilino.LANG_COLOUR_SYSTEM_FILTER = '#A3A375';
 		Facilino.LANG_COLOUR_DEPRECATED = '#000000';
 		
-		Facilino.profiles=profiles;
+		
 
 		Facilino.checkHelpUrl = function (block) {
 			var file = 'doc/'+window.FacilinoLanguage+'/'+block+'.html';
@@ -847,6 +852,8 @@
 		};
 		
 		this["JST"] = this["JST"] || {};
+		
+		
 		
 	}
 	
