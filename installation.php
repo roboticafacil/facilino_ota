@@ -126,8 +126,6 @@ require_once('website_translation.php');
         </div>
     </div>
 </section>
-
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

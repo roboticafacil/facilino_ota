@@ -673,6 +673,35 @@
 				return ['<value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow></value><field name="CAST">String</field>','<value name="VALUE"><shadow type="math_number"><field name="NUM">30</field></shadow></value><field name="CAST">char</field>'];
 			}
 		};
+		
+		/*Blockly.Arduino.fill_with = function() {
+			var code ='';
+			return code;
+		};
+
+		Blockly.Blocks.fill_with= {
+			category: Facilino.locales.getKey('LANG_CATEGORY_TEXT'),
+			tags: ['text'],
+			helpUrl: Facilino.getHelpUrl('text_fill_with'),
+			examples: ['text_to_csv_example.bly'],
+			category_colour: Facilino.LANG_COLOUR_TEXT,
+			colour: Facilino.LANG_COLOUR_TEXT,
+			keys: ['LANG_TEXT_FILL_WITH_NAME','LANG_TEXT_FILL','LANG_TEXT_FILL_CHAR','LANG_TEXT_FILL_SPACES','LANG_TEXT_FILL_ZEROS','LANG_TEXT_FILL_WIDTH','LANG_TEXT_FILL_LEADING','LANG_TEXT_FILL_TRAILING','LANG_TEXT_FILL_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_TEXT_FILL_WITH_NAME'),
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_TEXT);
+				this.appendValueInput('VALUE').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_FILL')).appendField(new Blockly.FieldNumber(10,1,20,1),'WIDTH');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_TEXT_FILL_CHAR')).appendField(new Blockly.DropdownField([
+					[Facilino.locales.getKey('LANG_TEXT_FILL_SPACES'), "' '"],[Facilino.locales.getKey('LANG_TEXT_FILL_ZEROS'),"'0'"]]),"CHAR").appendField(new Blockly.DropdownField([[Facilino.locales.getKey('LANG_TEXT_FILL_LEADING'), 'true'],[Facilino.locales.getKey('LANG_TEXT_FILL_TRAILING'),'false']]),"POSITION");
+				this.setOutput(true,String);
+				this.setInputsInline(false);
+				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_FILL_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="VALUE"><shadow type="text"></shadow></value>';
+			}
+		};*/
 
 		Blockly.Arduino.text_to_csv = function() {
 			var value = Blockly.Arduino.valueToCode(this,'VALUE', Blockly.Arduino.ORDER_NONE);
@@ -722,7 +751,7 @@
 			name: Facilino.locales.getKey('LANG_TEXT_CSV_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_TEXT);
-				this.appendValueInput('VALUE').setCheck(['Array','Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_CSV')).appendField(Facilino.locales.getKey('LANG_TEXT_FORMAT')).appendField(new Blockly.FieldNumber(8,1,20,1),'LENGTH').appendField('.').appendField(new Blockly.FieldNumber(2,1,10,1),'DECIMAL').setCheck('Array');
+				this.appendValueInput('VALUE').setCheck(['Array','Variable']).appendField(Facilino.locales.getKey('LANG_TEXT_CSV')).appendField(Facilino.locales.getKey('LANG_TEXT_FORMAT')).appendField(new Blockly.FieldNumber(8,1,20,1),'LENGTH').appendField('.').appendField(new Blockly.FieldNumber(2,1,10,1),'DECIMAL');
 				this.setOutput(true,String);
 				this.setInputsInline(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_TEXT_CSV_TOOLTIP'));

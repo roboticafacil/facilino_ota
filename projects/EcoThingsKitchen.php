@@ -198,7 +198,7 @@ FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
     <figure class="mbr-figure container">
             <div class="mbr-text align-center mbr-fonts-style display-5"><?php echo $website["CONNECTION_DIAGRAM"]; ?></div>
             <div class="image-block mbr-fonts-style display-7" style="width: 50%;">
-                <img id="schematic_modules" src="../assets/images/ecothings_kitchen_bb.png" width="1400" alt="Modules" title=""></img>
+                <img id="schematic_modules" src="../assets/images/EcoThings/ecothings_kitchen_bb.png" width="1400" alt="Modules" title=""></img>
             </div>
     </figure>
 </section>
@@ -210,7 +210,6 @@ FacilinoVariables.load({ zoom: 1, readOnly:true, collapse: false});
 </div>
 <!-- <script>$(function(){var file='projects/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>-->
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

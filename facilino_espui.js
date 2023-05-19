@@ -391,7 +391,7 @@
 			examples: ['lol.bly'],
 			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_ESPUI,
-			keys: ['LANG_ESPUI_SLIDER_LABEL_NAME','LANG_ESPUI_LABEL_LABEL','LANG_ESPUI_NAME','LANG_ESPUI_TEXT','LANG_ESPUI_LABEL_PRINT_TOOLTIP'],
+			keys: ['LANG_ESPUI_SLIDER_LABEL_NAME','LANG_ESPUI_LABEL_LABEL','LANG_ESPUI_NAME','LANG_ESPUI_TEXT','LANG_ESPUI_SLIDER_VALUE_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_ESPUI_SLIDER_LABEL_NAME'),
 		init: function() {
 			var colour = new Blockly.FieldColour('#000000');

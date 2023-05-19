@@ -7,7 +7,6 @@
 	echo '<script src="assets/dropdown/js/script.min.js"></script>';
 	echo '<script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>';
 	echo '<script src="assets/theme/js/script.js"></script>';
-	echo '<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->';
 	echo '<script src="javascript/jquery/dist/jquery.min.js"></script>';
 	echo '<script src="javascript/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>';
 	echo '<script src="javascript/underscore/underscore.js"></script>';

@@ -9,6 +9,32 @@ Welcome to Facilino</h2>-->
 <!-- <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">
 Learn how to program Arduino and ESP using Facilino with a full set of tutorials and exercises.</h3>-->
 <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light"><?php echo $website["GET_READY"]; ?></h3>
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+                <?php
+				if(!isset($_SESSION["username"]))
+				{
+					?>
+					<div class="card-wrapper ">
+					<div class="card-box" style="height: 100px; position: relative; border: 3px solid red;">
+						<center>
+						<p class="card-title mbr-fonts-style display-5" style="text-align: center;margin: 0; position: absolute; left: 50%; top: 50%; -ms-transform: translateX(-50%) translateY(-50%); transform: translateX(-50%) translateY(-60%);">
+							<?php echo $website["START_SESSION"]; ?>
+						</p>
+						<center>
+					</div>
+					</div>
+					<?php
+				}
+				?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <div class="row" style="padding-top:0.5em">
 	<div class="card p-3 col-12 col-md-6 col-lg-4">
 		<div class="card-wrapper ">

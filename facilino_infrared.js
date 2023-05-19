@@ -103,7 +103,7 @@
 			var gain = Blockly.Arduino.valueToCode(this, 'GAIN', Blockly.Arduino.ORDER_ATOMIC);
 			var code = '';
 			//Blockly.Arduino.definitions_['include_line_following'] = JST['infrarred_follow_definitions_include']({});
-			Blockly.Arduino.definitions_['define_line_following'] = 'int follow(int light, int gain)\n{\n  return (int)(((float)(gain)/100.0)*((float)(('+this.getFieldValue('WHITE')+'-'+this.getFieldValue('BLACK')+')/2+'+this.getFieldValue('BLACK')+')-(float)(light)));\n}\n';
+			Blockly.Arduino.definitions_['define_line_following'] = 'int follow(int light, int gain)\n{\n  return (int)(((float)(gain)/100.0)*((float)(('+this.getFieldValue('BLACK')+'-'+this.getFieldValue('WHITE')+')/2+'+this.getFieldValue('WHITE')+')-(float)(light)));\n}\n';
 
 			code += 'follow('+light+','+gain+')';
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -124,7 +124,7 @@
 				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/turn.svg", 20*options.zoom, 20*options.zoom, "*")).appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING'));
 				this.appendValueInput('LIGHT').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_LIGHT')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/light_diode.svg",24*options.zoom,24*options.zoom)).setCheck('LineFollowing').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('GAIN').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/knob.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(800,0,4096),'WHITE').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(30,0,4096),'BLACK');
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLACK')).appendField(new Blockly.FieldNumber(800,0,4096),'BLACK').appendField(Facilino.locales.getKey('LANG_WHITE')).appendField(new Blockly.FieldNumber(30,0,4096),'WHITE');
 				this.setInputsInline(false);
 				this.setOutput(true,[Number,'Turn']);
 					this.setTooltip(Facilino.locales.getKey('LANG_LINE_FOLLOWING_TOOLTIP'));

@@ -33,6 +33,8 @@
 			colour: Facilino.LANG_COLOUR_ADVANCED_BUTTON,
 			keys: ['LANG_BQ_BUTTON_NAME','LANG_BQ_BUTTON','LANG_BQ_BUTTON_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_BQ_BUTTON_NAME'),
+			inputs: [Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')],
+			output: Facilino.locales.getKey('LANG_BQ_BUTTON_OUTPUT'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_ADVANCED_BUTTON);
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BQ_BUTTON')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/pushbutton.png', 52*options.zoom, 24*options.zoom)).setCheck(['DigitalPin',Number]).appendField(Facilino.locales.getKey('LANG_BQ_BUTTON_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');

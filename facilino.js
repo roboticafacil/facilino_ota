@@ -177,7 +177,7 @@
 			var loc = window.location.pathname;
 			loc = loc.substring(0, loc.lastIndexOf('/'));
 			var dir = loc.substring(loc.lastIndexOf('/')+1);
-			var url = 'https://roboticafacil.es/facilino-ota/profiles.php';
+			var url = 'https://facilino.webs.upv.es/profiles.php';
 			$.ajax({
 				url: url,
 				dataType: "text",

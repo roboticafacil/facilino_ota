@@ -570,7 +570,7 @@
 						this.itemCount_ = 0;
 						this.key_ = [];
 						this.type_ = [];
-						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_DEVICEHUB_SEND_TOOLTIP'));
+						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_SEND_TOOLTIP'));
 					},
 					getVars: function() {
 						return ['value'];
@@ -1232,117 +1232,6 @@
 						this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_AMAZON_ECHO_UPDATE_TOOLTIP'));
 					}
 				};
-
-
-			/*Blockly.Arduino.communications_wifi_iot_thingsboard_rpc_value = function() {
-				var gpio = Blockly.Arduino.valueToCode(this, 'GPIO', Blockly.Arduino.ORDER_NONE) ||'""';
-				var code = '_remote_value';
-				return [code,Blockly.Arduino.ORDER_ATOMIC];
-			}
-
-			Blockly.Blocks.communications_wifi_iot_thingsboard_rpc_value = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
-				subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
-				tags: ['wifi','esp8266','communications'],
-				helpUrl: Facilino.getHelpUrl('communications_wifi_iot_thingsboard_rpc_value'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-				colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
-				keys: ['LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE','LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE_TOOLTIP','LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE_WARN'],
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE')).appendField(new Blockly.FieldImage('img/blocks/telemetry_in.svg',20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.setInputsInline(false);
-					this.setPreviousStatement(false);
-					this.setNextStatement(false);
-					this.setOutput(true,[Boolean,Number]);
-					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE_TOOLTIP'));
-					this.setWarningText(Facilino.locales.getKey('LANG_WIFI_IOT_THINGSBOARD_RPC_VALUE_WARN'));
-				}
-			};*/
-
-			/*Blockly.Arduino.communications_wifi_iot_setup_mail= function() {
-				var login = Blockly.Arduino.valueToCode(this, 'LOGIN', Blockly.Arduino.ORDER_NONE);
-				var password = Blockly.Arduino.valueToCode(this, 'PASSWORD', Blockly.Arduino.ORDER_NONE);
-				login=login.substr(1);
-				login=login.substr(0,login.length-1);
-				password=password.substr(1);
-				password=password.substr(0,password.length-1);
-				if (Facilino.profiles['processor']==='ESP8266')
-						Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
-					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='ESP8266'))
-						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
-				Blockly.Arduino.definitions_['define_wifisecure'] = '#include <WiFiClientSecure.h>\n';
-				Blockly.Arduino.definitions_['declare_var_wifi'] = 'WiFiClientSecure _client;\n';
-
-				Blockly.Arduino.definitions_['declare_var_GMail_login'] = 'const char* _GMailLogin = "'+btoa(login)+'";\n';
-				Blockly.Arduino.definitions_['declare_var_GMail_password'] = 'const char* _GMailPassword = "'+btoa(password)+'";\n';
-				Blockly.Arduino.definitions_['declare_var_GMail_from'] = 'const char* _GMailFrom = "'+login+'";\n';
-				var code='';
-				return code;
-			}
-
-			Blockly.Blocks.communications_wifi_iot_setup_mail = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
-					subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
-				tags: ['wifi','esp8266'],
-				helpUrl: Facilino.getHelpUrl('communications_wifi_iot_setup_mail'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-				colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
-				keys: ['LANG_WIFI_IOT_SETUP_MAIL_NAME','LANG_WIFI_IOT_SETUP_MAIL','LANG_WIFI_IOT_SEND_MAIL_LOGIN','LANG_WIFI_IOT_SEND_MAIL_PASSWORD','LANG_WIFI_IOT_SETUP_MAIL_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_WIFI_IOT_SETUP_MAIL_NAME'),
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SETUP_MAIL')).appendField(new Blockly.FieldImage('img/blocks/gmail-logo.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('LOGIN').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_LOGIN')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_PASSWORD')).setAlign(Blockly.ALIGN_RIGHT);
-					this.setInputsInline(false);
-					this.setPreviousStatement(true,'code');
-					this.setNextStatement(true,'code');
-					this.setOutput(false);
-					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_SETUP_MAIL_TOOLTIP'));
-				},
-				isNotDuplicable: true
-			};
-
-
-			Blockly.Arduino.communications_wifi_iot_send_mail= function() {
-				var to = Blockly.Arduino.valueToCode(this, 'TO', Blockly.Arduino.ORDER_NONE);
-				var subject = Blockly.Arduino.valueToCode(this, 'SUBJECT', Blockly.Arduino.ORDER_NONE);
-				var message = Blockly.Arduino.valueToCode(this, 'MESSAGE', Blockly.Arduino.ORDER_NONE);
-				var code = 'GMailSend('+to+','+subject+','+message+');\n';
-				Blockly.Arduino.definitions_['define_GMailWaitSMTPResponse']='bool GMailWaitSMTPResponse(const String &resp)\n{\n  uint16_t timeOut=10000;\n  uint32_t ts = millis();\n  String _serverResponse;\n  while (!_client.available())\n  {\n	if(millis() > (ts + timeOut)) {\n	  return false;\n	}\n  }\n  _serverResponse = _client.readStringUntil(\'\\n\');\n  if (resp && _serverResponse.indexOf(resp) == -1) return false;\n  return true;\n}\n';
-				Blockly.Arduino.definitions_['define_GMailSend']='void GMailSend(const String &to, const String &subject, const String &message)\n{\n  if(!_client.connect("smtp.gmail.com",465)) {\n	 return;\n  }\n  if(!GMailWaitSMTPResponse("220")){\n	return;\n  }\n  _client.println("HELO friend");\n  if(!GMailWaitSMTPResponse("250")){\n	return;\n  }\n  _client.println("AUTH LOGIN");\n  GMailWaitSMTPResponse("234");\n  _client.println(_GMailLogin);\n  GMailWaitSMTPResponse("234");\n  _client.println(_GMailPassword);\n  if (!GMailWaitSMTPResponse("235")) {\n	return;\n  }\n  String mailFrom = "MAIL FROM: <" + String(_GMailFrom) + \'>\';\n  _client.println(mailFrom);\n  GMailWaitSMTPResponse("");\n  String rcpt = "RCPT TO: <" + to + \'>\';\n  _client.println(rcpt);\n  GMailWaitSMTPResponse("");\n  _client.println("DATA");\n  if(!GMailWaitSMTPResponse("354")) {\n	return;\n  }\n  _client.println("From: <" + String(_GMailFrom) + \'>\');\n  _client.println("To: <" + to + \'>\');\n	_client.print("Subject: ");\n  _client.println(subject);\n	_client.println("Mime-Version: 1.0");\n  _client.println("Content-Type: text/html; charset=\\"UTF-8\\"");\n  _client.println("Content-Transfer-Encoding: 7bit");\n  _client.println();\n  String body = "<!DOCTYPE html><html lang=\\"en\\">" + message + "</html>";\n  _client.println(body);\n  _client.println(".");\n  if (!GMailWaitSMTPResponse("250")) {\n	return;\n  }\n  _client.println("QUIT");\n  if (!GMailWaitSMTPResponse("221")) {\n	return;\n  }\n}\n';
-				return code;
-			}
-
-			Blockly.Blocks.communications_wifi_iot_send_mail = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_WIFI'),
-					subsubcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_IOT'),
-				tags: ['wifi','esp8266'],
-				helpUrl: Facilino.getHelpUrl('communications_wifi_iot_send_mail'),
-				examples: [''],
-				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-				colour: Facilino.LANG_COLOUR_COMMUNICATION_IOT,
-				keys: ['LANG_WIFI_IOT_SEND_MAIL_NAME','LANG_WIFI_IOT_SEND_MAIL','LANG_WIFI_IOT_SEND_MAIL_TO','LANG_WIFI_IOT_SEND_MAIL_SUBJECT','LANG_WIFI_IOT_SEND_MAIL_MESSAGE','LANG_WIFI_IOT_SEND_MAIL_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_NAME'),
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_IOT);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL')).appendField(new Blockly.FieldImage('img/blocks/gmail-logo.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('TO').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_TO')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('SUBJECT').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_SUBJECT')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('MESSAGE').setCheck([String,'Variable']).appendField(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_MESSAGE')).setAlign(Blockly.ALIGN_RIGHT);
-					this.setInputsInline(false);
-					this.setPreviousStatement(true,'code');
-					this.setNextStatement(true,'code');
-					this.setOutput(false);
-					this.setTooltip(Facilino.locales.getKey('LANG_WIFI_IOT_SEND_MAIL_TOOLTIP'));
-				}
-			};*/
 
 			Blockly.Arduino.communications_wifi_iot_gsheets_setup = function() {
 				var code = '';

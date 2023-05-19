@@ -440,6 +440,5 @@ $('#exercise2i').on("load", function() {
 </div>
 
 <div id="footer"><?php include "../inc-footer.php" ?></div>
-<div id="ads"><?php include "../ads.php" ?></div>
 </body>
 </html>

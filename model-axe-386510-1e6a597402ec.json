@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "model-axe-386510",
+  "private_key_id": "1e6a597402ec3cc7f9579db08b46ce652bb51954",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDDlofJ3QWluJFg\nDcM2jPl5B3yqxRX0lDF4aTRKmFbwV5RZGx5zo/L5/n6A2I/ZFU9g2GoU0ljaZW3s\nl0bquijXpxhtdTulJ5MCr2Tl0VbeJop8KnXYx3g7hsyQuH3kjnHq9kZelSmIS6cQ\nls59H7s7dLQWnwSy3q+l3wcx61V+NIBavv5J6sLXXeEufFZcc7a+TpgVJSFlryGB\nAPmMK+Rn89ORMXevkDpwYMAgetXLN2qVwgpnQLllzluqVDbl1KecaNcVnRhgOEXH\nd5P95nHJFtvjwj84Ih/JNaQfAnYgXVVSka29akReuENdll7olR+ZyWpNQ8ZZ5i2I\nKRBrbOdVAgMBAAECggEABc05Seucd0X6Sfcei0ezPrvSHt6pwA+FSCUWv/+01HxE\nkkATryp10qSR7BCAc9gF+sFwpB15NUE8+X+jQuMywvLZ7qVDl6qM2c+KFqcXBI/w\nG67GwB9qmZluB/zw/w6aonWbsMKL8NcNpZhTl7KRQzo6/VDKOuQQIcNz2y834f5v\nS+ACJaB8ddN9Fan2mtypcpdUmdoo1zJ5/kjNVhe01TCca1kJv/bj/Lv1u2680qG9\nn90RCZ6IgOXpIYSdJaPMn8u1RWZ1A1PA0r6TSEbJnVbTyIcF12w+rRAUuQli6SyK\nQaRQAXUmkkWcp8ZXB4kxTKhqPDScr8HmCsCcThoWAQKBgQD/g79PiP19R3ZfvYEO\nmBidOS1CTMCb1/h44SIX/TafY2wp8inASV7pdepC/YkbegA0adxNhYKAYDkbI7oI\nGoMbR8eV/yAd4efoUjxAwJG6Y6VjUrTOJlFXChr8bt00dGGw3iNn4A5VMa6Q7Fde\nhQAH/sDztjeZyc27ShNgTv8+hQKBgQDD9aRJ7eFojMAklO0F0JFQZnnvcA/jIt+W\nnWVAhNADDlkYxUp4DqsAb2h38vK/Z4c+Y2Dg37FNHPgDf4ZXlXctCtdecJka6rkr\nFn8CRXyAEiihvO4NMSVQebyomCoBEj6dUdqQ9OkZZFKHl9TBdXZuRocHXUHI9Wro\nrOEjHKPmkQKBgQDEr5XEk58NoMTuTeHaahoIbMr6Djr1u/n4ktS7wp8Zcl8AqviY\nm+IDtFDv4Fp6XB9sOVDsG6mpSGitC4NYWZAyn75zKECAwDTUEPlwnsuOvsXA/xlO\n1xAmABFl37FHf47zpwt6Gm7uBaBqzoMyrw6nGONOtyV1rHJBiXQA3s58QQKBgQCb\nOFBSXyNVdWgdkfnNyU/Rp9qeVt2+xTjmTPaPDKTYRt08ScqbHsNFLPpLSR4PjyoJ\nuR5cAdSniHLMEo+PgM1N2HCQVhBwycyy3LbuTaw4pimZM9Y8jNlJzaQqx50+C/2d\nD+FZQSYC/vyAezwDoc+VujfrFWuuiveMJqSO83jAgQKBgEyQbOHJou+jveuxOAjz\n1QOcdW263LJUkSA4P05Qc8koIahsmkzHLaeDpQAwvZ2qutzAxgAM1++8DCDwwDlP\nyhEnvZdTXJpZINs5kCIO8Q7LFONw7CtFQRkVP5iD4nKkwyD2W2O+kYi1XTQgeymD\nQV/2IIczjwSSg2xwN9N9sVk3\n-----END PRIVATE KEY-----\n",
+  "client_email": "facilino-translate@model-axe-386510.iam.gserviceaccount.com",
+  "client_id": "116488695421850580962",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/facilino-translate%40model-axe-386510.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

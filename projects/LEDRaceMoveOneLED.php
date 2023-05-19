@@ -398,7 +398,6 @@ $('#exercise4i').on("load", function() {
 </div>
 <!-- <script>$(function(){var file='projects/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/home.html';},success: function(){}}); $('#main').load(file);});</script>-->
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

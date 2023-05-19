@@ -113,7 +113,6 @@ echo '<div class="error"><p>Congratulations! Your password has been updated succ
 }
 ?>
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

@@ -71,7 +71,6 @@ if (isset($_GET["id"])&&isset($_GET["share_key"])&&!isset($_POST["action"])){
 		<body>
 	<h1>Share</h1>
 	<p>The link is not valid anymore</p>
-	<div id="ads"><?php include "ads.php" ?></div>
 	<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 	</html>

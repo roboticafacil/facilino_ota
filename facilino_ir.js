@@ -54,7 +54,7 @@
 			examples: ['serial_available_example.bly'],
 			category_colour: infrared_cat_colour,
 			colour: infrared_digital_colour,
-			keys: ['LANG_IR_AVAILABLE_NAME','LANG_ADVANCED_SERIAL_AVAILABLE','LANG_IR_DO','LANG_IR_AVAILABLE_TOOLTIP'],
+			keys: ['LANG_IR_AVAILABLE_NAME','LANG_IR_AVAILABLE','LANG_IR_DO','LANG_IR_COMMAND_PIN','LANG_IR_DO','LANG_IR_AVAILABLE_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_IR_AVAILABLE_NAME'),
 			init: function() {
 				this.setColour(infrared_digital_colour);

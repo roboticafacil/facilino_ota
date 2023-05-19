@@ -578,7 +578,6 @@ $('#exercise3i').on("load", function() {
 </script>
 </div>
 </div>
-<div id="ads"><?php include "../ads.php" ?></div>
 <div id="footer"><?php include "../inc-footer.php" ?></div>
 </body>
 </html>

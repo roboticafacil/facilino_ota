@@ -57,34 +57,6 @@
 				}
 			};
 			
-			/*Blockly.Arduino.system_control_onoff = function() {
-			var code = '';
-
-			return code;
-		};
-
-		Blockly.Blocks.system_control_onoff = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_SYSTEM'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_SYSTEM_CONTROL'),
-			tags: ['temperature','ambient'],
-			helpUrl: Facilino.getHelpUrl('system_control_onoff'),
-			examples: ['ambient_temp_alarm_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_SYSTEM,
-			colour: Facilino.LANG_COLOUR_SYSTEM_CONTROL,
-			keys: ['LANG_SYSTEM_CONTROL_ONOFF','LANG_SYSTEM_CONTROL_ONOFF_NAME','LANG_SYSTEM_CONTROL_ONOFF_INPUT','LANG_SYSTEM_CONTROL_ONOFF_CONTROLLER_TOOLTIP'],
-			init: function() {
-			this.setColour(Facilino.LANG_COLOUR_SYSTEM_CONTROL);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF')).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_NAME')).appendField(new Blockly.FieldTextInput('name'),'NAME').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('INPUT').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_INPUT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom)).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_HYSTHERESIS')).appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_ON')).appendField(new Blockly.FieldNumber(80),'HYSTHERESIS_ON').appendField(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_OFF')).appendField(new Blockly.FieldNumber(20),'HYSTHERESIS_OFF').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('ON').appendField(new Blockly.FieldImage("img/blocks/switch_on.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('OFF').appendField(new Blockly.FieldImage("img/blocks/switch_off.svg",24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.setInputsInline(false);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-				this.setTooltip(Facilino.locales.getKey('LANG_SYSTEM_CONTROL_ONOFF_CONTROLLER_TOOLTIP'));
-			}
-		};*/
 		}
 	}
 	}

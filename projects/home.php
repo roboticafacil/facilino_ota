@@ -17,8 +17,8 @@ require_once('projects_translation.php');
                 <div class="card-wrapper ">
                     <div class="card-img">
                         <div class="mbr-overlay"></div>
-                        <div class="mbr-section-btn text-center"><a onclick="window.location='LEDRace.php?project_id=1';" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-                        <a onclick="window.location='LEDRace.php?project_id=1';"><img src="projects/assets/images/LED_race.jpg" alt="LED Race" title=""></a>
+                        <div class="mbr-section-btn text-center"><a onclick="onHomeFile('LEDRace.php?project_id=1');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
+                        <a onclick="onHomeFile('LEDRace.php?project_id=1');"><img src="projects/assets/images/LED_race.jpg" alt="LED Race" title=""></a>
                     </div>
                     <div class="card-box">
                         <h4 class="card-title mbr-fonts-style display-7">
@@ -86,7 +86,7 @@ require_once('projects_translation.php');
                     <div class="card-img">
                         <div class="mbr-overlay"></div>
                         <div class="mbr-section-btn text-center"><a onclick="onHomeFile('EcoThings.php?project_id=5');" class="btn btn-primary display-4"><?php echo $website["LEARN_MORE"]; ?></a></div>
-                        <a onclick="onHomeFile('EcoThings.php?project_id=5');"><img src="projects/assets/images/home_automation.jpg" alt="IoT Home Automation" title=""></a>
+                        <a onclick="onHomeFile('projects/EcoThings.php?project_id=5');"><img src="projects/assets/images/home_automation.jpg" alt="IoT Home Automation" title=""></a>
                     </div>
                     <div class="card-box">
                         <h4 class="card-title mbr-fonts-style display-7">

@@ -62,7 +62,8 @@ else if (isset($_GET["key"])&&isset($_GET["action"])&&($_GET["action"]=="resend"
 		echo "<div class='form'><h3>The submitted key ".$key." was not found. Check you have provided the correct key.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
 	}
 }
-else if (isset($_REQUEST['username'])){
+elseif (isset($_REQUEST['username'])){
+	//echo "Hello";
 		// removes backslashes
 		$username = stripslashes($_REQUEST['username']);
 		//escapes special characters in a string
@@ -90,7 +91,6 @@ else if (isset($_REQUEST['username'])){
 				
 				if(!$mail->Send()){
 				echo "Mailer Error: " . $mail->ErrorInfo;
-				var_dump($mail);
 				}else{
 				echo "<div class='form'>
 				<h3>You have been successfully registered. We have sent you an e-mail with a link to activate your account. Please, check your mailbox.</h3>
@@ -124,7 +124,6 @@ else if (isset($_REQUEST['username'])){
 </div>
 <?php } ?>
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

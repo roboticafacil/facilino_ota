@@ -2,6 +2,7 @@
 require_once('db.php');
 require_once('website_translation.php');
 include("auth.php");
+
 ?>
 <!DOCTYPE html>
 <html><?php include "head.php"; 
@@ -74,11 +75,11 @@ include("auth.php");
 								//Key not found. Insert a new one
 								//$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value`) VALUES ('".$key."',\"".$lang_key."\")";
 								//$result = mysqli_query($con,$query);
-								$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value`) VALUES (?,?)";
+								$query = "INSERT INTO `lang_keys_".$row_lang[0]."` (`key`,`value_temp`) VALUES (?,?)";
 								$statement=mysqli_prepare($con,$query);
 								$statement->bind_param("ss",$key,$lang_key);
 								$statement->execute();
-								echo "lang_keys[".$row_lang[0]."] insert ".$key.": ".$lang_key."\n";
+								echo "lang_keys[".$row_lang[0]."] insert temp ".$key.": ".$lang_key."\n";
 							}
 						}
 					}
@@ -148,7 +149,7 @@ include("auth.php");
 			$rows_reviewer = mysqli_num_rows($result_reviewer);
 			if ($rows_reviewer==1)
 			{
-				$reviewer_id=mysqli_fetch_row($result_translator);
+				$reviewer_id=mysqli_fetch_row($result_reviewer);
 				$reviewed_key=substr($_POST["reviewed_key"], 0, -1);
 				$query_lang = "SELECT id,name,lang_key from `languages` where 1";
 				$result_lang = mysqli_query($con,$query_lang);
@@ -163,9 +164,9 @@ include("auth.php");
 					}
 					//$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=\"".$_POST["reviewed_text"]."\", `value_temp`=NULL `reviewer_id=`".$reviewer_id." `review_date`=GETDATE()` WHERE `key`=\"".$reviewed_key."\"";
 					//$result = mysqli_query($con,$query);
-					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=?,`value_temp`=NULL,`reviewer_id=`?,`review_date`=GETDATE()` WHERE `key`=?";
+					$query = "UPDATE `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` SET `value`=?,`value_temp`=NULL,`reviewer_id`=?,`review_date`=NOW() WHERE `key`=?";
 					$statement=mysqli_prepare($con,$query);
-					$statement->bind_param("sis",$_POST["reviewed_text"],$reviewer_id,$reviewed_key);
+					$statement->bind_param("sis",htmlspecialchars($_POST["reviewed_text"]),$reviewer_id[0],$reviewed_key);
 					$statement->execute();
 					header("Location: translate.php");
 				}
@@ -308,9 +309,15 @@ include("auth.php");
 		}
 		else
 		{
+			
+			?>
+			<!DOCTYPE html>
+			<html><?php include "head.php"; ?>
+			<body>
+			<?php
 			//$query_user = "SELECT `key`,`user_role_id` from `users` where username='".$_SESSION["username"]."' and active=1";
 			//$result_user = mysqli_query($con,$query_user);
-			$query_user = "SELECT `key`,`user_role_id` from `users` where username=? and active=1";
+			$query_user = "SELECT `key`,`user_role_id`,`id` from `users` where username=? and active=1";
 			$statement_user=mysqli_prepare($con,$query_user);
 			$statement_user->bind_param("s",$_SESSION["username"]);
 			$statement_user->execute();
@@ -371,9 +378,10 @@ include("auth.php");
 				if (($row_user[1]==1) || ($row_user[1]==2))
 				{
 					//Administrator or Contributor user
+					
 					if (isset($_COOKIE["cookieLanguageId"]))
 					{
-						$query = "SELECT t1.`key` FROM `lang_keys_en-gb` t1 LEFT JOIN `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` t2 ON t2.`key` = t1.`key` WHERE t2.`key` IS NULL";
+						$query = "SELECT t1.`key` FROM `lang_keys_en-GB` t1 LEFT JOIN `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` t2 ON t2.`key` = t1.`key` WHERE t2.`key` IS NULL";
 						$result = mysqli_query($con,$query);
 						$rows = mysqli_num_rows($result);
 						if ($rows>0)
@@ -381,31 +389,150 @@ include("auth.php");
 							for ($j = 0; $j < $rows; $j++)
 							{
 								$row = mysqli_fetch_row($result);
-								$query_key = "INSERT INTO `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."`(`key`) VALUES (\"".$row[0]."\")";
+								$query_key = "INSERT INTO `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."`(`key`,`translator_id`,`reviewer_id`,`translation_date`,`review_date`) VALUES (\"".$row[0]."\",".$row_user[2].",".$row_user[2].",\"".date("Y-m-d")."\",\"".date("Y-m-d")."\")";
 								$result_key = mysqli_query($con,$query_key);
 							}
 						}
 						
-						$query = "SELECT `t1`.`key`,`t2`.`value`,`t1`.`value_temp` from `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` as t1 inner join `lang_keys_en-gb` as t2 on `t1`.`key`=`t2`.`key` where `t1`.`value` is NULL and `t1`.`value_temp` is NOT NULL ORDER BY RAND() LIMIT 1";
+						$query = "SELECT `t1`.`key`,`t2`.`value`,`t1`.`value_temp` from `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` as t1 inner join `lang_keys_en-GB` as t2 on `t1`.`key`=`t2`.`key` where `t1`.`value` is NULL and `t1`.`value_temp` is NOT NULL ORDER BY RAND() LIMIT 1";
 						$result = mysqli_query($con,$query);
 						$rows = mysqli_num_rows($result);
 						if ($rows==1)
 						{
+							$row = mysqli_fetch_row($result);
+							
+							$query_keys="SELECT * FROM `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` WHERE 1";
+							$result_keys = mysqli_query($con,$query_keys);
+							
+							while($row_keys=mysqli_fetch_assoc($result_keys))
+							{
+								if (!is_null($row_keys["value"]))
+									$keys[$row_keys["key"]]=$row_keys["value"];
+								elseif (!is_null($row_keys["value_temp"]))
+									$keys[$row_keys["key"]]=$row_keys["value_temp"];
+							}
+							$query_keys_en="SELECT * FROM `lang_keys_en-GB` WHERE 1";
+							$result_keys_en = mysqli_query($con,$query_keys_en);
+							while($row_keys_en=mysqli_fetch_assoc($result_keys_en))
+							{
+								if (!is_null($row_keys_en["value"]))
+									$keys_en[$row_keys_en["key"]]=$row_keys_en["value"];
+							}
+							
+							?>
+							<script>
+							function injectInstruction1(block,blockDiv) {
+								var instructionPreview = document.getElementById(blockDiv);
+								var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
+								mainWorkspace.clear();
+								var block = mainWorkspace.newBlock(block);
+								block.initSvg();
+								block.render();
+								block.setMovable(false);
+								block.setDeletable(false);
+								block.moveBy(15, 10);
+								var bbox = block.getHeightWidth();
+								instructionPreview.style.height = (bbox.height+25)+ 'px';
+								instructionPreview.style.width = (bbox.width+55) + 'px';
+								window.dispatchEvent(new Event('resize'));
+							}
+							</script>
+							<h4><?php echo $row[0];?></h4><h4 id="appears_in"><?php echo $website["APPEARS_IN"];?></h4>
+							<div  id='blocklyInstructions'></div>
+							<?php
+							
+							require_once('facilino_scripts.php');
+							
+							echo '<script>';
+							echo 'var key="'.$row[0].'";';
+							echo 'window.FacilinoLanguage="'.$languages[$_COOKIE["cookieLanguageId"]-1]["key"].'";';
+							echo 'window.FacilinoAdvanced=true;';
+							echo 'window.langKeys=JSON.parse("'.addslashes(json_encode($keys)).'");';
+							echo 'window.langKeysEng=JSON.parse("'.addslashes(json_encode($keys_en)).'");';
+							
+							require_once('facilino_loads.php');
+
+							echo 'BlockNamesWithKeyFound=[];';
+							echo 'for (var element in Blockly.Blocks){for (var idx in Blockly.Blocks[element].keys){if (Blockly.Blocks[element].keys[idx]===key) BlockNamesWithKeyFound.push(element);}}';
+							echo 'blocklyInstructions=document.getElementById("blocklyInstructions");';
+							echo 'if (BlockNamesWithKeyFound.length>0){';
+							echo 'for (var idx in BlockNamesWithKeyFound){';
+							echo 'pName=document.createElement("p");';
+							echo 'if (Blockly.Blocks[BlockNamesWithKeyFound[idx]].name!==undefined){';
+							echo 'pName.innerText="Name: " +Blockly.Blocks[BlockNamesWithKeyFound[idx]].name;';
+							echo '};';
+							echo 'pDesc=document.createElement("p");';
+							echo 'if (Blockly.Blocks[BlockNamesWithKeyFound[idx]].description!==undefined){';
+							echo 'pDesc.innerText="Description: " +Blockly.Blocks[BlockNamesWithKeyFound[idx]].description;';
+							echo '};';
+							echo 'pInputs=document.createElement("div");';
+							echo 'if (Blockly.Blocks[BlockNamesWithKeyFound[idx]].inputs!==undefined){';
+							echo 'pInputsTag=document.createElement("p");';
+							echo 'pInputsTag.innerText="Inputs";';
+							echo 'pInputs.appendChild(pInputsTag);';
+							echo 'for (var idx_inp in Blockly.Blocks[BlockNamesWithKeyFound[idx]].inputs){';
+							echo 'pInp=document.createElement("p");';
+							echo 'pInp.innerText=Blockly.Blocks[BlockNamesWithKeyFound[idx]].inputs[idx_inp];';
+							echo 'pInputs.appendChild(pInp);';
+							echo '};';
+							echo '};';
+							echo 'pOutput=document.createElement("p");';
+							echo 'if (Blockly.Blocks[BlockNamesWithKeyFound[idx]].output!==undefined){';
+							echo 'pOutput.innerText="Output: " +Blockly.Blocks[BlockNamesWithKeyFound[idx]].output;';
+							echo '};';
+							echo 'el=document.createElement("div");';
+							echo 'el.setAttribute("id","blocklyInstruction"+idx);';
+							echo 'blocklyInstructions.appendChild(pName);';
+							echo 'blocklyInstructions.appendChild(pDesc);';
+							echo 'blocklyInstructions.appendChild(pInputs);';
+							echo 'blocklyInstructions.appendChild(pOutput);';
+							echo 'blocklyInstructions.appendChild(el);';
+							echo 'injectInstruction1(BlockNamesWithKeyFound[idx],"blocklyInstruction"+idx);';
+							echo '};';
+							echo '}';
+							echo 'else{';
+							echo 'el=document.getElementById("appears_in");';
+							echo 'el.innerHTML="Key "+key+" has not been found in any block... that\'s weird... Please report missing key.";';
+							echo '}';
+							
+							
+							
+			//inputs: [Facilino.locales.getKey('LANG_RAINDROP_DIGITAL_INPUT_PIN')],
+			//output: Facilino.locales.getKey('LANG_RAINDROP_DIGITAL_OUTPUT'),
+							
+							
+							//echo 'if (BlockNamesWithKeyFound.length>0){
+								
+							//	console.log(BlockNamesWithKeyFound[0]);injectInstruction1(BlockNamesWithKeyFound[0],"blocklyInstruction1");}';
+							//echo 'Blockly.Blocks.forEach(element => element.keys.forEach(function (key){if (key==="'.$row[0].'"){console.log(key);}}))';
+							/*
+							$.ajax({url: 'lang/temp_lang.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
+							
+							Facilino.load({ zoom: 1, readOnly:true, collapse: false});
+							FacilinoSerial.load({ zoom: 1, readOnly:true, collapse: false});
+							FacilinoMaths.load({ zoom: 1, readOnly:true, collapse: false});
+							FacilinoText.load({ zoom: 1, readOnly:true, collapse: false});
+							FacilinoControls.load({ zoom: 1, readOnly:true, collapse: false});
+							FacilinoInOut.load({ zoom: 1, readOnly:true, collapse: false});*/
+							
+							echo '</script>';
+							
 							echo '<h4 style="margin-top:0.5em;">'.$website["REVIEW_TRANSLATION"].'</h4>';
 							echo '<h5 style="color:red">'.$website["PLEASE_REPORT"].'</h5>';
 							echo '<div class="datagrid">';
 							echo '<table width="100%">';
 							echo '<tr><th style="width:50%;text-align:center">English</th><th style="width:50%;text-align:center">'.$languages[$_COOKIE["cookieLanguageId"]-1]["name"].' ('.$website["REVIEW_PENDING"].')</th></tr>';
 							echo '<tr>';
-							$row = mysqli_fetch_row($result);
 							echo '<td><label>'.$row[1].'</label><input type="hidden" name="reviewed_key" value='.$row[0].'/></td>';
-							echo '<td><label>'.$row[2].'</label><input type="hidden" name="reviewed_text" value="'.$row[2].'"/></td>';
+							//echo '<td><label>'.$row[2].'</label><input type="hidden" name="reviewed_text" value="'.$row[2].'"/></td>';
+							//echo '<td><input type="text" name="reviewed_text" style="width:100%" value="'.$row[2].'"/></td>';
+							echo '<td><textarea type="text" name="reviewed_text" style="width:100%">'.$row[2].'</textarea></td>';
 							echo '</tr>';
 							echo '</table>';
 							echo '</div>';
 							echo '<input name="review_lang" type="hidden" value="'.$_COOKIE["cookieLanguageId"].'"></input>';
-							echo '<input name="accept_translation_button" type="submit" value="'.$website["ACCEPT_TRANSLATION"].'" />&nbsp;&nbsp;';
-							echo '<input name="decline_translation_button" type="submit" value="'.$website["REVIEW_TRANSLATION"].'" />&nbsp;&nbsp;';
+							echo '<input name="accept_translation_button" type="submit" value="'.$website["SEND_TRANSLATION"].'" />&nbsp;&nbsp;';
+							//echo '<input name="decline_translation_button" type="submit" value="'.$website["DECLINE_TRANSLATION"].'" />&nbsp;&nbsp;';
 							echo '<input name="report_translation_button" type="submit" value="'.$website["REPORT_TRANSLATION"].'" />&nbsp;&nbsp;';
 							echo '<input name="next_review_button" type="submit" value="'.$website["NEXT"].'"/>';
 						}
@@ -415,11 +542,11 @@ include("auth.php");
 						}
 						
 						
-						$query = "SELECT `t1`.`key`,`t2`.`value` from `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` as t1 inner join `lang_keys_en-gb` as t2 on `t1`.`key`=`t2`.`key` where `t1`.`value` is NULL and `t1`.`value_temp` is NULL ORDER BY RAND() LIMIT 1";
+						/*$query = "SELECT `t1`.`key`,`t2`.`value` from `lang_keys_".$languages[$_COOKIE["cookieLanguageId"]-1]["key"]."` as t1 inner join `lang_keys_en-GB` as t2 on `t1`.`key`=`t2`.`key` where `t1`.`value` is NULL and `t1`.`value_temp` is NULL ORDER BY RAND() LIMIT 1";
 						$result = mysqli_query($con,$query);
 						$rows = mysqli_num_rows($result);
 						echo '<h4 style="margin-top:0.5em;">'.$website["TRANSLATE_WORDS_SENTENCES"].'</h4>';
-						echo '<h5>'.$website["PEER_TO_PEER"].'</h5><h5 style="color:red">'.$website["INAPPROPRIATE_TRANSLATIONS"].'</h5>';
+						echo '<h5>'.$website["PEER_TO_PEER"].'</h5><h5 style="color:red">'.$website["INAPPROPRIATE_TRANSLATION"].'</h5>';
 						echo '<div class="datagrid">';
 						echo '<table width="100%">';
 						if ($rows==1)
@@ -446,7 +573,7 @@ include("auth.php");
 						echo '</div>';
 						echo '<input name="translated_lang" type="hidden" value="'.$_COOKIE["cookieLanguageId"].'"></input>';
 						echo '<input name="translate_button" type="submit" value="'.$website["TRANSLATE_WORDS_SENTENCES"].'" />&nbsp;&nbsp;';
-						echo '<input name="next_button" type="submit" value="'.$website["NEXT"].'"/>';
+						echo '<input name="next_button" type="submit" value="'.$website["NEXT"].'"/>';*/
 					}
 				}
 				elseif (($row_user[1]==3) || ($row_user[1]==4) || ($row_user[1]==5))  //Standard, Pro, Academic
@@ -504,6 +631,10 @@ include("auth.php");
 					echo '<input name="cancel_dashboard" type="submit" value="'.$website["CANCEL"].'" />';
 				}
 				echo '</form>';
+				?>
+				</body>
+				</html>
+				<?php
 			}
 			else
 			{
@@ -512,7 +643,6 @@ include("auth.php");
 		}
 		?>
 		</div>
-		<div id="ads"><?php include "ads.php" ?></div>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 </html>

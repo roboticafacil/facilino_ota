@@ -200,11 +200,12 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="n
 		else
 			$default_facilino_code="<block type='controls_setupLoop' id='=:lA^uU=`^l!D9y!TLNi' deletable='false' x='10' y='10'></block>";
 		
+		//echo $default_facilino_code;
 		if ($_GET["action"]=="new")
 			$query_code="INSERT INTO `facilino_code` (`blockly_code`,`arduino_code`) VALUE (\"".$default_facilino_code."\",\"".$default_arduino_code."\")";
 		else
 			$query_code="INSERT INTO `facilino_code_examples` (`blockly_code`,`arduino_code`) VALUE (\"".$default_facilino_code."\",\"".$default_arduino_code."\")";
-		echo $query_code;
+		//echo $query_code;
 		
 		$result_code = mysqli_query($con,$query_code);
 		
@@ -643,7 +644,6 @@ elseif (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="ne
 	//END HTML DOC
 	?>
 	</div>
-		<?php include "ads.php" ?>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 </html>
@@ -737,7 +737,6 @@ elseif (isset($_GET["action"])&&($_GET["action"]=="import")&&!isset($_POST["acti
 	//END HTML DOC
 	?>
 	</div>
-		<?php include "ads.php" ?>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 </html>
@@ -795,7 +794,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_proc = mysqli_num_rows($result_proc);
 		if ($rows_proc>0)
 		{
-			/*?>
+			/*
+			?>
 			<td><select id="edited_processor_id" name="edited_processor_id" type="text" value="<?php echo $row[3]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_proc; $j++)
@@ -804,7 +804,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				?><option value="<?php echo $row_proc[0]?>"><?php echo $row_proc[1]?></option>
 				<?php
 			}
-			?></select></td><?php*/
+			?></select></td><?php
+			*/
 			?>
 			<td valign=top>
 			<?php
@@ -833,7 +834,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_facil = mysqli_num_rows($result_facil);
 		if ($rows_facil>0)
 		{
-			/*?>
+			/*
+			?>
 			<td><select id="edited_facilino_version_id" name="edited_facilino_version_id" type="text" value="<?php echo $row[6]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_facil; $j++)
@@ -843,7 +845,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				<option value="<?php echo $row_facil[0]?>"><?php echo $row_facil[1]?></option>
 				<?php
 			}
-			?></select></td><?php*/
+			?></select></td><?php
+			*/
 			?>
 			<td valign=top>
 			<?php
@@ -872,7 +875,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		$rows_filt = mysqli_num_rows($result_filt);
 		if ($rows_filt>0)
 		{
-			/*?><td valign=top><select id="edited_filter_id" name="edited_filter_id" type="text" value="<?php echo $row[4]?>"/>
+			/*
+			?><td valign=top><select id="edited_filter_id" name="edited_filter_id" type="text" value="<?php echo $row[4]?>"/>
 			<?php
 			for ($j = 0; $j < $rows_filt; $j++)
 			{
@@ -880,7 +884,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				?><option value="<?php echo $row_filt[0]?>"><?php echo $row_filt[1]?></option>
 				<?php
 			}
-			?></select></td><?php*/
+			?></select></td><?php
+			*/
 			?>
 			<td valign=top>
 			<?php
@@ -916,7 +921,8 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 				$row_lang = mysqli_fetch_row($result_lang);
 				?><option value="<?php echo $row_lang[0]?>"><?php echo $row_lang[1]?></option><?php
 			}
-			?></select></td><?php*/
+			?></select></td><?php
+			*/
 			?>
 			<td valign=top>
 			<?php
@@ -952,10 +958,16 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 		</td>
 		</tr>
 		</table>
+		<?php
+		/*
+		?>
 		<script>document.getElementById("edited_processor_id").value =<?php echo '"'.$row[3].'"'?></script>
 		<script>document.getElementById("edited_facilino_version_id").value =<?php echo '"'.$row[6].'"'?></script>
 		<script>document.getElementById("edited_filter_id").value =<?php echo '"'.$row[4].'"'?></script>
 		<script>document.getElementById("edited_language_id").value =<?php echo '"'.$row[7].'"'?></script>
+		<?php
+		*/
+		?>
 		</div>
 		<label style="color:red;"><?php echo $website["WARNING_BOARD_CHANGE"]?></label><br/>
 		<?php
@@ -969,7 +981,6 @@ elseif  (isset($_GET["action"])&&(($_GET["action"]=="edit")||($_GET["action"]=="
 	//END HTML DOC
 	?>
 	</div>
-		<?php include "ads.php" ?>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 </html>
@@ -1191,7 +1202,6 @@ function shareLink(link){ var modal1 = document.getElementById("modal1"); var li
 </script>
 <!-- END HTML DOC-->
 </div>
-		<?php include "ads.php" ?>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
 </html>

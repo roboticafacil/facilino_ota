@@ -45,13 +45,14 @@
 			else if ((Facilino.profiles['processor']==='ESP32'))
 			{
 				var device_name = Blockly.Arduino.valueToCode(this, 'NAME', Blockly.Arduino.ORDER_ATOMIC) || '"ESP32"';
+				var master = this.getFieldValue('MASTER')==='TRUE'? true : false;
 				Blockly.Arduino.definitions_['declare_var_BluetoothSerial']= 'BluetoothSerial _bt_device;\n';
 				Blockly.Arduino.definitions_['define_bluetoothserial'] = JST['bluetoothserial_def_definitions']({});
 				Blockly.Arduino.definitions_['define_sens_reg'] ='#include "soc/sens_reg.h"';
 				Blockly.Arduino.definitions_['declare_var_adc_register'] = 'uint32_t adc_register;\n';
 				Blockly.Arduino.definitions_['declare_var_wifi_register'] = 'uint32_t wifi_register;\n';
 				Blockly.Arduino.setups_['inout_analog_workaround_adc'] = 'adc_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
-				Blockly.Arduino.setups_['setup_bluetoothserial_'] = JST['bluetoothserial_bt_device_def_setups']({'name': device_name});
+				Blockly.Arduino.setups_['setup_bluetoothserial_'] = JST['bluetoothserial_bt_device_def_setups']({'name': device_name,'master': master});
 				Blockly.Arduino.setups_['inout_analog_workaround_wifi'] = 'wifi_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
 			}
 			return '';
@@ -66,7 +67,7 @@
 			examples: ['controls_switch_example.bly'],
 			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
 			colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
-			keys: ['LANG_BLUETOOTH_DEF_NAME_NAME','LANG_BLUETOOTH_DEF','LANG_BLUETOOTH_DEF_BAUD_RATE','LANG_BLUETOOTH_DEF_PIN1','LANG_BLUETOOTH_DEF_PIN2','LANG_BLUETOOTH_DEF_PORT','LANG_BLUETOOTH_DEF_NAME','LANG_BLUETOOTH_DEF_TOOLTIP'],
+			keys: ['LANG_BLUETOOTH_DEF_NAME_NAME','LANG_BLUETOOTH_DEF','LANG_BLUETOOTH_DEF_BAUD_RATE','LANG_BLUETOOTH_DEF_PIN1','LANG_BLUETOOTH_DEF_PIN2','LANG_BLUETOOTH_DEF_PORT','LANG_BLUETOOTH_DEF_NAME','LANG_BLUETOOTH_MASTER','LANG_BLUETOOTH_DEF_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
@@ -86,6 +87,7 @@
 				else if ((Facilino.profiles['processor']==='ESP32'))
 				{
 					this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_MASTER')).appendField(new Blockly.FieldCheckbox('FALSE'),'MASTER').setAlign(Blockly.ALIGN_RIGHT);
 				}
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
@@ -329,66 +331,6 @@
 				}
 			}
 		};
-
-	/*Blockly.Arduino.dyor_bluetooth_command = function() {
-		var code = this.getFieldValue('DATA');
-		return [code, Blockly.Arduino.ORDER_ATOMIC];
-	}
-
-
-
-	Blockly.Blocks.dyor_bluetooth_command = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
-			tags: ['bluetooth','communication'],
-			helpUrl: Facilino.getHelpUrl('dyor_bluetooth_command'),
-			examples: ['dyor_bluetooth_app_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
-			keys: ['LANG_BLUETOOTH_PREDEFINED_COMMAND_NAME','LANG_BLUETOOTH_BREAKLOOP','LANG_LED_MATRIX_ANGRY','LANG_LED_MATRIX_HAPPY','LANG_LED_MATRIX_SAD','LANG_LED_MATRIX_HEART','LANG_LED_MATRIX_STUNNED','LANG_PIEZO_BUZZER_DO','LANG_PIEZO_BUZZER_RE','LANG_PIEZO_BUZZER_MI','LANG_PIEZO_BUZZER_FA','LANG_PIEZO_BUZZER_SOL','LANG_PIEZO_BUZZER_LA','LANG_PIEZO_BUZZER_SI','LANG_MOVE_FORWARD','LANG_MOVE_BACKWARD','LANG_MOVE_RIGHT','LANG_MOVE_LEFT','LANG_MOVE_STOP','LANG_MOVE_LEFT_ARM_GRIP','LANG_MOVE_LEFT_ARM_RELEASE','LANG_MOVE_RIGHT_ARM_GRIP','LANG_MOVE_RIGHT_ARM_RELEASE','LANG_MOVE_GRIP','LANG_MOVE_RELEASE','LANG_OBSTACLE','LANG_LINE_FOLLOWING','LANG_BLACK','LANG_WHITE','LANG_MOVE_LEFT_ARM_UP','LANG_MOVE_LEFT_ARM_DOWN','LANG_MOVE_ARMS_UP','LANG_MOVE_ARMS_DOWN','LANG_BLUETOOTH_COMMAND_PREDEF_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_BLUETOOTH_PREDEFINED_COMMAND_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldDropdown([
-		[Facilino.locales.getKey('LANG_BLUETOOTH_BREAKLOOP')||'BREAK LOOP','0'],
-		[Facilino.locales.getKey('LANG_LED_MATRIX_ANGRY')||'ANGRY','1'],
-		[Facilino.locales.getKey('LANG_LED_MATRIX_HAPPY')||'HAPPY','2'],
-		[Facilino.locales.getKey('LANG_LED_MATRIX_SAD')||'SAD','3'],
-		[Facilino.locales.getKey('LANG_LED_MATRIX_HEART')||'LOVE','4'],
-		[Facilino.locales.getKey('LANG_LED_MATRIX_STUNNED')||'STUNNED','5'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_DO') ||'C4','11'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_RE') ||'D4','12'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_MI') ||'E4','13'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_FA') ||'F4','14'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_SOL')||'G4','15'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_LA') || 'A4','16'],
-		[Facilino.locales.getKey('LANG_PIEZO_BUZZER_SI') || 'B4','17'],
-		[Facilino.locales.getKey('LANG_MOVE_FORWARD') || 'FORWARD','21'],
-		[Facilino.locales.getKey('LANG_MOVE_BACKWARD') ||'BACKWARD','22'],
-		[Facilino.locales.getKey('LANG_MOVE_RIGHT') || 'RIGHT','23'],
-		[Facilino.locales.getKey('LANG_MOVE_LEFT') || 'LEFT','24'],
-		[Facilino.locales.getKey('LANG_MOVE_STOP') || 'STOP','25'],
-		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_GRIP') || 'LEFT GRIP','31'],
-		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_RELEASE') || 'LEFT RELEASE','32'],
-		[Facilino.locales.getKey('LANG_MOVE_RIGHT_ARM_GRIP') || 'RIGHT GRIP','33'],
-		[Facilino.locales.getKey('LANG_MOVE_RIGHT_ARM_RELEASE') || 'RIGHT RELEASE','34'],
-		[Facilino.locales.getKey('LANG_MOVE_GRIP') || 'GRIP','35'],
-		[Facilino.locales.getKey('LANG_MOVE_RELEASE') || 'RELEASE','36'],
-		[Facilino.locales.getKey('LANG_OBSTACLE') || 'OBSTACLE','41'],
-		[Facilino.locales.getKey('LANG_LINE_FOLLOWING') || 'LINE FOLLOWING','42'],
-		[Facilino.locales.getKey('LANG_BLACK') || 'BLACK','43'],
-		[Facilino.locales.getKey('LANG_WHITE') || 'WHITE','44'],
-		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_UP') || 'LEFT HAND UP','51'],
-		[Facilino.locales.getKey('LANG_MOVE_LEFT_ARM_DOWN') || 'LEFT HAND DOWN','52'],
-		[Facilino.locales.getKey('LANG_MOVE_RIGHT_ARM_UP') || 'RIGHT HAND UP','53'],
-		[Facilino.locales.getKey('LANG_MOVE_RIGHT_ARM_DOWN') || 'RIGHT HAND DOWN','54'],
-		[Facilino.locales.getKey('LANG_MOVE_ARMS_UP') || 'HANDS UP','55'],
-		[Facilino.locales.getKey('LANG_MOVE_ARMS_DOWN') || 'HANDS DOWN','56'],
-		]),'DATA').setAlign(Blockly.ALIGN_RIGHT);
-		this.setOutput(true,'Data');
-				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND_PREDEF_TOOLTIP'));
-			}
-	};*/
 
 	Blockly.Blocks.dyor_bluetooth_app_app = {
 			// App
@@ -693,22 +635,6 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				//this.setMutator(new Blockly.Mutator(['dyor_bluetooth_telegram_item','dyor_bluetooth_telegram_digital_read_item']));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_READ')).appendField(new Blockly.FieldCheckbox(false),'DigitalRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DIGITAL_WRITE')).appendField(new Blockly.FieldCheckbox(false),'DigitalWrite');
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_READ')).appendField(new Blockly.FieldCheckbox(false),'AnalogRead').appendField(' ').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_ANALOG_WRITE')).appendField(new Blockly.FieldCheckbox(false),'AnalogWrite');
-				/*this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SERVO')).appendField(new Blockly.FieldCheckbox(false),'Servo').appendField(' ').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SERVO360')).appendField(new Blockly.FieldCheckbox(false),'Servo360');
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SONAR_READ')).appendField(new Blockly.FieldCheckbox(false),'Sonar');
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_BUZZER_TONE')).appendField(new Blockly.FieldCheckbox(false),'Buzzer');
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DHT')).appendField(new Blockly.FieldCheckbox(false),'DHT');*/
-				/*
-				[Facilino.locales.getKey('LANG_BLUETOOTH_TCRT5000_READ')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_REQUEST')||'TCRT5000','14'],
-				//[Facilino.locales.getKey('LANG_BLUETOOTH_GAS_READ')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_REQUEST')||'Gas','16'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_BUZZER_TONE')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND')+')'||'Buzzer Tone','20'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_BUZZER_MELODY')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND')+')'||'Buzzer Melody','21'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_DHT')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_REQUEST')+')'||'DHT','22'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_LED_MATRIX')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND')+')'||'LED Matrix','50'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_LED_MATRIX')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_PREDEFINED')+' ('+Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND')+')'||'LED Matrix Predefined','51'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_RGB_LED_STRIP')||'RGB LED Strip','60'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_RGB_LED_STRIP')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_PREDEFINED')||'RGB LED Strip Predefined','61'],
-				[Facilino.locales.getKey('LANG_BLUETOOTH_RGB_LED_STRIP')+' '+Facilino.locales.getKey('LANG_BLUETOOTH_BRIGHTNESS')||'RGB LED Strip Brightness','62']
-				*/
 				this.appendStatementInput('TELEGRAMS').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_TYPE')).setCheck('TELEGRAM_CODE');
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
@@ -2688,50 +2614,6 @@ if ((Facilino.profiles['processor']==='ESP32'))
 		};
 
 		// Source: src/blocks/bq_bluetooth_send/dyor_bluetooth_send.js
-		Blockly.Arduino.dyor_bluetooth_send = function() {
-			var statement_send = Blockly.Arduino.valueToCode(this, 'SNT', Blockly.Arduino.ORDER_ATOMIC) || '';
-			var code = '';
-			code += JST['dyor_bluetooth_send']({'statement_send': statement_send});
-			return code;
-		};
-
-		Blockly.Blocks.dyor_bluetooth_send = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
-			tags: ['bluetooth','communication'],
-			helpUrl: Facilino.getHelpUrl('dyor_bluetooth_send'),
-			examples: ['dyor_bluetooth_loopback_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-			colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
-			keys: ['LANG_BLUETOOTH_SEND_SEND_NAME','LANG_BLUETOOTH_SEND','LANG_BLUETOOTH_SEND_SEND','LANG_BLUETOOTH_SEND_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_BLUETOOTH_SEND_SEND_NAME'),
-			//bq_bluetooth_send initialization
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-				this.appendValueInput('SNT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_SEND')).setCheck([Number,'Variable']);
-				this.setInputsInline(false);
-				this.setPreviousStatement(true,'code');
-				this.setNextStatement(true,'code');
-				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TOOLTIP'));
-			},
-			default_inputs: function()
-			{
-				return '<value name="SNT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
-			},
-			onchange: function() {
-				if (this.getInputTargetBlock('SNT')===null)
-				{
-					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_number_value');
-					pinBlock.initSvg();
-					pinBlock.render();
-					this.getInput('SNT').connection.connect(pinBlock.outputConnection);
-					
-				}
-			}
-		};
-
 		Blockly.Arduino.dyor_bluetooth_available = function() {
 			var branch = Blockly.Arduino.statementToCode(this, 'DO');
 			branch = branch.replace(/&quot;/g, '"');
@@ -2759,6 +2641,130 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_SERIAL_AVAILABLE_TOOLTIP'));
 			}
 		};
+		
+		
+		
+		
+		
+		if ((Facilino.profiles['processor']==='ESP32'))
+		{
+				
+			Blockly.Arduino.dyor_bluetooth_connect = function() {
+				var slave_name = Blockly.Arduino.valueToCode(this, 'SLAVE', Blockly.Arduino.ORDER_ATOMIC) || '';
+				var code = '_bt_device.connect('+slave_name+');\n while(!_bt_device.connected());\n';
+				return code;
+			};
+				
+			Blockly.Blocks.dyor_bluetooth_connect = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
+				tags: ['bluetooth','communication'],
+				helpUrl: Facilino.getHelpUrl('dyor_bluetooth_connect'),
+				examples: ['dyor_bluetooth_loopback_example.bly'],
+				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+				colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
+				keys: ['LANG_BLUETOOTH_CONNECT_NAME','LANG_BLUETOOTH_CONNECT_TO','LANG_BLUETOOTH_SLAVE','LANG_BLUETOOTH_CONNECT_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_BLUETOOTH_CONNECT_NAME'),
+				//bq_bluetooth_send initialization
+				init: function() {
+					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
+					this.appendDummyInput()
+						.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_CONNECT_TO')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					this.appendValueInput('SLAVE').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SLAVE')).setCheck([String,'Variable']);
+					this.setInputsInline(false);
+					this.setPreviousStatement(true,'code');
+					this.setNextStatement(true,'code');
+					this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_CONNECT_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="SLAVE"><shadow type="text"></shadow></value>';
+				}
+			};	
+		}
+		
+		Blockly.Arduino.dyor_bluetooth_send = function() {
+			var statement_send = Blockly.Arduino.valueToCode(this, 'SNT', Blockly.Arduino.ORDER_ATOMIC) || '';
+			
+			var code = '';
+			code += JST['dyor_bluetooth_send']({'statement_send': statement_send});
+			return code;
+		};
+
+		Blockly.Blocks.dyor_bluetooth_send = {
+			category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
+			tags: ['bluetooth','communication'],
+			helpUrl: Facilino.getHelpUrl('dyor_bluetooth_send'),
+			examples: ['dyor_bluetooth_loopback_example.bly'],
+			category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+			colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
+			keys: ['LANG_BLUETOOTH_SEND_SEND_NAME','LANG_BLUETOOTH_SEND','LANG_BLUETOOTH_SEND_SEND','LANG_BLUETOOTH_SEND_TOOLTIP'],
+			name: Facilino.locales.getKey('LANG_BLUETOOTH_SEND_SEND_NAME'),
+			//bq_bluetooth_send initialization
+			init: function() {
+				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
+				this.appendDummyInput()
+					.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+				this.appendValueInput('SNT').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_SEND')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
+				this.setInputsInline(false);
+				this.setPreviousStatement(true,'code');
+				this.setNextStatement(true,'code');
+				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_SEND_TOOLTIP'));
+			},
+			default_inputs: function()
+			{
+				return '<value name="SNT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+			},
+			onchange: function() {
+				if (this.getInputTargetBlock('SNT')===null)
+				{
+					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_number_value');
+					pinBlock.initSvg();
+					pinBlock.render();
+					this.getInput('SNT').connection.connect(pinBlock.outputConnection);
+					
+				}
+			}
+		};
+		
+		if ((Facilino.profiles['processor']==='ESP32'))
+		{
+				
+			Blockly.Arduino.dyor_bluetooth_disconnect = function() {
+				var slave_name = Blockly.Arduino.valueToCode(this, 'SLAVE', Blockly.Arduino.ORDER_ATOMIC) || '';
+				var code = '_bt_device.disconnect();\n';
+				return code;
+			};
+				
+			Blockly.Blocks.dyor_bluetooth_disconnect = {
+				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
+				tags: ['bluetooth','communication'],
+				helpUrl: Facilino.getHelpUrl('dyor_bluetooth_connect'),
+				examples: ['dyor_bluetooth_loopback_example.bly'],
+				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+				colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
+				keys: ['LANG_BLUETOOTH_DISCONNECT_NAME','LANG_BLUETOOTH_DISCONNECT','LANG_BLUETOOTH_DISCONNECT_TOOLTIP'],
+				name: Facilino.locales.getKey('LANG_BLUETOOTH_DISCONNECT_NAME'),
+				//bq_bluetooth_send initialization
+				init: function() {
+					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
+					this.appendDummyInput()
+						.appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DISCONNECT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					this.setInputsInline(false);
+					this.setPreviousStatement(true,'code');
+					this.setNextStatement(true,'code');
+					this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_DISCONNECT_TOOLTIP'));
+				},
+				default_inputs: function()
+				{
+					return '<value name="SLAVE"><shadow type="text"></shadow></value>';
+				}
+			};
+		}
+
+		
 		}
 	}
 	}

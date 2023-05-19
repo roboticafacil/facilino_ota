@@ -200,7 +200,6 @@ if  (isset($_GET["action"])&&(($_GET["action"]=="new")||($_GET["action"]=="edit"
 								echo '<div id="comp'.$j.'_div">';
 								echo '<select id="comp'.$j.'" name="comp'.$j.'" type="text"/>';
 								echo '</div>';
-								<?php
 							}
 						}
 						?>
@@ -372,7 +371,6 @@ else{
 	</br>
 <?php } ?>
 </div>
-	<div id="ads"><?php include "ads.php" ?></div>
 	<div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

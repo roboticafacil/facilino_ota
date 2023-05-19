@@ -237,10 +237,6 @@ elseif (isset($_GET["id"]))
 			<div>
 				<textarea name="code_textarea" id="code_textarea" rows="15" style="margin-top:0.5em; margin-bottom:0.5em; width:100%; height: 70%; font-family:monospace; font-size: 1em; padding: 0.2rem 0.4rem; background-color: #f8f9fa; line-height: 1em"></textarea>
 			</div>
-			<ins class="adsbygoogle" style="display:block"
-		 data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86"
-		 data-ad-client="ca-pub-5054503364495454"
-		 data-ad-slot="1569300607"></ins>
 			</section>
 			<section class="progress-bars1 cid-rl5597O6Km" id="progress-bar" style="display:none">
 				<div class="container">
@@ -319,9 +315,28 @@ elseif (isset($_GET["id"]))
 				echo 'var verify_upload_msg="'.$website["VERIFY_UPLOAD_MSG"].'";';
 				?> localStorage.setItem('saved',Blockly.Xml.domToText(document.getElementById('startBlocks'))); <?php
 			}
+									
+			$query_keys="SELECT * FROM `lang_keys_".$row["lang_key"]."` WHERE 1";
+			
+			$result_keys = mysqli_query($con,$query_keys);
+			while($row_keys=mysqli_fetch_assoc($result_keys))
+			{
+				if (!is_null($row_keys["value"]))
+					$keys[$row_keys["key"]]=$row_keys["value"];
+				elseif (!is_null($row_keys["value_temp"]))
+					$keys[$row_keys["key"]]=$row_keys["value_temp"];
+			}
+			echo 'window.langKeys=JSON.parse("'.addslashes(json_encode($keys)).'");';
+			
+			$query_keys_en="SELECT * FROM `lang_keys_en-GB` WHERE 1";
+			$result_keys_en = mysqli_query($con,$query_keys_en);
+			while($row_keys_en=mysqli_fetch_assoc($result_keys_en))
+			{
+				if (!is_null($row_keys_en["value"]))
+					$keys_en[$row_keys_en["key"]]=$row_keys_en["value"];
+			}
+			echo 'window.langKeysEng=JSON.parse("'.addslashes(json_encode($keys_en)).'");';
 			?>
-			$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
-			$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
 			if (window.FacilinoVersion==='FacilinoJunior')
 			{
 				window.FacilinoAdvanced=false;
@@ -406,71 +421,9 @@ elseif (isset($_GET["id"]))
 				window.toolboxNames = getToolboxNames(window.toolbox);
 				<?php
 			}
-			?>
 			
-			var profiles;
-			var loc = window.location.pathname;
-			loc = loc.substring(0, loc.lastIndexOf('/'));
-			var dir = loc.substring(loc.lastIndexOf('/')+1);
-			var url = 'https://roboticafacil.es/facilino-ota/profiles.php';
-			$.ajax({ url: url, dataType: "text",async: false, }).done(function(text) { profiles=$.parseJSON(text) });
-			var options = {zoom: 1, profiles: profiles};
-			Facilino.load(options);
-			FacilinoFunctions.load(options);
-			FacilinoControls.load(options);
-			FacilinoProgramming.load(options);
-			FacilinoInterrupts.load(options);
-			FacilinoStateMachine.load(options);
-			FacilinoLogic.load(options);
-			FacilinoBitwise.load(options);
-			FacilinoMaths.load(options);
-			FacilinoArrays.load(options);
-			FacilinoCurves.load(options);
-			FacilinoVariables.load(options);
-			FacilinoVariablesArray.load(options);
-			//FacilinoVariablesObject.load(options);
-			FacilinoEEPROM.load(options);
-			FacilinoText.load(options);
-			FacilinoInOut.load(options);
-			FacilinoButtons.load(options);
-			FacilinoBus.load(options);
-			FacilinoInOutOthers.load(options);
-			FacilinoLCD.load(options);
-			FacilinoLEDMatrix.load(options);
-			FacilinoLEDStrip.load(options);
-			FacilinoOLED.load(options);
-			FacilinoSerial.load(options);
-			FacilinoBluetooth.load(options);
-			FacilinoBLE.load(options);
-			FacilinoWiFi.load(options);
-			FacilinoHTTP.load(options);
-			FacilinoIoT.load(options);
-			FacilinoIR.load(options);
-			FacilinoSonar.load(options);
-			FacilinoInfraRed.load(options);
-			FacilinoColor.load(options);
-			FacilinoLDR.load(options);
-			FacilinoLightDimmer.load(options);
-			FacilinoBuzzer.load(options);
-			FacilinoMic.load(options);
-			FacilinoMelody.load(options);
-			FacilinoMP3.load(options);
-			FacilinoMotor.load(options);
-			FacilinoRobotBase.load(options);
-			FacilinoRobotAcc.load(options);
-			FacilinoRobotWalk.load(options);
-			FacilinoRobotMeArm.load(options);
-			FacilinoController.load(options);
-			FacilinoFilter.load(options);
-			FacilinoTemperature.load(options);
-			FacilinoHumidity.load(options);
-			FacilinoRain.load(options);
-			FacilinoGas.load(options);
-			FacilinoAmbientMiscellaneous.load(options);
-			FacilinoHTML.load(options);
-			FacilinoESPUI.load(options);
-
-
+			require_once('facilino_loads.php');
+			?>
 			window.dispatchEvent(new Event('resize'));
 				
 			var el = document.getElementById('blockly');
@@ -1497,12 +1450,6 @@ function uploadOTAData(data,upload_code)
 		</script>
 		<?php
 	}
-	/*if (!isset($_GET["embbeded"]))
-	{
-		?>
-			<div id="ads"><?php include "ads.php" ?></div>
-		<?php
-	}*/
 	?>
 	</body>
 </html>

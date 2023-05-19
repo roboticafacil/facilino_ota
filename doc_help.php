@@ -243,6 +243,5 @@ require_once('db.php');
 		}
 		
 		</script>
-	<div id="ads"><?php include "ads.php" ?></div>
 	</body>
 </html>

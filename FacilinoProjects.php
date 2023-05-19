@@ -76,131 +76,6 @@ require_once('projects_translation.php');
 <?php
 echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 ?>
-<!-- 
-<script>
-	Blockly.onMouseUp_=function(e){};
-	Blockly.onMouseDown_=function(e){};
-	
-	if (localStorage.getItem("processor")===undefined || localStorage.getItem("processor")===null)
-			localStorage.setItem('processor', 'WEMOS_D1R32_SHIELD');
-		window.FacilinoProcessor = localStorage.getItem("processor");
-    if (window.FacilinoProcessor==='WEMOS D1R32 SHIELD')
-    {
-      window.board='_wemosD1R32';
-    }
-    else if (window.FacilinoProcessor==='ArduinoUno')
-    {
-      window.board='_uno';
-    }
-    else {
-      window.board='_wemosD1R32';
-    }
-	$.ajax({url: 'lang/facilino_'+window.FacilinoLanguage+'.json',dataType: "text",async: false,}).done(function(text) {window.langKeys = $.parseJSON(text).langs[window.FacilinoLanguage].keys;});
-	$.ajax({url: 'lang/facilino_en-GB.json',dataType: "text",async: false,}).done(function(text) {window.langKeysEng = $.parseJSON(text).langs['en-GB'].keys;});
-	
-    function onHome()
-	{
-		//window.title='home_'+window.FacilinoLanguage;
-		//$(function(){var file='projects/'+ window.FacilinoLanguage+'/home.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/home.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
-		window.location='index.php';
-	}
-	function onProjects()
-	{
-		window.location='FacilinoProjects.php';
-	}
-	function onLEDRace()
-	{
-		window.title='LED_race_'+window.FacilinoLanguage;
-		$(function(){var file='projects/'+ window.FacilinoLanguage+'/LED_race.html'; $.ajax({url:file,async:false,type:"HEAD",error: function(){file='projects/en-GB/LED_race.html';},success: function(){}}); $('#main').load(file); location.href = "#menu";});
-	}
-	function resizeIFrameToFitContent( iFrame ) {
-		iFrame.width  = iFrame.contentWindow.document.body.scrollWidth+30;
-		iFrame.height = iFrame.contentWindow.document.body.scrollHeight+30;
-	}
-	function injectInstruction(block,blockDiv) {
-			var instructionPreview = document.getElementById(blockDiv);
-			var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
-			mainWorkspace.clear();
-			var block = mainWorkspace.newBlock(block);
-			block.initSvg();
-			block.render();
-			block.setMovable(false);
-			block.setDeletable(false);
-			block.moveBy(15, 10);
-			var bbox = block.getHeightWidth();
-			instructionPreview.style.height = (bbox.height+25)+ 'px';
-			instructionPreview.style.width = (bbox.width+25) + 'px';
-			window.dispatchEvent(new Event('resize'));
-		}
-		
-	function injectInstruction1(block,blockDiv) {
-		var instructionPreview = document.getElementById(blockDiv);
-		var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
-		mainWorkspace.clear();
-		var block = mainWorkspace.newBlock(block);
-		block.initSvg();
-		block.render();
-		block.setMovable(false);
-		block.setDeletable(false);
-		block.moveBy(15, 10);
-		var bbox = block.getHeightWidth();
-		instructionPreview.style.height = (bbox.height+25)+ 'px';
-		instructionPreview.style.width = (bbox.width+55) + 'px';
-		window.dispatchEvent(new Event('resize'));
-	}
-	function injectInstructionTooltip(block,blockDiv,tooltipDiv) {
-			
-			var instructionPreview = document.getElementById(blockDiv);
-			try
-			{
-				var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
-				if (mainWorkspace!==null)
-				{
-					mainWorkspace.clear();
-					var block = mainWorkspace.newBlock(block);
-					document.getElementById(tooltipDiv).innerHTML=block.tooltip;
-					block.initSvg();
-					block.render();
-					block.setMovable(false);
-					block.setDeletable(false);
-					block.moveBy(15, 10);
-					var bbox = block.getHeightWidth();
-					instructionPreview.style.height = (bbox.height+25)+ 'px';
-					instructionPreview.style.width = (bbox.width+25) + 'px';
-					window.dispatchEvent(new Event('resize'));
-				}
-			}
-			catch(e)
-			{
-				console.log(e);
-			}
-		}
-
-		function injectInstructionTooltip1(block,blockDiv,tooltipDiv) {
-			var instructionPreview = document.getElementById(blockDiv);
-			var mainWorkspace = Blockly.inject(blockDiv, {readOnly:true, collapse: false});
-			mainWorkspace.clear();
-			var block = mainWorkspace.newBlock(block);
-			document.getElementById(tooltipDiv).innerHTML=block.tooltip;
-			block.initSvg();
-			block.render();
-			block.setMovable(false);
-			block.setDeletable(false);
-			block.moveBy(15, 10);
-			var bbox = block.getHeightWidth();
-			instructionPreview.style.height = (bbox.height+25)+ 'px';
-			instructionPreview.style.width = (bbox.width+55) + 'px';
-			window.dispatchEvent(new Event('resize'));
-		}
-		
-	function showHideElement(el){
-		var el = document.getElementById(el);
-		  if (el.style.display==='none')
-			el.style.display="block";
-		  else
-			el.style.display="none";
-	}
-</script>-->
 <script src="projects/assets/web/assets/jquery/jquery.min.js"></script>
 
 <div id="main">
@@ -209,7 +84,6 @@ echo '<script>window.FacilinoLanguage="'.$lang.'";</script>';
 </div>
 </div>
 </div>
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

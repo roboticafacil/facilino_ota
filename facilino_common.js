@@ -2295,7 +2295,8 @@ this["JST"]["bluetoothserial_bt_device_def_setups"] = function(obj) {
 	with(obj) {
 		__p += '  _bt_device.begin(' +
 			((__t = (name)) == null ? '' : __t) +
-			');\n  _bt_device.flush();\n';
+			','+
+			((__t = (master)) == null ? '' : __t) +');\n  _bt_device.flush();\n';
 	}
 	return __p
 };

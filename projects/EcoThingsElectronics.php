@@ -40,8 +40,6 @@ include "projects_head.php";
 </section>
 <div class="mbr-section-btn text-center"><a onclick="onEcoThings();" class="btn btn-primary display-4">&#8592;&nbsp;<?php echo $website["BACK"]; ?></a></div>
 </div>
-
-<div id="ads"><?php include "ads.php" ?></div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>

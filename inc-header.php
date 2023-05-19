@@ -17,7 +17,7 @@ echo '<nav class="navbar navbar-expand beta-menu align-items-center navbar-fixed
 echo '<div class="menu-logo">';
 echo '<div class="navbar-brand">';
 echo '<span class="navbar-logo">';
-echo '<a href="index.php"><img src="'.$path.'assets/images/facilino.png" alt="Facilino" title="'.$website["ROBOTICA_FACIL_SHOP"].'" media-simple="true" style="height: 2.1rem;"></a>';
+echo '<a href="index.php"><img src="'.$path.'assets/images/facilino.png" alt="Facilino" title="'.$website["FACILINO"].'" media-simple="true" style="height: 2.1rem;"></a>';
 echo '</span>';
 if(isset($_SESSION["username"]))
 {
@@ -55,10 +55,11 @@ if(isset($_SESSION["username"]))
 		{
 			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
 		}
+		elseif(strpos($_SERVER['PHP_SELF'],'about.php') !== false)
+		{
+			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["ABOUT_US"].'</h2>';
+		}
 	}
-	echo '&nbsp;<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
-	echo '<ins class="adsbygoogle" style="display:inline-block;width:550px;height:50px; text-align: center" data-ad-client="ca-pub-5054503364495454" data-ad-slot="6161628565"></ins>';
-	echo '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 }
 else
 {
@@ -82,9 +83,10 @@ else
 	{
 		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
 	}
-	echo '&nbsp;<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
-	echo '<ins class="adsbygoogle" style="display:inline-block;width:550px;height:50px; text-align: center" data-ad-client="ca-pub-5054503364495454" data-ad-slot="6161628565"></ins>';
-	echo '<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
+	elseif(strpos($_SERVER['PHP_SELF'],'about.php') !== false)
+	{
+		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["ABOUT_US"].'</h2>';
+	}
 }
 
 echo '</div></div>';
@@ -94,6 +96,7 @@ if(isset($_SESSION["username"]))
 	if(strpos($_SERVER['PHP_SELF'],'dashboard.php') !== false){
 		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."index.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["HOME"]."'><span class='mbri-home mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
 		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."FacilinoTutorial.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["TUTORIAL"]."'><span class='mbri-star mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
+		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."FacilinoProjects.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["PROJECTS"]."'><span class='mbri-idea mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
 		//$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=\"".$_SESSION["username"]."\"";
 		//$result = mysqli_query($con,$query);
 		$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=?";
@@ -123,6 +126,8 @@ if(isset($_SESSION["username"]))
 		
 		echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'dashboard.php"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></a></div>';
 		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."FacilinoTutorial.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["TUTORIAL"]."'><span class='mbri-star mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
+		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."FacilinoProjects.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["PROJECTS"]."'><span class='mbri-idea mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);'></span></button></a></div>";
+		echo "<div class='navbar-buttons mbr-section-btn'><a href='".$path."translate.php'><button class='btn btn-sm btn-primary-outline display-4' title='".$website["TRANSLATE"]."'><span class='mbri-flag mbr-iconfont mbr-iconfont-btn' style='color: rgb(255, 148, 0);  margin-left:0.25em;'></span></button></a></div>";
 		$query = "SELECT `user_role_id`,`first_name` from `users`where `users`.`username`=?";
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("s",$_SESSION["username"]);
@@ -261,6 +266,19 @@ if(isset($_SESSION["username"]))
 				echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'doc_help.php" target="_blank"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HELP"].'"><span class="mbri-question mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0); margin-left:0.25em;"></span></button></a></div>';
 			}
 			if (strpos($_SERVER['PHP_SELF'],'FacilinoTutorial.php') !== false)
+			{
+				echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: none">';
+				echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
+				echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
+				echo '</select>';
+				
+				//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HARDWARE_SELECTION"].'" onclick="showHideProcessor()" style=" padding-left: 6px;padding-right: 0px;margin-right: 0px;margin-left: 6px;"><span class="mbri-setting3 mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);"></span></button>';
+				//echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: initial">';
+				//echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';
+				//echo '<option value="WEMOS_D1R32_SHIELD" class="text-black dropdown-item display-6">WeMos D1R32 (Sensor Shield)</option>';
+				//echo '</select></div>';
+			}
+			if (strpos($_SERVER['PHP_SELF'],'FacilinoProjects.php') !== false)
 			{
 				echo '<select id="processor" class="text-black dropdown-toggle display-6 icon-menu" onchange="processorChange(this.value)" style="display: none">';
 				echo '<option value="ArduinoUno" class="text-black dropdown-item display-6">Arduino Uno</option>';

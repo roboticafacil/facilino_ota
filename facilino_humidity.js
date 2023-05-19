@@ -106,7 +106,7 @@
 			examples: ['ambient_humid_humidityDHT_example.bly'],
 			category_colour: humidity_cat_colour,
 			colour: humidity_digital_colour,
-			keys: ['LANG_HUMID_READ_HUMID_HTU_NAME','LANG_HUMID_READ_HUMID','LANG_TEMP_READ_TEMP_HTU_TOOLTIP'],
+			keys: ['LANG_HUMID_READ_HUMID_HTU_NAME','LANG_TEMP_READ_TEMP_DHT_DESCRIPTION','LANG_TEMP_READ_TEMP_DHT_DROPDOWN_MODEL','LANG_TEMP_READ_TEMP_DHT_INPUT_PIN','LANG_HUMID_READ_HUMID','LANG_TEMP_READ_TEMP_DHT_OUTPUT','LANG_TEMP_READ_TEMP_HTU_TOOLTIP','LANG_TEMP_DHT_REQUIREMENTS'],
 			name: Facilino.locales.getKey('LANG_HUMID_READ_HUMID_HTU_NAME'),
 			description: Facilino.locales.getKey('LANG_TEMP_READ_TEMP_DHT_DESCRIPTION'),
 			requirements: [Facilino.locales.getKey('LANG_TEMP_DHT_REQUIREMENTS')],

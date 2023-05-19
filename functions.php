@@ -1,5 +1,28 @@
 <?php
 
+function sendMail($email_to,$subject,$body)
+{
+	$fromserver="roreplyfacilino@gmail.com";
+	require("PHPMailer/PHPMailerAutoload.php");
+	$mail = new PHPMailer();
+	$mail->IsSMTP();
+	$mail->Host = "STMP HOST"; // Enter your host here
+	$mail->SMTPAuth = true;
+	//$mail­>SMTPSecure = "ssl";
+	$mail->CharSet='UTF-8';
+	$mail->Encoding='base64';
+	$mail->Username="EMAIL"; //Enter your email
+	$mail->Password="PASSWORD";  //Enter your password
+	$mail->Port=465;
+	$mail->IsHTML(true);
+	$mail->setFrom('EMAIL', 'Facilino'); //Enter your email
+	$mail->AddAddress($email_to);
+	$mail->Sender = $fromserver; // indicates ReturnPath header
+	$mail->Subject = $subject;
+	$mail->Body = $body;
+	return $mail;
+}
+
 function isLocalhost($whitelist = ['127.0.0.1', '::1']) {
     return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
 }
@@ -9,7 +32,7 @@ function create_email_password_recovery($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$reset='reset-password.php';
+		$reset='http://'.$dir.'/Facilino/src/facilino-ota/html2/reset-password.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -30,36 +53,18 @@ $output.='<p>If you did not request this forgotten password email, no action
 is needed, your password will not be reset. However, you may want to log into 
 your account and change your security password as someone may have guessed it.</p>';   
 $output.='<p>Thanks,</p>';
-$output.='<p>Robotica Fácil Team</p>';
+$output.='<p>Facilino Team</p>';
 $body = $output; 
 $subject = "Facilino Password Recovery";
- 
-$email_to = $email;
-$fromserver = "email"; 
-require("PHPMailer/PHPMailerAutoload.php");
-$mail = new PHPMailer();
-$mail->IsSMTP();
-$mail->Host = "host"; // Enter your host here
-$mail->SMTPAuth = true;
-$mail->CharSet = 'UTF-8';
-$mail->Encoding = 'base64';
-$mail->Username = "email"; // Enter your email here
-$mail->Password = "Password"; //Enter your password here
-$mail->Port = 587;
-$mail->IsHTML(true);
-$mail->setFrom('email', 'Robótica Fácil');
-$mail->AddAddress($email);
-$mail->Sender = $fromserver; // indicates ReturnPath header
-$mail->Subject = $subject;
-$mail->Body = $body;
-return $mail;
+
+return sendMail($email,$subject,$body);
 }
 
 function create_email_activation($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$registration='registration.php';
+		$registration='http://'.$dir.'/Facilino/src/facilino-ota/html2/registration.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -80,36 +85,18 @@ function create_email_activation($email,$key)
 is needed, your account will not be modified. However, you may want to log into 
 your account and change your security password as someone may have guessed it.</p>';   
 	$output.='<p>Thanks,</p>';
-	$output.='<p>Robotica Fácil Team</p>';
+	$output.='<p>Facilino Team</p>';
 	$body = $output; 
 	$subject = "Facilino Account Activation";
  
-	$email_to = $email;
-	$fromserver = "email";
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail($email,$subject,$body);
 }
 
 function create_email_activated($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$login='login.php';
+		$login='http://'.$dir.'/Facilino/src/facilino-ota/html2/login.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -128,29 +115,11 @@ function create_email_activated($email,$key)
 	$output.='<p>If you did not request the account activation an inmediate action is required. Please, log into 
 your account and change your security password as someone may have guessed it.</p>';   
 	$output.='<p>Thanks,</p>';
-	$output.='<p>Robotica Fácil Team</p>';
+	$output.='<p>Facilino Team</p>';
 	$body = $output; 
 	$subject = "Facilino Account Activated";
- 
-	$email_to = $email;
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	
+	return sendMail($email,$subject,$body);
 }
 
 function create_email_reviewer_request($username,$email,$key,$language,$academic,$electronics,$block,$additional)
@@ -158,8 +127,8 @@ function create_email_reviewer_request($username,$email,$key,$language,$academic
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='user.php?username='.$username.'&action=accept_as_reviewer';
-		$decline='translate.php?username='.$username.'&action=decline_as_reviewer';
+		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_reviewer';
+		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/translate.php?username='.$username.'&action=decline_as_reviewer';
 	 }
 	 else
 	 {
@@ -188,29 +157,11 @@ function create_email_reviewer_request($username,$email,$key,$language,$academic
 	$output.='<p>If you did not request to be a reviewer an inmediate action is required. Please, log into 
 your account and change your security password as someone may have guessed it.</p>';   
 	$output.='<p>Thanks,</p>';
-	$output.='<p>Robotica Fácil Team</p>';
+	$output.='<p>Facilino Team</p>';
 	$body = $output; 
 	$subject = "Facilino Translation Request";
  
-	$email_to = "soporte@roboticafacil.es";
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail("leo.armesto.angel@gmail.com",$subject,$body);
 }
 
 function create_email_reviewer_response($email,$first_name,$response,$comments="")
@@ -233,25 +184,7 @@ your account and change your security password as someone may have guessed it.</
 	$body = $output; 
 	$subject = "Facilino Translation Response";
  
-	$email_to = $email;
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail($email,$subject,$body);
 }
 
 function create_email_academic_request($username,$email,$key,$academic,$id_card,$credentials,$additional)
@@ -259,8 +192,8 @@ function create_email_academic_request($username,$email,$key,$academic,$id_card,
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='user.php?username='.$username.'&action=accept_as_academic';
-		$decline='academy_program.php?username='.$username.'&action=decline_as_academic';
+		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_academic';
+		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/academy_program.php?username='.$username.'&action=decline_as_academic';
 	 }
 	 else
 	 {
@@ -290,29 +223,11 @@ function create_email_academic_request($username,$email,$key,$academic,$id_card,
 	$output.='<p>If you did not request membership as academic an inmediate action is required. Please, log into 
 your account and change your security password as someone may have guessed it.</p>';   
 	$output.='<p>Thanks,</p>';
-	$output.='<p>Robotica Fácil Team</p>';
+	$output.='<p>Facilino Team</p>';
 	$body = $output; 
 	$subject = "Facilino Academic Request";
  
-	$email_to = "soporte@roboticafacil.es";
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail($email,$subject,$body);
 }
 
 function create_email_academic_response($email,$first_name,$response,$comments="")
@@ -335,25 +250,7 @@ your account and change your security password as someone may have guessed it.</
 	$body = $output; 
 	$subject = "Facilino Academic Membership Response";
  
-	$email_to = $email;
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail($email,$subject,$body);
 }
 
 function create_email_account_changed($email,$first_name,$account_name)
@@ -366,24 +263,6 @@ your account and change your security password as someone may have guessed it an
 	$body = $output; 
 	$subject = "Facilino Standard User Downgrade";
  
-	$email_to = $email;
-	$fromserver = "email"; 
-	require("PHPMailer/PHPMailerAutoload.php");
-	$mail = new PHPMailer();
-	$mail->IsSMTP();
-	$mail->Host = "host"; // Enter your host here
-	$mail->SMTPAuth = true;
-	$mail->CharSet = 'UTF-8';
-	$mail->Encoding = 'base64';
-	$mail->Username = "email"; // Enter your email here
-	$mail->Password = "Password"; //Enter your password here
-	$mail->Port = 587;
-	$mail->IsHTML(true);
-	$mail->setFrom('email', 'Robótica Fácil');
-	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
-	$mail->Subject = $subject;
-	$mail->Body = $body;
-    return $mail;
+	return sendMail($email,$subject,$body);
 }
 ?>

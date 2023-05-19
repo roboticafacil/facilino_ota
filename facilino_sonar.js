@@ -92,7 +92,7 @@
 				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LIDAR')).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_US_TOOLTIP'));
+				this.setTooltip(Facilino.locales.getKey('LANG_LIDAR_TOOLTIP'));
 			}
 		};
 
@@ -139,74 +139,7 @@
 				var xml1='<value name="DISTANCE_SENSOR"><block type="distance_VL53L0X"></block></value><value name="DISTANCE"><shadow type="math_number"><field name="NUM">15</field></shadow></value>';
 				return [xml,xml1];
 			}
-		};
-		
-		
-		
-		if (window.FacilinoAdvanced===true)
-		{
-	/*Blockly.Arduino.dyor_us_keep_distance = function() {
-			var distance = Blockly.Arduino.valueToCode(this, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
-			var ref_distance = Blockly.Arduino.valueToCode(this, 'RefDistance', Blockly.Arduino.ORDER_ATOMIC);
-		var gain = Blockly.Arduino.valueToCode(this,'Gain', Blockly.Arduino.ORDER_ATOMIC);
-			var code = '(int)((((float)'+gain+')/100.0)*(('+distance+')-('+ref_distance+')))';
-
-			return [code, Blockly.Arduino.ORDER_ATOMIC];
-		};
-
-		Blockly.Blocks.dyor_us_keep_distance = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_DISTANCE'),
-			//subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_ULTRASOUND'),
-			tags: ['us','distance'],
-			helpUrl: Facilino.getHelpUrl('dyor_us_keep_distance'),
-			examples: ['dyor_us_keep_distance_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_DISTANCE,
-			colour: Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND,
-			keys: ['LANG_US_KEEPDISTANCE_NAME','LANG_US_DISTANCE','LANG_US_REF_DISTANCE','LANG_LINE_FOLLOWING_GAIN','LANG_US_KEEPDISTANCE_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_US_KEEPDISTANCE_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_KEEP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('RefDistance').appendField(Facilino.locales.getKey('LANG_US_REF_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-		this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.setInputsInline(false);
-				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_US_KEEPDISTANCE_TOOLTIP'));
-			}
-		};
-
-	Blockly.Arduino.dyor_us_regulate_speed = function() {
-			var distance = Blockly.Arduino.valueToCode(this, 'Distance', Blockly.Arduino.ORDER_ATOMIC);
-			var ref_distance = Blockly.Arduino.valueToCode(this, 'RefDistance', Blockly.Arduino.ORDER_ATOMIC);
-		var gain = Blockly.Arduino.valueToCode(this,'Gain', Blockly.Arduino.ORDER_ATOMIC);
-			var code = '((('+gain+')*('+distance+')/100))';
-
-			return [code, Blockly.Arduino.ORDER_ATOMIC];
-		};
-
-		Blockly.Blocks.dyor_us_regulate_speed = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_DISTANCE'),
-			//subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_ULTRASOUND'),
-			tags: ['us'],
-			helpUrl: Facilino.getHelpUrl('dyor_us_regulate_speed'),
-			examples: ['dyor_us_regulate_speed_example.bly'],
-			category_colour: Facilino.LANG_COLOUR_DISTANCE,
-			colour: Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND,
-			keys: ['LANG_US_SPEED_NAME','LANG_US_DISTANCE','LANG_LINE_FOLLOWING_GAIN','LANG_US_SPEED_TOOLTIP'],
-			name: Facilino.locales.getKey('LANG_US_SPEED_NAME'),
-			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/vertical-resize.svg",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US_REGULATE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('Distance').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('Gain').appendField(Facilino.locales.getKey('LANG_LINE_FOLLOWING_GAIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/knob.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.setInputsInline(false);
-				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_US_SPEED_TOOLTIP'));
-			}
-		};*/
-		}
-	
+		};			
 	}
 	
 	var FacilinoSonar = {
