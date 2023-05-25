@@ -153,15 +153,15 @@ elseif (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="delete")
 	$rows = mysqli_num_rows($result);
 	if ($rows==1)
 	{
-		$row = mysqli_fetch_row($result);
+		$row = mysqli_fetch_assoc($result);
 		//$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
 		//$result = mysqli_query($con,$query);
 		if ($_GET["action"]=="delete")
-			$query = "DELETE FROM `facilino_code` WHERE id=".$row[0];
+			$query = "DELETE FROM `facilino_code` WHERE `id`=?";
 		else
-			$query = "DELETE FROM `facilino_code_examples` WHERE id=".$row[0];
+			$query = "DELETE FROM `facilino_code_examples` WHERE `id`=?";
 		$statement=mysqli_prepare($con,$query);
-		$statement->bind_param("i",$row[0]);
+		$statement->bind_param("i",$row['facilino_code_id']);
 		$statement->execute();
 		//$query = "DELETE FROM `projects` WHERE `projects`.`id`= ".$_GET["id"];
 		//$result = mysqli_query($con,$query);
@@ -171,7 +171,7 @@ elseif (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="delete")
 			$query = "DELETE FROM `examples` WHERE `examples`.`id`=?";
 		$statement=mysqli_prepare($con,$query);
 		$statement->bind_param("i",$_GET["id"]);
-		$statement->execute();	
+		$statement->execute();
 	}
 	header("Location: dashboard.php");
 }
@@ -1113,8 +1113,8 @@ if ($rows==1)
 	<br/>
 	
 	<?php
-	//List all examples (only Administrators)
-	if ($row_user["user_role_id"]<=2)
+	//List all examples (only Administrator)
+	if ($row_user["user_role_id"]==1)
 	{
 		$query = "SELECT proj.id,proj.name,proc.name,facil.name,filt.name,lang.name,proj.modified_date,proj.share_key from `examples` as proj inner join `processors` as proc on proc.id=proj.processor_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as facil on facil.id=proj.version_id inner join `languages` as lang on lang.id=proj.language_id where proj.`user_id` = ".$row_user["id"]." order by proj.`modified_date` desc";
 		$result = mysqli_query($con,$query);

@@ -1,23 +1,24 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require('PHPMailer/Exception.php');
+require('PHPMailer/PHPMailer.php');
+require('PHPMailer/SMTP.php');
+
 function sendMail($email_to,$subject,$body)
 {
-	$fromserver="roreplyfacilino@gmail.com";
-	require("PHPMailer/PHPMailerAutoload.php");
 	$mail = new PHPMailer();
 	$mail->IsSMTP();
-	$mail->Host = "STMP HOST"; // Enter your host here
-	$mail->SMTPAuth = true;
-	//$mail­>SMTPSecure = "ssl";
-	$mail->CharSet='UTF-8';
-	$mail->Encoding='base64';
-	$mail->Username="EMAIL"; //Enter your email
-	$mail->Password="PASSWORD";  //Enter your password
-	$mail->Port=465;
+	$mail->Host = "smtp.upv.es"; // Enter your host here
+	$mail->CharSet = 'UTF-8';
+	$mail->Encoding = 'base64';
+	$mail->Port=25;
 	$mail->IsHTML(true);
-	$mail->setFrom('EMAIL', 'Facilino'); //Enter your email
+	$mail->setFrom('noreply-facilino@upv.es', 'Facilino');
 	$mail->AddAddress($email_to);
-	$mail->Sender = $fromserver; // indicates ReturnPath header
+	$mail->Sender = 'noreply-facilino@upv.es'; // indicates ReturnPath header
 	$mail->Subject = $subject;
 	$mail->Body = $body;
 	return $mail;
@@ -32,7 +33,7 @@ function create_email_password_recovery($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$reset='http://'.$dir.'/Facilino/src/facilino-ota/html2/reset-password.php';
+		$reset='http://'.$dir.'/facilino_ota/reset-password.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -48,10 +49,10 @@ $output.='<p>-------------------------------------------------------------</p>';
 $output.='<p><a href="'.$reset.'?key='.$key.'&email='.$email.'&action=reset" target="_blank">'.$reset.'?key='.$key.'&email='.$email.'&action=reset</a></p>';
 $output.='<p>-------------------------------------------------------------</p>';
 $output.='<p>Please be sure to copy the entire link into your browser.
-The link will expire after 1 day for security reason.</p>';
+The link will expire after 1 day for safety reason.</p>';
 $output.='<p>If you did not request this forgotten password email, no action 
 is needed, your password will not be reset. However, you may want to log into 
-your account and change your security password as someone may have guessed it.</p>';   
+your account and change your password as someone may have guessed it.</p>';   
 $output.='<p>Thanks,</p>';
 $output.='<p>Facilino Team</p>';
 $body = $output; 
@@ -64,7 +65,7 @@ function create_email_activation($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$registration='http://'.$dir.'/Facilino/src/facilino-ota/html2/registration.php';
+		$registration='http://'.$dir.'/facilino_ota/registration.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -96,7 +97,7 @@ function create_email_activated($email,$key)
 {
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
-		$login='http://'.$dir.'/Facilino/src/facilino-ota/html2/login.php';
+		$login='http://'.$dir.'/facilino_ota/login.php';
 	 else
 	 {
 		$url = $_SERVER['REQUEST_URI']; //returns the current URL
@@ -127,8 +128,8 @@ function create_email_reviewer_request($username,$email,$key,$language,$academic
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_reviewer';
-		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/translate.php?username='.$username.'&action=decline_as_reviewer';
+		$accept='http://'.$dir.'/facilino_ota/user.php?username='.$username.'&action=accept_as_reviewer';
+		$decline='http://'.$dir.'/facilino_ota/translate.php?username='.$username.'&action=decline_as_reviewer';
 	 }
 	 else
 	 {
@@ -192,8 +193,8 @@ function create_email_academic_request($username,$email,$key,$academic,$id_card,
 	$dir = $_SERVER['HTTP_HOST'];
 	 if (isLocalhost())
 	 {
-		$accept='http://'.$dir.'/Facilino/src/facilino-ota/html2/user.php?username='.$username.'&action=accept_as_academic';
-		$decline='http://'.$dir.'/Facilino/src/facilino-ota/html2/academy_program.php?username='.$username.'&action=decline_as_academic';
+		$accept='http://'.$dir.'/facilino_ota/user.php?username='.$username.'&action=accept_as_academic';
+		$decline='http://'.$dir.'/facilino_ota/academy_program.php?username='.$username.'&action=decline_as_academic';
 	 }
 	 else
 	 {

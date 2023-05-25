@@ -92,7 +92,7 @@ include("auth.php");
 			}
 			header("Location: user.php");
 		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="accept_as_reviewer")){
+		elseif (isset($_GET["username"])&&isset($_GET["action"])&&($_GET["action"]=="accept_as_reviewer")){
 			//Accept a user as a reviewer
 			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
 			//$result = mysqli_query($con,$query);
@@ -104,29 +104,53 @@ include("auth.php");
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
-				$row = mysqli_fetch_row($result);
-				if ($row[1]>1)
+				$row = mysqli_fetch_assoc($result);
+				if ($row['user_role_id']==1)
 				{
-					require("functions.php");
-					//$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=".$row[1]." WHERE `id`=".$row[0];
-					//$result = mysqli_query($con,$query);
-					$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=? WHERE `id`=?";
+					$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
 					$statement=mysqli_prepare($con,$query);
-					$statement->bind_param("ii",$row[1],$row[0]);
+					$statement->bind_param("s",$_GET["username"]);
 					$statement->execute();
-					$mail=create_email_reviewer_response($row[2],$row[3],1);
-					if(!$mail->Send()){
-						echo "Mailer Error: " . $mail->ErrorInfo;
-					}else{
-						?>
-						<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
-						<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
-						<?php
+					$result=$statement->get_result();
+					$rows = mysqli_num_rows($result);
+					if ($rows==1)
+					{
+						$row = mysqli_fetch_assoc($result);
+						if ($row['user_role_id']==4)
+						{
+							require("functions.php");
+							//$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=".$row[1]." WHERE `id`=".$row[0];
+							//$result = mysqli_query($con,$query);
+							$query="UPDATE `users` SET `user_role_id`=3, `prev_user_role_id`=? WHERE `id`=?";
+							$statement=mysqli_prepare($con,$query);
+							$statement->bind_param("ii",$row['user_role_id'],$row['id']);
+							$statement->execute();
+							$mail=create_email_reviewer_response($row['email'],$row['first_name'],1);
+							if(!$mail->Send())
+							{
+								echo "Mailer Error: " . $mail->ErrorInfo;
+							}
+							else
+							{
+								?>
+								<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
+								<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
+								<?php
+							}
+						}
+						else
+						{
+							echo 'This user is already a translator contributor.';
+						}
+					}
+					else
+					{
+						echo 'User not found.';
 					}
 				}
 				else
 				{
-					echo 'This user is already a contributor or administrator.';
+					echo 'You are not allowed, because your user is not an administrator.';
 				}
 			}
 			else

@@ -180,10 +180,10 @@ FacilinoSerial.load({ zoom: 1, readOnly:true, collapse: false});
 				<div class="mbr-section-btn text-center"><a onclick="onReturn();" class="btn btn-primary display-4">&#8592;&nbsp;<?php echo $website["BACK"]; ?></a></div>
 				<h2 class="align-center pb-3 mbr-fonts-style display-2">
 				<!-- Change EXERCISE_TITLE with appropiate key -->
-					<?php echo $examples["BLINKING_LEDS"]; ?></h2>
+					<?php echo $examples["VARIABLES"]; ?></h2>
 				<h3 class="mbr-section-subtitle align-center mbr-light mbr-fonts-style display-5">
 				<!-- Change EXERCISE_TITLE_DESC with appropiate key -->
-					<?php echo $examples["BLINKING_LEDS_DESC"]; ?></h3>
+					<?php echo $examples["VARIABLES_DESC"]; ?></h3>
 			</div>
 		</div>
 	</div>

@@ -10,9 +10,6 @@ require_once('website_translation.php');
 <div id="header"><?php include "inc-header.php" ?></div>
 <div id="content" style="margin-top:0em; margin-left: 0em; margin-right: 0em">
 <section class="mbr-section content8 cid-qYmAtxRqvk" id="content8-8h">
-
-    
-
     <div class="container">
         <div class="media-container-row title">
             <div class="col-12 col-md-8">
@@ -40,6 +37,24 @@ require_once('website_translation.php');
                 <img src="tutorial/assets/images/facilino-676x450.png" width="1400" alt="Facilino" title=""/>
             </div>
     </figure>
+</section>
+
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+				<div class="card-wrapper ">
+					<div class="card-box" style="height: 100px; position: relative; border: 3px solid red;">
+						<center>
+						<p class="card-title mbr-fonts-style display-5" style="text-align: center;margin: 0; position: absolute; left: 50%; top: 50%; -ms-transform: translateX(-50%) translateY(-50%); transform: translateX(-50%) translateY(-60%);">
+							<?php echo $website["DOWNLOAD_OTA_SERVER"]; ?>
+						</p>
+						<center>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
 </section>
 	
 <section class="mbr-section article content9 cid-qYgfq9gspk" id="content9-4j">
@@ -71,8 +86,7 @@ require_once('website_translation.php');
             <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
                 <ol>
                     <li><strong><?php echo $website["INSTALLATION_DOWNLOAD_FILES"]; ?></strong>
-					<p><?php echo $website["INSTALLATION_DOWNLOAD_FILES_DESC"];?></p> 
-					<p><?php echo $website["INSTALLATION_DOWNLOAD_FILES_DESC1"]; ?></p>
+					<p><?php echo $website["INSTALLATION_DOWNLOAD_FILES_DESC"];?></p>
 					</li> 
 					<li><strong><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER"]; ?></strong>
 					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_INSTALLER_DESC1"];?></p>
@@ -87,6 +101,9 @@ require_once('website_translation.php');
 					</li>
 					<li><strong><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_ZIP"];?></strong>
 					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_ZIP_DESC1"];?></p>
+					</li>
+					<li><strong><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_UBUNTU"];?></strong>
+					<p><?php echo $website["INSTALLATION_FACILINO_OTA_SERVER_UBUNTU_DESC"];?></p>
 					</li>
 					<li><strong><?php echo $website["ARDUINO_CLI"];?></strong>
 					<p><?php echo $website["INSTALLATION_ARDUINO_CLI_DESC1"];?></p>
@@ -107,6 +124,9 @@ require_once('website_translation.php');
 					</center></p>
 					<p><?php echo $website["INSTALLATION_OTA_SERVER_DESC6"];?></p>
 					<p><center><img src="assets/images/Install/FacilinoOTAServer_install8.png" width="100%" alt="Facilino8" title=""/></center></p>
+					<p><?php echo $website["INSTALLATION_OTA_SERVER_DESC7"];?></p>
+					<p><center><img src="assets/images/Install/FacilinoOTAServer_install8b.png" width="100%" alt="Facilino8b" title=""/>
+					</center></p>
 					</li>
 					<li><strong><?php echo $website["COMPILE_UPLOAD"];?></strong>
 					<p><?php echo $website["INSTALLATION_COMPILE_UPLOAD_DESC1"];?></p>

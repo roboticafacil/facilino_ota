@@ -327,7 +327,7 @@ include("auth.php");
 			{
 				$row_user = mysqli_fetch_row($result_user);
 				echo '<form enctype="multipart/form-data" action="translate.php?action=translate" method="POST" style="margin-to: 2em; margin-bottom:2em">';
-				if (($row_user[1]==1)||($row_user[1]==2))
+				if (($row_user[1]==1)||($row_user[1]==3))
 				{
 					echo '<h4>Translation language: ';
 					$query_lang = "SELECT id,name,lang_key from `languages` where 1";
@@ -375,7 +375,7 @@ include("auth.php");
 					//echo '<input name="project_id" value="'.$row[0].'" type="hidden"/>';
 					
 				}
-				if (($row_user[1]==1) || ($row_user[1]==2))
+				if (($row_user[1]==1) || ($row_user[1]==3))
 				{
 					//Administrator or Contributor user
 					
@@ -576,7 +576,7 @@ include("auth.php");
 						echo '<input name="next_button" type="submit" value="'.$website["NEXT"].'"/>';*/
 					}
 				}
-				elseif (($row_user[1]==3) || ($row_user[1]==4) || ($row_user[1]==5))  //Standard, Pro, Academic
+				elseif (($row_user[1]==4) || ($row_user[1]==5))  //Standard, Academic
 				{
 					echo '<h4>Do you want to contribute to Facilino translation? We kindly appreciate your help.</h4>';
 					//echo '<h4>After 25 approved translations you will become a Pro user with unlimited access and Ads removed (see <a href="upgrade.php">Upgrade</a>)</h4>';

@@ -91,7 +91,7 @@ elseif (isset($_GET["id"]))
 	}
 	elseif (isset($_GET["action"])&&($_GET["action"]=="view_example"))
 	{
-		if (isset($_GET["lang"]))
+		if (!isset($_GET["lang"]))
 		{
 			$query = "SELECT proj.name as proj_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name,proj.share_key,proc.id as proc_id,proj.server_ip,proj.device_ip from `examples` as proj inner join `facilino_code_examples` as code on  code.id=proj.facilino_code_id inner join `filters` as filt on filt.id=proj.filter_id inner join `facilino_version` as version on version.id=proj.version_id inner join `processors` as proc on proc.id=proj.processor_id inner join `users` on `users`.id=proj.user_id where proj.`id`=?";
 		}
@@ -295,6 +295,16 @@ elseif (isset($_GET["id"]))
 		<?php
 		}
 		
+		$query_keys="SELECT * FROM `lang_keys_".$row["lang_key"]."` WHERE 1";
+		
+		$result_keys = mysqli_query($con,$query_keys);
+		while($row_keys=mysqli_fetch_assoc($result_keys))
+		{
+			if (!is_null($row_keys["value"]))
+				$keys[$row_keys["key"]]=$row_keys["value"];
+			elseif (!is_null($row_keys["value_temp"]))
+				$keys[$row_keys["key"]]=$row_keys["value_temp"];
+		}
 		?>
 		<script language="JavaScript">
 		<?php 
@@ -316,16 +326,6 @@ elseif (isset($_GET["id"]))
 				?> localStorage.setItem('saved',Blockly.Xml.domToText(document.getElementById('startBlocks'))); <?php
 			}
 									
-			$query_keys="SELECT * FROM `lang_keys_".$row["lang_key"]."` WHERE 1";
-			
-			$result_keys = mysqli_query($con,$query_keys);
-			while($row_keys=mysqli_fetch_assoc($result_keys))
-			{
-				if (!is_null($row_keys["value"]))
-					$keys[$row_keys["key"]]=$row_keys["value"];
-				elseif (!is_null($row_keys["value_temp"]))
-					$keys[$row_keys["key"]]=$row_keys["value_temp"];
-			}
 			echo 'window.langKeys=JSON.parse("'.addslashes(json_encode($keys)).'");';
 			
 			$query_keys_en="SELECT * FROM `lang_keys_en-GB` WHERE 1";
@@ -390,7 +390,7 @@ elseif (isset($_GET["id"]))
 				{
 					if (window.FacilinoBlockFilter==='DYOR')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 					}
 					else if (window.FacilinoBlockFilter==='bPED')
 					{

@@ -439,6 +439,6 @@ $('#exercise2i').on("load", function() {
 </div>
 </div>
 
-<div id="footer"><?php include "../inc-footer.php" ?></div>
+<div id="footer"><?php chdir(".."); include "inc-footer.php"; ?></div>
 </body>
 </html>

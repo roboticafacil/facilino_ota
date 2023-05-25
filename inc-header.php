@@ -19,75 +19,67 @@ echo '<div class="navbar-brand">';
 echo '<span class="navbar-logo">';
 echo '<a href="index.php"><img src="'.$path.'assets/images/facilino.png" alt="Facilino" title="'.$website["FACILINO"].'" media-simple="true" style="height: 2.1rem;"></a>';
 echo '</span>';
-if(isset($_SESSION["username"]))
+if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 {
-	if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
+	//$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
+	//$result = mysqli_query($con,$query);
+	$query = "SELECT name from `projects` where `projects`.id=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("i",$_GET["id"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows=mysqli_num_rows($result);
+	if ($rows==1)
 	{
-		//$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
-		//$result = mysqli_query($con,$query);
-		$query = "SELECT name from `projects` where `projects`.id=?";
-		$statement=mysqli_prepare($con,$query);
-		$statement->bind_param("i",$_GET["id"]);
-		$statement->execute();
-		$result=$statement->get_result();
-		$rows=mysqli_num_rows($result);
-		if ($rows==1)
-		{
-			$row = mysqli_fetch_row($result);
-			echo '<h5 style="color:white">&nbsp;&nbsp;'.$row[0].'</h5>';
-		}
-	}
-	else
-	{
-		if(strpos($_SERVER['PHP_SELF'],'dashboard.php') !== false)
-		{
-			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["PROJECTS"].'</h2>';
-		}
-		elseif(strpos($_SERVER['PHP_SELF'],'translate.php') !== false)
-		{
-			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["FACILINO_TRANSLATE"].'</h2>';
-		}
-		elseif(strpos($_SERVER['PHP_SELF'],'user.php') !== false)
-		{
-			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["USER_PROFILE"].'</h2>';
-		}
-		elseif(strpos($_SERVER['PHP_SELF'],'doc_help.php') !== false)
-		{
-			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
-		}
-		elseif(strpos($_SERVER['PHP_SELF'],'about.php') !== false)
-		{
-			echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["ABOUT_US"].'</h2>';
-		}
+		$row = mysqli_fetch_row($result);
+		echo '<h5 style="color:white">&nbsp;&nbsp;'.$row[0].'</h5>';
 	}
 }
-else
+elseif(strpos($_SERVER['PHP_SELF'],'index.php') !== false)
 {
-	if(strpos($_SERVER['PHP_SELF'],'index.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["WELCOME_FACILINO"].'</h2>';
-	}
-	elseif (strpos($_SERVER['PHP_SELF'],'login.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["LOGIN"].'</h2>';
-	}
-	elseif (strpos($_SERVER['PHP_SELF'],'registration.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["REGISTRATION"].'</h2>';
-	}
-	elseif (strpos($_SERVER['PHP_SELF'],'lost-password.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["LOST_PASSWORD"].'</h2>';
-	}
-	elseif(strpos($_SERVER['PHP_SELF'],'doc_help.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
-	}
-	elseif(strpos($_SERVER['PHP_SELF'],'about.php') !== false)
-	{
-		echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["ABOUT_US"].'</h2>';
-	}
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["WELCOME_FACILINO"].'</h2>';
 }
+elseif (strpos($_SERVER['PHP_SELF'],'login.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["LOGIN"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'dashboard.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["PROJECTS"].'</h2>';
+}
+elseif (strpos($_SERVER['PHP_SELF'],'registration.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["REGISTRATION"].'</h2>';
+}
+elseif (strpos($_SERVER['PHP_SELF'],'lost-password.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["LOST_PASSWORD"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'translate.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["FACILINO_TRANSLATE"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'user.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["USER_PROFILE"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'doc_help.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOCUMENTATION"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'about.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["ABOUT_US"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'FacilinoOTAServer.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["DOWNLOAD_SECTION"].'</h2>';
+}
+elseif(strpos($_SERVER['PHP_SELF'],'installation.php') !== false)
+{
+	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["INSTALLATION"].'</h2>';
+}
+
 
 echo '</div></div>';
 echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';

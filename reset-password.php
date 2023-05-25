@@ -16,7 +16,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])
   $curDate = date("Y-m-d H:i:s");
   //$query="SELECT * FROM `password_reset_temp` WHERE `key`='".$key."' and `email`='".$email."';";
   //$result = mysqli_query($con,$result);
-  $query="SELECT * FROM `password_reset_temp` WHERE `key`='".$key."' and `email`='".$email."';";
+  $query="SELECT * FROM `password_reset_temp` WHERE `key`=? and `email`=?";
   $statement=mysqli_prepare($con,$query);
   $statement->bind_param("ss",$key,$email);
   $statement->execute();
@@ -56,7 +56,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"])
 	    <input type="password" name="pass2" maxlength="15" required/>
 	    <br /><br />
 	    <input type="hidden" name="email" value="<?php echo $email;?>"/>
-	    <input type="submit" value="Reset Password"/>
+	    <input type="submit" value="Reset Password"/><br/>
 	    </form>
 	    </div>
 	    <?php
