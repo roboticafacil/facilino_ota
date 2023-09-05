@@ -7,20 +7,18 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		if (window.FacilinoAdvanced===true)
+		//if (window.FacilinoAdvanced===true)
 		{
 			var ldr_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
 			var ldr_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_LDR');
 			var ldr_cat_colour=Facilino.LANG_COLOUR_LIGHT;
 			var ldr_colour=Facilino.LANG_COLOUR_LIGHT_LDR;
+			if (window.FacilinoAdvanced===true)
+				var ldr_colour=Facilino.LANG_COLOUR_LIGHT_LDR;
+			else
+				var ldr_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
 		}
-		else
-		{
-			var ldr_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
-			var ldr_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG');
-			var ldr_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
-			var ldr_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
-		}
+		
 	Blockly.Arduino.ldr_read = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 			var code = '';
@@ -51,6 +49,9 @@
 				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.ldr_read['subcategory'];
 		
 		/*if (window.FacilinoAdvanced===false)
 		{

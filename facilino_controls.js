@@ -6,8 +6,13 @@
 	}
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
-		
-	Blockly.Arduino.controls_doWhile = function() {
+	
+	
+	Blockly.Blocks.controls_setupLoop = [];
+	
+	if (window.FacilinoAdvanced===true)
+	{
+		Blockly.Arduino.controls_doWhile = function() {
 			// Do while/until loop.
 			var argument0 = Blockly.Arduino.valueToCode(this, 'WHILE', Blockly.Arduino.ORDER_NONE) || '';
 			argument0 = argument0.replace(/&quot;/g, '"');
@@ -65,9 +70,8 @@
 				return ['<field name="MODE">WHILE</field><value name="WHILE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="MODE">UNTIL</field><value name="WHILE"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
-		
-		if (window.FacilinoAdvanced===false)
-			delete Blockly.Blocks.controls_doWhile['subcategory'];
+
+	}
 		
 		if (window.FacilinoAdvanced===true)
 		{
@@ -145,6 +149,27 @@
 			}
 		};
 		}
+		else
+		{
+			Blockly.Arduino.controls_flow_statements = function() {
+            return 'break;\n';
+        };
+
+			Blockly.Blocks.controls_flow_statements = {
+				// Flow statements: continue, break.
+				category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),	
+				category_colour: Facilino.LANG_COLOUR_CONTROL,
+				colour: Facilino.LANG_COLOUR_CONTROL,
+				keys: ['LANG_CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK','LANG_CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE','LANG_CONTROLS_FLOW_STATEMENTS_INPUT_OFLOOP','LANG_CONTROLS_FLOW_STATEMENTS_WARNING','LANG_CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK','LANG_CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE'],
+				init: function() {
+					this.setColour(Facilino.LANG_COLOUR_CONTROL);
+					this.appendDummyInput()
+						.appendField(new Blockly.FieldImage("img/blocks/loop_break.svg",20*options.zoom,20*options.zoom));
+					this.setPreviousStatement(true,'code');
+					this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK'));
+				}
+			};
+		}
 
 		Blockly.Arduino.controls_repeat = function() {
 			var argument1 = this.getFieldValue('TO')
@@ -171,8 +196,16 @@
 			fields: [Facilino.locales.getKey('LANG_CONTROLS_REPEAT_FIELDS_REPETITIONS')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT')).appendField(new Blockly.FieldNumber('4','1','32767'),'TO').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT_TIMES')).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_FOR_INPUT_DO')).setCheck('code');
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT')).appendField(new Blockly.FieldNumber('4','1','32767'),'TO').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT_TIMES')).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_FOR_INPUT_DO')).setCheck('code');
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/loop.svg",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/numbers.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldNumber('4','1','32767'),'TO').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('DO').appendField(new Blockly.FieldImage("img/blocks/do.svg",16*options.zoom,16*options.zoom)).setCheck('code');
+				}
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
@@ -281,7 +314,7 @@
 				}
 			},
 		};
-		}
+		
 		// Source: src/blocks/controls_if/controls_if.js
 		Blockly.Arduino.controls_if = function() {
 			// If/elseif/else condition.
@@ -459,8 +492,6 @@
 			}
 		};
 		
-		if (window.FacilinoAdvanced===false)
-			delete Blockly.Blocks.controls_if['subcategory'];
 
 		Blockly.Blocks.controls_if_if = {
 			colour: Facilino.LANG_COLOUR_CONTROL,
@@ -507,6 +538,7 @@
 				this.contextMenu = false;
 			}
 		};
+	}
 		
 		Blockly.Arduino.controls_ifelse = function() {
 			var argument = Blockly.Arduino.valueToCode(this, 'IF', Blockly.Arduino.ORDER_NONE);
@@ -539,10 +571,20 @@
 			inputs: [Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF_INPUTS_CONDITION')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendValueInput('IF').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF'));
-				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSE_Field_ELSE'));
-				this.appendStatementInput('ELSE').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');		
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('IF').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_IF'));
+					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_ELSE_Field_ELSE'));
+					this.appendStatementInput('ELSE').appendField(Facilino.locales.getKey('LANG_CONTROLS_IF_MSG_THEN')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');		
+				}
+				else
+				{
+					this.appendValueInput('IF').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldImage("img/blocks/decision.svg",20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/binary.svg",20*options.zoom,20*options.zoom));
+					this.appendStatementInput('DO').appendField(new Blockly.FieldImage("img/blocks/do.svg",16*options.zoom, 16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/decision_end.svg",20*options.zoom, 20*options.zoom));
+					this.appendStatementInput('ELSE').appendField(new Blockly.FieldImage("img/blocks/do.svg",20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');		
+				}
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_IF_TOOLTIP_1'));
@@ -554,6 +596,9 @@
 				return xml;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.controls_ifelse['subcategory'];
 		
 		if (window.FacilinoAdvanced===true)
 		{
@@ -811,6 +856,8 @@
 			}
 		};
 		
+		}
+		
 		// Source: src/blocks/controls_whileUntil/controls_whileUntil.js
 		Blockly.Arduino.controls_whileUntil = function() {
 			// Do while/until loop.
@@ -854,11 +901,22 @@
 			dropdown: [Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_OPERATOR_WHILE_DROPDOWN_MODE')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendValueInput('BOOL').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldDropdown([
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('BOOL').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_OPERATOR_WHILE'), 'WHILE'],
 					[Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_OPERATOR_UNTIL'), 'UNTIL']
-				]), 'MODE');
-				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_DOWHILE_OPERATOR_DO'));
+					]), 'MODE');
+					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_DOWHILE_OPERATOR_DO'));
+				}
+				else
+				{
+					this.appendValueInput('BOOL').appendField(new Blockly.FieldImage("img/blocks/loop.svg",20*options.zoom, 20*options.zoom)).setCheck(Boolean).appendField(new Blockly.FieldDropdown([
+                    [Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_OPERATOR_WHILE'), 'WHILE'],
+                    [Facilino.locales.getKey('LANG_CONTROLS_WHILEUNTIL_OPERATOR_UNTIL'), 'UNTIL']
+                ]), 'MODE').appendField(new Blockly.FieldImage("img/blocks/binary.svg",20*options.zoom, 20*options.zoom));
+                this.appendStatementInput('DO').appendField(new Blockly.FieldImage("img/blocks/do.svg",16*options.zoom,16*options.zoom));
+				}
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				// Assign 'this' to a variable for use in the tooltip closure below.
@@ -871,7 +929,8 @@
 			}
 		};
 		
-		}
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.controls_whileUntil['subcategory'];
 		
 		Blockly.Arduino.base_delay = function() {
 			var delay_time = Blockly.Arduino.valueToCode(this, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC);
@@ -894,9 +953,10 @@
 			inputs: [Facilino.locales.getKey('LANG_CONTROLS_BASE_DELAY_WAIT_INPUT_TIME')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendValueInput('DELAY_TIME')
-					.appendField(Facilino.locales.getKey('LANG_CONTROLS_BASE_DELAY_WAIT'))
-					.setCheck([Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+					this.appendValueInput('DELAY_TIME').appendField(Facilino.locales.getKey('LANG_CONTROLS_BASE_DELAY_WAIT')).setCheck([Number,'Variable']);
+				else
+					this.appendValueInput('DELAY_TIME').appendField(new Blockly.FieldImage("img/blocks/wait.svg",20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -921,6 +981,8 @@
 			return code;
 		};
 
+		if (window.FacilinoAdvanced===true)
+		{
 		Blockly.Blocks.base_delay_sec = {
 			category: Facilino.locales.getKey('LANG_CATEGORY_CONTROLS'),
 			subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_CONTROL'),
@@ -951,11 +1013,6 @@
 			}
 		};
 		
-		if (window.FacilinoAdvanced===false)
-			delete Blockly.Blocks.base_delay_sec['subcategory'];
-
-		if (window.FacilinoAdvanced===true)
-		{
 		Blockly.Arduino.base_millis = function() {
 			var code = 'millis()';
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
@@ -1082,8 +1139,16 @@
 			statements: [Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_STATEMENT_SETUP'),Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_STATEMENT_LOOP')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendStatementInput('SETUP').appendField(Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_SETUP_TITLE')).setCheck('code');
-				this.appendStatementInput('LOOP').appendField(Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_LOOP_TITLE')).setCheck('code');
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendStatementInput('SETUP').appendField(Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_SETUP_TITLE')).setCheck('code');
+					this.appendStatementInput('LOOP').appendField(Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_LOOP_TITLE')).setCheck('code');
+				}
+				else
+				{
+					this.appendStatementInput('SETUP').appendField(new Blockly.FieldImage("img/blocks/setup.svg",20*options.zoom, 20*options.zoom)).setCheck('code');
+					this.appendStatementInput('LOOP').appendField(new Blockly.FieldImage("img/blocks/loop.svg",20*options.zoom, 20*options.zoom)).setCheck('code');
+				}
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setTooltip(Facilino.locales.getKey('LANG_CONTROLS_SETUP_LOOP_TOOLTIP'));
@@ -1094,8 +1159,7 @@
 			delete Blockly.Blocks.controls_setupLoop['subcategory'];
 		
 		
-		if (window.FacilinoAdvanced===true)
-		{
+		
 		Blockly.Arduino.dyor_controls_wait = function() {
 			var value1 = Blockly.Arduino.valueToCode(this, 'VALUE1', Blockly.Arduino.ORDER_ATOMIC);
 			var value2 = Blockly.Arduino.valueToCode(this, 'VALUE2', Blockly.Arduino.ORDER_ATOMIC);
@@ -1118,8 +1182,16 @@
 			inputs: [Facilino.locales.getKey('LANG_CONTROLS_WAIT_INPUT_VALUE1'),Facilino.locales.getKey('LANG_CONTROLS_WAIT_INPUT_VALUE2')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_CONTROL);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_WAIT'));
-				this.appendValueInput('VALUE1').appendField(Facilino.locales.getKey('LANG_CONTROLS_VALUE1')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_CONTROLS_WAIT'));
+					this.appendValueInput('VALUE1').appendField(Facilino.locales.getKey('LANG_CONTROLS_VALUE1')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage("img/blocks/wait.svg",20*options.zoom, 20*options.zoom));
+					this.appendValueInput('VALUE1').setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
+				}
 				this.appendDummyInput('').appendField(new Blockly.FieldDropdown([
 					['=', '=='],
 					['!=', '!='],
@@ -1128,7 +1200,10 @@
 					['>', '>'],
 					['>=', '>=']
 				]), 'COND').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('VALUE2').appendField(Facilino.locales.getKey('LANG_CONTROLS_VALUE2')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+					this.appendValueInput('VALUE2').appendField(Facilino.locales.getKey('LANG_CONTROLS_VALUE2')).setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
+				else
+					this.appendValueInput('VALUE2').setAlign(Blockly.ALIGN_RIGHT).setCheck([Boolean,Number,'Variable']);
 				this.setInputsInline(true);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -1139,6 +1214,12 @@
 				return ['<value name="VALUE1"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="VALUE2"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<value name="VALUE1"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="VALUE2"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_controls_wait['subcategory'];
+		
+		if (window.FacilinoAdvanced===true)
+		{
 		
 		Blockly.Blocks.controls_every_item = {
 				colour: Facilino.LANG_COLOUR_CONTROL,

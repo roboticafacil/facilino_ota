@@ -28,7 +28,7 @@
 					}
 					else if (Facilino.profiles['processor']==='ESP32')
 					{
-						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
 						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
 					}
 					else
@@ -90,7 +90,7 @@
 					}
 					else if (Facilino.profiles['processor']==='ESP32')
 					{
-						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+						Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
 						Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
 					}
 
@@ -153,8 +153,7 @@
 				}
 				else if (Facilino.profiles['processor']==='ESP32')
 				{
-					//Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
-					Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+					Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
 					Blockly.Arduino.definitions_['declare_var_servo_'+pin]=JST['ESP_servo_definitions_variables']({pin: pin});
 				}
 				else

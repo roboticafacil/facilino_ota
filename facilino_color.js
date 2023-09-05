@@ -7,20 +7,23 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		if (window.FacilinoAdvanced===true)
+		//if (window.FacilinoAdvanced===true)
 		{
 			var color_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
 			var color_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_COLOR');
 			var color_cat_colour=Facilino.LANG_COLOUR_LIGHT;
-			var color_colour=Facilino.LANG_COLOUR_LIGHT_COLOR;
+			if (window.FacilinoAdvanced===true)
+				var color_colour=Facilino.LANG_COLOUR_LIGHT_COLOR;
+			else
+				var color_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
 		}
-		else
+		/*else
 		{
 			var color_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
 			var color_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
 			var color_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
 			var color_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
-		}
+		}*/
 		
 	Blockly.Arduino.red_green_led = function() {
 			var code = '';
@@ -79,6 +82,9 @@
 				return xml;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.red_green_led['subcategory'];
 
 		Blockly.Arduino.rgb_led = function() {
 			var code = '';
@@ -185,11 +191,8 @@
 			}
 		};
 		
-		/*if (window.FacilinoAdvanced===false)
-		{
-			delete Blockly.Blocks.red_green_led.subcategory;
-			delete Blockly.Blocks.rgb_led.subcategory;
-		}*/
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.rgb_led['subcategory'];
 
 		if (window.FacilinoAdvanced===true)
 		{

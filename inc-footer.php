@@ -28,6 +28,13 @@
                 <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7"><?php echo $website["COPYRIGHT"];?>
                 </p>
             </div>
+			<div class="row row-copirayt">
+                <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7"><?php echo $website["FUNDED_BY"];?>
+                </p>
+            </div>
+			<div class="row row-copirayt">
+                <img src="assets/images/es_cofinanciado_por_la_union_europea_pantone.png"></img>
+            </div>
         </div>
     </div>
 </section>

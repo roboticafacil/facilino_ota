@@ -11,6 +11,9 @@
 		var other_digital=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
 		var other_analog_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
 		var other_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
+		
+		if (window.FacilinoAdvanced===true)
+		{
 	
 	Blockly.Arduino.joystick_dir = function() {
 			var pinx = Blockly.Arduino.valueToCode(this, 'PINX', Blockly.Arduino.ORDER_NONE);
@@ -127,6 +130,8 @@
 				return xml;
 			}
 		};
+		
+		}
 	
 	};
 		

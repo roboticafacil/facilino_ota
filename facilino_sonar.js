@@ -8,8 +8,8 @@
 	var load = function(options) {
 		
 	Blockly.Arduino.dyor_us = function() {
-			var echo_pin = Blockly.Arduino.valueToCode(this, 'RED PIN', Blockly.Arduino.ORDER_ATOMIC);
-			var trigger_pin = Blockly.Arduino.valueToCode(this, 'BLUE PIN', Blockly.Arduino.ORDER_ATOMIC);
+			var echo_pin = Blockly.Arduino.valueToCode(this, 'RED_PIN', Blockly.Arduino.ORDER_ATOMIC);
+			var trigger_pin = Blockly.Arduino.valueToCode(this, 'BLUE_PIN', Blockly.Arduino.ORDER_ATOMIC);
 			var code = '';
 			
 			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')){
@@ -19,15 +19,15 @@
 			Blockly.Arduino.definitions_['define_us_init'] = JST['dyor_us_definitions_us_init']({});
 			Blockly.Arduino.definitions_['define_us_distance'] = JST['dyor_us_definitions_distance']({});
 			
-			if (this.getInputTargetBlock('RED PIN').type==='pin_digital')
+			if (this.getInputTargetBlock('RED_PIN').type==='pin_digital')
 			{
 				Blockly.Arduino.setups_['inout_digital_input' + echo_pin] = JST['inout_digital_input']({'pin': echo_pin});
 			}
-			if (this.getInputTargetBlock('BLUE PIN').type==='pin_digital')
+			if (this.getInputTargetBlock('BLUE_PIN').type==='pin_digital')
 			{
 				Blockly.Arduino.setups_['inout_digital_output' + trigger_pin] = JST['inout_digital_output']({'pin': trigger_pin});
 			}
-			if ((this.getInputTargetBlock('RED PIN').type==='pin_digital')&&(this.getInputTargetBlock('BLUE PIN').type==='pin_digital'))
+			if ((this.getInputTargetBlock('RED_PIN').type==='pin_digital')&&(this.getInputTargetBlock('BLUE_PIN').type==='pin_digital'))
 				code += JST['dyor_us']({'trigger_pin': trigger_pin,'echo_pin': echo_pin});
 			else
 				code += 'distance(trigger_pin,echo_pin)';
@@ -46,20 +46,31 @@
 			name: Facilino.locales.getKey('LANG_US_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_US')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
-				this.appendValueInput('RED PIN').appendField(Facilino.locales.getKey('LANG_US_ECHO_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hearing.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinEcho']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('BLUE PIN').appendField(Facilino.locales.getKey('LANG_US_TRIGGER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speaking.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinTrigger']).setAlign(Blockly.ALIGN_RIGHT);
-				this.setInputsInline(false);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_US')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
+					this.appendValueInput('RED_PIN').appendField(Facilino.locales.getKey('LANG_US_ECHO_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hearing.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinEcho']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('BLUE_PIN').appendField(Facilino.locales.getKey('LANG_US_TRIGGER_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/speaking.svg',20*options.zoom,20*options.zoom)).setCheck(['DigitalPin','DigitalPinTrigger']).setAlign(Blockly.ALIGN_RIGHT);
+					this.setInputsInline(false);
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/ultrasound.svg',36*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/hc_sr04.svg', 52*options.zoom, 35*options.zoom));
+					this.appendValueInput('RED_PIN').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal_echo.svg',20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','DigitalPinEcho']);
+					this.appendValueInput('BLUE_PIN').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal_trig.svg',20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin','DigitalPinTrigger']);
+					this.setInputsInline(true);
+				}
+				
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_US_TOOLTIP'));
 			},
 			default_inputs: function ()
 			{
-				var xml='<value name="RED PIN"><shadow type="pin_digital"></shadow></value>';
+				var xml='<value name="RED_PIN"><shadow type="pin_digital"></shadow></value>';
 				if (Facilino.profiles.default.digital.length>1)
-					xml+='<value name="BLUE PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+					xml+='<value name="BLUE_PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
 				else
-					xml+='<value name="BLUE PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+					xml+='<value name="BLUE_PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
 				return xml;
 			}
 		};
@@ -89,12 +100,17 @@
 			name: Facilino.locales.getKey('LANG_LIDAR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_LIDAR')).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
+				if (window.FacilinoAdvanced===true)
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LIDAR')).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
+				else
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/laser.svg',24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/VL53L0X.svg', 52*options.zoom, 35*options.zoom));
 				this.setInputsInline(false);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_LIDAR_TOOLTIP'));
 			}
 		};
+		
+		/*
 
 	Blockly.Arduino.dyor_us_collision = function() {
 			var distance_sensor = Blockly.Arduino.valueToCode(this, 'DISTANCE_SENSOR', Blockly.Arduino.ORDER_ATOMIC);
@@ -118,10 +134,22 @@
 			name: Facilino.locales.getKey('LANG_US_COLLISION_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_DISTANCE_ULTRASOUND);
-				this.appendValueInput('DISTANCE_SENSOR').appendField(Facilino.locales.getKey('LANG_US_DETECT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('DISTANCE').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('COLLISION').appendField(Facilino.locales.getKey('LANG_US_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/rear-end-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendStatementInput('NOT_COLLISION').appendField(Facilino.locales.getKey('LANG_US_NOT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/no-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('DISTANCE_SENSOR').appendField(Facilino.locales.getKey('LANG_US_DETECT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/ultrasound.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('DISTANCE').appendField(Facilino.locales.getKey('LANG_US_DISTANCE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('COLLISION').appendField(Facilino.locales.getKey('LANG_US_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/rear-end-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendStatementInput('NOT_COLLISION').appendField(Facilino.locales.getKey('LANG_US_NOT_COLLISION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/no-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				}
+				else
+				{
+					
+					this.appendValueInput('DISTANCE_SENSOR').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/ultrasound.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('DISTANCE').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/distance.svg',24*options.zoom,24*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('COLLISION').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/rear-end-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					this.appendStatementInput('NOT_COLLISION').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/no-collision.svg',24*options.zoom,24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					
+				}
 				this.setInputsInline(false);
 				//this.setOutput(true, Number);
 				this.setPreviousStatement(true,'code');
@@ -130,16 +158,16 @@
 			},
 			default_inputs: function ()
 			{
-				var xml='<value name="DISTANCE_SENSOR"><block type="dyor_us"><value name="RED PIN"><shadow type="pin_digital"></shadow></value>';
+				var xml='<value name="DISTANCE_SENSOR"><block type="dyor_us"><value name="RED_PIN"><shadow type="pin_digital"></shadow></value>';
 				if (Facilino.profiles.default.digital.length>1)
-					xml+='<value name="BLUE PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][0]+'</field></shadow></value>';
+					xml+='<value name="BLUE_PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][0]+'</field></shadow></value>';
 				else
-					xml+='<value name="BLUE PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][0]+'</field></shadow></value>';
+					xml+='<value name="BLUE_PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][0]+'</field></shadow></value>';
 				xml+='</block></value><value name="DISTANCE"><shadow type="math_number"><field name="NUM">15</field></shadow></value>';
 				var xml1='<value name="DISTANCE_SENSOR"><block type="distance_VL53L0X"></block></value><value name="DISTANCE"><shadow type="math_number"><field name="NUM">15</field></shadow></value>';
 				return [xml,xml1];
 			}
-		};			
+		};	*/		
 	}
 	
 	var FacilinoSonar = {

@@ -7,7 +7,7 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		if (window.FacilinoAdvanced===true)
+		//if (window.FacilinoAdvanced===true)
 		{
 			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
 			var infrared_analog_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED');
@@ -16,7 +16,7 @@
 			var infrared_analog_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
 			var infrared_digital_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
 		}
-		else
+		/*else
 		{
 			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
 			var infrared_analog_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG');
@@ -24,7 +24,7 @@
 			var infrared_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
 			var infrared_analog_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
 			var infrared_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
-		}
+		}*/
 		
 	Blockly.Arduino.dyor_infrared = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
@@ -57,6 +57,9 @@
 				return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_infrared['subcategory'];
 
 	Blockly.Arduino.dyor_infrared_digital = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
@@ -90,11 +93,8 @@
 			}
 		};
 		
-		/*if (window.FacilinoAdvanced===false)
-		{
-			delete Blockly.Blocks.dyor_infrared_digital.subcategory;
-			delete Blockly.Blocks.dyor_infrared.subcategory;
-		}*/
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_infrared_digital['subcategory'];
 
 	if (window.FacilinoAdvanced===true)
 	{

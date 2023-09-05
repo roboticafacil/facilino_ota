@@ -16,11 +16,12 @@
 		}
 		else
 		{
-			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
-			var infrared_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
-			var infrared_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
-			var infrared_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
+			var infrared_category=Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION');
+			var infrared_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_INFRARED');
+			var infrared_cat_colour=Facilino.LANG_COLOUR_COMMUNICATION;
+			var infrared_digital_colour=Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH;
 		}
+		
 		
 		
 	Blockly.Arduino.ir_available = function() {
@@ -58,11 +59,20 @@
 			name: Facilino.locales.getKey('LANG_IR_AVAILABLE_NAME'),
 			init: function() {
 				this.setColour(infrared_digital_colour);
-				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_IR_AVAILABLE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('DO')
-					.appendField(Facilino.locales.getKey('LANG_IR_DO'));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_AVAILABLE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 24*options.zoom, 24*options.zoom));
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_IR_DO'));
+				}
+				else
+				{
+					
+					this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/inbox.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/available.svg',20*options.zoom, 20*options.zoom));
+					this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('DO').appendField(new Blockly.FieldImage('img/blocks/do.svg', 16*options.zoom, 16*options.zoom));
+					
+				}
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_AVAILABLE_TOOLTIP'));
@@ -72,6 +82,9 @@
 				return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.ir_available['subcategory'];
 
 		Blockly.Arduino.ir_read_code = function() {
 			var code='';
@@ -124,12 +137,17 @@
 			name: Facilino.locales.getKey('LANG_IR_READ_CODE_NAME'),
 			init: function() {
 				this.setColour(infrared_digital_colour);
-				this.appendDummyInput('')
-					.appendField(Facilino.locales.getKey('LANG_IR_READ_CODE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_IR_READ_CODE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 24*options.zoom, 24*options.zoom));
+				else
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/read.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/numbers.svg',20*options.zoom, 20*options.zoom));
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_READ_CODE_TOOLTIP'));
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.ir_read_code['subcategory'];
 
 		Blockly.Arduino.communications_ir_command = function() {
 			var n = 1;
@@ -172,10 +190,21 @@
 			name: Facilino.locales.getKey('LANG_IR_COMMAND_NAME'),
 			init: function() {
 				this.setColour(infrared_digital_colour);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendDummyInput('DATA1').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
-				this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 52*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('DATA1').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/remote-control.svg', 24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/inbox.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg",20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('DATA1').appendField(new Blockly.FieldImage('img/blocks/byte.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('ITEM1').appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom, 16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					
+				}
 				this.setMutator(new Blockly.Mutator(['communications_ir_command_item']));
 				this.itemCount_ = 1;
 				this.setInputsInline(false);
@@ -201,9 +230,19 @@
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
 				for (var x = 2; x <= this.itemCount_; x++) {
-					this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA' + x).setAlign(Blockly.ALIGN_RIGHT);
+					if (window.FacilinoAdvanced===true)
+					{
+						this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA' + x).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					}
+					else
+					{
+						
+						this.appendDummyInput('DATA' + x).appendField(new Blockly.FieldImage('img/blocks/byte.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0),'DATA' + x).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendStatementInput('ITEM' + x).appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom,16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					}
 					//this.setFieldValue(xx,'DATA'+x);
-					this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					
 					this.setInputsInline(false);
 				}
 			},
@@ -221,7 +260,9 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the items input blocks and remove the inputs.
+				var data_fields=[];
 				for (var x = this.itemCount_; x > 1; x--) {
+					data_fields[x]=this.getFieldValue('DATA'+x);
 					this.removeInput('DATA' + x);
 					this.removeInput('ITEM' + x);
 				}
@@ -234,8 +275,22 @@
 							this.itemCount_++;
 							this.setInputsInline(false);
 							//.appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom))
-							var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA' + this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
-							var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+							if (window.FacilinoAdvanced===true)
+							{
+								var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA' + this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
+								if (data_fields[this.itemCount_]!==undefined)
+									this.setFieldValue(data_fields[this.itemCount_],'DATA'+this.itemCount_);
+								var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+							}
+							else
+							{
+								
+								var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/byte.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0),'DATA' + this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
+								if (data_fields[this.itemCount_]!==undefined)
+									this.setFieldValue(data_fields[this.itemCount_],'DATA'+this.itemCount_);
+								var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom,16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+								
+							}
 							// Reconnect any child blocks.
 							//if (clauseBlock.valueConnection_) {
 							//	dataInput.connection.connect(clauseBlock.valueConnection_);
@@ -272,6 +327,9 @@
 				}
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.communications_ir_command['subcategory'];
 
 	Blockly.Blocks.communications_ir_command_stack = {
 			// App
@@ -279,7 +337,14 @@
 			keys: ['LANG_IR_COMMAND_DECODE','LANG_IR_COMMAND_TOOLTIP'],
 			init: function() {
 				this.setColour(infrared_digital_colour);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_DECODE')).setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_DECODE')).setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/remote-control.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/inbox.svg",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg",20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				}
 				this.appendStatementInput('STACK').setCheck('ir_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_COMMAND_TOOLTIP'));
 				this.contextMenu = false;
@@ -291,7 +356,14 @@
 			keys: ['LANG_IR_COMMAND_CODE','LANG_IR_COMMAND_TOOLTIP'],
 			init: function() {
 				this.setColour(infrared_digital_colour);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE')).setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE')).setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/byte.svg',20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				}
 				this.setPreviousStatement(true,'ir_item');
 				this.setNextStatement(true,'ir_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_IR_COMMAND_TOOLTIP'));

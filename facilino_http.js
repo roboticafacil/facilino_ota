@@ -117,7 +117,18 @@
 						
 						if (Facilino.profiles['processor']==='ESP32')
 						{
-							branch_code += '     ledcWrite(_channels[pin],value);\n';
+							/*branch_code += '     ledcWrite(_channels[pin],value);\n';*/
+							var unique = [];
+							this.uniqueVariables = [];
+							$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+								if($.inArray(el, unique) === -1) unique.push(el);
+							});
+							Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+							var pwms_map = 'std::map<int,ESP32PWM*> _pwms={';
+							unique.forEach(function (element,index){if (index===0) {pwms_map+='{'+element+',&_pwm'+element+'}';}else{pwms_map+=',{'+element+',&_pwm'+element+'}';}});
+							pwms_map +='};\n';
+							Blockly.Arduino.definitions_['declare_var_pwm_map'] = pwms_map;
+							branch_code +='_pwms[pin]->write(value);\n';
 						}
 						else
 							branch_code += '     analogWrite(pin,value);\n';

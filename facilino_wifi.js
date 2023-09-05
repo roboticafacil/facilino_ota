@@ -9,6 +9,9 @@
 		
 	if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560'))
 		{
+			
+			if (window.FacilinoAdvanced===true)
+			{
 
 			Blockly.Arduino.communications_wifi_def = function() {
 				var SSID, Password;
@@ -89,8 +92,7 @@
 				isNotDuplicable: true
 			};
 
-			if (window.FacilinoAdvanced===true)
-			{
+			
 			Blockly.Arduino.communications_wifi_tcp_open = function() {
 				var IP, Port;
 				IP = Blockly.Arduino.valueToCode(this, 'IP', Blockly.Arduino.ORDER_ATOMIC) || '""';
@@ -322,6 +324,7 @@
 		if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='ESP8266')||(Facilino.profiles['processor']==='RP2040'))
 		{
 			//if ((window.FacilinoOTA===false)||(window.FacilinoOTA==null))
+			if (window.FacilinoAdvanced===true)
 			{
 			Blockly.Arduino.communications_wifi_def = function() {
 				var SSID, Password;
@@ -412,7 +415,6 @@
 				},
 				isNotDuplicable: true
 			};
-			}
 			
 			if (window.FacilinoOTA)
 			{
@@ -506,8 +508,6 @@
 				}
 			};
 
-			if (window.FacilinoAdvanced===true)
-			{
 			Blockly.Arduino.communications_wifi_MAC = function() {
 				if (Facilino.profiles['processor']==='ESP8266')
 					Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
@@ -539,7 +539,6 @@
 
 				}
 			};
-			}
 
 			Blockly.Arduino.communications_wifi_isconnected = function() {
 				if (Facilino.profiles['processor']==='ESP8266')
@@ -572,6 +571,7 @@
 
 				}
 			};
+			}
 			
 			if ((window.FacilinoOTA===false)||(window.FacilinoOTA==null))
 			{

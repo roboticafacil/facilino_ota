@@ -1,3 +1,57 @@
+<?php
+if (isset($_POST["username"])&&isset($_POST["email"])&&isset($_POST["password"])&&isset($_POST["first_name"])&&isset($_POST["last_name"])&&isset($_POST["lang_id"])&&isset($_POST["json"]))
+{
+	require_once('db.php');
+	include('functions.php');
+	header("Content-type: application/json; charset=utf-8");
+	$username = stripslashes($_POST['username']);
+	//escapes special characters in a string
+	$username = mysqli_real_escape_string($con,$username);
+	$query = "SELECT * FROM `users` WHERE `username`='".$_POST['username']."'";
+	$result = mysqli_query($con,$query);
+	$rows = mysqli_num_rows($result);
+	if ($rows==0)
+	{
+		$email = stripslashes($_POST['email']);
+		$email = mysqli_real_escape_string($con,$email);
+		$query1 = "SELECT * FROM `users` WHERE `email`='".$_POST['email']."'";
+		$result1 = mysqli_query($con,$query1);
+		$rows1 = mysqli_num_rows($result1);
+		if ($rows1==0)
+		{
+			$password = stripslashes($_POST['password']);
+			$first_name = $_POST['first_name'];
+			$last_name = $_POST['last_name'];
+			$lang_id = $_POST['lang_id'];
+			$password = mysqli_real_escape_string($con,$password);
+			$trn_date = date("Y-m-d H:i:s");
+			$key = md5($email);
+			$addKey = substr(md5(uniqid(rand(),1)),3,10);
+			$key = $key . $addKey;
+			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',".$lang_id.")";
+			$result = mysqli_query($con,$query);
+			if($result){
+				$mail=create_email_activation($email,$key);
+				if(!$mail->Send()){
+				echo json_encode(array("status"=>"Error","result"=>"Mailer Error: " . $mail->ErrorInfo));
+				}else{
+				echo json_encode(array("status"=>"OK","result"=>"You have been successfully registered. We have sent you an e-mail with a link to activate your account. Please, check your mailbox."));
+				 }
+			}
+		}
+		else
+		{
+			echo json_encode(array("status"=>"Error","result"=>"Email '".$_POST['email']."' is in use. Please, introduce another email."));
+		}
+	}
+	else
+	{
+		echo json_encode(array("status"=>"Error","result"=>"Username '".$_POST['username']."' is in use. Please, introduce another username."));
+	}
+}
+else
+{	
+?>
 <!DOCTYPE html>
 <html>
 <?php include "head.php"; ?>
@@ -75,27 +129,37 @@ elseif (isset($_REQUEST['username'])){
 		{
 			$email = stripslashes($_REQUEST['email']);
 			$email = mysqli_real_escape_string($con,$email);
-			$password = stripslashes($_REQUEST['password']);
-			$first_name = $_REQUEST['first_name'];
-			$last_name = $_REQUEST['last_name'];
-			$password = mysqli_real_escape_string($con,$password);
-			$trn_date = date("Y-m-d H:i:s");
-			$key = md5($email);
-			$addKey = substr(md5(uniqid(rand(),1)),3,10);
-			$key = $key . $addKey;
-			//$mail=create_email_activation($email,$key);
-			$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',".$_REQUEST['lang'].")";
-			$result = mysqli_query($con,$query);
-			if($result){
-				$mail=create_email_activation($email,$key);
-				
-				if(!$mail->Send()){
-				echo "Mailer Error: " . $mail->ErrorInfo;
-				}else{
-				echo "<div class='form'>
-				<h3>You have been successfully registered. We have sent you an e-mail with a link to activate your account. Please, check your mailbox.</h3>
-				<br/>Click here to <a href='login.php'>Login</a><br/>Click here to <a href='registration.php?key=".$key."&action=resend'>Resend email</a></div>";
-				 }
+			$query1 = "SELECT * FROM `users` WHERE `email`='".$_REQUEST['email']."'";
+			$result1 = mysqli_query($con,$query1);
+			$rows1 = mysqli_num_rows($result1);
+			if ($rows1==0)
+			{
+				$password = stripslashes($_REQUEST['password']);
+				$first_name = $_REQUEST['first_name'];
+				$last_name = $_REQUEST['last_name'];
+				$password = mysqli_real_escape_string($con,$password);
+				$trn_date = date("Y-m-d H:i:s");
+				$key = md5($email);
+				$addKey = substr(md5(uniqid(rand(),1)),3,10);
+				$key = $key . $addKey;
+				//$mail=create_email_activation($email,$key);
+				$query = "INSERT into `users` (`username`,`password`, `email`,`trn_date`,`key`,`active`,`first_name`,`last_name`,`default_lang_id`) VALUES ('".$username."','".md5($password)."','".$email."','".$trn_date."','".$key."', 0,'".$first_name."','".$last_name."',".$_REQUEST['lang'].")";
+				$result = mysqli_query($con,$query);
+				if($result){
+					$mail=create_email_activation($email,$key);
+					
+					if(!$mail->Send()){
+					echo "Mailer Error: " . $mail->ErrorInfo;
+					}else{
+					echo "<div class='form'>
+					<h3>You have been successfully registered. We have sent you an e-mail with a link to activate your account. Please, check your mailbox.</h3>
+					<br/>Click here to <a href='login.php'>Login</a><br/>Click here to <a href='registration.php?key=".$key."&action=resend'>Resend email</a></div>";
+					 }
+				}
+			}
+			else
+			{
+				echo "<div class='form'><h3>Email '".$_REQUEST['email']."' is in use. Please, introduce another email.</h3><br/>Click here to <a href='login.php'>Login</a><br/>Click here to <a href='registration.php'>Registration</a></div>";
 			}
 		}
 		else
@@ -127,3 +191,6 @@ elseif (isset($_REQUEST['username'])){
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>
+<?php
+}
+?>

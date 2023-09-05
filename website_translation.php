@@ -49,9 +49,16 @@ if(strpos($_SERVER['PHP_SELF'],'index.php') !== false)
 		}
 		else
 		{
-			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 			{
-				$lang='es-ES';
+				if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+				{
+					$lang='es-ES';
+				}
+				else
+				{
+					$lang='en-GB';
+				}
 			}
 			else
 			{
@@ -79,7 +86,7 @@ else
 		}
 		else
 		{
-			if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+			if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])&&(strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0))
 			{
 				$lang='es-ES';
 			}
@@ -91,7 +98,7 @@ else
 	}
 	else
 	{
-		if (strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0)
+		if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])&&(strcmp(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5),'es-ES')==0))
 		{
 			$lang='es-ES';
 		}
@@ -101,12 +108,19 @@ else
 		}
 	}
 }
-$query_website = "SELECT `key`,`".$lang."` FROM `translate` WHERE 1";
-$result_website = mysqli_query($con,$query_website);		
-$translation=mysqli_fetch_all($result_website,MYSQLI_ASSOC);
-$website=array();
-foreach ($translation as $entry)
+if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 {
-	$website[$entry["key"]]=$entry[$lang];
+	$query_website = "SELECT `key`,`".$lang."` FROM `translate` WHERE 1";
+	$result_website = mysqli_query($con,$query_website);		
+	$translation=mysqli_fetch_all($result_website,MYSQLI_ASSOC);
+	$website=array();
+	foreach ($translation as $entry)
+	{
+		$website[$entry["key"]]=$entry[$lang];
+	}
+}
+else
+{
+	$website=array();
 }
 ?>

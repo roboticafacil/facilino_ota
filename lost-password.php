@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html>
-<?php include "head.php"; ?>
-<body>
-<?php
-require_once('db.php');
-require('functions.php');
-?>
-	<div id="header"><?php include "inc-header.php" ?></div>
-	<div id="content" style="margin-top:3em; margin-left:0.5em">
-<?php
+<?php 
 if(isset($_POST["email"]) && (!empty($_POST["email"]))){
+	if (isset($_POST["json"]))
+	{
+		require_once('db.php');
+		require('functions.php');
+		header("Content-type: application/json; charset=utf-8");
+	}
+	else
+	{
+		?>
+		<!DOCTYPE html>
+		<html>
+		<?php 
+		include "head.php"; ?>
+		<body>
+		<?php
+		require_once('db.php');
+		require('functions.php');
+		?>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:3em; margin-left:0.5em">
+<?php
+	}
 	$error='';
 	$email = $_POST["email"];
 	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 	$email = filter_var($email, FILTER_VALIDATE_EMAIL);
-if (!$email) {
-   $error .="<p>Invalid email address please type a valid email address!</p>";
+	if (!$email) {
+		$error .="<p>Invalid email address please type a valid email address!</p>";
    }else{
    //$sel_query = "SELECT * FROM `users` WHERE email='".$email."'";
    //$results = mysqli_query($con,$sel_query);
@@ -30,8 +42,14 @@ if (!$email) {
    }
   }
    if($error!=""){
-   echo "<div class='error'>".$error."</div>
-   <br /><a href='javascript:history.go(-1)'>Go Back</a>";
+	   if (isset($_POST["json"]))
+	   {
+		   echo json_encode(array("result"=>$error));
+	   }
+	   else
+	   {
+		echo "<div class='error'>".$error."</div><br /><a href='javascript:history.go(-1)'>Go Back</a>";
+	   }
    }else{
 	
    $expFormat = mktime(date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y"));
@@ -49,15 +67,34 @@ $statement->bind_param("sss",$email,$key,$expDate);
 $statement->execute();
  $mail=create_email_password_recovery($email,$key);
 if(!$mail->Send()){
-echo "Mailer Error: " . $mail->ErrorInfo;
+	if (isset($_POST["json"]))
+	{
+		echo json_encode(array("result"=>"Mailer Error: " . $mail->ErrorInfo));
+	}
+	else
+	{
+		echo "Mailer Error: " . $mail->ErrorInfo;
+	}
 }else{
-echo "<div class='error'>
-<p>An email has been sent to you with instructions on how to reset your password.</p>
-</div><br /><br /><br />";
+	if (isset($_POST["json"]))
+	{
+		echo json_encode(array("result"=>"An email has been sent to you with instructions on how to reset your password."));
+	}
+	else
+	{
+		echo "<div class='error'><p>An email has been sent to you with instructions on how to reset your password.</p></div><br /><br /><br />";
+	}
  }
    }
 }else{
-?>
+include "head.php"; ?>
+		<body>
+		<?php
+		require_once('db.php');
+		require('functions.php');
+		?>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:3em; margin-left:0.5em">
 <div class="form">
 <h1>Lost Password?</h1>
 <form method="post" action="" name="reset"><br />
@@ -69,8 +106,13 @@ echo "<div class='error'>
 <p>Not registered yet? <a href='registration.php'>Register Here</a></p>
 <p>Login <a href='login.php'>Login Here</a></p>
 </div>
-<?php } ?>
+<?php } 
+if (!isset($_POST["json"]))
+{
+?>
 </div>
 <div id="footer"><?php include "inc-footer.php" ?></div>
 </body>
 </html>
+<?php
+}

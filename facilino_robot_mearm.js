@@ -35,7 +35,7 @@
 						}
 						else if (Facilino.profiles['processor']==='ESP32')
 						{
-							Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32_Servo.h>';
+							Blockly.Arduino.definitions_['include_servo'] = '#include <ESP32Servo.h>';
 							Blockly.Arduino.definitions_['declare_var_servo_'+joint]=JST['ESP_servo_definitions_variables']({pin: joint});
 						}
 						else

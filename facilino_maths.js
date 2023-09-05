@@ -91,7 +91,10 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
 				this.setOutput(true,Number);
-				this.appendValueInput('A').setCheck([Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+					this.appendValueInput('A').setCheck([Number,'Variable']);
+				else
+					this.appendValueInput('A').setCheck([Number,'Variable']).appendField(new Blockly.FieldImage('img/blocks/math.svg',20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP');
 				this.setInputsInline(true);
 				// Assign 'this' to a variable for use in the tooltip closure below.
@@ -107,19 +110,41 @@
 			},
 			default_inputs: function()
 			{
-				return ['<field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MINUS</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MULTIPLY</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">DIVIDE</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">POWER</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
+				if (window.FacilinoAdvanced===true)
+				{
+					return ['<field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MINUS</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MULTIPLY</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">DIVIDE</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">POWER</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>'];
+				}
+				else
+				{
+					return ['<field name="OP">ADD</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MINUS</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<field name="OP">MULTIPLY</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>','<field name="OP">DIVIDE</field><value name="A"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="B"><shadow type="math_number"><field name="NUM">1</field></shadow></value>'];
+				}
 			}
 			
 			
 		};
 
-		Blockly.Blocks.math_arithmetic.OPERATORS = [
+		if (window.FacilinoAdvanced===true)
+		{
+			Blockly.Blocks.math_arithmetic.OPERATORS = [
+				['+', 'ADD'],
+				['-', 'MINUS'],
+				['\u00D7', 'MULTIPLY'],
+				['\u00F7', 'DIVIDE'],
+				['^', 'POWER']
+			];
+		}
+		else
+		{
+			Blockly.Blocks.math_arithmetic.OPERATORS = [
 			['+', 'ADD'],
 			['-', 'MINUS'],
 			['\u00D7', 'MULTIPLY'],
-			['\u00F7', 'DIVIDE'],
-			['^', 'POWER']
-		];
+			['\u00F7', 'DIVIDE']
+			];
+		}
+		
+		if (window.FacilinoAdvanced===true)
+		{
 
 		Blockly.Arduino.math_modulo = function() {
 			var argument0 = Blockly.Arduino.valueToCode(this, 'DIVIDEND',
@@ -161,15 +186,19 @@
 			}
 		};
 		
+		}
+		
+		
 		Blockly.Arduino.base_map = function() {
 			var value_num = Blockly.Arduino.valueToCode(this, 'NUM', Blockly.Arduino.ORDER_NONE);
+			var value_dmin = Blockly.Arduino.valueToCode(this, 'DMIN', Blockly.Arduino.ORDER_ATOMIC);
 			var value_dmax = Blockly.Arduino.valueToCode(this, 'DMAX', Blockly.Arduino.ORDER_ATOMIC);
 
 			var code = '';
 			if (Facilino.profiles['processor']==='ESP32')
-				code += 'map('+value_num+',0,4095,0,'+value_dmax+')';
+				code += 'map('+value_num+',0,4095,'+value_dmin+','+value_dmax+')';
 			else
-				code += 'map('+value_num+',0,1023,0,'+value_dmax+')';
+				code += 'map('+value_num+',0,1023,'+value_dmin+','+value_dmax+')';
 
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};
@@ -187,14 +216,19 @@
 			output: Facilino.locales.getKey('LANG_MATH_BASE_MAP_OUTPUT'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('NUM')
-					.appendField(Facilino.locales.getKey('LANG_MATH_BASE_MAP'))
-					.setCheck([Number,'Variable']);
-				this.appendValueInput('DMAX')
-					.appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_BETWEEN'))
-					.appendField('0')
-					.appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND'))
-					.setCheck([Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_MATH_BASE_MAP')).setCheck([Number,'Variable']);
+					this.appendValueInput('DMIN').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_BETWEEN')).setCheck([Number,'Variable']);
+					this.appendValueInput('DMAX').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND')).setCheck([Number,'Variable']);
+				}
+				else
+				{
+					this.appendValueInput('NUM').appendField(new Blockly.FieldImage('img/blocks/enlarge.svg',20*options.zoom,20*options.zoom)).setCheck([Number,'Variable']);
+					this.appendValueInput('DMIN').appendField(new Blockly.FieldImage('img/blocks/opening_bracket.svg',12*options.zoom,20*options.zoom)).setCheck([Number,'Variable']);
+					this.appendValueInput('DMAX').appendField(new Blockly.FieldImage('img/blocks/comma.svg',12*options.zoom,20*options.zoom)).setCheck([Number,'Variable']);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/closing_bracket.svg',12*options.zoom,20*options.zoom));
+				}
 				this.setInputsInline(true);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_BASE_MAP_TOOLTIP'));
@@ -203,22 +237,22 @@
 			{
 				var xml='';
 				if (Facilino.profiles['processor']==='ESP32')
-					xml+='<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">4095</field></shadow></value>';
+					xml+='<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMIN"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">4095</field></shadow></value>';
 				else
-					xml+='<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">1023</field></shadow></value>';
+					xml+='<value name="NUM"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMIN"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">1023</field></shadow></value>';
 				var xml1='';
 				if (Facilino.profiles['processor']==='ESP32')
-					xml1+='<value name="NUM"><shadow type="variables_get"></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">4095</field></shadow></value>';
+					xml1+='<value name="NUM"><shadow type="variables_get"></shadow></value><value name="DMIN"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">4095</field></shadow></value>';
 				else
-					xml1+='<value name="NUM"><shadow type="variables_get"></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">1023</field></shadow></value>';
+					xml1+='<value name="NUM"><shadow type="variables_get"></shadow></value><value name="DMIN"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="DMAX"><shadow type="math_number"><field name="NUM">1023</field></shadow></value>';
 				
 				return [xml,xml1];
 			}
 		};
-
 		
 		if (window.FacilinoAdvanced===true)
 		{
+		
 		Blockly.Arduino.advanced_map = function() {
 			var num = Blockly.Arduino.valueToCode(this, 'NUM', Blockly.Arduino.ORDER_NONE);
 			var from_min = Blockly.Arduino.valueToCode(this, 'FROM_MIN', Blockly.Arduino.ORDER_NONE);
@@ -244,25 +278,18 @@
 			output: Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_OUTPUT'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
-				this.appendValueInput('NUM')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_MAP'))
+				this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_MAP'))
 					.setCheck([Number,'Variable']);
-				this.appendValueInput('FROM_MIN')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_FROM'))
+				this.appendValueInput('FROM_MIN').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_FROM'))
 					.setCheck([Number,'Variable']);
-				this.appendValueInput('FROM_MAX')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_HYPHEN'))
+				this.appendValueInput('FROM_MAX').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_HYPHEN'))
 					.setCheck([Number,'Variable']);
-				this.appendDummyInput('')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_BRACKET'));
-				this.appendValueInput('TO_MIN')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_TO'))
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_BRACKET'));
+				this.appendValueInput('TO_MIN').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_TO'))
 					.setCheck([Number,'Variable']);
-				this.appendValueInput('TO_MAX')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_HYPHEN'))
+				this.appendValueInput('TO_MAX').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_HYPHEN'))
 					.setCheck([Number,'Variable']);
-				this.appendDummyInput('')
-					.appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_BRACKET'));
+				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_BRACKET'));
 				this.setInputsInline(true);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MATH_ADVANCED_MAP_TOOLTIP'));
@@ -289,6 +316,7 @@
 			}
 		};
 		}
+		
 		
 		Blockly.Arduino.math_minmax = function() {
 			// Basic arithmetic operators, and power.
@@ -318,8 +346,19 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_MATH);
 				this.setOutput(true,Number);
-				this.appendValueInput('A').appendField(new Blockly.FieldDropdown([['min', 'min'],['max', 'max']]), 'OP').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_BETWEEN')).setCheck([Number,'Variable']);
-				this.appendValueInput('B').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND'));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('A').appendField(new Blockly.FieldDropdown([['min', 'min'],['max', 'max']]), 'OP').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_BETWEEN')).setCheck([Number,'Variable']);
+					this.appendValueInput('B').setCheck([Number,'Variable']).appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND'));
+				}
+				else
+				{
+					this.appendValueInput('A').appendField(new Blockly.FieldImage('img/blocks/minmax.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldDropdown([['min', 'min'],['max', 'max']]), 'OP').appendField(new Blockly.FieldImage('img/blocks/opening_bracket.svg',12*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('B').appendField(new Blockly.FieldImage('img/blocks/comma.svg',12*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/closing_bracket.svg',12*options.zoom,20*options.zoom));
+				}
+				
+				
 				this.setInputsInline(true);
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
@@ -359,8 +398,17 @@
 			output: Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_OUTPUT'),
 			init: function() {
 				this.setColour(this.colour);
-				this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM')).setCheck([Number,'Variable']);
-				this.appendValueInput('DMAX').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND')).setCheck([Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('NUM').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM')).setCheck([Number,'Variable']);
+					this.appendValueInput('DMAX').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_AND')).setCheck([Number,'Variable']);
+				}
+				else
+				{
+					this.appendValueInput('NUM').appendField(new Blockly.FieldImage('img/blocks/dices.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/opening_bracket.svg',12*options.zoom,20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendValueInput('DMAX').appendField(new Blockly.FieldImage('img/blocks/comma.svg',12*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck([Number,'Variable']);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/closing_bracket.svg',12*options.zoom,20*options.zoom));
+				}
 				this.setInputsInline(true);
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_MATH_RANDOM_TOOLTIP'));
@@ -547,14 +595,29 @@ if (window.FacilinoAdvanced===true)
 				return ['<field name="OP">ROOT</field><value name="NUM"><shadow type="math_number"><field name="NUM">9</field></shadow></value>','<field name="OP">ABS</field><value name="NUM"><shadow type="math_number"><field name="NUM">5</field></shadow></value>','<field name="OP">NEG</field><value name="NUM"><shadow type="math_number"><field name="NUM">-3</field></shadow></value>','<field name="OP">LN</field><value name="NUM"><shadow type="math_number"><field name="NUM">2.71828</field></shadow></value>','<field name="OP">LOG10</field><value name="NUM"><shadow type="math_number"><field name="NUM">100</field></shadow></value>','<field name="OP">EXP</field>','<field name="OP">POW10</field>','<field name="OP">SIN</field><value name="NUM"><shadow type="math_number"><field name="NUM">30</field></shadow></value>','<field name="OP">COS</field><value name="NUM"><shadow type="math_number"><field name="NUM">60</field></shadow></value>','<field name="OP">TAN</field><value name="NUM"><shadow type="math_number"><field name="NUM">45</field></shadow></value>','<field name="OP">ASIN</field><value name="NUM"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>','<field name="OP">ACOS</field><value name="NUM"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>','<field name="OP">ATAN</field><value name="NUM"><shadow type="math_number"><field name="NUM">0.5</field></shadow></value>'];
 			}
 		};
+		
+		}
+		
+		
 
 		// Source: src/blocks/math_single/math_single.js
 		Blockly.Arduino.math_sinusoid = function() {
-			var amplitude = Blockly.Arduino.valueToCode(this, 'AMPLITUDE', Blockly.Arduino.ORDER_NONE);
+			if (window.FacilinoAdvanced===true)
+			{
+				var amplitude = Blockly.Arduino.valueToCode(this, 'AMPLITUDE', Blockly.Arduino.ORDER_NONE);
+				var phase = Blockly.Arduino.valueToCode(this, 'PHASE', Blockly.Arduino.ORDER_NONE);
+				var offset = Blockly.Arduino.valueToCode(this, 'OFFSET', Blockly.Arduino.ORDER_NONE);
+				var time = Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_NONE);
+			}
+			else
+			{
+				var amplitude = '1';
+				var phase = '0';
+				var offset = '0';
+				var time = 'millis()';
+			}
 			var freq= Blockly.Arduino.valueToCode(this, 'FREQ', Blockly.Arduino.ORDER_NONE);
-			var phase = Blockly.Arduino.valueToCode(this, 'PHASE', Blockly.Arduino.ORDER_NONE);
-			var offset = Blockly.Arduino.valueToCode(this, 'OFFSET', Blockly.Arduino.ORDER_NONE);
-			var time = Blockly.Arduino.valueToCode(this, 'TIME', Blockly.Arduino.ORDER_NONE);
+			
 			var code='('+amplitude+')*sin((6.28318530717959e-06)*(('+freq+')*((float)('+time+')))+0.017453292519943*('+phase+'))+'+'('+offset+')';
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};
@@ -574,28 +637,44 @@ if (window.FacilinoAdvanced===true)
 			output: Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_OUTPUT'),
 			init: function() {
 				this.setColour(this.colour);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID')).setAlign(Blockly.Blocks.ALIGN_RIGHT);
-				this.appendValueInput('AMPLITUDE').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_AMPLITUDE')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendValueInput('FREQ').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_FREQ')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendValueInput('PHASE').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_PHASE')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendValueInput('OFFSET').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_OFFSET')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
-				this.appendValueInput('TIME').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_TIME')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID')).setAlign(Blockly.Blocks.ALIGN_RIGHT);
+					this.appendValueInput('AMPLITUDE').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_AMPLITUDE')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+					this.appendValueInput('FREQ').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_FREQ')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+					this.appendValueInput('PHASE').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_PHASE')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+					this.appendValueInput('OFFSET').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_OFFSET')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+					this.appendValueInput('TIME').appendField(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_TIME')).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/waves.svg',20*options.zoom,20*options.zoom)).setAlign(Blockly.Blocks.ALIGN_RIGHT);
+					this.appendValueInput('FREQ').appendField(new Blockly.FieldImage('img/blocks/clock.svg',20*options.zoom,20*options.zoom)).setAlign(Blockly.Blocks.ALIGN_RIGHT).setCheck([Number,'Variable']);
+				}
 				this.setInputsInline(true);
 				this.setOutput(true,Number);
-				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_TOOLTIP'));
+				if (window.FacilinoAdvanced===true)
+					this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_TOOLTIP'));
+				else
+					this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_MATH_SINUSOID_TOOLTIP1'));
 			},
 			default_inputs: function()
 			{
 				var xml='';
-				xml+='<value name="AMPLITUDE"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
+				if (window.FacilinoAdvanced===true)
+				{
+					xml+='<value name="AMPLITUDE"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
+				}
 				xml+='<value name="FREQ"><shadow type="math_number"><field name="NUM">1</field></shadow></value>';
-				xml+='<value name="PHASE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
-				xml+='<value name="OFFSET"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
-				xml+='<value name="TIME"><shadow type="base_us"></shadow></value>';
+				if (window.FacilinoAdvanced===true)
+				{
+					xml+='<value name="PHASE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+					xml+='<value name="OFFSET"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
+					xml+='<value name="TIME"><shadow type="base_us"></shadow></value>';
+				}
 				return xml;
 			}
 		};
-		}
 	
 	};
 		

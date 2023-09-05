@@ -7,24 +7,12 @@
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
 		
-		if (window.FacilinoAdvanced===true)
-		{
-			var mic_category=Facilino.locales.getKey('LANG_CATEGORY_SOUND');
-			var mic_analog_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_MIC');
-			var mic_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_MIC');
-			var mic_cat_colour=Facilino.LANG_COLOUR_SOUND;
-			var mic_analog_colour=Facilino.LANG_COLOUR_SOUND_MIC;
-			var mic_digital_colour=Facilino.LANG_COLOUR_SOUND_MIC;
-		}
-		else
-		{
-			var mic_category=Facilino.locales.getKey('LANG_CATEGORY_ADVANCED');
-			var mic_analog_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_ANALOG');
-			var mic_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_DIGITAL');
-			var mic_cat_colour=Facilino.LANG_COLOUR_ADVANCED;
-			var mic_analog_colour=Facilino.LANG_COLOUR_ADVANCED_ANALOG;
-			var mic_digital_colour=Facilino.LANG_COLOUR_ADVANCED_DIGITAL;
-		}
+		var mic_category=Facilino.locales.getKey('LANG_CATEGORY_SOUND');
+		var mic_analog_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_MIC');
+		var mic_digital_subcategory=Facilino.locales.getKey('LANG_SUBCATEGORY_MIC');
+		var mic_cat_colour=Facilino.LANG_COLOUR_SOUND;
+		var mic_analog_colour=Facilino.LANG_COLOUR_SOUND_MIC;
+		var mic_digital_colour=Facilino.LANG_COLOUR_SOUND_MIC;
 		
 			Blockly.Arduino.dyor_mic = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
@@ -49,8 +37,18 @@
 			//infrared initialization
 			init: function() {
 				this.setColour(mic_analog_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_AO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_AO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.setInputsInline(false);
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom));
+					this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/analog_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('AnalogPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.setInputsInline(true);
+				}
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_TOOLTIP'));
 			},
@@ -59,6 +57,9 @@
 			return '<value name="PIN"><shadow type="pin_analog"></shadow></value>';
 		  }
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_mic['subcategory'];
 
 	Blockly.Arduino.dyor_mic_digital = function() {
 			var pin = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
@@ -84,8 +85,18 @@
 			//infrared initialization
 			init: function() {
 				this.setColour(mic_digital_colour);
-		this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
-				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_DO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom)).appendField(Facilino.locales.getKey('LANG_MIC')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/mic.svg', 36*options.zoom, 36*options.zoom));
+					this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_MIC_PIN_DO')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.setInputsInline(false);
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/microphone.png",24*options.zoom,24*options.zoom));
+					this.appendValueInput('PIN').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
+					this.setInputsInline(true);
+				}
 				this.setOutput(true,Boolean);
 				this.setTooltip(Facilino.locales.getKey('LANG_MIC_DIGITAL_TOOLTIP'));
 			},
@@ -94,6 +105,9 @@
 			return '<value name="PIN"><shadow type="pin_digital"></shadow></value>';
 		  }
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_mic_digital['subcategory'];
 		
 	}
 	

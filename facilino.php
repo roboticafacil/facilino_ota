@@ -5,8 +5,21 @@ require_once('website_translation.php');
 if (isset($_GET["action"]))
 {
 	if (($_GET["action"]=="open")||($_GET["action"]=="save")||($_GET["action"]=="open_example")||($_GET["action"]=="save_example"))
-		include("auth.php");
+	{
+		if (isset($_GET["username"])&&isset($_GET["key"]))
+		{
+			if (session_status() !== PHP_SESSION_ACTIVE)
+				session_start();
+			$_SESSION["username"]=$_GET["username"];
+			$_SESSION["key"]=$_GET["key"];
+		}
+		else
+		{
+			include("auth.php");
+		}
+	}
 }
+	
 
 if (isset($_GET["action"])&&(($_GET["action"]=="save")||($_GET["action"]=="save_example"))&&isset($_POST['facilino_code'])&&isset($_POST['arduino_code'])&&isset($_POST['project_id']))
 {
@@ -37,7 +50,18 @@ if (isset($_GET["action"])&&(($_GET["action"]=="save")||($_GET["action"]=="save_
 		if (isset($_GET["goto"]))
 			header ("Location: ".$_GET["goto"]);
 		else
+		{
+			header("Location: ".str_replace("save","open",basename($_SERVER['REQUEST_URI'])));
+		}
+	}
+	else
+	{
+		if (isset($_GET["goto"]))
+			header ("Location: ".$_GET["goto"]);
+		else
+		{
 			header("Location: dashboard.php");
+		}
 	}
 }
 elseif (isset($_GET["id"]))
@@ -48,6 +72,7 @@ elseif (isset($_GET["id"]))
 	<html><?php include "head.php"; ?>
 	<body>
 	<?php
+	//if ((!isset($_GET["embbeded"]))&&(!isset($_GET["no_header"])))
 	if (!isset($_GET["embbeded"]))
 	{
 		?><div id="header"><?php include "inc-header.php" ?></div> <?php
@@ -131,9 +156,29 @@ elseif (isset($_GET["id"]))
 	$statement->execute();
 	$result=$statement->get_result();
 	$rows = mysqli_num_rows($result);
-	if ($rows==1)
+	if ($rows==1||($project_id==0))
 	{
-		$row = mysqli_fetch_assoc($result);
+		if ($project_id!=0)
+		{
+			$row = mysqli_fetch_assoc($result);
+		}
+		else
+		{
+			$query = "SELECT lang.lang_key,lang.name as lang_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name from `languages` as lang, `filters` as filt, `facilino_version` as version,`processors` as proc,`facilino_code` as code where lang.id=".$_GET["lang_id"]." and filt.id=".$_GET["filt_id"]." and version.id=".$_GET["version_id"]." and proc.id=".$_GET["proc_id"]." and code.id=0";
+			/*$query = "SELECT lang.lang_key,lang.name as lang_name,filt.name as filt_name,version.version,proc.mcu as proc_mcu,code.blockly_code,proc.name as proc_name from `languages` as lang, `filters` as filt, `facilino_version` as version,`processors` as proc,`facilino_code` as code where lang.id=? and filt.id=? and version.id=? and proc.id=? and code.id=0";
+			$statement=mysqli_prepare($con,$query);
+			$lang_id=intval($_GET["lang_id"]);
+			$filt_id=intval($_GET["filt_id"]);
+			$version_id=intval($_GET["version_id"]);
+			$proc_id=intval($_GET["proc_id"]);
+			$statement->bind_param("iiii",$lang_id,$filt_id,$version_id,$proc_id);
+			var_dump($statement);
+			$statement->execute();
+			$result=$statement->get_result();*/
+			$result=mysqli_query($con,$query);
+			$row_tmp=mysqli_fetch_assoc($result);
+			$row=array("proj_name"=>$_GET["name"],"lang_key"=>$row_tmp['lang_key'],"filt_name"=>$row_tmp['filt_name'],"version"=>$row_tmp['version'],"proc_mcu"=>$row_tmp['proc_mcu'],"blockly_code"=>$row_tmp['blockly_code'],"lang_name"=>$row_tmp['lang_name'],"proc_name"=>$row_tmp['proc_name'],"proc_id"=>$_GET["proc_id"],"share_key"=>"");
+		}
 		//$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=".$project_id." and `meta_key`='TOOLBOX'";
 		//$result_meta = mysqli_query($con,$query_meta);
 		$query_meta = "SELECT `meta_value` FROM `projects_meta` WHERE `project_id`=? and `meta_key`='TOOLBOX'";
@@ -192,8 +237,8 @@ elseif (isset($_GET["id"]))
 			if (!isset($_GET["embbeded"]))
 			{ 
 				?>
-			<div id="code" style="float: left; width: 34%; height: 100%; display: none">
-			<?php
+				<div id="code" style="float: left; width: 34%; height: 100%; display: none">
+				<?php
 			}
 			?>
 			  </div>
@@ -288,8 +333,16 @@ elseif (isset($_GET["id"]))
 				</div>
 			</section>
 			<section>
+			<div class="container"><p style="padding:0.3em"><b><?php echo $website["COMMAND_OUTPUT"];?>:</b></p><p style="padding:0.3em" id="command_output"></p></div>
+			</section>
 			<div class="container"><p style="padding:0.3em"><b><?php echo $website["CONSOLE_OUTPUT"];?>:</b></p><p style="padding:0.3em" id="console_output"></p></div>
 			</section>
+		  </div>
+		</div>
+		<div id="modal_timeout" class="modal" style="display:none;margin-left:3em;width:100%;height:25%">
+		  <div class="modal-content">
+			<span class="close" style="width:0.8em">&times;</span>
+			<div class="container"><p style="padding:0.2em;" id="msg_timeout"><?php echo $website["TIMEOUT_ERROR"];?></p></p></div>
 		  </div>
 		</div>
 		<?php
@@ -321,6 +374,7 @@ elseif (isset($_GET["id"]))
 				echo 'window.project_id = "'.$project_id.'";';
 				echo 'window.share_key = "'.$row["share_key"].'";';
 				echo 'window.username = "'.$_SESSION["username"].'";';
+				echo 'window.key = "'.$_SESSION["key"].'";';
 				echo 'var verify_msg="'.$website["VERIFY_MSG"].'";';
 				echo 'var verify_upload_msg="'.$website["VERIFY_UPLOAD_MSG"].'";';
 				?> localStorage.setItem('saved',Blockly.Xml.domToText(document.getElementById('startBlocks'))); <?php
@@ -368,10 +422,23 @@ elseif (isset($_GET["id"]))
 				  modal_progress.style.display = "none";
 				  var console_output = document.getElementById('console_output');
 				  console_output.innerHTML='';
+				  var command_output = document.getElementById('command_output');
+				  command_output.innerHTML='';
 				}
 				
 				var updateCode=true;
 				var justOnce=true;
+				
+				var modal_timeout = document.getElementById('modal_timeout');
+				var span_timeout = document.getElementsByClassName("close")[1];
+				
+				span_timeout.onclick = function() {
+				  modal_timeout.style.display = "none";
+				  var msg_timeout = document.getElementById('msg_timeout');
+				  msg_timeout.innerHTML='';
+				}
+				
+				
 				<?php
 			}
 			?>
@@ -390,31 +457,31 @@ elseif (isset($_GET["id"]))
 				{
 					if (window.FacilinoBlockFilter==='DYOR')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH',,'LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_MAX7219','LANG_CATEGORY_LIGHT','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_CATEGORY_SOUND','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 					}
 					else if (window.FacilinoBlockFilter==='bPED')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_DIGITAL','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_CATEGORY_SOUND','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_WALK','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 					}
 					else if (window.FacilinoBlockFilter==='meArm')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ARM','LANG_SUBCATERGORY_ESPUI'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_DIGITAL','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ARM','LANG_SUBCATERGORY_ESPUI'];
 					}
 					else if (window.FacilinoBlockFilter==='Multisensor')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_CATEGORY_LIGHT','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_CATEGORY_SOUND','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_ESPUI'];
 					}
 					else if (window.FacilinoBlockFilter==='HomeAutomation')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_SUBCATEGORY_LCD','LANG_CATEGORY_LIGHT','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_CATEGORY_SOUND','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812'];
 					}
 					else if (window.FacilinoBlockFilter==='LED_RACE')
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATERGORY_WS2812'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_INTERRUPTS','LANG_CATEGORY_LOGIC','LANG_CATEGORY_MATH','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_BUTTON','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_BLE','LANG_SUBCATERGORY_WS2812'];
 					}
 					else
 					{
-						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_ARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
+						window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE','LANG_CATEGORY_LOGIC','LANG_SUBCATEGORY_BITWISE','LANG_CATEGORY_MATH','LANG_CATEGORY_CURVE','LANG_CATEGORY_TEXT','LANG_CATEGORY_VARIABLES','LANG_SUBCATEGORY_ARRAYS','LANG_SUBCATEGORY_OBJECTS','LANG_SUBCATEGORY_EEPROM','LANG_CATEGORY_ADVANCED','LANG_SUBCATEGORY_ANALOG','LANG_SUBCATEGORY_DIGITAL','LANG_SUBCATEGORY_PWM','LANG_SUBCATEGORY_BUTTON','LANG_SUBCATEGORY_BUS','LANG_CATEGORY_COMMUNICATION','LANG_SUBCATEGORY_USB','LANG_SUBCATEGORY_BLUETOOTH','LANG_SUBCATEGORY_WIFI','LANG_SUBCATEGORY_IOT','LANG_SUBCATEGORY_IR','LANG_SUBCATEGORY_BLE','LANG_CATEGORY_DISTANCE','LANG_SUBCATEGORY_LCD','LANG_SUBCATEGORY_MAX7219','LANG_CATEGORY_LIGHT','LANG_SUBCATEGORY_INFRARED','LANG_SUBCATEGORY_COLOR','LANG_SUBCATEGORY_LDR','LANG_SUBCATEGORY_DIMMER','LANG_CATEGORY_SOUND','LANG_SUBCATEGORY_BUZZER','LANG_SUBCATEGORY_MIC','LANG_SUBCATEGORY_MUSIC','LANG_SUBCATEGORY_MP3','LANG_SUBCATEGORY_MOTORS','LANG_SUBCATEGORY_ROBOT','LANG_SUBCATEGORY_ROBOTBASE','LANG_SUBCATEGORY_ROBOTACC','LANG_SUBCATEGORY_WALK','LANG_SUBCATEGORY_ARM','LANG_SUBCATEGORY_SYSTEM_FILTER','LANG_SUBCATEGORY_SYSTEM_CONTROL','LANG_SUBCATEGORY_TEMPERATURE','LANG_SUBCATEGORY_HUMIDITY','LANG_SUBCATEGORY_RAIN','LANG_SUBCATEGORY_GAS','LANG_SUBCATEGORY_MISC','LANG_SUBCATERGORY_HTML','LANG_SUBCATERGORY_ESPUI','LANG_SUBCATERGORY_WS2812','LANG_SUBCATEGORY_OLED'];
 					}
 				}
 				//window.toolbox = ['LANG_CATEGORY_PROCEDURES','LANG_CATEGORY_CONTROLS','LANG_SUBCATEGORY_CONTROL','LANG_SUBCATEGORY_PROGRAMMING','LANG_SUBCATEGORY_INTERRUPTS','LANG_SUBCATEGORY_STATEMACHINE'];
@@ -653,6 +720,43 @@ function saveAll(newLoc,action)
 	form.submit();
 	//console.log(escapeCode(current));
 }
+
+function saveProject(action)
+{
+	var current = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace()));
+	var text = Blockly.Arduino.workspaceToCode(Blockly.getMainWorkspace());
+	localStorage.setItem("saved",current);
+	const form = document.createElement('form');
+	form.method = "post";
+	form.action = "facilino.php?action="+action+"&id="+window.project_id+"&username="+window.username+"&key="+window.key+"&alt_header";
+	const hiddenBlockly = document.createElement('input');
+	  hiddenBlockly.type = 'hidden';
+	  hiddenBlockly.name = 'facilino_code';
+	  var i= current.indexOf('>');
+	  current=current.substr(current.indexOf('>')+1);
+	  current=current.substr(0,current.lastIndexOf('<'));
+	  current=current.replace(/'/g,"&apos;");
+	  hiddenBlockly.value = escapeCode(current);
+	  form.appendChild(hiddenBlockly);
+	const hiddenArduino = document.createElement('input');
+	  hiddenArduino.type = 'hidden';
+	  hiddenArduino.name = 'arduino_code';
+	  text=text.replace(/'/g,"&apos;");
+	  hiddenArduino.value = text;
+	  form.appendChild(hiddenArduino);
+	const hiddenProj = document.createElement('input');
+	  hiddenProj.type = 'hidden';
+	  hiddenProj.name = 'project_id';
+	  hiddenProj.value = window.project_id;
+	  form.appendChild(hiddenProj);
+	const hiddenCode = document.createElement('input');
+	  hiddenCode.type = 'hidden';
+	  hiddenCode.name = 'project_code';
+	  hiddenCode.value = current;
+	 form.appendChild(hiddenCode);
+	document.body.appendChild(form);
+	form.submit();
+}
 	
 function saveBeforeExit(action)
 {
@@ -881,16 +985,19 @@ function showToolbox()
 	}
 }
 
-function showHideCategory(key)
+function showHideCategory(id,key)
 {
 	var found = window.toolbox.find(function(element) {return (element===key);});
 	if (found)
 	{
 		window.toolbox = window.toolbox.filter(function(item) { return item !== key});
+		document.getElementById(id).style.textDecoration="line-through";
+		
 	}
 	else
 	{
 		window.toolbox.push(key);
+		document.getElementById(id).style.textDecoration="none";
 	}
 	window.toolboxNames=getToolboxNames(window.toolbox);
 	Blockly.getMainWorkspace().updateToolbox(Blockly.updateToolboxXml(toolboxNames));
@@ -933,33 +1040,30 @@ function removeOptions(selectElement) {
    }
 }
 
-function listPorts()
+async function listPorts()
 {
 	select = document.getElementById('ports');
-	const XHR = new XMLHttpRequest();
 	var serverip = 'localhost';
-	//if (ValidateIPaddress(serverip))
-	{
-		var url='http://';
-		url=url.concat(serverip,':4000/list_ports');
-		XHR.open('GET', url,false);
-		XHR.send();
-		if (XHR.status==200) {
-			var option;
-			removeOptions(select);
-			result = eval(XHR.responseText);
-			var prev_selected_port=window.selected_port;
+	var url='http://';
+	url=url.concat(serverip,':4000/list_ports');
+	try{
+		const controller = new AbortController();
+		const id = setTimeout(() => controller.abort(),5000);
+		const response = await fetch(url, {method: 'POST',headers: {'Content-Type': 'application/json'},body: {},timeout: 5000,signal:controller.signal});
+		//const response = await fetch(url, {method: 'POST',headers: {'Access-Control-Allow-Origin': '*','Content-Type': 'text/html; charset=ISO-8859-1'},body: {},timeout: 5000,signal:controller.signal});
+		clearTimeout(id);
+		const r = await response.json();
+		//const r = await response.text();
+		var option;
+		removeOptions(select);
+		//result = eval(r);
+		result = r['ports'];
+		var prev_selected_port=window.selected_port;
+		var atLeastOnePortSelected=false;
+		if (result.length>0)
+		{
 			window.selected_port=result[0];
 			result.forEach(function (value,idx){
-				/*
-				option = document.createElement('option');
-				option.value = option.textContent = value;
-				select.appendChild(option);
-				if (prev_selected_port===value)
-				{
-					option.selected=true;
-					window.selected_port=prev_selected_port;
-				}*/
 				var lblEl=document.createElement('label');
 				lblEl.innerHTML=value;
 				lblEl.htmlFor='port'+idx;
@@ -972,12 +1076,91 @@ function listPorts()
 				if (prev_selected_port===value)
 				{
 					inpEl.checked=true;
+					atLeastOnePortSelected=true;
 					window.selected_port=prev_selected_port;
+				}
+				else if (prev_selected_port===undefined)
+				{
+					if (idx==0)
+					{
+						inpEl.checked=true;
+						atLeastOnePortSelected=true;
+						window.selected_port=value;
+					}
 				}
 				select.appendChild(inpEl);
 				select.appendChild(lblEl);
 			});
-			
+		}
+		if (atLeastOnePortSelected==false)
+		{
+			p0 = document.getElementById('port0');
+			if (p0!==undefined)
+			{
+				p0.setAttribute('checked',true);
+				window.selected_port=p0.value;
+			}
+		}
+		listCompilationFlags();
+		window.selected_compilation_flags=compilation_flags[0].compilation_flags;
+		window.OTAServerVersion='1.1.0';
+		modal_progress.style.display = "block";
+	}
+	catch(error)
+	{
+		try{
+			const XHR = new XMLHttpRequest();
+			XHR.overrideMimeType("application/json");  
+			XHR.open('GET', url,true);
+			XHR.timeout = 2000;
+			XHR.ontimeout = (e) => {
+			  // XMLHttpRequest timed out. Do something here.
+			  console.log('Timeout');
+			  modal_timeout.style.display = "block";
+			};
+			XHR.onload = () => {
+				if (XHR.status==200) {
+					var option;
+					removeOptions(select);
+					try {
+						r=JSON.parse(XHR.responseText);
+						result = r['ports'];
+					} catch (e) {
+						result = eval(XHR.responseText);
+					}
+					var prev_selected_port=window.selected_port;
+					window.selected_port=result[0];
+					result.forEach(function (value,idx){
+						var lblEl=document.createElement('label');
+						lblEl.innerHTML=value;
+						lblEl.htmlFor='port'+idx;
+						var inpEl=document.createElement('input');
+						inpEl.type='radio';
+						inpEl.id='port'+idx;
+						inpEl.name='ports';
+						inpEl.value=value;
+						inpEl.setAttribute("onclick", "portChange(this.value)");
+						if (prev_selected_port===value)
+						{
+							inpEl.checked=true;
+							window.selected_port=prev_selected_port;
+						}
+						select.appendChild(inpEl);
+						select.appendChild(lblEl);
+					});
+					listCompilationFlags();
+					window.selected_compilation_flags=compilation_flags[0].compilation_flags;
+					window.OTAServerVersion='1.0.0';
+					modal_progress.style.display = "block";
+				}
+
+			}
+			XHR.send();	
+		}
+		catch(error)
+		{
+			modal_timeout.style.display = "block";
+			console.log(error);
 		}
 	}
 }
@@ -992,29 +1175,56 @@ function listCompilationFlags()
 	select = document.getElementById('flags');
 	removeOptions(select);
 	var prev_selected_flag=window.selected_compilation_flags;
-	window.selected_compilation_flags=compilation_flags[0].compilation_flags;
-	compilation_flags.forEach(function (value,idx){
-		/*option = document.createElement('option');
-		option.value = value.compilation_flags;
-		option.textContent = value.variant;
-		select.appendChild(option);*/
-		var lblEl=document.createElement('label');
-		lblEl.innerHTML=value.variant+'&nbsp;&nbsp;';
-		lblEl.htmlFor='flag'+idx;
-		var inpEl=document.createElement('input');
-		inpEl.type='radio';
-		inpEl.id='flag'+idx;
-		inpEl.name='flags';
-		inpEl.value=value.compilation_flags;
-		inpEl.setAttribute("onclick", "flagsChange(this.value)");
-		if (prev_selected_flag===value.compilation_flags)
+	if (compilation_flags.length>0)
+	{
+		var atLeastOneFlagSelected=false;
+		window.selected_compilation_flags=compilation_flags[0].compilation_flags;
+		compilation_flags.forEach(function (value,idx){
+			/*option = document.createElement('option');
+			option.value = value.compilation_flags;
+			option.textContent = value.variant;
+			select.appendChild(option);*/
+			var lblEl=document.createElement('label');
+			lblEl.innerHTML=value.variant+'&nbsp;&nbsp;';
+			lblEl.htmlFor='flag'+idx;
+			var inpEl=document.createElement('input');
+			inpEl.type='radio';
+			inpEl.id='flag'+idx;
+			inpEl.name='flags';
+			inpEl.value=value.compilation_flags;
+			inpEl.setAttribute("onclick", "flagsChange(this.value)");
+			if (prev_selected_flag===value.compilation_flags)
+			{
+				inpEl.checked=true;
+				atLeastOneFlagSelected=true;
+				window.selected_compilation_flags=prev_selected_flag;
+			}
+			if (prev_selected_flag===undefined)
+			{
+				if (idx==0)
+				{
+					inpEl.checked=true;
+					atLeastOneFlagSelected=true;
+					window.selected_compilation_flags=value;
+				}
+			}
+			select.appendChild(inpEl);
+			select.appendChild(lblEl);
+		});
+		if (atLeastOneFlagSelected==false)
 		{
-			inpEl.checked=true;
-			window.selected_compilation_flags=prev_selected_flag;
+			f0=document.getElementById('flag0');
+			if (f0!==undefined)
+			{
+				f0.setAttribute('checked',true);
+				window.selected_compilation_flags=f0.value;
+			}
 		}
-		select.appendChild(inpEl);
-		select.appendChild(lblEl);
-	});
+	}
+	else
+	{
+		window.selected_compilation_flags='arduino:avr:uno';
+	}
 }
 
 function portChange(a)
@@ -1038,9 +1248,7 @@ function compile_upload()
 		listIPPorts();
 	else
 		listPorts();
-	listCompilationFlags();
-	window.selected_compilation_flags=compilation_flags[0].compilation_flags;
-	modal_progress.style.display = "block";
+	
 }
 
 function compile()
@@ -1141,95 +1349,119 @@ function uploadUSB()
 	//console.log(data);
 }
 
-function uploadUSBData(data)
+async function uploadUSBData(data)
 {
-	const XHR = new XMLHttpRequest(),FD  = new FormData();
-	for( name in data ) {
-		FD.append( name, data[ name ] );
-	}
-	var progress_bar = document.getElementById('progress-bar');
-	progress_bar.style.display = "block";
 	var console_output = document.getElementById('console_output');
-	//var progress_lbl=$("progress_lbl");
-	// Define what happens on successful data submission
-	XHR.addEventListener( 'load', function( event ) {
-				//console.log(XHR.readyState);
-			  if (XHR.readyState === XHR.DONE) {
-					if (XHR.status === 200) {
-						if (parseInt(localStorage.getItem('upload_progress') || 100 )<1)
-							localStorage.setItem('upload_size',100);
-						else
-							localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100));
-						//modal_progress.style.display = "none";
-						progress_bar.style.display = "none";
-						//console_output.innerHTML=XHR.response;
+	if (window.OTAServerVersion==='1.1.0')
+	{
+		var serverip = 'localhost';
+		var url='http://';
+		url=url.concat(serverip,':4000/usb_upload');
+		try{   
+		console_output.innerHTML='';
+		command_output.innerHTML='';
+		//var progress_bar = document.getElementById('progress-bar');
+		//progress_bar.style.display = "block";
+		const response = await fetch(url, {method: 'POST',headers: {'Content-Type': 'application/json; charset=ISO-8859-1'},body: JSON.stringify(data)});
+		const r = await response.json();
+		console_output.innerHTML=r['result'];
+		command_output.innerHTML=r['command'];
+		}
+		catch(error)
+		{
+			console.log(error);
+		}
+	}
+	else if (window.OTAServerVersion==='1.0.0')
+	{
+		const XHR = new XMLHttpRequest(),FD  = new FormData();
+		for( name in data ) {
+			FD.append( name, data[ name ] );
+		}
+		var progress_bar = document.getElementById('progress-bar');
+		progress_bar.style.display = "block";
+		//var progress_lbl=$("progress_lbl");
+		// Define what happens on successful data submission
+		XHR.addEventListener( 'load', function( event ) {
+					//console.log(XHR.readyState);
+				  if (XHR.readyState === XHR.DONE) {
+						if (XHR.status === 200) {
+							if (parseInt(localStorage.getItem('upload_progress') || 100 )<1)
+								localStorage.setItem('upload_size',100);
+							else
+								localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100));
+							//modal_progress.style.display = "none";
+							progress_bar.style.display = "none";
+							//console_output.innerHTML=XHR.response;
+						}
 					}
-				}
+			  } );
+		  XHR.addEventListener('loadstart',function(event){
+			if (event.lengthComputable)
+				localStorage.setItem('upload_size',event.total);
+			localStorage.setItem('upload_progress',0);
+			progress_number.innerHTML='0%';
+			progress.setAttribute('value',0);
+			console_output.innerHTML='';
+			//player.loadPlaylist({list:'PLjzuoBhdtaXNT8unZpegZM15qlQA69Cfu',listype: 'playlist'});
+			//player.setShuffle({shufflePlaylist:true});
+		  }
+		  );
+	  
+		  XHR.addEventListener('loadend',function(event){
+			localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100 ));
+			//player.stopVideo();
+			}
+		  );
+	  
+		  XHR.addEventListener('progress',function (event){
+			console_output.innerHTML=XHR.response;
+			if (event.lengthComputable)
+			{
+				var percentComplete = event.loaded / event.total * 100;
+				console.log(percentComplete);
+				progress_number.innerHTML=percentComplete+'%';
+				progress.setAttribute('value',percentComplete);
+			}
+			else
+			{
+				localStorage.setItem('upload_progress',parseInt(localStorage.getItem('upload_progress') || 100 )+1);
+				var percentComplete = parseInt(parseInt(localStorage.getItem('upload_progress') || 100 )/parseInt(localStorage.getItem('upload_size') || 100 )*100);
+				if (percentComplete>100)
+					percentComplete=100;
+				progress_number.innerHTML=percentComplete+'%';
+				progress.setAttribute('value',percentComplete);
+			}
+		  }
+		  );
+		  XHR.addEventListener('timeout',function(event){
+			alert( 'I could not get a response!');
+			//player.stopVideo();
+		  }
+		  );
+
+		  // Define what happens in case of error
+		  XHR.addEventListener(' error', function( event ) {
+			alert( 'Oops! Something went wrong.' );
+			//player.stopVideo();
 		  } );
 		
-	  XHR.addEventListener('loadstart',function(event){
-		if (event.lengthComputable)
-			localStorage.setItem('upload_size',event.total);
-		localStorage.setItem('upload_progress',0);
-		progress_number.innerHTML='0%';
-		progress.setAttribute('value',0);
-		console_output.innerHTML='';
-		//player.loadPlaylist({list:'PLjzuoBhdtaXNT8unZpegZM15qlQA69Cfu',listype: 'playlist'});
-		//player.setShuffle({shufflePlaylist:true});
+
+	  // Set up our request
+	  //var serverip = $("#serverip").val();
+	  var serverip = 'localhost';
+	  //if (ValidateIPaddress(serverip))
+	  {
+		var url='http://';
+		url=url.concat(serverip,':4000/usb_upload');
+		console.log(url);
+		XHR.open( 'POST', url,true);
+		//XHR.setRequestHeader('Access-Control-Allow-Headers', '*');
+		// Send our FormData object; HTTP headers are set automatically
+		XHR.send( FD );
 	  }
-	  );
+	}
   
-	  XHR.addEventListener('loadend',function(event){
-		localStorage.setItem('upload_size',parseInt(localStorage.getItem('upload_progress') || 100 ));
-		//player.stopVideo();
-		}
-	  );
-  
-	  XHR.addEventListener('progress',function (event){
-		console_output.innerHTML=XHR.response;
-		if (event.lengthComputable)
-		{
-			var percentComplete = event.loaded / event.total * 100;
-			console.log(percentComplete);
-			progress_number.innerHTML=percentComplete+'%';
-			progress.setAttribute('value',percentComplete);
-		}
-		else
-		{
-			localStorage.setItem('upload_progress',parseInt(localStorage.getItem('upload_progress') || 100 )+1);
-			var percentComplete = parseInt(parseInt(localStorage.getItem('upload_progress') || 100 )/parseInt(localStorage.getItem('upload_size') || 100 )*100);
-			if (percentComplete>100)
-				percentComplete=100;
-			progress_number.innerHTML=percentComplete+'%';
-			progress.setAttribute('value',percentComplete);
-		}
-	  }
-	  );
-	  XHR.addEventListener('timeout',function(event){
-		alert( 'I could not get a response!');
-		//player.stopVideo();
-	  }
-	  );
-
-	  // Define what happens in case of error
-	  XHR.addEventListener(' error', function( event ) {
-		alert( 'Oops! Something went wrong.' );
-		//player.stopVideo();
-	  } );
-
-  // Set up our request
-  //var serverip = $("#serverip").val();
-  var serverip = 'localhost';
-  //if (ValidateIPaddress(serverip))
-  {
-	var url='http://';
-	url=url.concat(serverip,':4000/usb_upload');
-	console.log(url);
-	XHR.open( 'POST', url,true);
-
-	// Send our FormData object; HTTP headers are set automatically
-	XHR.send( FD );
-  }
 }
 
 

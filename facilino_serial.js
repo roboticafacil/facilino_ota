@@ -32,10 +32,17 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_USB);
-				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
-				this.appendStatementInput('DO')
-					.appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT_INPUT_DO'));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+					this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_CONTROLS_REPEAT_INPUT_DO'));
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/usb.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/inbox.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/available.svg',20*options.zoom, 20*options.zoom));
+					this.appendStatementInput('DO').appendField(new Blockly.FieldImage('img/blocks/do.svg', 16*options.zoom, 16*options.zoom));
+				}
+				
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_TOOLTIP'));
@@ -43,6 +50,12 @@
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.serial_available['subcategory'];
+		
+		if (window.FacilinoAdvanced===true)
+		{
 
 		// Source: src/blocks/serial_print/serial_print.js
 		Blockly.Arduino.serial_print = function() {
@@ -79,6 +92,10 @@
 				return ['<value name="CONTENT"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
+		
+		}
+		
+		
 		// Source: src/blocks/serial_println/serial_println.js
 		Blockly.Arduino.serial_println = function() {
 			var content = Blockly.Arduino.valueToCode(this, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC);
@@ -113,7 +130,15 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINTLN_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_USB);
-				this.appendValueInput('CONTENT').appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINTLN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,Number,Boolean,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('CONTENT').appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINTLN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,Number,Boolean,'Variable']);
+				}
+				else
+				{
+					this.appendValueInput('CONTENT').appendField(new Blockly.FieldImage('img/blocks/usb.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/printer.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/text.svg',20*options.zoom, 20*options.zoom)).setCheck([String,Number,Boolean,'Variable']);
+				}
+				
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PRINTLN_TOOLTIP'));
@@ -125,6 +150,9 @@
 				return ['<value name="CONTENT"><shadow type="text"><field name="TEXT"></field></shadow></value>','<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.serial_println['subcategory'];
 
 		Blockly.Arduino.serial_plot = function() {
 			var content = Blockly.Arduino.valueToCode(this, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC);
@@ -148,7 +176,16 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PLOT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_USB);
-				this.appendValueInput('CONTENT').setCheck([Boolean,Number,'Variable']).appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PLOT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('CONTENT').setCheck([Boolean,Number,'Variable']).appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PLOT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendValueInput('CONTENT').appendField(new Blockly.FieldImage('img/blocks/usb.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/printer.svg',20*options.zoom, 20*options.zoom)).setCheck([Boolean,Number,'Variable']).appendField(new Blockly.FieldImage('img/blocks/analog_signal.svg',20*options.zoom,20*options.zoom));
+				}
+				
+				
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PLOT_TOOLTIP'));
@@ -160,6 +197,9 @@
 				return ['<value name="CONTENT"><shadow type="math_number"><field name="NUM">0</field></shadow></value>','<value name="CONTENT"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.serial_plot['subcategory'];
 		
 		if (window.FacilinoAdvanced===true)
 			{
@@ -339,14 +379,23 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PARSEINT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_USB);
-				this.appendDummyInput('')
-					.appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PARSEINT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PARSEINT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/usb.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/read.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/numbers.svg',20*options.zoom, 20*options.zoom));
+				}
 				this.setOutput(true,Number);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_PARSEINT_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.serial_parseint['subcategory'];
 
 		if (window.FacilinoAdvanced===true)
 			{
@@ -379,7 +428,10 @@
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
 			}
 		};
+		
+		
 		// Source: src/blocks/serial_read/serial_read.js
+		
 
 		Blockly.Arduino.serial_read = function() {
 
@@ -436,13 +488,23 @@
 			name: Facilino.locales.getKey('LANG_ADVANCED_SERIAL_READSTRING_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_USB);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_READSTRING')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_READSTRING')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/usb.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/usb.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/read.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/text.svg',20*options.zoom, 20*options.zoom));
+				}
 				this.setOutput(true,String);
 				this.setTooltip(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_READSTRING_TOOLTIP'));
 				if (window.FacilinoOTA===true)
 					this.setWarningText(Facilino.locales.getKey('LANG_ADVANCED_SERIAL_AVAILABLE_WARNING'));
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.serial_readstring['subcategory'];
 
 		if (window.FacilinoAdvanced===true)
 		{

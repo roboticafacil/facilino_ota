@@ -1,277 +1,340 @@
 <?php
 require_once('db.php');
-require_once('website_translation.php');
-include("auth.php");
-?>
-<!DOCTYPE html>
-<html><?php include "head.php"; 
-?>
-<body>
+
+if (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
+	include("auth.php");
+	$query = "UPDATE `users` SET `first_name`=?,`last_name`=?,`default_lang_id`=? WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	if (isset($_POST["language"]))
+		$language_id=intval($_POST["language"]);
+	else
+		$language_id=4;
+	$statement->bind_param("ssis",$_POST["first_name"],$_POST["last_name"],$language_id,$_SESSION["username"]);
+	$statement->execute();
+	header("Location: dashboard.php");
+}
+elseif (isset($_POST["action"])&&($_POST["action"]=="update")&&isset($_POST["username"])&&isset($_POST["key"])&&isset($_POST["first_name"])&&isset($_POST["last_name"])&&(isset($_POST["lang_id"]))){
+	header("Content-type: application/json; charset=utf-8");
+	$query = "UPDATE `users` SET `first_name`=?,`last_name`=?,`default_lang_id`=? WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("ssis",$_POST["first_name"],$_POST["last_name"],$_POST["lang_id"],$_POST["username"]);
+	if ($statement->execute())
+	{
+		echo json_encode(array("result"=>"OK"));
+	}
+	else
+		echo json_encode(array("result"=>"Error"));
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["upgrade_button"])){
+	header("Location: upgrade.php");
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["recover_button"])){
+	include("auth.php");
+	$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_SESSION["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		$row = mysqli_fetch_row($result);
+		if ($row[0]==4) {
+			header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_standard");
+		}
+		elseif ($row[0]==5){
+			header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_academic");
+		}
+		else
+		{
+			header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_standard");
+		}
+	}
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["translation_button"])){
+	header("Location: translation_program.php");
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["academy_button"])){
+	header("Location: academy_program.php");
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
+	header("Location: dashboard.php");
+}
+elseif (isset($_GET["action"])&&(($_GET["action"]=="modify_to_standard")||($_GET["action"]=="modify_to_academic"))){
+	include("auth.php");	
+	$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_SESSION["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		$row = mysqli_fetch_row($result);
+		if ($row[1]==2)
+		{
+			require("functions.php");
+			$query="UPDATE `users` SET `user_role_id`=?, `prev_user_role_id`=? WHERE `id`=?";
+			$statement=mysqli_prepare($con,$query);
+			$statement->bind_param("ii",$row[4],$row[1],$row[0]);
+			$statement->execute();
+			$mail=create_email_account_changed($row[2],$row[3],$row[5]);
+			if(!$mail->Send()){
+				echo "Mailer Error: " . $mail->ErrorInfo;
+			}else{
+				header("Location: user.php");
+			}
+		}
+	}
+	header("Location: user.php");
+}
+elseif (isset($_GET["username"])&&isset($_GET["action"])&&($_GET["action"]=="accept_as_reviewer")){
+	include("auth.php");
+	require_once('website_translation.php');
+	?>
+	<!DOCTYPE html>
+	<html><?php include "head.php"; 
+	?>
+	<body>
 		<div id="header"><?php include "inc-header.php" ?></div>
 		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
 		<h3><?php echo $website["USER_DATA"]?></h3>
 		<?php
-		if (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["update_button"])){
-			//$query = "UPDATE `users` SET `first_name`=\"".$_POST["first_name"]."\",`last_name`=\"".$_POST["last_name"]."\" WHERE `username`=\"".$_SESSION["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query = "UPDATE `users` SET `first_name`=?,`last_name`=?,`default_lang_id`=? WHERE `username`=?";
-			$statement=mysqli_prepare($con,$query);
-			if (isset($_POST["language"]))
-				$language_id=intval($_POST["language"]);
-			else
-				$language_id=5;
-			$statement->bind_param("ssis",$_POST["first_name"],$_POST["last_name"],$language_id,$_SESSION["username"]);
-			$statement->execute();
-			header("Location: dashboard.php");
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["upgrade_button"])){
-			header("Location: upgrade.php");
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["recover_button"])){
-			//$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query = "SELECT `prev_user_role_id` FROM `users` WHERE `username`=?";
-			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_SESSION["username"]);
-			$statement->execute();
-			$result=$statement->get_result();
-			$rows = mysqli_num_rows($result);
-			if ($rows==1)
-			{
-				$row = mysqli_fetch_row($result);
-				if ($row[0]==4) {
-					header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_standard");
-				}
-				elseif ($row[0]==5){
-					header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_academic");
-				}
-				else
-				{
-					header("Location: user.php?username='".$_SESSION["username"]."'&action=modify_to_standard");
-				}
-			}
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["translation_button"])){
-			header("Location: translation_program.php");
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="apply")&&!isset($_POST["action"])&&isset($_POST["academy_button"])){
-			header("Location: academy_program.php");
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="update")&&!isset($_POST["action"])&&isset($_POST["cancel_button"])){
-			header("Location: dashboard.php");
-		}
-		elseif (isset($_GET["action"])&&(($_GET["action"]=="modify_to_standard")||($_GET["action"]=="modify_to_academic"))){
-			//Modify user account
-			//$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=\"".$_SESSION["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query="SELECT `users`.`id`,`user_role_id`,`email`,`first_name`,`prev_user_role_id`,`user_roles`.`FullName` FROM `users` INNER JOIN `user_roles` ON (`users`.`user_role_id`=`user_roles`.`id`) WHERE `username`=?";
-			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_SESSION["username"]);
-			$statement->execute();
-			$result=$statement->get_result();
-			$rows = mysqli_num_rows($result);
-			if ($rows==1)
-			{
-				$row = mysqli_fetch_row($result);
-				if ($row[1]==2)
-				{
-					require("functions.php");
-					//$query="UPDATE `users` SET `user_role_id`=".$row[4].", `prev_user_role_id`=NULL WHERE `id`=".$row[0];
-					//$result = mysqli_query($con,$query);
-					$query="UPDATE `users` SET `user_role_id`=?, `prev_user_role_id`=? WHERE `id`=?";
-					$statement=mysqli_prepare($con,$query);
-					$statement->bind_param("ii",$row[4],$row[1],$row[0]);
-					$statement->execute();
-					$mail=create_email_account_changed($row[2],$row[3],$row[5]);
-					if(!$mail->Send()){
-						echo "Mailer Error: " . $mail->ErrorInfo;
-					}else{
-						header("Location: user.php");
-					}
-				}
-			}
-			header("Location: user.php");
-		}
-		elseif (isset($_GET["username"])&&isset($_GET["action"])&&($_GET["action"]=="accept_as_reviewer")){
-			//Accept a user as a reviewer
-			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			//$result = mysqli_query($con,$query);
+	//Accept a user as a reviewer
+	$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_SESSION["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		$row = mysqli_fetch_assoc($result);
+		if ($row['user_role_id']==1)
+		{
 			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
 			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_SESSION["username"]);
+			$statement->bind_param("s",$_GET["username"]);
 			$statement->execute();
 			$result=$statement->get_result();
 			$rows = mysqli_num_rows($result);
 			if ($rows==1)
 			{
 				$row = mysqli_fetch_assoc($result);
-				if ($row['user_role_id']==1)
+				if ($row['user_role_id']==4)
 				{
-					$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+					require("functions.php");
+					$query="UPDATE `users` SET `user_role_id`=3, `prev_user_role_id`=? WHERE `id`=?";
 					$statement=mysqli_prepare($con,$query);
-					$statement->bind_param("s",$_GET["username"]);
+					$statement->bind_param("ii",$row['user_role_id'],$row['id']);
 					$statement->execute();
-					$result=$statement->get_result();
-					$rows = mysqli_num_rows($result);
-					if ($rows==1)
+					$mail=create_email_reviewer_response($row['email'],$row['first_name'],1);
+					if(!$mail->Send())
 					{
-						$row = mysqli_fetch_assoc($result);
-						if ($row['user_role_id']==4)
-						{
-							require("functions.php");
-							//$query="UPDATE `users` SET `user_role_id`=2, `prev_user_role_id`=".$row[1]." WHERE `id`=".$row[0];
-							//$result = mysqli_query($con,$query);
-							$query="UPDATE `users` SET `user_role_id`=3, `prev_user_role_id`=? WHERE `id`=?";
-							$statement=mysqli_prepare($con,$query);
-							$statement->bind_param("ii",$row['user_role_id'],$row['id']);
-							$statement->execute();
-							$mail=create_email_reviewer_response($row['email'],$row['first_name'],1);
-							if(!$mail->Send())
-							{
-								echo "Mailer Error: " . $mail->ErrorInfo;
-							}
-							else
-							{
-								?>
-								<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
-								<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
-								<?php
-							}
-						}
-						else
-						{
-							echo 'This user is already a translator contributor.';
-						}
+						echo "Mailer Error: " . $mail->ErrorInfo;
 					}
 					else
 					{
-						echo 'User not found.';
-					}
-				}
-				else
-				{
-					echo 'You are not allowed, because your user is not an administrator.';
-				}
-			}
-			else
-			{
-				?>
-				<h3><?php echo $website["UPS"]?></h3>
-				<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
-				<?php
-			}
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_reviewer")){
-			//Decline a user as an academic
-			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
-			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_POST["username"]);
-			$statement->execute();
-			$result=$statement->get_result();
-			$rows = mysqli_num_rows($result);
-			if ($rows==1)
-			{
-				require("functions.php");
-				$row = mysqli_fetch_row($result);
-				$mail=create_email_reviewer_response($row[2],$row[3],0,$_POST["comments"]);
-				if(!$mail->Send()){
-						echo "Mailer Error: " . $mail->ErrorInfo;
-				}else{
-					?>
-					<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
-					<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
-					<?php
-				}
-			}
-			else
-			{
-				?>
-				<h3><?php echo $website["UPS"]?></h3>
-				<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
-				<?php
-			}
-		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="accept_as_academic")){
-			//Accept a user as an academic
-			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_SESSION["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
-			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_SESSION["username"]);
-			$statement->execute();
-			$result=$statement->get_result();
-			$rows = mysqli_num_rows($result);
-			if ($rows==1)
-			{
-				$row = mysqli_fetch_row($result);
-				if ($row[1]>1)
-				{
-					require("functions.php");
-					//$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=".$row[0];
-					//$result = mysqli_query($con,$query);
-					$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=?";
-					$statement=mysqli_prepare($con,$query);
-					$statement->bind_param("i",$row[0]);
-					$statement->execute();
-					$mail=create_email_academic_response($row[2],$row[3],1);
-					if(!$mail->Send()){
-						echo "Mailer Error: " . $mail->ErrorInfo;
-					}else{
 						?>
 						<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
-						<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
+						<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
 						<?php
 					}
 				}
 				else
 				{
-					echo 'This user is already an academic.';
+					echo 'This user is already a translator contributor.';
 				}
 			}
 			else
 			{
-				?>
-				<h3><?php echo $website["UPS"]?></h3>
-				<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
-				<?php
+				echo 'User not found.';
 			}
 		}
-		elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_academic")){
-			//Decline a user as an academic
-			//$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=\"".$_POST["username"]."\"";
-			//$result = mysqli_query($con,$query);
-			$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+		else
+		{
+			echo 'You are not allowed, because your user is not an administrator.';
+		}
+	}
+	else
+	{
+		?>
+		<h3><?php echo $website["UPS"]?></h3>
+		<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
+		<?php
+	}
+	?>
+		</div>
+		<div id="footer"><?php include "inc-footer.php" ?></div>
+	</body>
+	</html>
+	<?php
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_reviewer")){
+	include("auth.php");
+	require_once('website_translation.php');
+	?>
+	<!DOCTYPE html>
+	<html><?php include "head.php"; 
+	?>
+	<body>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
+		<h3><?php echo $website["USER_DATA"]?></h3>
+		<?php
+	//Decline a user as an academic
+	$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_POST["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		require("functions.php");
+		$row = mysqli_fetch_row($result);
+		$mail=create_email_reviewer_response($row[2],$row[3],0,$_POST["comments"]);
+		if(!$mail->Send()){
+				echo "Mailer Error: " . $mail->ErrorInfo;
+		}else{
+			?>
+			<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
+			<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
+			<?php
+		}
+	}
+	else
+	{
+		?>
+		<h3><?php echo $website["UPS"]?></h3>
+		<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>" /></form>
+		<?php
+	}
+	?>
+		</div>
+		<div id="footer"><?php include "inc-footer.php" ?></div>
+	</body>
+	</html>
+	<?php
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="accept_as_academic")){
+	include("auth.php");
+	require_once('website_translation.php');
+	?>
+	<!DOCTYPE html>
+	<html><?php include "head.php"; 
+	?>
+	<body>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
+		<h3><?php echo $website["USER_DATA"]?></h3>
+		<?php
+	//Accept a user as an academic
+	$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_SESSION["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		$row = mysqli_fetch_row($result);
+		if ($row[1]>1)
+		{
+			require("functions.php");
+			$query="UPDATE `users` SET `user_role_id`=5 WHERE `id`=?";
 			$statement=mysqli_prepare($con,$query);
-			$statement->bind_param("s",$_POST["username"]);
+			$statement->bind_param("i",$row[0]);
 			$statement->execute();
-			$result=$statement->get_result();
-			$rows = mysqli_num_rows($result);
-			if ($rows==1)
-			{
-				require("functions.php");
-				$row = mysqli_fetch_row($result);
-				$mail=create_email_academic_response($row[2],$row[3],0,$_POST["comments"]);
-				if(!$mail->Send()){
-						echo "Mailer Error: " . $mail->ErrorInfo;
-				}else{
-					?>
-					<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
-					<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
-					<?php
-				}
-			}
-			else
-			{
+			$mail=create_email_academic_response($row[2],$row[3],1);
+			if(!$mail->Send()){
+				echo "Mailer Error: " . $mail->ErrorInfo;
+			}else{
 				?>
-				<h3><?php echo $website["UPS"]?></h3>
-				<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
+				<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
+				<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
 				<?php
 			}
 		}
 		else
 		{
+			echo 'This user is already an academic.';
+		}
+	}
+	else
+	{
+		?>
+		<h3><?php echo $website["UPS"]?></h3>
+		<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
+		<?php
+	}
+	?>
+		</div>
+		<div id="footer"><?php include "inc-footer.php" ?></div>
+	</body>
+	</html>
+	<?php
+}
+elseif (isset($_GET["action"])&&($_GET["action"]=="decline_as_academic")){
+	include("auth.php");
+	require_once('website_translation.php');
+	?>
+	<!DOCTYPE html>
+	<html><?php include "head.php"; 
+	?>
+	<body>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
+		<h3><?php echo $website["USER_DATA"]?></h3>
+		<?php
+	//Decline a user as an academic
+	$query="SELECT `id`,`user_role_id`,`email`,`first_name` FROM `users` WHERE `username`=?";
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("s",$_POST["username"]);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		require("functions.php");
+		$row = mysqli_fetch_row($result);
+		$mail=create_email_academic_response($row[2],$row[3],0,$_POST["comments"]);
+		if(!$mail->Send()){
+				echo "Mailer Error: " . $mail->ErrorInfo;
+		}else{
+			?>
+			<h3><?php echo $website["EMAIL_SENT_USER_RESPONSE"]?></h3>
+			<form action="dashboard.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
+			<?php
+		}
+	}
+	else
+	{
+		?>
+		<h3><?php echo $website["UPS"]?></h3>
+		<form action="translate.php"><input type="submit" value="<?php echo $website["CONTINUE"]?>"/></form>
+		<?php
+	}
+	?>
+		</div>
+		<div id="footer"><?php include "inc-footer.php" ?></div>
+	</body>
+	</html>
+	<?php
+}
+else
+{
+	include("auth.php");
+	require_once('website_translation.php');
+	?>
+	<!DOCTYPE html>
+	<html><?php include "head.php"; 
+	?>
+	<body>
+		<div id="header"><?php include "inc-header.php" ?></div>
+		<div id="content" style="margin-top:2em; margin-left: 0.5em; margin-right: 0.5em">
+		<h3><?php echo $website["USER_DATA"]?></h3>
+		<?php
 			//$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) where username='".$_SESSION["username"]."' and active=1";
 			//$result_user = mysqli_query($con,$query_user);
 			$query_user = "SELECT `users`.`username`,`users`.`email`,`users`.`first_name`,`users`.`last_name`,`users`.`user_role_id`,`user_roles`.`FullName`,`languages`.`id` from `users` inner join `user_roles` on (`user_roles`.`id`=`users`.`user_role_id`) inner join `languages` on (`users`.`default_lang_id`=`languages`.`id`) where username=? and active=1";
@@ -372,9 +435,11 @@ include("auth.php");
 			{
 				echo "User not found! Something weird happened";
 			}
-		}
-		?>
+	?>
 		</div>
 		<div id="footer"><?php include "inc-footer.php" ?></div>
 	</body>
-</html>
+	</html>
+<?php
+}
+		

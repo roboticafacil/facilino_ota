@@ -17,7 +17,8 @@
 				var rx, tx;
 				rx = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
 				tx = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_NONE);
-				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+				//var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+				var baud_rate = this.getFieldValue('BAUD_RATE');
 				Blockly.Arduino.definitions_['declare_var_BluetoothSerial'] = 'SoftwareSerial _bt_device(' + rx + ',' + tx + ');\n';
 				Blockly.Arduino.definitions_['define_softwareserial'] = JST['softwareserial_def_definitions']({});
 
@@ -26,7 +27,8 @@
 			else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 			{
 
-				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+				//var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+				var baud_rate = this.getFieldValue('BAUD_RATE');
 				var port=this.getFieldValue('PORT');
 				Blockly.Arduino.definitions_['declare_var_define_serial'+port] = '#define _bt_device Serial'+port+'\n';
 				if (Facilino.profiles['processor']==='RP2040')
@@ -71,25 +73,45 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') )
+				if (window.FacilinoAdvanced===true)
 				{
-					this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
-					this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
-				}
-				else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
-				{
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') )
+					{
+						//this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).appendField(new Blockly.FieldNumber(9600),'BAUD_RATE').setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+						this.appendValueInput('PIN2').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+					}
+					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
+					{
+						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
+						//this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).appendField(new Blockly.FieldNumber(9600),'BAUD_RATE').setAlign(Blockly.ALIGN_RIGHT);
 
+					}
+					else if ((Facilino.profiles['processor']==='ESP32'))
+					{
+						this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_MASTER')).appendField(new Blockly.FieldCheckbox('FALSE'),'MASTER').setAlign(Blockly.ALIGN_RIGHT);
+					}
+					this.setInputsInline(false);
 				}
-				else if ((Facilino.profiles['processor']==='ESP32'))
+				else
 				{
-					this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_MASTER')).appendField(new Blockly.FieldCheckbox('FALSE'),'MASTER').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/bluetooth.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/setup.svg', 20*options.zoom, 20*options.zoom));
+					if (profiles['processor']==='ATmega328')
+					{
+						this.appendValueInput('PIN').appendField(new Blockly.FieldImage('img/blocks/rx.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg",20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+						this.appendValueInput('PIN2').appendField(new Blockly.FieldImage('img/blocks/tx.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck(['DigitalPin',Number]);
+					}
+					else if (profiles['processor']==='ESP32')
+					{
+						this.appendDummyInput('').appendField(new Blockly.FieldTextInput(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')),'NAME').setAlign(Blockly.ALIGN_RIGHT);
+					}
+					
+					this.setInputsInline(true);
 				}
-				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_TOOLTIP'));
@@ -118,115 +140,136 @@
 			},
 			isNotDuplicable: true
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_bluetooth_def['subcategory'];
 
-		if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
+		if (window.FacilinoAdvanced===true)
 		{
-			Blockly.Arduino.dyor_bluetooth_name = function() {
-			var name = Blockly.Arduino.valueToCode(this, 'NAME', Blockly.Arduino.ORDER_NONE);
-			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
+			if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
 			{
-				var rx, tx;
-				rx = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
-				tx = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_NONE);
-				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
-				Blockly.Arduino.definitions_['declare_var_BluetoothSerial'] = 'SoftwareSerial _bt_device(' + rx + ',' + tx + ');\n';
-				Blockly.Arduino.definitions_['define_softwareserial'] = JST['softwareserial_def_definitions']({});
-
-				Blockly.Arduino.setups_['setup_bluetoothserial'] = JST['communications_softwareserial_def_setups']({'device': '_bt_device','baud_rate': baud_rate,'rx': rx, 'tx': tx});
-				Blockly.Arduino.setups_['setup_bluetoothserial_name'] = JST['dyor_bluetooth_name_setups']({'name': name});
-			}
-			else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
-			{
-
-				var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
-				var port=this.getFieldValue('PORT');
-				Blockly.Arduino.definitions_['declare_var_BluetoothSerial'] = '#define _bt_device Serial'+port+'\n';
-				Blockly.Arduino.setups_['define_softwareserial'] = '_bt_device.begin('+baud_rate+');\n';
-				Blockly.Arduino.setups_['setup_bluetoothserial_name'] = JST['dyor_bluetooth_name_setups']({'name': name});
-			}
-			return '';
-			};
-
-			Blockly.Blocks.dyor_bluetooth_name = {
-				category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
-				subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
-				tags: ['bluetooth','communication'],
-				helpUrl: Facilino.getHelpUrl('dyor_bluetooth_name'),
-				examples: ['dyor_bluetooth_name_example.bly'],
-				category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
-				colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
-				keys: ['LANG_BLUETOOTH_DEF_CONF_NAME_NAME','LANG_BLUETOOTH_DEF_CONF_NAME','LANG_BLUETOOTH_DEF_BAUD_RATE','LANG_BLUETOOTH_DEF_PIN1','LANG_BLUETOOTH_DEF_PIN2','LANG_BLUETOOTH_DEF_NAME','LANG_BLUETOOTH_NAME_TOOLTIP'],
-				name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME_NAME'),
-				init: function() {
-					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
-					{
-						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					}
-					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
-					{
-						this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
-						this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
-
-					}
-					this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
-					this.setInputsInline(false);
-					this.setPreviousStatement(true,'code');
-					this.setNextStatement(true,'code');
-					this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_NAME_TOOLTIP'));
-				},
-				default_inputs: function()
+				Blockly.Arduino.dyor_bluetooth_name = function() {
+				var name = Blockly.Arduino.valueToCode(this, 'NAME', Blockly.Arduino.ORDER_NONE);
+				if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
 				{
-					if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') )
+					var rx, tx;
+					rx = Blockly.Arduino.valueToCode(this, 'PIN', Blockly.Arduino.ORDER_NONE);
+					tx = Blockly.Arduino.valueToCode(this, 'PIN2', Blockly.Arduino.ORDER_NONE);
+					var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+					Blockly.Arduino.definitions_['declare_var_BluetoothSerial'] = 'SoftwareSerial _bt_device(' + rx + ',' + tx + ');\n';
+					Blockly.Arduino.definitions_['define_softwareserial'] = JST['softwareserial_def_definitions']({});
+
+					Blockly.Arduino.setups_['setup_bluetoothserial'] = JST['communications_softwareserial_def_setups']({'device': '_bt_device','baud_rate': baud_rate,'rx': rx, 'tx': tx});
+					Blockly.Arduino.setups_['setup_bluetoothserial_name'] = JST['dyor_bluetooth_name_setups']({'name': name});
+				}
+				else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
+				{
+
+					var baud_rate = Blockly.Arduino.valueToCode(this, 'BAUD_RATE', Blockly.Arduino.ORDER_ATOMIC);
+					var port=this.getFieldValue('PORT');
+					Blockly.Arduino.definitions_['declare_var_BluetoothSerial'] = '#define _bt_device Serial'+port+'\n';
+					Blockly.Arduino.setups_['define_softwareserial'] = '_bt_device.begin('+baud_rate+');\n';
+					Blockly.Arduino.setups_['setup_bluetoothserial_name'] = JST['dyor_bluetooth_name_setups']({'name': name});
+				}
+				return '';
+				};
+
+				Blockly.Blocks.dyor_bluetooth_name = {
+					category: Facilino.locales.getKey('LANG_CATEGORY_COMMUNICATION'),
+					subcategory: Facilino.locales.getKey('LANG_SUBCATEGORY_BLUETOOTH'),
+					tags: ['bluetooth','communication'],
+					helpUrl: Facilino.getHelpUrl('dyor_bluetooth_name'),
+					examples: ['dyor_bluetooth_name_example.bly'],
+					category_colour: Facilino.LANG_COLOUR_COMMUNICATION,
+					colour: Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH,
+					keys: ['LANG_BLUETOOTH_DEF_CONF_NAME_NAME','LANG_BLUETOOTH_DEF_CONF_NAME','LANG_BLUETOOTH_DEF_BAUD_RATE','LANG_BLUETOOTH_DEF_PIN1','LANG_BLUETOOTH_DEF_PIN2','LANG_BLUETOOTH_DEF_NAME','LANG_BLUETOOTH_NAME_TOOLTIP'],
+					name: Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME_NAME'),
+					init: function() {
+						this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
+						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_CONF_NAME')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+						if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4'))
+						{
+							this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
+							this.appendValueInput('PIN').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN1')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+							this.appendValueInput('PIN2').setCheck('DigitalPin').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PIN2')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/digital_signal.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+						}
+						else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
+						{
+							this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_PORT')).appendField(new Blockly.FieldDropdown(Facilino.profiles.default.serial_ports),'PORT').setAlign(Blockly.ALIGN_RIGHT);
+							this.appendValueInput('BAUD_RATE').setCheck(Number).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_BAUD_RATE')).setAlign(Blockly.ALIGN_RIGHT);
+
+						}
+						this.appendValueInput('NAME').setCheck(String).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DEF_NAME')).setAlign(Blockly.ALIGN_RIGHT);
+						this.setInputsInline(false);
+						this.setPreviousStatement(true,'code');
+						this.setNextStatement(true,'code');
+						this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_NAME_TOOLTIP'));
+					},
+					default_inputs: function()
 					{
-						var xml='';
-						xml +='<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value>';
-						xml+='<value name="PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
-						if (Facilino.profiles.default.digital.length>1)
-							xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
-						else
-							xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
-						xml+='<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
-						return xml;
-					}
-					else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
-					{
-						return '<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value><value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
-					}
-					else if ((Facilino.profiles['processor']==='ESP32'))
-					{
-						return '<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
-					}
-				},
-				isNotDuplicable: true
-			};
+						if ((Facilino.profiles['processor']==='ATmega328')||(Facilino.profiles['processor']==='ATmega32U4')||(Facilino.profiles['processor']==='ESP8266') )
+						{
+							var xml='';
+							xml +='<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value>';
+							xml+='<value name="PIN"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+							if (Facilino.profiles.default.digital.length>1)
+								xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[1][1]+'</field></shadow></value>';
+							else
+								xml+='<value name="PIN2"><shadow type="pin_digital"><field name="PIN">'+Facilino.profiles.default.digital[0][1]+'</field></shadow></value>';
+							xml+='<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
+							return xml;
+						}
+						else if ((Facilino.profiles['processor']==='ATmega2560')||(Facilino.profiles['processor']==='RP2040'))
+						{
+							return '<value name="BAUD_RATE"><shadow type="math_number"><field name="NUM">9600</field></shadow></value><value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
+						}
+						else if ((Facilino.profiles['processor']==='ESP32'))
+						{
+							return '<value name="NAME"><shadow type="text"><field name="TEXT">My BT device</field></shadow></value>';
+						}
+					},
+					isNotDuplicable: true
+				};
+			}
 		}
 
 	Blockly.Arduino.dyor_bluetooth_app = function() {
 			// Bluetooth if's conditions.
 			var n = 1;
 			var argument, branch, loop, loop_code,case2_argument,case2_code;
-			Blockly.Arduino.definitions_['declare_var_define_bt_pos'] = JST['dyor_bt_command_definitions_variables']({});
-			var code = 'if (_bt_device.available()>0  || _bt_cmd>0)\n{\n';
-		code += '  int cmd=_bt_device.read();\n';
-		code += '  if (cmd==0)\n	_bt_cmd=0;\n';
-		for (n = 1; n <= this.itemCount_; n++) {
-			//argument = Blockly.Arduino.valueToCode(this, 'DATA' + n, Blockly.Arduino.ORDER_NONE);
-			argument = this.getFieldValue('DATA'+n);
-			loop = this.getFieldValue('LOOP'+n);
-			branch = Blockly.Arduino.statementToCode(this, 'ITEM' + n);
-			branch = Facilino.indentSentences(branch);
-			branch = branch.substring(0, branch.length - 1);
-			if (loop=='TRUE')
-			   loop_code='	_bt_cmd='+argument+';\n';
+			if (window.FacilinoAdvanced===true)
+			{
+				Blockly.Arduino.definitions_['declare_var_define_bt_pos'] = JST['dyor_bt_command_definitions_variables']({});
+				var code = 'if (_bt_device.available()>0  || _bt_cmd>0)\n{\n';
+				code += '  int cmd=_bt_device.read();\n';
+				code += '  if (cmd==0)\n	_bt_cmd=0;\n';
+			}
 			else
-			   loop_code='';
-			code += '	 \n  if ((cmd=='+argument+')||(_bt_cmd=='+argument+')){\n	'+loop_code+branch+'  }';
-		}
-		return code+'}\n';
+			{
+				var code = 'if (_bt_device.available()>0)\n{\n';
+				code += '  int cmd=_bt_device.read();\n';
+			}
+			for (n = 1; n <= this.itemCount_; n++) {
+				//argument = Blockly.Arduino.valueToCode(this, 'DATA' + n, Blockly.Arduino.ORDER_NONE);
+				argument = this.getFieldValue('DATA'+n);
+				loop = this.getFieldValue('LOOP'+n) || 'FALSE';
+				branch = Blockly.Arduino.statementToCode(this, 'ITEM' + n);
+				branch = Facilino.indentSentences(branch);
+				branch = branch.substring(0, branch.length - 1);
+				if (window.FacilinoAdvanced===true)
+				{
+					if (loop=='TRUE')
+					   loop_code='	_bt_cmd='+argument+';\n';
+					else
+					   loop_code='';
+					code += '	 \n  if ((cmd=='+argument+')||(_bt_cmd=='+argument+')){\n	'+loop_code+branch+'  }\n';
+				}
+				else
+				{
+					code += '	 \n  if (cmd=='+argument+'){\n	'+branch+'  }\n';
+				}
+			}
+			return code+'}\n';
 		};
 
 		Blockly.Blocks.dyor_bluetooth_app = {
@@ -241,10 +284,21 @@
 			name: Facilino.locales.getKey('LANG_BLUETOOTH_APP_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-		this.setMutator(new Blockly.Mutator(['dyor_bluetooth_app_item']));
-		this.itemCount_ = 0;
-		this.setInputsInline(false);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
+					this.appendDummyInput('DATA1').appendField(Facilino.locales.getKey('LANG_IR_COMMAND_CODE_RECV')).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('ITEM1').appendField(Facilino.locales.getKey('LANG_IR_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg',24*options.zoom, 24*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/inbox.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom));
+					this.appendDummyInput('DATA1').appendField(new Blockly.FieldImage('img/blocks/byte.svg',20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0),'DATA1').setAlign(Blockly.ALIGN_RIGHT);
+					this.appendStatementInput('ITEM1').appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom, 16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				}
+				this.setMutator(new Blockly.Mutator(['dyor_bluetooth_app_item']));
+				this.itemCount_ = 1;
+				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_APP_TOOLTIP'));
@@ -262,17 +316,25 @@
 			},
 			domToMutation: function(xmlElement) {
 				this.itemCount_ = window.parseInt(xmlElement.getAttribute('item'), 10);
-				for (var x = 1; x <= this.itemCount_; x++) {
-			this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+x).setAlign(Blockly.ALIGN_RIGHT);
-			this.setInputsInline(false);
-			this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				for (var x = 2; x <= this.itemCount_; x++) {
+					if (window.FacilinoAdvanced===true)
+					{
+						this.appendDummyInput('DATA' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_DATA')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(1,1,255),'DATA'+x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+x).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendStatementInput('ITEM' + x).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					}
+					else
+					{
+						this.appendDummyInput('DATA' + x).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/byte.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,0,255),'DATA'+x).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendStatementInput('ITEM' + x).appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom,16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+					}
 				}
+				this.setInputsInline(false);
 			},
 			decompose: function(workspace) {
 				var containerBlock = workspace.newBlock('dyor_bluetooth_app_app');
 				containerBlock.initSvg();
 				var connection = containerBlock.getInput('STACK').connection;
-				for (var x = 1; x <= this.itemCount_; x++) {
+				for (var x = 2; x <= this.itemCount_; x++) {
 					var itemBlock = workspace.newBlock('dyor_bluetooth_app_item');
 					itemBlock.initSvg();
 					connection.connect(itemBlock.previousConnection);
@@ -282,11 +344,17 @@
 			},
 			compose: function(containerBlock) {
 				// Disconnect all the items input blocks and remove the inputs.
-				for (var x = this.itemCount_; x > 0; x--) {
+				var data_fields=[];
+				if (window.FacilinoAdvanced===true)
+					var loop_fields=[];
+				for (var x = this.itemCount_; x > 1; x--) {
+					data_fields[x]=this.getFieldValue('DATA'+x);
+					if (window.FacilinoAdvanced===true)
+						loop_fields[x]=this.getFieldValue('LOOP'+x);
 					this.removeInput('DATA' + x);
 					this.removeInput('ITEM' + x);
 				}
-				this.itemCount_ = 0;
+				this.itemCount_ = 1;
 				// Rebuild the block's optional inputs.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
 				while (clauseBlock) {
@@ -294,8 +362,22 @@
 						case 'dyor_bluetooth_app_item':
 							this.itemCount_++;
 							this.setInputsInline(false);
-							var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,1,255),'DATA'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
-							var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+							if (window.FacilinoAdvanced===true)
+							{
+								var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(1,1,255),'DATA'+this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM_LOOP')).appendField(new Blockly.FieldCheckbox('FALSE'), 'LOOP'+this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
+								if (data_fields[this.itemCount_]!==undefined)
+									this.setFieldValue(data_fields[this.itemCount_],'DATA'+this.itemCount_);
+								if (loop_fields[this.itemCount_]!==undefined)
+									this.setFieldValue(loop_fields[this.itemCount_],'LOOP'+this.itemCount_);
+								var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+							}
+							else
+							{
+								var dataInput = this.appendDummyInput('DATA' + this.itemCount_).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/smartphoneC.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/byte.svg", 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldNumber(0,0,255),'DATA'+this.itemCount_).setAlign(Blockly.ALIGN_RIGHT);
+								if (data_fields[this.itemCount_]!==undefined)
+									this.setFieldValue(data_fields[this.itemCount_],'DATA'+this.itemCount_);
+								var itemInput = this.appendStatementInput('ITEM' + this.itemCount_).appendField(new Blockly.FieldImage('img/blocks/do.svg',16*options.zoom,16*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+							}
 							// Reconnect any child blocks.
 							if (clauseBlock.valueConnection_) {
 								dataInput.connection.connect(clauseBlock.valueConnection_);
@@ -313,7 +395,7 @@
 			saveConnections: function(containerBlock) {
 				// Store a pointer to any connected child blocks.
 				var clauseBlock = containerBlock.getInputTargetBlock('STACK');
-				var x = 1;
+				var x = 2;
 				while (clauseBlock) {
 					switch (clauseBlock.type) {
 						case 'dyor_bluetooth_app_item':
@@ -331,6 +413,9 @@
 				}
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+			delete Blockly.Blocks.dyor_bluetooth_app['subcategory'];
 
 	Blockly.Blocks.dyor_bluetooth_app_app = {
 			// App
@@ -338,7 +423,14 @@
 			keys: ['LANG_BLUETOOTH_RECV','LANG_BLUETOOTH_APP_TOOLTIP'],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV')).setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV')).setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/bluetooth.svg",24*options.zoom,24*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/inbox.svg",20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldImage("img/blocks/smartphoneC.svg",20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				}
 				this.appendStatementInput('STACK').setCheck('bt_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_APP_TOOLTIP'));
 				this.contextMenu = false;
@@ -350,7 +442,14 @@
 			keys: ['LANG_BLUETOOTH_APP_ITEM','LANG_BLUETOOTH_COMMAND_TOOLTIP'],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_APP_ITEM')).setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/byte.svg",20*options.zoom,20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+				}
 				this.setPreviousStatement(true,'bt_item');
 				this.setNextStatement(true,'bt_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_BLUETOOTH_COMMAND_TOOLTIP'));
@@ -469,7 +568,19 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += '     int value = ((((int)_bt_data[1])<<8)&0xFF00)|(((int)_bt_data[2])&0x00FF);\n';
 			if (Facilino.profiles['processor']==='ESP32')
 			{
-				code += '     ledcWrite(_channels[pin],value);\n';
+				/*
+				code += '     ledcWrite(_channels[pin],value);\n';*/
+				var unique = [];
+				this.uniqueVariables = [];
+				$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+					if($.inArray(el, unique) === -1) unique.push(el);
+				});
+				Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+				var pwms_map = 'std::map<int,ESP32PWM*> _pwms={';
+				unique.forEach(function (element,index){if (index===0) {pwms_map+='{'+element+',&_pwm'+element+'}';}else{pwms_map+=',{'+element+',&_pwm'+element+'}';}});
+				pwms_map +='};\n';
+				Blockly.Arduino.definitions_['declare_var_pwm_map'] = pwms_map;
+				code +='_pwms[pin]->write(value);\n';
 			}
 			else
 				code += '     analogWrite(pin,value);\n';

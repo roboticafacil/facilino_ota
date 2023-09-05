@@ -1,7 +1,46 @@
 <?php
 require_once('db.php');
-include("auth.php");
+
+function getUserIdAndRole($con,$username,$key)
+{
+	$query = "SELECT `id`,`user_role_id`,`email` from `users` WHERE username=\"".$username."\" and `users`.`key`=\"".$key."\" and active=1";
+	$result = mysqli_query($con,$query);
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		return mysqli_fetch_assoc($result);
+	}
+	else
+	{
+		return array();
+	}
+}
+
+function arduinoCode($con,$project_id,$action,$table='')
+{
+	if ($action=="arduino")
+		$query = "SELECT proj.name,code.arduino_code from `projects".$table."` as proj inner join `facilino_code".$table."` as code on code.id=proj.facilino_code_id where proj.`id` =?";
+	else
+		$query = "SELECT proj.name,code.arduino_code from `examples` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id where proj.`id` =?";
+	//echo $query;
+	$statement=mysqli_prepare($con,$query);
+	$statement->bind_param("i",$project_id);
+	$statement->execute();
+	$result=$statement->get_result();
+	$rows = mysqli_num_rows($result);
+	if ($rows==1)
+	{
+		$row = mysqli_fetch_assoc($result);
+		return (array("result"=>"OK","name"=>$row['name'],"arduino_code"=>str_replace("&apos;","'",$row['arduino_code'])));
+	}
+	else
+	{
+		return (array("result"=>"Error, no project found","name"=>"","arduino_code"=>""));
+	}
+}
+
 if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="arduino")&&!isset($_POST["action"])){
+	include("auth.php");
 	//$query = "SELECT proj.name,code.arduino_code from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id where proj.`id` = ".$_GET["id"];
 	//$result = mysqli_query($con,$query);
 	$query = "SELECT proj.name,code.arduino_code from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id where proj.`id` =?";
@@ -19,7 +58,24 @@ if (isset($_GET["id"])&&isset($_GET["action"])&&($_GET["action"]=="arduino")&&!i
 		//echo $row[1];
 	}
 }
+elseif (isset($_POST["action"])&&(($_POST["action"]=="arduino")||($_POST["action"]=="arduino_example"))&&isset($_POST["id"])&&isset($_POST["username"])&&isset($_POST["key"]))
+{
+	header("Content-type: application/json; charset=utf-8");
+	$row_user=getUserIdAndRole($con,$_POST["username"],$_POST["key"]);
+	if (!empty($row_user))
+	{
+		echo json_encode(arduinoCode($con,$_POST["id"],$_POST["action"]));
+	}
+	else
+		echo json_encode(array("result"=>"Error"));
+}
+elseif (isset($_POST["action"])&&($_POST["action"]=="arduino")&&isset($_POST["id"])&&isset($_POST["user_id"])&&isset($_POST["invited"]))
+{
+	header("Content-type: application/json; charset=utf-8");
+	echo json_encode(arduinoCode($con,$_POST["id"],$_POST["action"],"_tmp"));
+}
 elseif (isset($_GET["id"])&&isset($_GET["action"])&&(($_GET["action"]=="facilino")||($_GET["action"]=="facilino_example"))&&!isset($_POST["action"])){
+	include("auth.php");
 	//$query = "SELECT proj.name,code.blockly_code from `projects` as proj inner join `facilino_code` as code on code.id=proj.facilino_code_id where proj.`id` = ".$_GET["id"];
 	//$result = mysqli_query($con,$query);
 	if ($_GET["action"]=="facilino")

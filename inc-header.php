@@ -14,11 +14,22 @@ else
 echo '<div>';
 echo '<section class="menu cid-qAignIVLHL" once="menu" id="menu1-e" data-rv-view="7">';
 echo '<nav class="navbar navbar-expand beta-menu align-items-center navbar-fixed-top navbar-toggleable-sm">';
-echo '<div class="menu-logo">';
-echo '<div class="navbar-brand">';
-echo '<span class="navbar-logo">';
-echo '<a href="index.php"><img src="'.$path.'assets/images/facilino.png" alt="Facilino" title="'.$website["FACILINO"].'" media-simple="true" style="height: 2.1rem;"></a>';
-echo '</span>';
+if (!isset($_GET["alt_header"]))
+{
+	echo '<div class="menu-logo">';
+	echo '<div class="navbar-brand">';
+	echo '<span class="navbar-logo">';
+	echo '<a href="index.php"><img src="'.$path.'assets/images/facilino.png" alt="Facilino" title="'.$website["FACILINO"].'" media-simple="true" style="height: 2.1rem;"></a>';
+	echo '</span>';
+}
+else
+{
+	echo '<script>function saveProject(){};</script>';
+	echo '<div class="collapse navbar-collapse" id="navbarSupportedContent" style="-webkit-justify-content: flex-start;">';
+	echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-left mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+	echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["SAVE"].'" onclick="saveProject(\'save\');"><span class="mbri-save mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+	echo '</div>';
+}
 if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 {
 	//$query = "SELECT name from `projects` where `projects`.id= ".$_GET["id"];
@@ -32,7 +43,10 @@ if(strpos($_SERVER['PHP_SELF'],'facilino.php') !== false)
 	if ($rows==1)
 	{
 		$row = mysqli_fetch_row($result);
-		echo '<h5 style="color:white">&nbsp;&nbsp;'.$row[0].'</h5>';
+		if (!isset($_GET["alt_header"]))
+		{
+			echo '<h5 style="color:white">&nbsp;&nbsp;'.$row[0].'</h5>';
+		}
 	}
 }
 elseif(strpos($_SERVER['PHP_SELF'],'index.php') !== false)
@@ -80,8 +94,10 @@ elseif(strpos($_SERVER['PHP_SELF'],'installation.php') !== false)
 	echo '<h2 style="color:white">&nbsp;&nbsp;'.$website["INSTALLATION"].'</h2>';
 }
 
-
-echo '</div></div>';
+if (!isset($_GET["alt_header"]))
+{
+	echo '</div></div>';
+}
 echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
 if(isset($_SESSION["username"]))
 {
@@ -154,7 +170,14 @@ if(isset($_SESSION["username"]))
 				//echo 'function saveAll("dashboard.php"){};';
 				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};';
 				echo '</script>';
-				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+				if (!isset($_GET["alt_header"]))
+				{
+					echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+				}
+				else
+				{
+					echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="Exit();"><span class="mbri-logout mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+				}
 				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["TUTORIAL"].'" onclick="ExitTutorial();"><span class="mbri-star mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';				
 			}
 			else
@@ -166,26 +189,39 @@ if(isset($_SESSION["username"]))
 					echo 'function saveBeforeExit(action){}; ';
 				echo 'function compile(){}; function upload(){}; function compile_upload(){}; ';
 				//echo 'function saveAll("dashboard.php"){};';
-				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};';
+				echo 'function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(id,k){};';
 				echo '</script>';
 				if (isset($_GET["action"])&&($_GET["action"]=="open_example"))
 					echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit(\'save_example\');"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 				else
-					echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit(\'save\');"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
-				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["TUTORIAL"].'" onclick="saveBeforeExitTutorial();"><span class="mbri-star mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+				{
+					if (!isset($_GET["alt_header"]))
+					{
+						echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit(\'save\');"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+					}
+				}
+				if (!isset($_GET["alt_header"]))
+				{
+					echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["TUTORIAL"].'" onclick="saveBeforeExitTutorial();"><span class="mbri-star mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+				}
 			}
-			
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Save" onclick="saveAll();"><span class="mbri-save mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Verify" onclick="compile();"><span class="mbri-success mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			//echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="Upload" onclick="upload();"><span class="mbri-right mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["COMPILE_UPLOAD"].'" onclick="compile_upload();"><span class="mbri-play mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
-			echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'doc_help.php" target="_blank"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HELP"].'"><span class="mbri-question mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0); margin-left:0.25em;"></span></button></a></div>';
-			echo '</div>';
-			echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
+			if (!isset($_GET["alt_header"]))
+			{
+				echo '<div class="navbar-buttons mbr-section-btn"><a href="'.$path.'doc_help.php" target="_blank"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["HELP"].'"><span class="mbri-question mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0); margin-left:0.25em;"></span></button></a></div>';
+				echo '</div>';
+				echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
+			}
 			echo '<div class="navbar-buttons mbr-section-btn"><button id="undo" class="btn btn-sm btn-primary-outline display-4" title="'.$website["UNDO"].'" onclick="butUndo();"><span class="mbri-undo mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			echo '<div class="navbar-buttons mbr-section-btn" ><button id="redo" class="btn btn-sm btn-primary-outline display-4" title="'.$website["REDO"].'" onclick="butRedo();"><span class="mbri-redo mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 			echo '<div id="toggle_code" class="navbar-buttons mbr-section-btn"><button id="button_code" class="btn btn-sm btn-primary-outline display-4" title="'.$website["VIEW_ARDUINO_CODE"].'" onclick="toogleCode();"><span class="mbri-arduino mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
-			echo '<div id="copy_clipboard" class="navbar-buttons mbr-section-btn" style="display:none"><button id="button_copy" class="btn btn-sm btn-primary-outline display-4" title="'.$website["COPY_CODE_CLIPBOARD"].'" onclick="copyToClipboard();"><span class="mbri-share mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			if (!isset($_GET["alt_header"]))
+			{
+				echo '<div id="copy_clipboard" class="navbar-buttons mbr-section-btn" style="display:none"><button id="button_copy" class="btn btn-sm btn-primary-outline display-4" title="'.$website["COPY_CODE_CLIPBOARD"].'" onclick="copyToClipboard();"><span class="mbri-share mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			}
 			$query = "SELECT * from `categories` where 1";
 			$result = mysqli_query($con,$query);
 			$rows = mysqli_num_rows($result);
@@ -193,7 +229,7 @@ if(isset($_SESSION["username"]))
 			if ($rows>0)
 			{
 				echo '<div class="navbar-buttons mbr-section-btn"><button id="toolboxP" class="btn btn-sm btn-primary-outline display-4" title="'.$website["CONFIGURE_TOOLBOX"].'" onclick="showToolbox()"><span class="mbri-add-submenu mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
-			echo '<div class="dropdown-menu text-white" id="toolbox_menu" style="display: none; background-color: rgb(35,35,35); position: absolute; left: 85%; ">'.$website["COPY_CODE_CLIPBOARD"];
+			echo '<div class="dropdown-menu text-white" id="toolbox_menu" style="display: none; background-color: rgb(35,35,35); position: absolute; left: 85%; ">'.$website["SHOW_HIDE_CATEGORIES"];
 				$first_menu=true;
 				$is_submenu=false;
 				for ($cat=0;$cat<$rows;$cat++)
@@ -217,14 +253,15 @@ if(isset($_SESSION["username"]))
 						}
 						else
 						{
-							echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\''.$row[1].'\')" aria-expanded="false"><span>'.$row[2].'</span></button>';
+							//var found = window.toolbox.find(function(element) {return (element===key);});
+							echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\'cat'.$cat.'\',\''.$row[1].'\')" aria-expanded="false"><span id=\'cat'.$cat.'\'>'.$row[2].'</span></button>';
 							$is_submenu=false;
 						}
 						$first_menu=false;
 					}
 					else
 					{
-						echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\''.$row[1].'\')" aria-expanded="false"><span>'.$row[2].'</span></button>';
+						echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\'cat'.$cat.'\',\''.$row[1].'\')" aria-expanded="false"><span id=\'cat'.$cat.'\'>'.$row[2].'</span></button>';
 					}
 				}
 				echo '</div>';
@@ -299,12 +336,19 @@ else
 		echo '<div class="collapse navbar-collapse" id="navbarSupportedContent">';
 		if ($_GET["action"]=="open")
 		{
-			echo '<script>function saveBeforeExit("save"){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("'.$path.'dashboard.php","save"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};</script>';
-			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit("save");"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			echo '<script>function saveBeforeExit("save"){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("'.$path.'dashboard.php","save"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(id,k){};</script>';
+			if (!isset($_GET["alt_header"]))
+			{
+				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit("save");"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			}
+			else
+			{
+				echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["CLOSE"].'" onclick="saveBeforeExit("save");"><span class="mbri-left mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
+			}
 		}
 		elseif ($_GET["action"]=="open_example")
 		{
-			echo '<script>function saveBeforeExit("save_example"){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("'.$path.'dashboard.php","save"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(i){};</script>';
+			echo '<script>function saveBeforeExit("save_example"){}; function compile(){}; function upload(){}; function compile_upload(){}; function saveAll("'.$path.'dashboard.php","save"){}; function listPorts(){}; function portChange(a){}; function butUndo(){}; function butRedo(){}; function toogleCode(){}; function copyToClipboard(){};  function showToolbox(){}; function showHideCategory(id,k){};</script>';
 			echo '<div class="navbar-buttons mbr-section-btn"><button class="btn btn-sm btn-primary-outline display-4" title="'.$website["PROJECTS"].'" onclick="saveBeforeExit("save_example");"><span class="mbri-briefcase mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 148, 0);  margin-left:0.25em;"></span></button></div>';
 		}
 		elseif ($_GET["action"]=="view")
@@ -359,14 +403,14 @@ else
 					}
 					else
 					{
-						echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\''.$row[1].'\')" aria-expanded="false"><span>'.$row[2].'</span></button>';
+						echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\'cat'.$cat.'\',\''.$row[1].'\')" aria-expanded="false"><span id=\'cat'.$cat.'\'>'.$row[2].'</span></button>';
 						$is_submenu=false;
 					}
 					$first_menu=false;
 				}
 				else
 				{
-					echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\''.$row[1].'\')" aria-expanded="false"><span>'.$row[2].'</span></button>';
+					echo '<button class="text-white dropdown-item display-4" onclick="showHideCategory(\'cat'.$cat.'\',\''.$row[1].'\')" aria-expanded="false"><span id=\'cat'.$cat.'\'>'.$row[2].'</span></button>';
 				}
 			}
 			echo '</div>';

@@ -288,8 +288,7 @@
 		Facilino.LANG_COLOUR_SCREEN = '#ACCE42';
 		Facilino.LANG_COLOUR_SCREEN_LCD = '#ACCE42'; //7F9B2A, 718B23
 		Facilino.LANG_COLOUR_SCREEN_LEDMATRIX = '#9DBD3A';
-		Facilino.LANG_COLOUR_SCREEN_LEDSTRIP = '#8EAC32';
-		Facilino.LANG_COLOUR_SCREEN_OLED = '#7F9B2A';
+		Facilino.LANG_COLOUR_SCREEN_OLED = '#8EAC32';
 		Facilino.LANG_COLOUR_CONTROL = '#44CC44';
 		Facilino.LANG_COLOUR_PROGRAMMING = '#3EB83E';
 		Facilino.LANG_COLOUR_CONTROL_INTERRUPTS = '#39A539';
@@ -320,6 +319,7 @@
 		Facilino.LANG_COLOUR_LIGHT_COLOR= '#E87E00'; //D27201 , BB6602, A55B03
 		Facilino.LANG_COLOUR_LIGHT_LDR = '#D27201';
 		Facilino.LANG_COLOUR_LIGHT_DIMMER = '#BB6602';
+		Facilino.LANG_COLOUR_SCREEN_LEDSTRIP = '#A55B03';
 		Facilino.LANG_COLOUR_AMBIENT = '#99CCFF';  //78BBFE, 58ABFD, 389AFC, 188AFB
 		Facilino.LANG_COLOUR_AMBIENT_TEMPERATURE = '#99CCFF';
 		Facilino.LANG_COLOUR_AMBIENT_HUMIDITY = '#78BBFE';
@@ -850,6 +850,36 @@
 
 			return instruction_list;
 		};
+		
+		if (Facilino.profiles["processor"]==="ESP32")
+		{
+			Facilino.ESP32PWM = function(obj,pin,freq_num,res_num)
+			{
+				Facilino.PWMChannelsIDs[obj.id]=pin;
+				var unique = [];
+				obj.uniqueVariables = [];
+				$.each(Object.values(Facilino.PWMChannelsIDs), function(i, el){
+					if($.inArray(el, unique) === -1) unique.push(el);
+				});
+				Blockly.Arduino.definitions_['include_pwm'] = '#include <ESP32PWM.h>';
+				Blockly.Arduino.definitions_['declare_var_pwm_'+pin]='ESP32PWM _pwm'+pin+';\n';
+				//Blockly.Arduino.setups_['pwm_' + pin] = '_pwm'+pin+'.attachPin('+pin+',1000,8);\n _channels['+pin+']=_pwm'+pin+'.getChannel();\n';
+				Blockly.Arduino.definitions_['define_stdc'] ='#include <bits/stdc++.h>';
+				var channels_map = 'std::map<int,int> _channels={';
+				unique.forEach(function (element,index){if (index===0) {channels_map+='{'+element+','+index+'}';}else{channels_map+=',{'+element+','+index+'}';}});
+				channels_map +='};\n';
+				Blockly.Arduino.definitions_['declare_var_inout_map_channels'] = channels_map;
+				if (Blockly.Arduino.setups_['pwm_' + pin]===undefined)
+				{
+					Blockly.Arduino.setups_['pwm_' + pin] = '_pwm'+pin+'.attachPin('+pin+','+freq_num+','+res_num+');\n _channels['+pin+']=_pwm'+pin+'.getChannel();\n';
+				}
+				var pwms_map = 'std::map<int,ESP32PWM*> _pwms={';
+				unique.forEach(function (element,index){if (index===0) {pwms_map+='{'+element+',&_pwm'+element+'}';}else{pwms_map+=',{'+element+',&_pwm'+element+'}';}});
+				pwms_map +='};\n';
+				delete Blockly.Arduino.definitions_['declare_var_pwm_map'];
+				Blockly.Arduino.definitions_['declare_var_pwm_map'] = pwms_map;
+			}
+		}
 		
 		this["JST"] = this["JST"] || {};
 		

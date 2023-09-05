@@ -847,6 +847,9 @@
 				return icons_blocks;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.oled_128x32_small_icon['subsubcategory'];
 
 		Blockly.Arduino.oled_128x32_large_icon = function()
 		{
@@ -1110,6 +1113,9 @@
 				return icons_blocks;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.oled_128x32_large_icon['subsubcategory'];
 
 
 		Blockly.Arduino.oled_128x32_main_image = function()
@@ -1235,6 +1241,9 @@
 				return icons_blocks;
 			}
 		};
+		
+		if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.oled_128x32_main_image['subsubcategory'];
 
 		
 			Blockly.Arduino.oled_128x32_draw_line = function()

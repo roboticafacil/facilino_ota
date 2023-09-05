@@ -26,7 +26,14 @@
 		this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
 		var name = new Blockly.FieldTextInput('my_procedure',Blockly.Procedures.rename);
 		name.setSpellcheck(false);
-		this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE')).appendField(name,'NAME').appendField('', 'PARAMS');
+		if (window.FacilinoAdvanced===true)
+		{
+			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE')).appendField(name,'NAME').appendField('', 'PARAMS');
+		}
+		else
+		{
+			this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/function.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE1')).appendField(name,'NAME').appendField('', 'PARAMS');
+		}
 		this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
 		if ((this.workspace.options.comments || (this.workspace.options.parentWorkspace && this.workspace.options.parentWorkspace.options.comments)) && Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT) {
 			this.setCommentText(Blockly.Msg.PROCEDURES_DEFNORETURN_COMMENT);
@@ -35,14 +42,17 @@
 		this.arguments_ = [];
 		this.type_arguments_ = [];
 		this.setStatements_(true);
-		this.setInputsInline(false);
+		this.setInputsInline(false);		
   },
   setStatements_: function(hasStatements) {
 	if (this.hasStatements_ === hasStatements) {
 	  return;
 	}
 	if (hasStatements) {
-	  this.appendStatementInput('STACK').appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_DO')).setCheck(['code','function']);
+		if (window.FacilinoAdvanced===true)
+			this.appendStatementInput('STACK').appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_DO')).setCheck(['code','function']);
+		else
+			this.appendStatementInput('STACK').appendField(new Blockly.FieldImage("img/blocks/do.svg",16*options.zoom, 16*options.zoom)).setCheck(['code','function']);
 	  if (this.getInput('RETURN')) {
 		this.moveInputBefore('STACK', 'RETURN');
 	  }
@@ -69,9 +79,17 @@
 	}
 	// Merge the arguments into a human-readable list.
 	var params = [];
+	if (window.FacilinoAdvanced===false)
+	{
+		var short_params=[];
+	}
 	for (var i in this.arguments_) {
 		try{
-		params.push(this.type_arguments_[i] + ' ' + this.arguments_[i]);
+			params.push(this.type_arguments_[i] + ' ' + this.arguments_[i]);
+			if (window.FacilinoAdvanced===false)
+			{
+				short_params.push(this.arguments_[i]);
+			}
 		Facilino.variables[this.arguments_[i]] = [this.type_arguments_[i], 'local','variable'];
 		}
 		catch(e)
@@ -79,11 +97,22 @@
 		}
 	}
 	this.paramString = params.join(', ');
+	if (window.FacilinoAdvanced===false)
+	{
+		this.shortParamString=short_params.join(', ');
+	}
 	// The params field is deterministic based on the mutation,
 	// no need to fire a change event.
 	Blockly.Events.disable();
 	try {
-	  this.setFieldValue(this.paramString, 'PARAMS');
+		if (window.FacilinoAdvanced===true)
+		{
+			this.setFieldValue('('+this.paramString+')', 'PARAMS');
+		}
+		else
+		{
+			this.setFieldValue('('+this.shortParamString+')','PARAMS');
+		}
 	} finally {
 	  Blockly.Events.enable();
 	}
@@ -320,9 +349,11 @@
 
 		Blockly.Blocks['procedures_mutatorarg'] = {
 			colour: Facilino.LANG_COLOUR_PROCEDURES,
-			keys: ['LANG_PROCEDURES_MUTATORARG_Field'],
+			keys: ['LANG_PROCEDURES_MUTATORARG_Field','LANG_VARIABLES_TYPE_INTEGER','LANG_VARIABLES_TYPE_INTEGER_SHORT','LANG_VARIABLES_TYPE_INTEGER_LONG','LANG_VARIABLES_TYPE_BYTE','LANG_VARIABLES_TYPE_BOOL','LANG_VARIABLES_TYPE_FLOAT','LANG_VARIABLES_TYPE_STRING','LANG_VARIABLES_TYPE_CHAR','LANG_VARIABLES_TYPE_INTEGER_ARRAY','LANG_VARIABLES_TYPE_INTEGER_SHORT_ARRAY','LANG_VARIABLES_TYPE_INTEGER_LONG_ARRAY','LANG_VARIABLES_TYPE_BYTE_ARRAY','LANG_VARIABLES_TYPE_FLOAT_ARRAY','LANG_VARIABLES_TYPE_NUMBER','LANG_VARIABLES_TYPE_BINARY','LANG_VARIABLES_TYPE_TEXT'],
   init: function() {
 	var field = new Blockly.FieldTextInput('x', this.validator_);
+	if (window.FacilinoAdvanced===true)
+	{
 	this.appendDummyInput()
 		.appendField(Facilino.locales.getKey('LANG_PROCEDURES_MUTATORARG_Field')).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
@@ -339,6 +370,17 @@
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BYTE_ARRAY'), 'byte *'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_FLOAT_ARRAY'), 'float *']
 				]), 'TYPE').appendField(field, 'NAME');
+	}
+	else
+	{
+		this.appendDummyInput()
+        .appendField(new Blockly.FieldImage('img/blocks/box_in.svg',20*options.zoom,20*options.zoom)).appendField(new Blockly.FieldDropdown([
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
+                    [Facilino.locales.getKey('LANG_VARIABLES_TYPE_NUMBER'), 'float'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BINARY'), 'bool'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_TEXT'), 'String']
+                ]), 'TYPE').appendField(field, 'NAME');
+	}
 	this.setPreviousStatement(true);
 	this.setNextStatement(true);
 	this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
@@ -450,9 +492,11 @@
 		init: function() {
 			var nameField = new Blockly.FieldTextInput('my_function',Blockly.Procedures.rename);
 			nameField.setSpellcheck(false);
-			this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE')).appendField(nameField, 'NAME').appendField('', 'PARAMS');
-			//this.appendStatementInput('STACK').appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_DO'));
-			this.appendValueInput('RETURN').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_RETURN')).appendField(new Blockly.FieldDropdown([
+			if (window.FacilinoAdvanced===true)
+			{
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE')).appendField(nameField, 'NAME').appendField('', 'PARAMS');
+				//this.appendStatementInput('STACK').appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_DO'));
+				this.appendValueInput('RETURN').setAlign(Blockly.ALIGN_RIGHT).appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_RETURN')).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_SHORT'), 'short'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER_LONG'), 'long'],
@@ -462,6 +506,17 @@
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_STRING'), 'String'],
 					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_CHAR'), 'char']
 				]), "RETURN_TYPE");
+			}
+			else
+			{
+				this.appendDummyInput().appendField(new Blockly.FieldImage("img/blocks/function.svg",20*options.zoom, 20*options.zoom)).appendField(Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE1')).appendField(nameField, 'NAME').appendField('', 'PARAMS');
+				this.appendValueInput('RETURN').setAlign(Blockly.ALIGN_RIGHT).appendField(new Blockly.FieldDropdown([
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_INTEGER'), 'int'],
+                    [Facilino.locales.getKey('LANG_VARIABLES_TYPE_NUMBER'), 'float'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_BINARY'), 'bool'],
+					[Facilino.locales.getKey('LANG_VARIABLES_TYPE_TEXT'), 'String']
+                ]), "RETURN_TYPE").appendField(new Blockly.FieldImage("img/blocks/return.svg",16*options.zoom, 16*options.zoom));
+			}
 			this.setMutator(new Blockly.Mutator(['procedures_mutatorarg']));
 			if ((this.workspace.options.comments ||(this.workspace.options.parentWorkspace && this.workspace.options.parentWorkspace.options.comments)) && Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT) {
 			  this.setCommentText(Blockly.Msg.PROCEDURES_DEFRETURN_COMMENT);
@@ -700,7 +755,11 @@
 			dropdown: [Facilino.locales.getKey('LANG_PROCEDURES_CALLNORETURN_DROPDOWN_FUNCTION')],
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
-				this.appendDummyInput('DUMMY').appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
+				if (window.FacilinoAdvanced===true)
+					this.appendDummyInput('DUMMY').appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
+				else
+					this.appendDummyInput('DUMMY').appendField(new Blockly.FieldImage("img/blocks/function.svg",20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
+				
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setTooltip(Facilino.locales.getKey('LANG_PROCEDURES_CALLNORETURN_TOOLTIP'));
@@ -749,7 +808,15 @@
 						procedures_dropdown.push([proc_name, proc_name]);
 					}
 				} else {
-					procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE'), Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE')]);
+					if (window.FacilinoAdvanced===true)
+					{
+						procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE'), Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE')]);
+					}
+					else
+					{
+						//procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE1'), Facilino.locales.getKey('LANG_PROCEDURES_DEFNORETURN_PROCEDURE1')]);
+						procedures_dropdown.push(['my_procedure','my_procedure']);
+					}
 				}
 				return procedures_dropdown;
 			},
@@ -948,7 +1015,10 @@
 			output: Facilino.locales.getKey('LANG_PROCEDURES_CALLRETURN_OUTPUT'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_PROCEDURES);
-				this.appendDummyInput('DUMMY').appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
+				if (window.FacilinoAdvanced===true)
+					this.appendDummyInput('DUMMY').appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
+				else
+					this.appendDummyInput('DUMMY').appendField(new Blockly.FieldImage("img/blocks/function.svg",20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown(this.getProcedures()), 'PROCEDURES');
 				this.setOutput(true,[Boolean,Number,'Variable']);
 				this.setTooltip(Facilino.locales.getKey('LANG_PROCEDURES_CALLRETURN_TOOLTIP'));
 				this.arguments_ = this.getVariables(this.getFieldValue('PROCEDURES'));
@@ -1007,7 +1077,15 @@
 						procedures_dropdown.push([proc_name, proc_name]);
 					}
 				} else {
-					procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE'), Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE')]);
+					if (window.FacilinoAdvanced===true)
+					{
+						procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE'), Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE')]);
+					}
+					else
+					{
+						//procedures_dropdown.push([Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE1'), Facilino.locales.getKey('LANG_PROCEDURES_DEFRETURN_PROCEDURE1')]);
+						procedures_dropdown.push(['my_function','my_function']);
+					}
 				}
 				return procedures_dropdown;
 			},

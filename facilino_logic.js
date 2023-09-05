@@ -29,11 +29,7 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LOGIC);
 				this.setOutput(true,Boolean);
-				this.appendDummyInput()
-					.appendField(new Blockly.FieldDropdown([
-						[Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_TRUE'), 'TRUE'],
-						[Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_FALSE'), 'FALSE']
-					]), 'BOOL');
+				this.appendDummyInput().appendField(new Blockly.FieldDropdown([[Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_TRUE'), 'TRUE'],[Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_FALSE'), 'FALSE']]), 'BOOL');
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_BOOLEAN_TOOLTIP'));
 			},
 			default_inputs: function()
@@ -84,7 +80,10 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LOGIC);
 				this.setOutput(true,Boolean);
-				this.appendValueInput('A').setCheck([Boolean,Number,'Variable','AnalogPin','DigitalPin','PWMPin']);
+				if (window.FacilinoAdvanced===true)
+					this.appendValueInput('A').setCheck([Boolean,Number,'Variable','AnalogPin','DigitalPin','PWMPin']);
+				else
+					this.appendValueInput('A').appendField(new Blockly.FieldImage('img/blocks/binary.svg',20*options.zoom,20*options.zoom)).setCheck([Boolean,Number,'Variable','AnalogPin','DigitalPin','PWMPin']);
 				this.appendValueInput('B').appendField(new Blockly.FieldDropdown(this.OPERATORS), 'OP').setCheck([Boolean,Number,'Variable','AnalogPin','DigitalPin','PWMPin']);
 				this.setInputsInline(true);
 				// Assign 'this' to a variable for use in the tooltip closure below.
@@ -149,14 +148,25 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LOGIC);
 				this.setOutput(true,Boolean);
-				this.appendValueInput('A').setCheck([Boolean,'Variable']);
-				this.appendValueInput('B').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldDropdown([
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('A').setCheck([Boolean,'Variable']);
+					this.appendValueInput('B').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldDropdown([
 					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_AND') || 'AND', 'AND'],
 					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_OR') || 'OR', 'OR'],
 					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_XOR') || 'XOR', 'XOR'],
 					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_XNOR') || 'XNOR', 'XNOR'],
 					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_IMPLIES') || 'IMPLIES', 'IMPLIES']
 				]), 'OP');
+				}
+				else
+				{
+					this.appendValueInput('A').appendField(new Blockly.FieldImage('img/blocks/binary.svg',20*options.zoom,20*options.zoom)).setCheck([Boolean,'Variable']);
+					this.appendValueInput('B').setCheck([Boolean,'Variable']).appendField(new Blockly.FieldDropdown([
+					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_AND') || 'AND', 'AND'],
+					[Facilino.locales.getKey('LANG_LOGIC_OPERATION_OR') || 'OR', 'OR']
+				]), 'OP');
+				}
 				this.setInputsInline(true);
 				// Assign 'this' to a variable for use in the tooltip closure below.
 				var thisBlock = this;
@@ -164,7 +174,14 @@
 			},
 			default_inputs: function()
 			{
-				return ['<field name="OP">AND</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="OP">OR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XNOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">IMPLIES</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
+				if (window.FacilinoAdvanced===true)
+				{
+					return ['<field name="OP">AND</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="OP">OR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">XNOR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>','<field name="OP">IMPLIES</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>'];
+				}
+				else
+				{
+					return ['<field name="OP">AND</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value>','<field name="OP">OR</field><value name="A"><shadow type="logic_boolean"><field name="BOOL">TRUE</field></shadow></value><value name="B"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>'];
+				}
 			}
 		};
 
@@ -195,7 +212,10 @@
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_LOGIC);
 				this.setOutput(true,Boolean);
-				this.appendValueInput('BOOL').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_LOGIC_NEGATE_INPUT_NOT'));
+				if (window.FacilinoAdvanced===true)
+					this.appendValueInput('BOOL').setCheck([Boolean,'Variable']).appendField(Facilino.locales.getKey('LANG_LOGIC_NEGATE_INPUT_NOT'));
+				else
+					this.appendValueInput('BOOL').setCheck(Boolean).appendField(new Blockly.FieldImage('img/blocks/binary_not.svg',24*options.zoom,24*options.zoom));
 				this.setTooltip(Facilino.locales.getKey('LANG_LOGIC_NEGATE_TOOLTIP'));
 			},
 			default_inputs: function()

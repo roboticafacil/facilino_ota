@@ -6,6 +6,15 @@
 	}
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
+		
+			var ledstrip_category=Facilino.locales.getKey('LANG_CATEGORY_LIGHT');
+			var ledstrip_subcategory=Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812');
+			var ledstrip_cat_colour=Facilino.LANG_COLOUR_LIGHT;
+			if (window.FacilinoAdvanced===true)
+				var ledstrip_colour=Facilino.LANG_COLOUR_SCREEN_LEDSTRIP;
+			else
+				var ledstrip_colour=Facilino.LANG_COLOUR_LIGHT_INFRARED;
+			
 	
 			Blockly.Arduino['led_strip_all_pixels'] = function(block) {
 			  var code='';
@@ -13,10 +22,10 @@
 			};
 
 			Blockly.Blocks['led_strip_all_pixels'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_all_pixels'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -27,10 +36,13 @@
 				this.setPreviousStatement(false);
 				this.setNextStatement(false);
 				this.setOutput(true,'ALL_PIXELS');
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_ALL_PIXELS_TOOLTIP'));
 			  }
 			};
+			
+			if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.led_strip_all_pixels['subcategory'];
 				
 			Blockly.Arduino['led_strip'] = function(block) {
 			  var pixel = Blockly.Arduino.valueToCode(this,'PIXEL',Blockly.Arduino.ORDER_ATOMIC) || '0';
@@ -73,13 +85,15 @@
 			  }
 			  return code;	
 			};
+			
+			
 
 
 			Blockly.Blocks['led_strip'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -96,7 +110,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_TOOLTIP'));
 			  },
 				default_inputs: function()
@@ -106,6 +120,9 @@
 					return xml;
 				}
 			};
+			
+			if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.led_strip['subcategory'];
 			
 			if (window.FacilinoAdvanced===true)
 			{
@@ -152,10 +169,10 @@
 			};
 
 			Blockly.Blocks['led_strip_hue'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_hue'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -170,7 +187,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_HUE_TOOLTIP'));
 			  },
 				default_inputs: function()
@@ -178,7 +195,7 @@
 					return ['<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="PIXEL"><shadow type="math_number"><field name="NUM">0</field></shadow></value><value name="HUE"><shadow type="math_number"><field name="NUM">65535</field></shadow></value>','<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="PIXEL"><shadow type="led_strip_all_pixels"></shadow></value><value name="HUE"><shadow type="math_number"><field name="NUM">65535</field></shadow></value>'];
 				}
 			};
-			
+					
 			Blockly.Arduino['led_strip_gradient'] = function(block) {
 			  var initial_hue = Blockly.Arduino.valueToCode(this,'INITIAL_HUE',Blockly.Arduino.ORDER_ATOMIC) || '0';
 			  var final_hue = Blockly.Arduino.valueToCode(this,'FINAL_HUE',Blockly.Arduino.ORDER_ATOMIC) || '65535';
@@ -243,10 +260,10 @@
 
 
 			Blockly.Blocks['led_strip_gradient'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_gradient'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -262,7 +279,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_GRADIENT_TOOLTIP'));
 			  },
 			  default_inputs: function()
@@ -328,10 +345,10 @@
 			};
 
 			Blockly.Blocks['led_strip2'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip2'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -347,7 +364,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP2_TOOLTIP'));
 				this.numPixels=1;
 				},
@@ -405,6 +422,9 @@
 				  }
 			};
 			
+			if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.led_strip2['subcategory'];
+			
 			Blockly.Arduino['led_strip_brightness'] = function(block) {
 			  var brightness = Blockly.Arduino.valueToCode(this,'BRIGHTNESS',Blockly.Arduino.ORDER_ATOMIC) || '';
 			  var input_pin = Blockly.Arduino.valueToCode(this,'PIN',Blockly.Arduino.ORDER_NONE) || '';
@@ -426,10 +446,10 @@
 			};
 
 			Blockly.Blocks['led_strip_brightness'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_brightness'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -443,7 +463,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_BRIGHTNESS_TOOLTIP'));
 			  },
 				default_inputs: function()
@@ -451,6 +471,9 @@
 					return '<value name="PIN"><shadow type="pin_digital"></shadow></value><value name="BRIGHTNESS"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
 				}
 			};
+			
+			if (window.FacilinoAdvanced===false)
+				delete Blockly.Blocks.led_strip_brightness['subcategory'];
 			
 			//ME HE QUEDADO AQUI!!
 			/*
@@ -500,10 +523,10 @@
 			};
 
 			Blockly.Blocks['led_strip_generic'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_generic'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -516,7 +539,7 @@
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
 				this.setInputsInline(true);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_GENERIC_TOOLTIP'));
 			  },
 			  default_inputs: function()
@@ -653,17 +676,17 @@
 			};
 
 			Blockly.Blocks['led_strip_stream'] = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
+			category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			helpUrl: Facilino.getHelpUrl('led_strip_stream'),
 			tags: ['led_strip','RGB','LED'],
 			examples: [],
-			category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
 			keys: ['LANG_SIMPLEEXPRESSIONS_LED_STRIP_STREAM_NAME','LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH','LANG_SIMPLEEXPRESSIONS_PIN','LANG_SIMPLEEXPRESSIONS_EXPRESSION','LANG_SIMPLEEXPRESSIONS_DELAY_WAIT','LANG_SIMPLEEXPRESSIONS_WAIT','LANG_SIMPLEEXPRESSIONS_LED_STRIP_STREAM_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_STREAM_NAME'),
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_SHOW_MOUTH')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/round_led_strip.svg', 24*options.zoom, 24*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_PIN')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/digital_signal.svg', 22*options.zoom, 22*options.zoom)).setAlign(Blockly.ALIGN_RIGHT).setCheck('DigitalPin');
 				this.appendValueInput('STREAM').appendField(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_EXPRESSION')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/dot-strip_stream.png', 48*options.zoom, 24*options.zoom)).setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
@@ -695,10 +718,10 @@
 			};
 
 			Blockly.Blocks['led_strip_customized'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_customized'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -726,7 +749,7 @@
 				this.setNextStatement(false);
 				this.setOutput(true,'RGB_LEDs_EXPRESSION');
 				this.setInputsInline(false);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_CUSTOMIZED_TOOLTIP'));
 			  }
 			};
@@ -748,10 +771,10 @@
 			};
 
 			Blockly.Blocks['led_strip_predefined'] = {
-			  category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			  subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
-			  category_colour: Facilino.LANG_COLOUR_SCREEN,
-			  colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
+			  category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			  helpUrl: Facilino.getHelpUrl('led_strip_predefined'),
 			  tags: ['led_strip','RGB','LED'],
 			  examples: [],
@@ -766,7 +789,7 @@
 				this.setNextStatement(false);
 				this.setOutput(true,'RGB_LEDs_EXPRESSION');
 				this.setInputsInline(false);
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.setTooltip(Facilino.locales.getKey('LANG_SIMPLEEXPRESSIONS_LED_STRIP_PREDEFINED_TOOLTIP'));
 			  },
 			default_inputs: function()
@@ -790,17 +813,17 @@
 	};
 
 	Blockly.Blocks.led_strip_sequentially = {
-			category: Facilino.locales.getKey('LANG_CATEGORY_SCREEN'),
-			subcategory: Facilino.locales.getKey('LANG_SUBCATERGORY_WS2812'),
+			category: ledstrip_category,
+			  subcategory: ledstrip_subcategory,
+			  category_colour: ledstrip_cat_colour,
+			  colour: ledstrip_colour,
 			tags: ['led_strip','RGB','LED'],
 			helpUrl: Facilino.getHelpUrl('led_strip_sequentially'),
 			examples: [],
-			category_colour: Facilino.LANG_COLOUR_SCREEN,
-			colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
 			keys: ['LANG_LED_STRIP_SEQUENTIALLY_NAME','LANG_LED_STRIP_SEQUENTIALLY_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_LED_STRIP_SEQUENTIALLY_NAME'),
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.appendDummyInput('').appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip_stream.png", 48*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA1').setCheck('Data').setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('DATA2').setCheck('Data').setCheck('RGB_LEDs_EXPRESSION').setAlign(Blockly.ALIGN_RIGHT);
@@ -896,7 +919,7 @@
 			colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
 			keys: ['LANG_LED_STRIP_SEQUENTIALLY_MUTATOR_TOOLTIP'],
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip_stream.png", 48*options.zoom, 48*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('STACK').setCheck('led_strip_item');
 				this.setTooltip(Facilino.locales.getKey('LANG_LED_STRIP_SEQUENTIALLY_MUTATOR_TOOLTIP'));
@@ -908,7 +931,7 @@
 			colour: Facilino.LANG_COLOUR_SCREEN_LEDSTRIP,
 			keys: ['LANG_LED_STRIP_SEQUENTIALLY_ITEM_TOOLTIP'],
 			init: function() {
-				this.setColour(Facilino.LANG_COLOUR_SCREEN_LEDSTRIP);
+				this.setColour(ledstrip_colour);
 				this.appendDummyInput().appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/dot-strip.png", 24*options.zoom, 24*options.zoom, "*")).setAlign(Blockly.ALIGN_RIGHT);
 				this.setPreviousStatement(true,'led_strip_item');
 				this.setNextStatement(true,'led_strip_item');

@@ -72,7 +72,14 @@
 			name: Facilino.locales.getKey('LANG_LCD_DEF1_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_DEF1')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_DEF1')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/setup.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				}
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -98,8 +105,14 @@
 			name: Facilino.locales.getKey('LANG_LCD_CLEAR_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_LCD_CLEAR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_CLEAR')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendDummyInput().appendField(new Blockly.FieldImage('img/blocks/eraser.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));					
+				}
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -158,8 +171,10 @@
 
 		Blockly.Arduino.lcd_print = function() {
 			var val = Blockly.Arduino.valueToCode(this, 'VAL', Blockly.Arduino.ORDER_ATOMIC);
+			//var row = Blockly.Arduino.valueToCode(this, 'XCOOR', Blockly.Arduino.ORDER_ATOMIC);
+			var row = this.getFieldValue('ROW');
 			var code = '';
-
+			code += '_lcd.setCursor(0,'+row+');\n';
 			code += '_lcd.print(' +val+');\n';
 			code = code.replace(/&quot;/g, '"');
 			return code;
@@ -173,11 +188,22 @@
 			examples: ['lcd_print_example1.bly','lcd_print_example2.bly'],
 			category_colour: Facilino.LANG_COLOUR_SCREEN,
 			colour: Facilino.LANG_COLOUR_SCREEN_LCD,
-			keys: ['LANG_LCD_PRINT_NAME','LANG_LCD_PRINT','LANG_LCD_PRINT_TOOLTIP'],
+			keys: ['LANG_LCD_PRINT_NAME','LANG_LCD_PRINT','LANG_LCD_ROW','LANG_LCD_PRINT_TOOLTIP'],
 			name: Facilino.locales.getKey('LANG_LCD_PRINT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_PRINT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_PRINT')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+					//this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).appendField(new Blockly.FieldDropdown([['1st','0'],['2nd','1']]),'ROW').setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendValueInput('VAL').appendField(new Blockly.FieldImage('img/blocks/printer.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+					//this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/row.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown([['1st','0'],['2nd','1']]),'ROW').setAlign(Blockly.ALIGN_RIGHT);
+				}
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -203,9 +229,18 @@
 			name: Facilino.locales.getKey('LANG_LCD_SCROLL_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_SCROLL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
-				this.appendValueInput('DELAY_TIME').appendField(Facilino.locales.getKey('LANG_LCD_DELAY_TIME')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
-				this.appendValueInput('XCOOR').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendValueInput('VAL').appendField(Facilino.locales.getKey('LANG_LCD_SCROLL')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+					this.appendValueInput('DELAY_TIME').appendField(Facilino.locales.getKey('LANG_LCD_DELAY_TIME')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_LCD_ROW')).appendField(new Blockly.FieldDropdown([['1st','0'],['2nd','1']]),'ROW').setAlign(Blockly.ALIGN_RIGHT);
+				}
+				else
+				{
+					this.appendValueInput('VAL').appendField(new Blockly.FieldImage('img/blocks/printer.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage('img/blocks/scroll.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom)).setCheck([String,'Variable']);
+					this.appendValueInput('DELAY_TIME').appendField(new Blockly.FieldImage('img/blocks/clock.svg', 20*options.zoom, 20*options.zoom)).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/row.svg', 20*options.zoom, 20*options.zoom)).appendField(new Blockly.FieldDropdown([['1st','0'],['2nd','1']]),'ROW').setAlign(Blockly.ALIGN_RIGHT);						
+				}
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'code');
 				this.setNextStatement(true,'code');
@@ -216,7 +251,6 @@
 				var xml='';
 				xml+='<value name="VAL"><shadow type="text"><field name="text">0</field></shadow></value>';
 				xml+='<value name="DELAY_TIME"><shadow type="math_number"><field name="NUM">50</field></shadow></value>';
-				xml+='<value name="XCOOR"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 				return xml;
 			},
 			onchange: function() {
@@ -232,7 +266,7 @@
 		Blockly.Arduino.lcd_scroll = function() {
 			var val = Blockly.Arduino.valueToCode(this, 'VAL', Blockly.Arduino.ORDER_ATOMIC);
 			var delay_time = Blockly.Arduino.valueToCode(this, 'DELAY_TIME', Blockly.Arduino.ORDER_ATOMIC);
-			var xcoor = Blockly.Arduino.valueToCode(this, 'XCOOR', Blockly.Arduino.ORDER_ATOMIC);
+			var xcoor = this.getFieldValue('ROW');
 			var code = '';
 			Blockly.Arduino.definitions_['define_lcd_scroll'] = 'void scrollText(int row, String message, int delayTime, int lcdColumns) {\n  for (int i=0; i < lcdColumns; i++) {\n	message = " " + message;\n   }\n   message = message + " ";\n  for (int pos = 0; pos < message.length(); pos++) {\n	_lcd.setCursor(0, row);\n	_lcd.print(message.substring(pos, pos + lcdColumns));\n	delay(delayTime);\n  }\n}\n';
 			code += 'scrollText('+xcoor+','+val+','+delay_time+',16);\n';
@@ -322,13 +356,20 @@
 			name: Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_NAME'),
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_SCREEN_LCD);
-				this.appendDummyInput()
-					.appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT'))
-					.appendField(new Blockly.FieldDropdown([
+				if (window.FacilinoAdvanced===true)
+				{
+					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT'),'LIGHT').appendField(new Blockly.FieldDropdown([
 						['LOW', 'LOW'],
 						['HIGH', 'HIGH']
-					]), 'STATE')
-					.appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_CLOSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+					]), 'STATE').appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_CLOSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				}
+				else
+				{
+					this.appendDummyInput('').appendField(new Blockly.FieldImage('img/blocks/light-bulb.svg', 20*options.zoom, 20*options.zoom),'LIGHT').appendField(new Blockly.FieldDropdown([
+						['LOW', 'LOW'],
+						['HIGH', 'HIGH']
+					]), 'STATE').appendField(Facilino.locales.getKey('LANG_LCD_SETBACKLIGHT_CLOSE')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/lcd.svg', 52*options.zoom, 24*options.zoom));
+				}
 				// .appendField(new Blockly.FieldImage('img/blocks/bqmod03.png', 52*options.zoom, 20*options.zoom));
 				this.setInputsInline(false);
 
@@ -344,6 +385,17 @@
 					this.setWarningText('This block instruction requires to define the LCD pin connections');
 				  else
 					this.setWarningText(null);
+				  if (window.FacilinoAdvanced===false)
+				  {
+					  if (this.getFieldValue('STATE')==='LOW')
+					  {
+						  this.setFieldValue('img/blocks/light-bulb.svg','LIGHT');
+					  }
+					  else
+					  {
+						  this.setFieldValue('img/blocks/bright-light-bulb.svg','LIGHT');
+					  }
+				  }
 
 			  }
 		};
