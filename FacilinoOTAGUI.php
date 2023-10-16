@@ -46,8 +46,8 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		<div class="card-wrapper ">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_server/facilino_otaserver_win64_latest.exe');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
-				<a  onclick="onHomeFile('ota_server/facilino_otaserver_win64_latest.exe');"><img src="assets/images/Install/windows-installer.jpg" alt="Installation" title=""></a>
+				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_gui/facilino_ota_win64_latest.exe');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
+				<a  onclick="onHomeFile('ota_gui/facilino_ota_win64_latest.exe');"><img src="assets/images/Install/windows-installer.jpg" alt="Installation" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7">
@@ -62,8 +62,8 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		<div class="card-wrapper ">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_server/FacilinoOTAServer_win64_latest.zip');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
-				<a  onclick="onHomeFile('ota_server/FacilinoOTAServer_win64_latest.zip');"><img src="assets/images/Install/windows-zip.png" alt="Windows 64 bits (non-admin)" title=""></a>
+				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_gui/Facilino_ota_win64_latest.zip');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
+				<a  onclick="onHomeFile('ota_gui/Facilino_ota_win64_latest.zip');"><img src="assets/images/Install/windows-zip.png" alt="Windows 64 bits (non-admin)" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7">
@@ -74,12 +74,12 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 		</div>
 	</div>
 
-	<div class="card p-3 col-12 col-md-6 col-lg-4">
+	<!-- <div class="card p-3 col-12 col-md-6 col-lg-4">
 		<div class="card-wrapper ">
 			<div class="card-img">
 				<div class="mbr-overlay"></div>
-				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_server/FacilinoOTAServer_Ubuntu_20_04_latest.tar.gz');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
-				<a  onclick="onHomeFile('ota_server/FacilinoOTAServer_Ubuntu_20_04_latest.tar.gz');"><img src="assets/images/Install/Ubuntu_20_04.png" alt="Ubuntu 64 bits" title=""></a>
+				<div class="mbr-section-btn text-center"><a  onclick="onHomeFile('ota_gui/FacilinoOTAGUI_Ubuntu_20_04_latest.tar.gz');" class="btn btn-primary display-4"><?php echo $website["DOWNLOAD"]; ?></a></div>
+				<a  onclick="onHomeFile('ota_gui/FacilinoOTAGUI_Ubuntu_20_04_latest.tar.gz');"><img src="assets/images/Install/Ubuntu_20_04.png" alt="Ubuntu 64 bits" title=""></a>
 			</div>
 			<div class="card-box">
 				<h4 class="card-title mbr-fonts-style display-7">
@@ -88,7 +88,7 @@ Learn how to program Arduino and ESP using Facilino with a full set of tutorials
 					<?php echo $website["UBUNTU_20_04_DESC"]; ?></p>
 			</div>
 		</div>
-	</div>
+	</div>-->
 </div>
 </div>
 </section>
