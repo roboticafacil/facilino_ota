@@ -1183,6 +1183,8 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += 'else if (_bt_cmd==0x81)\n';
 			code += '{\n';
 			code += '     int index = _bt_data[0];\n';
+			code += Blockly.Arduino.statementToCode(this,'DO_REQUEST');
+			code += '     _booleans[index]='+Blockly.Arduino.valueToCode(this,'RESP')+';\n';
 			code += '     _bt_device.write(\'@\');\n';
 			code += '     _bt_device.write((byte)0x82);\n';
 			code += '     _bt_device.write((byte)2);\n';
@@ -1206,10 +1208,14 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Boolean #').appendField(new Blockly.FieldNumber(0,1),'BOOLEAN_NUM');
-				this.appendValueInput('BOOLEAN_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_VARIABLES_TYPE_BOOL')).appendField('#').appendField(new Blockly.FieldNumber(0,1),'BOOLEAN_NUM');
+				this.appendValueInput('BOOLEAN_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_SET')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('BOOLEAN_VALUE').setCheck(Boolean).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendDummyInput('');
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('BOOLEAN_INDEX1').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_REQUEST')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO_REQUEST').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck([Boolean,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
@@ -1217,7 +1223,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			},
 			default_inputs: function()
 			{
-				return '<value name="BOOLEAN_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="BOOLEAN_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="BOOLEAN_VALUE"><block type="dyor_bluetooth_telegram_item_boolean_value"></block></value>';
+				return '<value name="BOOLEAN_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="BOOLEAN_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="BOOLEAN_VALUE"><block type="dyor_bluetooth_telegram_item_boolean_value"></block></value><value name="BOOLEAN_INDEX1"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="RESP"><shadow type="logic_boolean"><field name="BOOL">FALSE</field></shadow></value>';
 			},
 			onchange: function() {
 				if (this.getInputTargetBlock('BOOLEAN_INDEX')===null)
@@ -1234,6 +1240,14 @@ if ((Facilino.profiles['processor']==='ESP32'))
 					valueBlock.initSvg();
 					valueBlock.render();
 					this.getInput('BOOLEAN_VALUE').connection.connect(valueBlock.outputConnection);
+				}
+				if (this.getInputTargetBlock('BOOLEAN_INDEX1')===null)
+				{
+					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_index');
+					pinBlock.initSvg();
+					pinBlock.render();
+					this.getInput('BOOLEAN_INDEX1').connection.connect(pinBlock.outputConnection);
+					
 				}
 			}
 		};	
@@ -1261,6 +1275,8 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += 'else if (_bt_cmd==0x84)\n';
 			code += '{\n';
 			code += '     int index = _bt_data[0];\n';
+			code += Blockly.Arduino.statementToCode(this,'DO_REQUEST');
+			code += '     _ints[index]='+Blockly.Arduino.valueToCode(this,'RESP')+';\n';
 			code += '     _bt_device.write(\'@\');\n';
 			code += '     _bt_device.write((byte)0x85);\n';
 			code += '     _bt_device.write((byte)3);\n';
@@ -1286,9 +1302,12 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Int #').appendField(new Blockly.FieldNumber(0,1),'INT_NUM');
-				this.appendValueInput('INT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('INT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_SET')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('INT_VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('INT_INDEX1').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_REQUEST')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO_REQUEST').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
@@ -1296,7 +1315,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			},
 			default_inputs: function()
 			{
-				return '<value name="INT_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="INT_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="INT_VALUE"><block type="dyor_bluetooth_telegram_item_number_value"></block></value>';
+				return '<value name="INT_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="INT_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="INT_VALUE"><block type="dyor_bluetooth_telegram_item_number_value"></block></value><value name="INT_INDEX1"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="RESP"><shadow type="math_number"><field name="NUM">0</field></shadow></value>';
 			},
 			onchange: function() {
 				if (this.getInputTargetBlock('INT_INDEX')===null)
@@ -1313,6 +1332,14 @@ if ((Facilino.profiles['processor']==='ESP32'))
 					valueBlock.initSvg();
 					valueBlock.render();
 					this.getInput('INT_VALUE').connection.connect(valueBlock.outputConnection);
+				}
+				if (this.getInputTargetBlock('INT_INDEX1')===null)
+				{
+					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_index');
+					pinBlock.initSvg();
+					pinBlock.render();
+					this.getInput('INT_INDEX1').connection.connect(pinBlock.outputConnection);
+					
 				}
 			}
 		};
@@ -1343,6 +1370,8 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += 'else if (_bt_cmd==0x87)\n';
 			code += '{\n';
 			code += '     int index = _bt_data[0];\n';
+			code += Blockly.Arduino.statementToCode(this,'DO_REQUEST');
+			code += '     _floats[index]='+Blockly.Arduino.valueToCode(this,'RESP')+';\n';
 			code += '     _bt_device.write(\'@\');\n';
 			code += '     _bt_device.write((byte)0x88);\n';
 			code += '     _bt_device.write((byte)5);\n';
@@ -1372,9 +1401,12 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('Float #').appendField(new Blockly.FieldNumber(0,1),'FLOAT_NUM');
-				this.appendValueInput('FLOAT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('FLOAT_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_SET')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('FLOAT_VALUE').setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('FLOAT_INDEX1').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_REQUEST')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO_REQUEST').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
@@ -1382,7 +1414,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			},
 			default_inputs: function()
 			{
-				return '<value name="FLOAT_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="FLOAT_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="FLOAT_VALUE"><block type="dyor_bluetooth_telegram_item_number_value"></block></value>';
+				return '<value name="FLOAT_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="FLOAT_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="FLOAT_VALUE"><block type="dyor_bluetooth_telegram_item_number_value"></block></value><value name="FLOAT_INDEX1"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="RESP"><shadow type="math_number"><field name="NUM">1.2</field></shadow></value>';
 			},
 			onchange: function() {
 				if (this.getInputTargetBlock('FLOAT_INDEX')===null)
@@ -1399,6 +1431,14 @@ if ((Facilino.profiles['processor']==='ESP32'))
 					valueBlock.initSvg();
 					valueBlock.render();
 					this.getInput('FLOAT_VALUE').connection.connect(valueBlock.outputConnection);
+				}
+				if (this.getInputTargetBlock('FLOAT_INDEX1')===null)
+				{
+					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_index');
+					pinBlock.initSvg();
+					pinBlock.render();
+					this.getInput('FLOAT_INDEX1').connection.connect(pinBlock.outputConnection);
+					
 				}
 			}
 		};	
@@ -1426,6 +1466,8 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += 'else if (_bt_cmd==0x8A)\n';
 			code += '{\n';
 			code += '     int index = _bt_data[0];\n';
+			code += Blockly.Arduino.statementToCode(this,'DO_REQUEST');
+			code += '     _strings[index]='+Blockly.Arduino.valueToCode(this,'RESP')+';\n';
 			code += '     _bt_device.write(\'@\');\n';
 			code += '     _bt_device.write((byte)0x8B);\n';
 			code += '     _bt_device.write((byte)(_strings[index].size()+1));\n';
@@ -1451,9 +1493,12 @@ if ((Facilino.profiles['processor']==='ESP32'))
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
 				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField('String #').appendField(new Blockly.FieldNumber(0,1),'STRING_NUM');
-				this.appendValueInput('STRING_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('STRING_INDEX').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_SET')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendValueInput('STRING_VALUE').setCheck(String).setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('STRING_INDEX1').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM_ON_REQUEST')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendStatementInput('DO_REQUEST').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck([String,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
@@ -1461,7 +1506,7 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			},
 			default_inputs: function()
 			{
-				return '<value name="STRING_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="STRING_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="STRING_VALUE"><block type="dyor_bluetooth_telegram_item_string_value"></block></value>';
+				return '<value name="STRING_NUM"><shadow type="math_number"><field name="NUM">1</field></shadow></value><value name="STRING_INDEX"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="STRING_VALUE"><block type="dyor_bluetooth_telegram_item_string_value"></block></value><value name="STRING_INDEX1"><block type="dyor_bluetooth_telegram_item_index"></block></value><value name="RESP"><shadow type="text"><field name="TEXT"></field>text</shadow></value>';
 			},
 			onchange: function() {
 				if (this.getInputTargetBlock('STRING_INDEX')===null)
@@ -1478,6 +1523,14 @@ if ((Facilino.profiles['processor']==='ESP32'))
 					valueBlock.initSvg();
 					valueBlock.render();
 					this.getInput('STRING_VALUE').connection.connect(valueBlock.outputConnection);
+				}
+				if (this.getInputTargetBlock('STRING_INDEX1')===null)
+				{
+					var pinBlock = Blockly.mainWorkspace.newBlock('dyor_bluetooth_telegram_item_index');
+					pinBlock.initSvg();
+					pinBlock.render();
+					this.getInput('STRING_INDEX1').connection.connect(pinBlock.outputConnection);
+					
 				}
 			}
 		};
@@ -1837,17 +1890,25 @@ if ((Facilino.profiles['processor']==='ESP32'))
 					dht_map +='};\n';
 					Blockly.Arduino.definitions_['declare_var_dht_map'] = dht_map;
 				}
-				code+='\n	  if (_bt_cmd==0x22)//DHT Temperature\n';
+				code+='\n	  if (_bt_cmd==0x22)//Temperature\n';
 				code += '	  {\n';
 				code += '	  int pin = _bt_data[0];\n';
 				code += Blockly.Arduino.statementToCode(this,'DO');
 				code += '	  _bt_device.write(\'@\');\n';
 				code += '	  _bt_device.write((byte)0x23);\n';
-				code += '	  _bt_device.write((byte)3);\n';
+				//code += '	  _bt_device.write((byte)3);\n';
+				code += '	  _bt_device.write((byte)5);\n';
 				code += '	  _bt_device.write((byte)pin);\n';
-				code += '     short int _temp_value='+Blockly.Arduino.valueToCode(this,'RESP', Blockly.Arduino.ORDER_ATOMIC)+';\n';
-				code += '	  _bt_device.write((byte)((_temp_value&0xFF00)>>8));\n';
-				code += '	  _bt_device.write((byte)(_temp_value&0x00FF));\n';
+				//code += '     short int _temp_value='+Blockly.Arduino.valueToCode(this,'RESP', Blockly.Arduino.ORDER_ATOMIC)+';\n';
+				//code += '	  _bt_device.write((byte)((_temp_value&0xFF00)>>8));\n';
+				//code += '	  _bt_device.write((byte)(_temp_value&0x00FF));\n';
+				code += '     float _temp_value='+Blockly.Arduino.valueToCode(this,'RESP', Blockly.Arduino.ORDER_ATOMIC)+';\n';
+				code += '     long* value_ptr = (long *)&_temp_value;\n';
+				code += '     long _temp_value_long = *value_ptr;\n';
+				code += '	  _bt_device.write((byte)((_temp_value_long&0xFF000000)>>24));\n';
+				code += '	  _bt_device.write((byte)((_temp_value_long&0x00FF0000)>>16));\n';
+				code += '	  _bt_device.write((byte)((_temp_value_long&0x0000FF00)>>8));\n';
+				code += '	  _bt_device.write((byte)(_temp_value_long&0x000000FF));\n';
 				code += '	  _bt_device.write(\'*\');\n	  }\n';	
 			}
 			return code;
@@ -1866,10 +1927,10 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DHT')).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID'));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_TEMP_READ_HUMID')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
@@ -1899,11 +1960,21 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			code += Blockly.Arduino.statementToCode(this,'DO');
 			code += '	  _bt_device.write(\'@\');\n';
 			code += '	  _bt_device.write((byte)0x25);\n';
-			code += '	  _bt_device.write((byte)3);\n';
+			//code += '	  _bt_device.write((byte)3);\n';
+			code += '	  _bt_device.write((byte)5);\n';
 			code += '	  _bt_device.write((byte)pin);\n';
-			code += '     short int _humid_value='+Blockly.Arduino.valueToCode(this,'RESP_HUMID', Blockly.Arduino.ORDER_ATOMIC)+';\n';
+			/*code += '     short int _humid_value='+Blockly.Arduino.valueToCode(this,'RESP_HUMID', Blockly.Arduino.ORDER_ATOMIC)+';\n';
 			code += '	  _bt_device.write((byte)((_humid_value&0xFF00)>>8));\n';
 			code += '	  _bt_device.write((byte)(_humid_value&0x00FF));\n';
+			*/
+			code += '     float _humid_value='+Blockly.Arduino.valueToCode(this,'RESP', Blockly.Arduino.ORDER_ATOMIC)+';\n';
+			code += '     long* value_ptr = (long *)&_humid_value;\n';
+			code += '     long _humid_value_long = *value_ptr;\n';
+			code += '	  _bt_device.write((byte)((_humid_value_long&0xFF000000)>>24));\n';
+			code += '	  _bt_device.write((byte)((_humid_value_long&0x00FF0000)>>16));\n';
+			code += '	  _bt_device.write((byte)((_humid_value_long&0x0000FF00)>>8));\n';
+			code += '	  _bt_device.write((byte)(_humid_value_long&0x000000FF));\n';
+			
 			code += '	  _bt_device.write(\'*\');\n	  }\n';	
 			return code;
 		};
@@ -1921,10 +1992,10 @@ if ((Facilino.profiles['processor']==='ESP32'))
 			init: function() {
 				this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_BLUETOOTH);
 				//this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RECV_TELEGRAM')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/bluetooth.svg', 52*options.zoom, 24*options.zoom));
-				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DHT')).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID'));
+				this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_BLUETOOTH_TELEGRAM')).appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID'));
 				this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DATA')).setCheck('DigitalPin').setAlign(Blockly.ALIGN_RIGHT);
 				this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_BLUETOOTH_RESPONSE')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+				this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_HUMID_READ_HUMID')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 				this.setInputsInline(false);
 				this.setPreviousStatement(true,'TELEGRAM_CODE');
 				this.setNextStatement(true,'TELEGRAM_CODE');
