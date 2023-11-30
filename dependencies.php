@@ -37,7 +37,8 @@ $libs=array("lib update-index",
 "lib install ArduinoJson",
 "lib install FauxmoESP",
 "lib install ESPUI",
-"lib install LittleFS_esp32");
+"lib install LittleFS_esp32",
+"lib install \"Adafruit ST7735 and ST7789 Library\"");
 //$instructions=array();
 $data=array('version' => '1.1.0','core' => $core,'libs' => $libs);
 echo json_encode($data);

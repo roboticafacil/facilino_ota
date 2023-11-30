@@ -4,7 +4,7 @@
 	if (typeof define === 'function' && define.amd) {
 		define(['underscore', 'blockly-bq', 'blockly.blocks'], factory);
 	} else {
-		factory(_, window.Blockly, window.Blocks);
+		factory(_, window.Blockly, window.Blocks);	
 	}
 }(function(_, Blockly, Blocks) {
 	var load = function(options) {
@@ -155,6 +155,14 @@
 				b: parseInt(result[3], 16)
 			} : null;
 		};
+		
+		Facilino.rgb565 = function(hex) {
+			var rgb=Facilino.hexToRgb(hex);
+			var ret  = (rgb.r& 0xF8) << 8;  // 5 bits
+			ret |= (rgb.g & 0xFC) << 3;  // 6 bits
+			ret |= (rgb.b & 0xF8) >> 3;  // 5 bits
+			return( ret);
+		}
 
 		Facilino.pad = function(str,padString,length) {
 			while (str.length < length)
@@ -286,9 +294,10 @@
 		Facilino.LANG_COLOUR_MOVEMENT_WALK = '#8D8D25'; // 78781C
 		Facilino.LANG_COLOUR_MOVEMENT_ROBOTARM = '#78781C'; 
 		Facilino.LANG_COLOUR_SCREEN = '#ACCE42';
-		Facilino.LANG_COLOUR_SCREEN_LCD = '#ACCE42'; //7F9B2A, 718B23
+		Facilino.LANG_COLOUR_SCREEN_LCD = '#ACCE42'; //718B23
 		Facilino.LANG_COLOUR_SCREEN_LEDMATRIX = '#9DBD3A';
 		Facilino.LANG_COLOUR_SCREEN_OLED = '#8EAC32';
+		Facilino.LANG_COLOUR_SCREEN_TFT = '#7F9B2A';
 		Facilino.LANG_COLOUR_CONTROL = '#44CC44';
 		Facilino.LANG_COLOUR_PROGRAMMING = '#3EB83E';
 		Facilino.LANG_COLOUR_CONTROL_INTERRUPTS = '#39A539';

@@ -93,6 +93,7 @@ require_once('db.php');
 		FacilinoLEDMatrix.load(options);
 		FacilinoLEDStrip.load(options);
 		FacilinoOLED.load(options);
+		FacilinoTFT.load(options);
 		FacilinoSerial.load(options);
 		FacilinoBluetooth.load(options);
 		FacilinoBLE.load(options);

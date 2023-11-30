@@ -106,7 +106,7 @@
 			Blockly.Arduino.definitions_['declare_var_oled_display']='Adafruit_SSD1306 oled_display(4);\n';
 			Blockly.Arduino.setups_['setup_oled_display']='oled_display.begin(SSD1306_SWITCHCAPVCC, 0x3C);\n  oled_display.clearDisplay();\n  oled_display.setTextColor(WHITE);\n  oled_display.display();\n  delay(1);\n';
 			if (image_name!=='')
-				Blockly.Arduino.definitions_['declare_var_oled_display_'+image_name]='const unsigned char _oled_display_'+image_name+'[] PROGMEM = {'+image+'};\n';
+				Blockly.Arduino.definitions_['declare_var_display_'+image_name]='const unsigned char _display_'+image_name+'[] PROGMEM = {'+image+'};\n';
 			if (block!==null)
 			{
 				if (block.type==='oled_128x32_image_empty')
@@ -117,7 +117,7 @@
 				else
 				{
 					Blockly.Arduino.definitions_['define_set_image']='void setImage(const unsigned char *icon, int16_t x, int16_t y, int16_t w, int16_t h){\n  oled_display.fillRect(x,y,w,h,BLACK);\n  oled_display.drawBitmap(x,y,icon,w,h,WHITE,BLACK);\n  oled_display.display();\n  delay(1);\n}\n';
-					code='setImage(_oled_display_'+image_name+','+x+','+y+','+image_width+','+image_height+');\n';
+					code='setImage(_display_'+image_name+','+x+','+y+','+image_width+','+image_height+');\n';
 				}
 			}
 			return code;
@@ -340,7 +340,7 @@
 			Blockly.Arduino.definitions_['declare_var_oled_display']='Adafruit_SSD1306 oled_display(4);\n';
 			Blockly.Arduino.setups_['setup_oled_display']='oled_display.begin(SSD1306_SWITCHCAPVCC, 0x3C);\n  oled_display.clearDisplay();\n  oled_display.setTextColor(WHITE);\n  oled_display.display();\n  delay(1);\n';
 			if (image_name!=='')
-				Blockly.Arduino.definitions_['declare_var_oled_display_'+image_name]='const unsigned char _oled_display_'+image_name+'[] PROGMEM = {'+image+'};\n';
+				Blockly.Arduino.definitions_['declare_var_display_'+image_name]='const unsigned char _display_'+image_name+'[] PROGMEM = {'+image+'};\n';
 			if (block!==null)
 			{
 				if(block.type==='oled_128x32_image_empty')
@@ -360,22 +360,22 @@
 					if (icon==='TOP_LEFT')
 					{
 					  Blockly.Arduino.definitions_['define_set_top_left_icon']='void setTopLeftIcon(const unsigned char *icon){\n  oled_display.fillRect(0,0,8,8,BLACK);\n  oled_display.drawBitmap(0,0,icon,8,8,WHITE);\n  oled_display.display();\n  delay(1);\n}\n';
-					  code='setTopLeftIcon(_oled_display_'+image_name+');\n';
+					  code='setTopLeftIcon(_display_'+image_name+');\n';
 					}
 					else if (icon==='TOP_RIGHT')
 					{
 						Blockly.Arduino.definitions_['define_set_top_right_icon']='void setTopRightIcon(const unsigned char *icon){\n  oled_display.fillRect(120,0,8,8,BLACK);\n  oled_display.drawBitmap(120,0,icon,8,8,WHITE);\n  oled_display.display();\n  delay(1);\n}\n';
-						code='setTopRightIcon(_oled_display_'+image_name+');\n';
+						code='setTopRightIcon(_display_'+image_name+');\n';
 					}
 					else if (icon==='BOTTOM_LEFT')
 					{
 						Blockly.Arduino.definitions_['define_set_bottom_left_icon']='void setBottomLeftIcon(const unsigned char *icon){\n  oled_display.fillRect(0,24,8,8,BLACK);\n  oled_display.drawBitmap(0,24,icon,8,8,WHITE);\n  oled_display.display();\n  delay(1);\n}\n';
-						code='setBottomLeftIcon(_oled_display_'+image_name+');\n';
+						code='setBottomLeftIcon(_display_'+image_name+');\n';
 					}
 					else if (icon==='BOTTOM_RIGHT')
 					{
 						Blockly.Arduino.definitions_['define_set_bottom_right_icon']='void setBottomRightIcon(const unsigned char *icon){\n  oled_display.fillRect(120,24,8,8,BLACK);\n  oled_display.drawBitmap(120,24,icon,8,8,WHITE);\n  oled_display.display();\n  delay(1);\n}\n';
-						code='setBottomRightIcon(_oled_display_'+image_name+');\n';
+						code='setBottomRightIcon(_display_'+image_name+');\n';
 					}
 				}
 			}
@@ -436,7 +436,7 @@
 			Blockly.Arduino.definitions_['declare_var_oled_display']='Adafruit_SSD1306 oled_display(4);\n';
 			Blockly.Arduino.setups_['setup_oled_display']='oled_display.begin(SSD1306_SWITCHCAPVCC, 0x3C);\n  oled_display.clearDisplay();\n  oled_display.setTextColor(WHITE);\n  oled_display.display();\n  delay(1);\n';
 			if (image_name!=='')
-				Blockly.Arduino.definitions_['declare_var_oled_display_'+image_name]='const unsigned char _oled_display_'+image_name+'[] PROGMEM = {'+image+'};\n';
+				Blockly.Arduino.definitions_['declare_var_display_'+image_name]='const unsigned char _display_'+image_name+'[] PROGMEM = {'+image+'};\n';
 			if (block!==null)
 			{
 				if (block.type==='oled_128x32_image_empty')
@@ -452,12 +452,12 @@
 					if (icon==='LEFT')
 					{
 					  Blockly.Arduino.definitions_['define_set_left_icon']='void setLeftIcon(const unsigned char *icon){\n  oled_display.fillRect(0,8,16,16,BLACK);\n  oled_display.drawBitmap(0,8,icon,16,16,WHITE,BLACK);\n  oled_display.display();\n  delay(1);\n}\n';
-					  code='setLeftIcon(_oled_display_'+image_name+');\n';
+					  code='setLeftIcon(_display_'+image_name+');\n';
 					}
 					else if (icon==='RIGHT')
 					{
 						Blockly.Arduino.definitions_['define_set_right_icon']='void setRightIcon(const unsigned char *icon){\n  oled_display.fillRect(112,8,16,16,BLACK);\n  oled_display.drawBitmap(112,8,icon,16,16,WHITE,BLACK);\n  oled_display.display();\n  delay(1);\n}\n';
-						code='setRightIcon(_oled_display_'+image_name+');\n';
+						code='setRightIcon(_display_'+image_name+');\n';
 					}
 				}
 			}
@@ -515,7 +515,7 @@
 			Blockly.Arduino.definitions_['declare_var_oled_display']='Adafruit_SSD1306 oled_display(4);\n';
 			Blockly.Arduino.setups_['setup_oled_display']='oled_display.begin(SSD1306_SWITCHCAPVCC, 0x3C);\n  oled_display.clearDisplay();\n  oled_display.setTextColor(WHITE);\n  oled_display.display();\n  delay(1);\n';
 			if (image_name!=='')
-				Blockly.Arduino.definitions_['declare_var_oled_display_'+image_name]='const unsigned char _oled_display_'+image_name+'[] PROGMEM = {'+image+'};\n';
+				Blockly.Arduino.definitions_['declare_var_display_'+image_name]='const unsigned char _display_'+image_name+'[] PROGMEM = {'+image+'};\n';
 			if (block!==null)
 			{
 				if (block.type==='oled_128x32_image_empty')
@@ -526,7 +526,7 @@
 				else
 				{
 					Blockly.Arduino.definitions_['define_set_main_image']='void setMainImage(const unsigned char *icon){\n  oled_display.fillRect(16,8,96,16,BLACK);\n  oled_display.drawBitmap(16,8,icon,96,16,WHITE,BLACK);\n  oled_display.display();\n  delay(1);\n}\n';
-					code='setMainImage(_oled_display_'+image_name+');\n';
+					code='setMainImage(_display_'+image_name+');\n';
 				}
 			}
 			return code;
@@ -925,6 +925,14 @@
 				data='0000018003C007E00E700C301C381818381C381C381C1C381FF80FF003C00000';
 			else if (str==='HUMIDITY2')
 				data='0000018003C007E00FF00FF01FF81FD83F9C3F9C3F1C1E381FF80FF003C00000';
+			else if (str==='FAN')
+				data='00C001E001E003C003C06180F818FDBE7DBF181F018603C003C0078007800300';
+			else if (str==='FLAME')
+				data='006000C001C001C003E00BE00BF01FF81FF83FFC3FFC3FFC1FF80FF007E00180';
+			else if (str==='RADIATOR')
+				data='09241248124800002DB42DB42DB4EDB7EDB72DB42DB42DB42DB42DB42DB42DB4';
+			else if (str==='GAS_LEAK')
+				data='018007E007E00FF00FF007E0018001800000DE7BDE7BDFFBDFFBDFFBDFFB0000';
 			else if (str==='SUN')
 				data='000020821084080801C007F007F00FF86FFB0FF807F007F011C4200240810080';
 			else if (str==='TEMPERATURE')
@@ -1025,6 +1033,10 @@
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WATER_TAP'),'WATERTAP'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY'),'HUMIDITY'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY2'),'HUMIDITY2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_GAS_LEAK'),'GAS_LEAK'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FAN'),'FAN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FLAME'),'FLAME'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_RADIATOR'),'RADIATOR'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SUN'),'SUN'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TEMPERATURE'),'TEMPERATURE'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_NON_INVERTED'),'NONINVERTED'],
@@ -1081,6 +1093,10 @@
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_WATER_TAP'),'WATERTAP'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY'),'HUMIDITY'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_HUMIDITY2'),'HUMIDITY2'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_GAS_LEAK'),'GAS_LEAK'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FAN'),'FAN'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_FLAME'),'FLAME'],
+				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_RADIATOR'),'RADIATOR'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_SUN'),'SUN'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_TEMPERATURE'),'TEMPERATURE'],
 				[Facilino.locales.getKey('LANG_OLED_LARGE_ICON_NON_INVERTED'),'NONINVERTED'],

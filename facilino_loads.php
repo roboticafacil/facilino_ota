@@ -29,6 +29,7 @@ echo 'FacilinoLCD.load(options);';
 echo 'FacilinoLEDMatrix.load(options);';
 echo 'FacilinoLEDStrip.load(options);';
 echo 'FacilinoOLED.load(options);';
+echo 'FacilinoTFT.load(options);';
 echo 'FacilinoSerial.load(options);';
 echo 'FacilinoBluetooth.load(options);';
 echo 'FacilinoBLE.load(options);';

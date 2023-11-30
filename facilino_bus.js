@@ -12,7 +12,7 @@
 		{
 		Blockly.Arduino.inout_spi_begin = function() {
 			var baudrate = Blockly.Arduino.valueToCode(this, 'BAUDRATE', Blockly.Arduino.ORDER_ATOMIC);
-			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>\n';
+			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>';
 			var code = 'SPI.beginTransaction(SPISettings('+baudrate+','+this.getFieldValue('ORDER')+','+ this.getFieldValue('MODE')+'));\n'
 			return code;
 		};
@@ -48,7 +48,7 @@
 		Blockly.Arduino.inout_spi_transfer = function() {
 			var data = Blockly.Arduino.valueToCode(this, 'DATA', Blockly.Arduino.ORDER_ATOMIC);
 			var mode = this.getFieldValue('MODE');
-			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>\n';
+			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>';
 			var code ='';
 			if (mode==='1')
 				code += 'SPI.transfer('+data+');\n';
@@ -87,7 +87,7 @@
 		Blockly.Arduino.inout_spi_transfer_recv = function() {
 			var data = Blockly.Arduino.valueToCode(this, 'DATA', Blockly.Arduino.ORDER_ATOMIC);
 			var mode = this.getFieldValue('MODE');
-			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>\n';
+			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>';
 			var code ='';
 			if (mode==='1')
 				code += 'SPI.transfer('+data+')';
@@ -124,7 +124,7 @@
 		};
 
 		Blockly.Arduino.inout_spi_end = function() {
-			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>\n';
+			Blockly.Arduino.definitions_['include_spi'] = '#include <SPI.h>';
 			var code = 'SPI.endTransaction();\n';
 			return code;
 		};

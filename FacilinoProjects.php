@@ -37,6 +37,7 @@ require_once('projects_translation.php');
 <script src="facilino_led_matrix.js"></script>
 <script src="facilino_led_strip.js"></script>
 <script src="facilino_oled.js"></script>
+<script src="facilino_tft.js"></script>
 <script src="facilino_serial.js"></script>
 <script src="facilino_bluetooth.js"></script>
 <script src="facilino_ble.js"></script>

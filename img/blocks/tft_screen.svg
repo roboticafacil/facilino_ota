@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!-- Created with Fritzing (http://www.fritzing.org/) -->
+<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.2' baseProfile='tiny' x='0in' y='0in' width='2.27778in' height='1.6in' viewBox='0 0 164 115.2' >
+<g partID='854142730'><g  id="breadboard" gorn="0.3.0">
+ <rect  height="114.627" stroke-width="1.45984" id="rect536" width="163.669" fill="#ff0000" gorn="0.3.0.0" x="0" y="0"/>
+ <line  stroke-width="0.383999" stroke-linecap="round" y1="108.52" stroke="#ffffff" x2="13.1518" id="line94" fill="none" gorn="0.3.0.1" x1="13.1518" y2="5.71747"/>
+ <line  stroke-width="0.383999" stroke-linecap="round" y1="5.71747" stroke="#ffffff" x2="152.239" id="line96" fill="none" gorn="0.3.0.2" x1="13.1518" y2="5.71747"/>
+ <line  stroke-width="0.383999" stroke-linecap="round" y1="5.71747" stroke="#ffffff" x2="152.239" id="line98" fill="none" gorn="0.3.0.3" x1="152.239" y2="108.52"/>
+ <line  stroke-width="0.383999" stroke-linecap="round" y1="108.52" stroke="#ffffff" x2="13.1518" id="line100" fill="none" gorn="0.3.0.4" x1="152.239" y2="108.52"/>
+ <rect  height="102.803" stroke-width="1.06666" id="rect160" width="138.572" fill="#dcdcdc" gorn="0.3.0.5" x="13.4088" y="5.71747"/>
+ <rect  height="4.53544" stroke-width="1.06666" id="rect162" width="4.53546" fill="#282828" gorn="0.3.0.6" x="136.441" y="7.63747"/>
+ <rect  height="4.53544" stroke-width="1.06666" id="rect164" width="4.53546" fill="#282828" gorn="0.3.0.7" x="136.441" y="102.065"/>
+ <rect  height="6.0469" stroke-width="1.06666" id="rect166" width="18.1418" fill="#282828" gorn="0.3.0.8" x="15.3736" y="7.63747"/>
+ <rect  height="6.0469" stroke-width="1.06666" id="rect168" width="18.1418" fill="#282828" gorn="0.3.0.9" x="15.3736" y="100.552"/>
+ <g transform="matrix(0, -1, 1, 0, 0, -12.5567)">
+  <g >
+   <g >
+    <g  id="g257" gorn="0.3.0.10.0.0">
+     <rect  height="6.04691" stroke-width="1.06666" id="rect170" width="18.1418" fill="#282828" gorn="0.3.0.10.0.0.0" x="-75.7231" y="15.3743"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <g transform="matrix(13.8889, 0, 0, 13.8889, -1.78478, 5.27908)">
+  <g >
+   <g >
+    <g  id="g260" gorn="0.3.0.11.0.0">
+     <polygon  id="polygon178" fill="#0a0a0a" points="11.0711,1.38923,10.2244,1.38923,10.2244,0.224255,1.28985,0.224255,1.28985,7.24067,10.2244,7.24067,10.2244,6.63626,11.0711,6.63626" gorn="0.3.0.11.0.0.0"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <g transform="matrix(0, 1, -1, 0, 0, -12.5567)">
+  <g >
+   <g >
+    <g  id="g263" gorn="0.3.0.12.0.0">
+     <rect  height="109.577" stroke-width="1.06666" id="rect180" width="88.3794" gorn="0.3.0.12.0.0.0" x="25.4855" y="-130.242"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <rect  height="84.7515" stroke-width="1.06666" id="rect188" width="105.948" fill="#333333" gorn="0.3.0.13" x="22.4797" y="14.7425"/>
+ <rect  height="57.5506" stroke-width="1.06666" id="rect190" width="11.761" fill="#e6aa50" gorn="0.3.0.14" x="140.22" y="26.0853"/>
+ <g transform="matrix(1, 0, 0, 1, 0, -12.5567)">
+  <g >
+   <g >
+    <g  id="g268" gorn="0.3.0.15.0.0">
+     <text  stroke-width="1.06666" id="text192" fill="#ffffff" gorn="0.3.0.15.0.0.0" font-family="DroidSans" font-size="7.68" x="52.6661" y="65.7629">1.8" TFT</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <g transform="matrix(1, 0, 0, 1, 0, -12.5567)">
+  <g >
+   <g >
+    <g  id="g271" gorn="0.3.0.16.0.0">
+     <text  stroke-width="1.06666" id="text200" fill="#ffffff" gorn="0.3.0.16.0.0.0" font-family="DroidSans" font-size="7.68" x="51.1036" y="81.1229">160x128</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector0pin" r="2.11199" fill="#ffffff" gorn="0.3.0.17" cx="6.31165" cy="94.8786"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector1pin" r="2.11199" fill="#ffffff" gorn="0.3.0.18" cx="6.31165" cy="87.1986"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector2pin" r="2.11199" fill="#ffffff" gorn="0.3.0.19" cx="6.31165" cy="79.5186"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector3pin" r="2.11199" fill="#ffffff" gorn="0.3.0.20" cx="6.31165" cy="71.8387"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector4pin" r="2.11199" fill="#ffffff" gorn="0.3.0.21" cx="6.31165" cy="64.1586"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector5pin" r="2.11199" fill="#ffffff" gorn="0.3.0.22" cx="6.31165" cy="56.4788"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector6pin" r="2.11199" fill="#ffffff" gorn="0.3.0.23" cx="6.31165" cy="48.7989"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector7pin" r="2.11199" fill="#ffffff" gorn="0.3.0.24" cx="6.31165" cy="41.1188"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector8pin" r="2.11199" fill="#ffffff" gorn="0.3.0.25" cx="6.31165" cy="33.439"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector9pin" r="2.11199" fill="#ffffff" gorn="0.3.0.26" cx="6.31165" cy="25.759"/>
+ <circle  stroke-width="1.152" stroke="#9a916c" id="connector10pin" r="2.11199" fill="#ffffff" gorn="0.3.0.27" cx="6.31165" cy="18.0823"/>
+ <circle  stroke-width="1.06666" id="circle552" r="3.19999" fill="#ffffff" gorn="0.3.0.28" cx="5.35899" cy="105.154"/>
+ <circle  stroke-width="1.06666" id="circle554" r="3.19999" fill="#ffffff" gorn="0.3.0.29" cx="6.959" cy="6.87857"/>
+ <circle  stroke-width="1.06666" id="circle556" r="3.19999" fill="#ffffff" gorn="0.3.0.30" cx="157.947" cy="7.12325"/>
+ <circle  stroke-width="1.06666" id="circle556-0" r="3.19999" fill="#ffffff" gorn="0.3.0.31" cx="157.963" cy="109.306"/>
+</g>
+</g></svg>

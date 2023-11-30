@@ -40,6 +40,7 @@
 	echo '<script src="facilino_led_matrix.js"></script>';
 	echo '<script src="facilino_led_strip.js"></script>';
 	echo '<script src="facilino_oled.js"></script>';
+	echo '<script src="facilino_tft.js"></script>';
 	echo '<script src="facilino_serial.js"></script>';
 	echo '<script src="facilino_bluetooth.js"></script>';
 	echo '<script src="facilino_ble.js"></script>';

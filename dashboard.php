@@ -826,9 +826,24 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="import")&&!isset($_POST["act
 	$attribution_id=(int)$meta_data->attribution_id;
 	$attribution=(string)$meta_data->attribution;
 	
-	
-	$code=htmlentities(sanitizeInput($meta_data->block->saveXML()),ENT_XML1);
-	
+	$num_blocks=0;
+	//var_dump($meta_data->count());
+	$meta_data->rewind();
+	$code="";
+	foreach ($meta_data->children() as $key=>$block)
+	{
+		if (strcmp($key,"block")==0)
+		{
+			//$xml=htmlentities(sanitizeInput($block->saveXML()),ENT_XML1);
+			$dom_sxe = dom_import_simplexml($block);  // Returns a DomElement object
+			$dom_output = new DOMDocument('1.0');
+			$dom_output->formatOutput = false;
+			$dom_sxe = $dom_output->importNode($dom_sxe, true);
+			$dom_sxe = $dom_output->appendChild($dom_sxe);
+			$text=$dom_output->saveXML($dom_output, LIBXML_NOEMPTYTAG);
+			$code=$code.substr($text,strpos($text,"\n")+1);
+		}
+	}	
 	
 	$query_user="SELECT id FROM `users` WHERE `users`.username=\"".$_SESSION["username"]."\" and active=1";
 	$result_user=mysqli_query($con,$query_user);
@@ -837,7 +852,7 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="import")&&!isset($_POST["act
 	{
 		$row_user=mysqli_fetch_row($result_user);
 		
-		$query_facilino="INSERT INTO `facilino_code`(`blockly_code`) VALUES (?)";
+		$query_facilino="INSERT INTO `facilino_code`(`blockly_code`,`arduino_code`) VALUES (?,\"\")";
 		$statement_facilino=mysqli_prepare($con,$query_facilino);
 		$statement_facilino->bind_param("s",htmlspecialchars_decode($code,ENT_XML1));
 		$statement_facilino->execute();
@@ -847,6 +862,7 @@ elseif  (isset($_GET["action"])&&($_GET["action"]=="import")&&!isset($_POST["act
 		$statement_project=mysqli_prepare($con,$query_project);
 		$statement_project->bind_param("siiiiiisss",$name,$row_user[0],$processor_id,$filter_id,$facilino_code_id,$version_id,$language_id,$share_key,$server_ip,$device_ip);
 		$statement_project->execute();
+		
 	}
 	header("Location: dashboard.php");
 }
