@@ -1241,6 +1241,96 @@ function flagsChange(a)
 	window.selected_compilation_flags=a;
 }
 
+function http() {
+  let loading = false;
+
+  let chunks = [];
+  let results = null;
+  let error = null;
+  // let controller = null; // We will get to this variable in a second
+
+  const json = async (path, options) => {
+	_resetLocals();
+    loading = true;
+
+    try {
+      const response = await fetch(path,options);
+	  
+	  console.log(response);
+
+      if (response.status >= 200 && response.status < 300) {
+        results = await _readBody(response);
+		return JSON.parse(results);
+      } else {
+        throw new Error(response.statusText)
+      }
+    } catch (err) {
+      error = err;
+      results = null;
+      return error;
+    } finally {
+      loading = false;
+    }
+  }
+  
+  const _readBody = async (response) => {
+    const reader = response.body.getReader();
+
+    // This header must be configured serverside
+    const length = +response.headers.get('content-length');
+	console.log(length);
+
+    // Declare received as 0 initially
+    let received = 0;
+
+    // Loop through the response stream and extract data chunks
+    while (loading) {
+      const { done, value } = await reader.read();
+	  const payload = { detail: { received, length, loading } }
+      const onProgress = new CustomEvent('fetch-progress', payload);
+      const onFinished = new CustomEvent('fetch-finished', payload);
+      if (done) {
+        // Finish loading 
+        loading = false;
+		window.dispatchEvent(onFinished)
+      } else {
+        // Push values to the chunk array
+        chunks.push(value);
+		// Add on to the received length
+		received += value.length;
+		window.dispatchEvent(onProgress); 
+      }
+    }
+
+    // Concat the chinks into a single array
+    let body = new Uint8Array(received);
+    let position = 0;
+
+    // Order the chunks by their respective position
+    for (let chunk of chunks) {
+      body.set(chunk, position);
+      position += chunk.length;
+    }
+
+    // Decode the response and return it
+    return new TextDecoder('utf-8').decode(body);
+  }
+  
+  const _resetLocals = () => {
+	  loading = false;
+
+	  chunks = [];
+	  results = null;
+	  error = null;
+
+	  //controller = new AbortController();
+	}
+
+
+
+  return { json }
+}
+
 function compile_upload()
 {
 	var modal_progress = document.getElementById('modal_progress');
@@ -1355,26 +1445,50 @@ function uploadUSB()
 
 async function uploadUSBData(data)
 {
-	var console_output = document.getElementById('console_output');
 	if (window.OTAServerVersion==='1.1.0')
 	{
+		const progressbar = document.getElementById('progress-bar');
+		const progresslabel = document.getElementById('progress_number');
+		const progress = document.getElementById('progress');
+		
+		var console_output = document.getElementById('console_output');
+		var command_output = document.getElementById('command_output');
+		
+		progressbar.style.display="block";
+		
+		progresslabel.innerHTML = '0%';
+		progress.setAttribute('value',0);
+		
+		
+		const setProgressbarValue = (payload) => {
+		const { received, length, loading } = payload;
+		const value = ((received / length) * 100).toFixed(2);
+			progresslabel.innerHTML = `${value}%`;
+			progress.setAttribute('value',value);
+		};
+		
+		window.addEventListener('fetch-progress', (e) => {
+		  setProgressbarValue(e.detail);
+		});
+
+		window.addEventListener('fetch-finished', (e) => {
+		  setProgressbarValue(e.detail);
+		});
+		
 		var serverip = 'localhost';
-		var url='http://';
-		url=url.concat(serverip,':4000/usb_upload');
-		try{   
+			var url='http://';
+			url=url.concat(serverip,':4000/usb_upload');
+			
 		console_output.innerHTML='';
 		command_output.innerHTML='';
-		//var progress_bar = document.getElementById('progress-bar');
-		//progress_bar.style.display = "block";
-		const response = await fetch(url, {method: 'POST',headers: {'Content-Type': 'application/json; charset=ISO-8859-1'},body: JSON.stringify(data)});
-		const r = await response.json();
-		console_output.innerHTML=r['result'];
-		command_output.innerHTML=r['command'];
-		}
-		catch(error)
-		{
-			console.log(error);
-		}
+		
+		const {json} = http();
+		
+		const response = await json(url,{method: 'POST',headers: {'Content-Type': 'application/json; charset=ISO-8859-1'},body: JSON.stringify(data)});
+		console.log(response);
+		
+		console_output.innerHTML=response['result'];
+		command_output.innerHTML=response['command'];
 	}
 	else if (window.OTAServerVersion==='1.0.0')
 	{
