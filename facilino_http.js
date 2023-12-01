@@ -53,6 +53,7 @@
 						argument_code='_http_header.indexOf("GET /DigitalRead/")>=0';
 						branch_code='int pin=_http_header.substring(17,idx_end).toInt();\n';
 						branch_code+='  if (pin>=0){\n';
+						branch_code+='    pinMode(pin,INPUT);\n';
 						branch_code+='    _resp["status"]="OK";\n';
 						branch_code+='    _resp["pin"]=pin;\n';
 						branch_code+='    _resp["value"]=digitalRead(pin);\n';
@@ -69,6 +70,7 @@
 						branch_code='int q=_http_header.indexOf("?");\n';
 						branch_code+='if (q>=0){\n';
 						branch_code+='	int pin=_http_header.substring(18,q).toInt();\n';
+						branch_code+='  pinMode(pin,OUTPUT);\n';
 						branch_code+='	bool value=(_http_header.substring(q+7,idx_end).toInt()==1)? true: false;\n';
 						branch_code+='  digitalWrite(pin,value);\n';
 						branch_code+='  _resp["pin"]=pin;\n';
@@ -85,6 +87,7 @@
 						argument_code='_http_header.indexOf("GET /AnalogRead/")>=0';
 						branch_code='int pin=_http_header.substring(16,idx_end).toInt();\n';
 						branch_code+='  if (pin>=0){\n';
+						branch_code+='  pinMode(pin,INPUT);\n';
 						branch_code+='    _resp["status"]="OK";\n';
 						branch_code+='    _resp["pin"]=pin;\n';
 						if (Blockly.Arduino.setups_['inout_analog_workaround_adc']!==undefined)
@@ -128,6 +131,11 @@
 							unique.forEach(function (element,index){if (index===0) {pwms_map+='{'+element+',&_pwm'+element+'}';}else{pwms_map+=',{'+element+',&_pwm'+element+'}';}});
 							pwms_map +='};\n';
 							Blockly.Arduino.definitions_['declare_var_pwm_map'] = pwms_map;
+							branch_code +='if (_pwms.find(pin)==_pwms.end()){\n';
+							branch_code +='  ESP32PWM * pwm = new ESP32PWM();\n';
+							branch_code +='  pwm->attachPin(pin,1000,10);\n';
+							branch_code +='  _pwms.insert({pin,pwm});\n';
+							branch_code +='}\n';
 							branch_code +='_pwms[pin]->write(value);\n';
 						}
 						else
@@ -200,12 +208,18 @@
 					branch_code+='int q=_http_header.indexOf("?");\n';
 					branch_code+='if (q>=0){\n';
 					branch_code+='	name=_http_header.substring(13,q);\n';
+					branch_code +='if (_booleans.find(name)==_booleans.end()){\n';
+					branch_code +='  _booleans.insert({name,false});\n';
+					branch_code +='}\n';
 					branch_code+='	value=_http_header.substring(q+7,idx_end).toInt()==1 ? true: false;\n';
 					branch_code+='  _booleans[name]=value;\n';
 					branch_code+='}\n';
 					branch_code+='else{\n';
 					//Get bool variable and build response
 					branch_code+='  name=_http_header.substring(13,idx_end);\n';
+					branch_code +='if (_booleans.find(name)==_booleans.end()){\n';
+					branch_code +='  _booleans.insert({name,false});\n';
+					branch_code +='}\n';
 					branch_code+='  _resp["name"]=name;\n';
 					branch_code+='  value=_booleans[name];\n';
 					branch_code+='  value ? _resp["value"]=true : _resp["value"]=false;\n';
@@ -276,7 +290,9 @@
 					branch_code+='if (q>=0){\n';
 					//branch_code+='	index=_http_header.substring(13,q).toInt();\n';
 					branch_code+='  name=_http_header.substring(13,q);\n';
-					
+					branch_code +='if (_ints.find(name)==_ints.end()){\n';
+					branch_code +='  _ints.insert({name,0});\n';
+					branch_code +='}\n';
 					branch_code+='	value=_http_header.substring(q+7,idx_end).toInt();\n';
 					branch_code+='  _ints[name]=value;\n';
 					branch_code+='}\n';
@@ -284,6 +300,9 @@
 					//Get bool variable and build response
 					//branch_code+='  index=_http_header.substring(13,idx_end).toInt();\n';
 					branch_code+='  name=_http_header.substring(13,idx_end);\n';
+					branch_code +='if (_ints.find(name)==_ints.end()){\n';
+					branch_code +='  _ints.insert({name,0});\n';
+					branch_code +='}\n';
 					branch_code+='  value=_ints[name];\n';
 					branch_code+='  _resp["name"]=name;\n';
 					branch_code+='  _resp["value"]=value;\n';
@@ -355,12 +374,18 @@
 					branch_code+='int q=_http_header.indexOf("?");\n';
 					branch_code+='if (q>=0){\n';
 					branch_code+='  name=_http_header.substring(11,q);\n';
+					branch_code +='if (_floats.find(name)==_floats.end()){\n';
+					branch_code +='  _floats.insert({name,0.0});\n';
+					branch_code +='}\n';
 					branch_code+='	value=_http_header.substring(q+7,idx_end).toFloat();\n';
 					branch_code+='  _floats[name]=value;\n';
 					branch_code+='}\n';
 					branch_code+='else{\n';
 					//Get bool variable and build response
 					branch_code+='  name=_http_header.substring(11,idx_end);\n';
+					branch_code +='if (_floats.find(name)==_floats.end()){\n';
+					branch_code +='  _floats.insert({name,0.0});\n';
+					branch_code +='}\n';
 					branch_code+='  value=_floats[name];\n';
 					branch_code+='  _resp["name"]=name;\n';
 					branch_code+='  _resp["value"]=value;\n';
@@ -428,12 +453,18 @@
 					branch_code+='int q=_http_header.indexOf("?");\n';
 					branch_code+='if (q>=0){\n';
 					branch_code+='	name=_http_header.substring(12,q);\n';
+					branch_code +='if (_strings.find(name)==_strings.end()){\n';
+					branch_code +='  _strings.insert({name,std::string("")});\n';
+					branch_code +='}\n';
 					branch_code+='	value=_http_header.substring(q+7,idx_end);\n';
 					branch_code+='  _strings[name]=value;\n';
 					branch_code+='}\n';
 					branch_code+='else{\n';
 					//Get bool variable and build response
 					branch_code+='  name=_http_header.substring(12,idx_end);\n';
+					branch_code +='if (_strings.find(name)==_strings.end()){\n';
+					branch_code +='  _strings.insert({name,std::string("")});\n';
+					branch_code +='}\n';
 					branch_code+='  value=_strings[name];\n';
 					branch_code+='  _resp["name"]=name;\n';
 					branch_code+='  _resp["value"]=value;\n';
@@ -498,6 +529,11 @@
 						branch_code+='int q=_http_header.indexOf("?");\n'
 						branch_code+='if (q>=0){\n';
 						branch_code+='	int pin=_http_header.substring(11,q).toInt();\n';
+						code +='if (_servos.find(pin)==_servos.end()){\n';
+						branch_code +='  Servo * servo = new Servo();\n';
+						branch_code +='  servo->attach(pin);\n';
+						branch_code +='  _servos.insert({pin,servo});\n';
+						branch_code +='}\n';
 					}
 					else
 					{

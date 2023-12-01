@@ -19,18 +19,27 @@
 			Blockly.Arduino.definitions_['define_us_init'] = JST['dyor_us_definitions_us_init']({});
 			Blockly.Arduino.definitions_['define_us_distance'] = JST['dyor_us_definitions_distance']({});
 			
-			if (this.getInputTargetBlock('RED_PIN').type==='pin_digital')
+			if (this.getInputTargetBlock('RED_PIN')!=null)
 			{
-				Blockly.Arduino.setups_['inout_digital_input' + echo_pin] = JST['inout_digital_input']({'pin': echo_pin});
+				if (this.getInputTargetBlock('RED_PIN').type==='pin_digital')
+				{
+					Blockly.Arduino.setups_['inout_digital_input' + echo_pin] = JST['inout_digital_input']({'pin': echo_pin});
+				}
 			}
-			if (this.getInputTargetBlock('BLUE_PIN').type==='pin_digital')
+			if (this.getInputTargetBlock('RED_PIN')!=null)
 			{
-				Blockly.Arduino.setups_['inout_digital_output' + trigger_pin] = JST['inout_digital_output']({'pin': trigger_pin});
+				if (this.getInputTargetBlock('BLUE_PIN').type==='pin_digital')
+				{
+					Blockly.Arduino.setups_['inout_digital_output' + trigger_pin] = JST['inout_digital_output']({'pin': trigger_pin});
+				}
 			}
-			if ((this.getInputTargetBlock('RED_PIN').type==='pin_digital')&&(this.getInputTargetBlock('BLUE_PIN').type==='pin_digital'))
-				code += JST['dyor_us']({'trigger_pin': trigger_pin,'echo_pin': echo_pin});
-			else
-				code += 'distance(trigger_pin,echo_pin)';
+			if ((this.getInputTargetBlock('RED_PIN')!=null)&&(this.getInputTargetBlock('BLUE_PIN')!=null))
+			{
+				if ((this.getInputTargetBlock('RED_PIN').type==='pin_digital')&&(this.getInputTargetBlock('BLUE_PIN').type==='pin_digital'))
+					code += JST['dyor_us']({'trigger_pin': trigger_pin,'echo_pin': echo_pin});
+				else
+					code += 'distance(trigger_pin,echo_pin)';
+			}
 			return [code, Blockly.Arduino.ORDER_ATOMIC];
 		};
 

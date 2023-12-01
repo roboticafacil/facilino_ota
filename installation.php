@@ -75,6 +75,24 @@ require_once('website_translation.php');
     </div>
 </section>
 
+<section class="mbr-section article content11 cid-qYh0wTJYr3" id="content11-53">
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text counter-container col-12 col-md-8 mbr-fonts-style display-7">
+				<div class="card-wrapper ">
+					<div class="card-box" style="height: 100px; position: relative; border: 3px solid red;">
+						<center>
+						<p class="card-title mbr-fonts-style display-5" style="text-align: center;margin: 0; position: absolute; left: 50%; top: 50%; -ms-transform: translateX(-50%) translateY(-50%); transform: translateX(-50%) translateY(-60%);">
+							<?php echo $website["DOWNLOAD_FACILINO_EXTENSION"]; ?>
+						</p>
+						<center>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="mbr-section article content1 cid-qYgfMS2fzW" id="content1-4l">
     
    <div class="container">
