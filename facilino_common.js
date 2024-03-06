@@ -515,6 +515,16 @@ this["JST"]["communications_wifi_server_recv_definitions"] = function (obj) {
 		return __p
 };
 
+this["JST"]["communications_wifi_server_not_found"] = function (obj) {
+	obj || (obj = {});
+	var __t, __p = '',
+		__e = _.escape;
+	with(obj) {
+		__p += 'void notFound(AsyncWebServerRequest *request) {\n    request->send(404, "application/json", "{\"result\": \"Not found\"}");\n}\n';
+	}
+	return __p;
+}
+
 this["JST"]["expression_definitions"] = function(obj) {
 	obj || (obj = {});
 		var __t, __p = '',
@@ -2486,30 +2496,30 @@ this["JST"]["communications_wifi_esp32_webupdater_def_definitions"] = function(o
 
 
 
-this["JST"]["communications_wifi_def_setups2"] = function(obj) {
+this["JST"]["communications_wifi_AP_def_setups2"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		__p += 'WiFi.begin(' +
+		__p += 'WiFi.softAP(' +
 			((__t = (ssid)) == null ? '' : __t) +
 			',' +
 			((__t = (password)) == null ? '' : __t) +
-			');\n  while (WiFi.status()!=WL_CONNECTED)\n	delay(500);\n';
+			');\n  while (WiFi.status()!=WL_CONNECTED);\n	delay(500);\n';
 	}
 	return __p
 };
 
-this["JST"]["communications_wifi_OTA_def_setups"] = function(obj) {
+this["JST"]["communications_wifi_STA_def_setups"] = function(obj) {
 	obj || (obj = {});
 	var __t, __p = '',
 		__e = _.escape;
 	with(obj) {
-		__p += 'WiFi.begin(' +
+		__p += 'WiFi.mode(WIFI_STA);\nWiFi.begin(' +
 			((__t = (ssid)) == null ? '' : __t) +
 			',' +
 			((__t = (password)) == null ? '' : __t) +
-			');\n  while (WiFi.waitForConnectResult()!=WL_CONNECTED){\n	delay(5000);ESP.restart();\n}\n WiFi.mode(WIFI_STA);\n';
+			');\n  while (WiFi.waitForConnectResult()!=WL_CONNECTED){\n	delay(5000);ESP.restart();\n}\n';
 	}
 	return __p
 };

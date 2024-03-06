@@ -19,7 +19,7 @@
 					else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='ESP8266'))
 						Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 					Blockly.Arduino.definitions_['define_arduino_json'] ='#include <ArduinoJson.h>';
-					Blockly.Arduino.definitions_['declare_var_wifi_server'] = 'WiFiServer _server(80);\n';
+					//Blockly.Arduino.definitions_['declare_var_wifi_server'] = 'WiFiServer _server(80);\n';
 					Blockly.Arduino.definitions_['declare_var_wifi'] = 'WiFiClient _client;\n';
 					Blockly.Arduino.definitions_['declare_var_http_header']= 'String _http_header;\n';
 					//Blockly.Arduino.definitions_['declare_var_http_json_resp']= 'StaticJsonDocument<500> _resp;\n';

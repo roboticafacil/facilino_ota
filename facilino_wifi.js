@@ -331,6 +331,7 @@
 				SSID = Blockly.Arduino.valueToCode(this, 'SSID', Blockly.Arduino.ORDER_ATOMIC);
 				Password = Blockly.Arduino.valueToCode(this, 'PASSWORD', Blockly.Arduino.ORDER_ATOMIC);
 				var console = this.getFieldValue('CONSOLE');
+				var AP = this.getFieldValue('AP');
 				
 				if (Facilino.profiles['processor']==='ESP8266')
 				{
@@ -365,21 +366,20 @@
 					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';*/
 				if (console==='FALSE')
 				{
-					
-					if (window.FacilinoOTA)
-						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_OTA_def_setups']({'ssid': SSID, 'password': Password});
+					if (AP==='FALSE')
+						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_STA_def_setups']({'ssid': SSID, 'password': Password});
 					else
-						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups2']({'ssid': SSID,'password': Password});
+						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_AP_def_setups2']({'ssid': SSID,'password': Password});
 					Blockly.Arduino.definitions_['declare_var_wifi_status'] = 'bool _wifi_status=false;\n';
-					Blockly.Arduino.setups_['setup_wifi_']+='  Serial.begin(115200);\n  Serial.println(); Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());\n';
+					//Blockly.Arduino.setups_['setup_wifi_']+='  Serial.begin(115200);\n  Serial.println(); Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());\n';
 				}
 				else
 				{
 					Blockly.Arduino.setups_['setup_serial'] = JST['communications_serial_begin']({'bitrate': Facilino.profiles.default.serial});
-					if (window.FacilinoOTA)
-						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_OTA_def_setups']({'ssid': SSID,'password': Password})+' Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());';
+					if (AP==='FALSE')
+						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_STA_def_setups']({'ssid': SSID,'password': Password})+' Serial.print("IP: "); Serial.println(WiFi.localIP()); Serial.print("MAC:" ); Serial.println(WiFi.macAddress());';
 					else
-						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups3']({'ssid': SSID,'password': Password});
+						Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_AP_def_setups2']({'ssid': SSID,'password': Password})+' \n IPAddress IP = WiFi.softAPIP();\n Serial.print("IP: ");\n Serial.println(IP);';
 					Blockly.Arduino.definitions_['declare_var_wifi_status'] = 'bool _wifi_status=true;\n';
 				}
 				if (Blockly.Arduino.definitions_['declare_var_wifi_register']!==undefined)
@@ -403,6 +403,7 @@
 					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')).appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
 					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_AP')).appendField(new Blockly.FieldCheckbox('FALSE'),'AP').setAlign(Blockly.ALIGN_RIGHT);
 					this.appendDummyInput('').appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_CONSOLE')).appendField(new Blockly.FieldCheckbox('FALSE'),'CONSOLE').setAlign(Blockly.ALIGN_RIGHT);
 					this.setInputsInline(false);
 					this.setPreviousStatement(true,'code');
@@ -714,26 +715,28 @@
 			};*/
 			
 			Blockly.Arduino.communications_wifi_http_server = function() {
-				var SSID, Password, Port;
+				//var SSID, Password;
+				var Port;
 				var code = '';
-				SSID = Blockly.Arduino.valueToCode(this, 'SSID', Blockly.Arduino.ORDER_ATOMIC);
-				Password = Blockly.Arduino.valueToCode(this, 'PASSWORD', Blockly.Arduino.ORDER_ATOMIC);
-				var html = Blockly.Arduino.valueToCode(this, 'HTML', Blockly.Arduino.ORDER_NONE) ||'""';
+				//SSID = Blockly.Arduino.valueToCode(this, 'SSID', Blockly.Arduino.ORDER_ATOMIC);
+				//Password = Blockly.Arduino.valueToCode(this, 'PASSWORD', Blockly.Arduino.ORDER_ATOMIC);
 				Port = Blockly.Arduino.valueToCode(this, 'PORT', Blockly.Arduino.ORDER_ATOMIC) ||'80';
 				Blockly.Arduino.definitions_['declare_var_wifi_server'] = 'WiFiServer _server('+Port+');\n';
-				if (Facilino.profiles['processor']==='ESP8266')
-					Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
-				else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
-					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
-				Blockly.Arduino.definitions_['declare_var_wifi'] = 'WiFiClient _client;\n';
+				//if (Facilino.profiles['processor']==='ESP8266')
+				//	Blockly.Arduino.definitions_['define_wifi'] = JST['communications_wifi_def_definitions2']({});
+				//else if ((Facilino.profiles['processor']==='ESP32')||(Facilino.profiles['processor']==='RP2040'))
+				//	Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
+				
+				//Blockly.Arduino.definitions_['declare_var_wifi'] = 'WiFiClient _client;\n';
 
-				Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups2']({
-				'ssid': SSID,
-				'password': Password
-				});
+				//Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_AP_def_setups2']({
+				//'ssid': SSID,
+				//'password': Password
+				//});
 				if (Blockly.Arduino.definitions_['declare_var_wifi_register']!==undefined)
 					Blockly.Arduino.setups_['inout_analog_workaround_wifi'] = 'wifi_register = READ_PERI_REG(SENS_SAR_READ_CTRL2_REG);\n';
-				Blockly.Arduino.setups_['setup_wifi_server'] = '_server.begin();\n';
+				//Blockly.Arduino.definitions_['setup_wifi_server_not_found']=JST['setup_wifi_server_not_found']({});
+				//Blockly.Arduino.setups_['setup_wifi_server'] = '_server.onNotFound(notFound);\n _server.begin();\n';
 				return code;
 			}
 			Blockly.Blocks.communications_wifi_http_server = {
@@ -749,8 +752,7 @@
 				init: function() {
 					this.setColour(Facilino.LANG_COLOUR_COMMUNICATION_WIFI);
 					this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF')+' Server').appendField(new Blockly.FieldImage(Facilino.path+'img/blocks/wifi.svg', 20*options.zoom, 20*options.zoom));
-					this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
-					this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
+					//this.appendValueInput('SSID').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_SSID')).appendField(new Blockly.FieldImage(Facilino.path+Facilino.path+"img/blocks/SSID.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);	//this.appendValueInput('PASSWORD').setCheck(String).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_DEF_PASSWORD')).appendField(new Blockly.FieldImage(Facilino.path+"img/blocks/lock.svg", 20*options.zoom, 20*options.zoom)).setAlign(Blockly.ALIGN_RIGHT);
 					//var defaultArgument = Blockly.Block.obtain(Blockly.mainWorkspace, 'math_number');
 					//defaultArgument.setShadow(true);
 					//this.appendValueInput('PORT').setCheck(Number).appendField(Facilino.locales.getKey('LANG_WIFI_ESP8266_HTTP_PORT')).setAlign(Blockly.ALIGN_RIGHT).connection.connect(defaultArgument.outputConnection);;
@@ -789,7 +791,7 @@
 					Blockly.Arduino.definitions_['define_wifi'] ='#include <WiFi.h>';
 				Blockly.Arduino.definitions_['declare_var_wifi'] = 'WiFiClient _client;\n';
 
-				Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_def_setups2']({
+				Blockly.Arduino.setups_['setup_wifi_'] = JST['communications_wifi_AP_def_setups2']({
 				'ssid': SSID,
 				'password': Password
 				});
