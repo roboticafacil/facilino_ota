@@ -817,7 +817,7 @@
 						this.appendDummyInput().appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_TEMPERATURE'));
 						this.appendValueInput('PIN').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_DATA')).setCheck(['DigitalPin','AnalogPin']).setAlign(Blockly.ALIGN_RIGHT);
 						this.appendStatementInput('DO').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_DO')).setAlign(Blockly.ALIGN_RIGHT).setCheck('code');
-						this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_RESPONSE')).setCheck(Number).setAlign(Blockly.ALIGN_RIGHT);
+						this.appendValueInput('RESP').appendField(Facilino.locales.getKey('LANG_WIFI_API_REST_MESSAGE_RESPONSE')).setCheck([Number,'Variable']).setAlign(Blockly.ALIGN_RIGHT);
 						this.setPreviousStatement(true,'api_rest_item');
 						this.setNextStatement(true,'api_rest_item');
 						this.setInputsInline(false);
